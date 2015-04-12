@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xml/schemes/configuration.xsd">
+
+	<test>
+        <commissions recording="true" dynamic="true" packageSending="false" choosingByCost="false" STDepth="8" worstCommissionByGlobalTime="false" algorithm="BruteForceAlgorithm" autoConfig="false" BruteForceAlgorithm2Sorter="dist">benchmarks/SzymonJankowiakTests/-1_Benchmark/-1SmallerTest/lr201-2.txt</commissions>
+        <defaultAgents>        
+        	<truck power="600" reliability="4" comfort="4" fuelConsumption="20"/>
+        	<trailer mass="200" capacity="200" cargoType="1" universality="4"/>
+        </defaultAgents>
+        <configuration>benchmarks/SzymonJankowiakTests/25_200</configuration>
+        <results>benchmarks/SzymonJankowiakTests/Results/results</results>
+		
+    </test>
+	
+</tests>

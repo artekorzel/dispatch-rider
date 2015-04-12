@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://opensvn.csie.org/AgentDTP"
+            elementFormDefault="qualified" xmlns="https://opensvn.csie.org/AgentDTP">
+
+    <xsd:element name="jams">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="jam" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="jam">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="fromX" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="fromY" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="toX" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="toY" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="distance" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="beginTime" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="endTime" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="fromX" type="xsd:integer"/>
+    <xsd:element name="fromY" type="xsd:integer"/>
+    <xsd:element name="toX" type="xsd:integer"/>
+    <xsd:element name="toY" type="xsd:integer"/>
+    <xsd:element name="beginTime" type="xsd:integer"/>
+    <xsd:element name="endTime" type="xsd:integer"/>
+    <xsd:element name="distance" type="xsd:integer"/>
+</xsd:schema>

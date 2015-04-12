@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:noNamespaceSchemaLocation="xml/schemes/configuration.xsd">
+
+	<test>
+        <commissions dynamic="true" packageSending="false" choosingByCost="true" STDepth="8" worstCommissionByGlobalTime="false" algorithm="BruteForceAlgorithm" autoConfig="false" firstComplexSTResultOnly="false">simulationConfig/25_200/LC1_2_1.txt</commissions>
+        <defaultAgents>        
+        	<truck power="600" reliability="4" comfort="4" fuelConsumption="20"/>
+        	<trailer mass="200" capacity="200" cargoType="1" universality="4"/>
+        </defaultAgents>
+        <configuration>simulationConfig/25_200</configuration>
+        <results>simulationConfig/25_200</results>
+<!--         <machineLearning exploration="true" params="bestDist=828.94">table.xml</machineLearning> -->
+        <mlAlgorithm file="clustable.xml" algorithm="Clustering" exploration="true">
+        <!-- <mlAlgorithm file="table.xml" algorithm="QLearning" exploration="true"> -->
+        	<param name="bestDist" value="828.94"/>
+        </mlAlgorithm>
+    </test> 
+ 
+
+</tests>

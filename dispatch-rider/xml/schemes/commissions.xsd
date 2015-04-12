@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://opensvn.csie.org/AgentDTP"
+            elementFormDefault="qualified" xmlns="https://opensvn.csie.org/AgentDTP">
+    <xsd:element name="commissionlist">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="commission" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="commission">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="id" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="pickupTime1" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="pickupTime2" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="pickupX" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="pickupY" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="deliveryX" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="deliveryY" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="deliveryTime1" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="deliveryTime2" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="load" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="serviceTime" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="incomeTime" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="id" type="xsd:integer"/>
+    <xsd:element name="pickupTime1" type="xsd:integer"/>
+    <xsd:element name="pickupTime2" type="xsd:integer"/>
+    <xsd:element name="pickupX" type="xsd:integer"/>
+    <xsd:element name="pickupY" type="xsd:integer"/>
+    <xsd:element name="deliveryTime1" type="xsd:integer"/>
+    <xsd:element name="deliveryTime2" type="xsd:integer"/>
+    <xsd:element name="deliveryX" type="xsd:integer"/>
+    <xsd:element name="deliveryY" type="xsd:integer"/>
+    <xsd:element name="load" type="xsd:integer"/>
+    <xsd:element name="serviceTime" type="xsd:integer"/>
+    <xsd:element name="incomeTime" type="xsd:integer"/>
+</xsd:schema>

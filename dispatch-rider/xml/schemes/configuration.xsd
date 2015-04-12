@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="tests">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="test" type="testType" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="testType">
+        <xs:sequence>
+            <xs:element name="commissions" type="commission"/>
+            <xs:element name="defaultAgents" type="agents"/>
+            <xs:element name="configuration" type="xs:string"/>
+            <xs:element name="results" type="xs:string"/>
+            <xs:element name="exchangeAlgorithmAfterComAdd" type="exchangeAlgConf" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="exchangeAlgorithmWhenCantAddCom" type="exchangeAlgConf" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="events" type="eventsType" minOccurs="0"/>
+            <xs:element name="roadGraph" type="graph" minOccurs="0"/>
+            <xs:element name="measures" type="measuresType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="punishment" type="punishmentType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="machineLearning" type="MLType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="mlAlgorithm" type="MLAlgorithmType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="commission">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="dynamic" type="xs:string" default="false"/>
+                <xs:attribute name="packageSending" type="xs:boolean" default="false"/>
+                <xs:attribute name="choosingByCost" type="xs:boolean" default="true"/>
+                <xs:attribute name="simulatedTrading" type="xs:int" default="1"/>
+                <xs:attribute name="STDepth" type="xs:int" default="1"/>
+                <xs:attribute name="firstComplexSTResultOnly" type="xs:boolean" default="true"/>
+                <xs:attribute name="algorithm" type="xs:string" default="BruteForceAlgorithm2"/>
+                <xs:attribute name="worstCommissionByGlobalTime" type="xs:boolean"/>
+                <xs:attribute name="chooseWorstCommission" type="worstCommissionType" default="time"/>
+                <xs:attribute name="dist" type="xs:boolean" default="true"/>
+                <xs:attribute name="autoConfig" type="xs:boolean" default="false"/>
+                <xs:attribute name="recording" type="xs:boolean" default="false"/>
+                <xs:attribute name="STTimeGap" type="xs:int" default="1"/>
+                <xs:attribute name="STCommissionGap" type="xs:int" default="1"/>
+                <xs:attribute name="confChange" type="xs:boolean" default="false"/>
+                <xs:attribute name="BruteForceAlgorithm2Sorter" type="xs:string" default="none"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="agents">
+        <xs:sequence maxOccurs="1">
+            <xs:element name="truck">
+                <xs:complexType>
+                    <xs:attribute name="power" type="xs:int" use="required"/>
+                    <xs:attribute name="reliability" type="xs:int" use="required"/>
+                    <xs:attribute name="comfort" type="xs:int" use="required"/>
+                    <xs:attribute name="fuelConsumption" type="xs:int" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="trailer">
+                <xs:complexType>
+                    <xs:attribute name="mass" type="xs:int" use="required"/>
+                    <xs:attribute name="capacity" type="xs:int" use="required"/>
+                    <xs:attribute name="cargoType" type="xs:int" use="required"/>
+                    <xs:attribute name="universality" type="xs:int" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="eventsType">
+        <xs:choice maxOccurs="unbounded">
+
+            <xs:element name="commissionWithdrawal">
+                <xs:complexType>
+                    <xs:attribute name="time" type="xs:int" use="required"/>
+                    <xs:attribute name="commission" type="xs:int" use="required"/>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="commissionDelay">
+                <xs:complexType>
+                    <xs:attribute name="time" type="xs:int" use="required"/>
+                    <xs:attribute name="commission" type="xs:int" use="required"/>
+                    <xs:attribute name="delay" type="xs:int" use="required"/>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="vehicleFailure">
+                <xs:complexType>
+                    <xs:attribute name="time" type="xs:int" use="required"/>
+                    <xs:attribute name="vehicle" type="xs:int" use="required"/>
+                    <xs:attribute name="duration" type="xs:double" use="required"/>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="trafficJam">
+                <xs:complexType>
+                    <xs:attribute name="time" type="xs:int" use="required"/>
+                    <xs:attribute name="startX" type="xs:double" use="required"/>
+                    <xs:attribute name="startY" type="xs:double" use="required"/>
+                    <xs:attribute name="endX" type="xs:double" use="required"/>
+                    <xs:attribute name="endY" type="xs:double" use="required"/>
+                    <xs:attribute name="cost" type="xs:double" use="required"/>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="roadTrafficExclusion">
+                <xs:complexType>
+                    <xs:attribute name="time" type="xs:int" use="required"/>
+                    <xs:attribute name="startX" type="xs:double" use="required"/>
+                    <xs:attribute name="startY" type="xs:double" use="required"/>
+                    <xs:attribute name="endX" type="xs:double" use="required"/>
+                    <xs:attribute name="endY" type="xs:double" use="required"/>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="measuresType">
+        <xs:sequence>
+            <xs:element name="measure" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="visualize" type="xs:boolean" default="false"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="formats" type="xs:string" use="required"/>
+        <xs:attribute name="timeGap" type="xs:int" default="1"/>
+    </xs:complexType>
+
+    <xs:complexType name="punishmentType">
+        <xs:attribute name="function" type="xs:string" use="required"/>
+        <xs:attribute name="default" type="xs:string"/>
+        <xs:attribute name="holons" type="xs:int" use="required"/>
+        <xs:attribute name="delayLimit" type="xs:double"/>
+    </xs:complexType>
+
+    <xs:complexType name="MLType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="exploration" type="xs:boolean" default="false"/>
+                <xs:attribute name="params" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="MLAlgorithmType">
+
+        <xs:sequence>
+            <xs:element name="param" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="name" type="xs:string" use="required"/>
+                            <xs:attribute name="value" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+
+        <xs:attribute name="file" type="xs:string" use="required"/>
+        <xs:attribute name="exploration" type="xs:boolean" default="false"/>
+        <xs:attribute name="algorithm" type="xs:string" default="QLearning"/>
+
+    </xs:complexType>
+
+    <xs:complexType name="graph">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="graphChanges" type="xs:string"/>
+                <xs:attribute name="changeTime" type="changesNotificationsType" default="immediately"/>
+                <xs:attribute name="notificationTime" type="xs:int" default="10"/>
+                <xs:attribute name="trackFinder" type="trackFinders" use="required"/>
+                <xs:attribute name="predictor" type="xs:string" default="Standard"/>
+                <xs:attribute name="historySize" type="xs:int" default="4"/>
+                <xs:attribute name="ST" type="xs:boolean" default="true"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+
+    <xs:complexType name="exchangeAlgConf">
+        <xs:sequence>
+            <xs:element name="param" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="name" type="xs:string" use="required"/>
+                            <xs:attribute name="value" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+
+    <xs:simpleType name="worstCommissionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="time"/>
+            <xs:enumeration value="wTime"/>
+            <xs:enumeration value="timeWithPunishment"/>
+            <xs:enumeration value="distWithPunishment"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="trackFinders">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Astar"/>
+            <xs:enumeration value="Dijkstra"/>
+            <xs:enumeration value="SimulatedAnnealing"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="changesNotificationsType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="immediately"/>
+            <xs:enumeration value="afterChangeNotice"/>
+            <xs:enumeration value="afterTime"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
+

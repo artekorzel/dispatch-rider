@@ -1,0 +1,9039 @@
+<?xml version="1.0"?>
+<network xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">	<point>
+		<id> 1 </id>
+		<name>pt_42.0_66.0 [42.0, 66.0]</name>
+		<position>
+			<x> 42.0 </x>
+			<y> 66.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 2 </id>
+		<name>pt_45.0_65.0 [45.0, 65.0]</name>
+		<position>
+			<x> 45.0 </x>
+			<y> 65.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 3 </id>
+		<name>pt_42.0_65.0 [42.0, 65.0]</name>
+		<position>
+			<x> 42.0 </x>
+			<y> 65.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 4 </id>
+		<name>pt_40.0_66.0 [40.0, 66.0]</name>
+		<position>
+			<x> 40.0 </x>
+			<y> 66.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 5 </id>
+		<name>pt_40.0_69.0 [40.0, 69.0]</name>
+		<position>
+			<x> 40.0 </x>
+			<y> 69.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 6 </id>
+		<name>pt_45.0_70.0 [45.0, 70.0]</name>
+		<position>
+			<x> 45.0 </x>
+			<y> 70.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 7 </id>
+		<name>pt_38.0_68.0 [38.0, 68.0]</name>
+		<position>
+			<x> 38.0 </x>
+			<y> 68.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 8 </id>
+		<name>pt_35.0_66.0 [35.0, 66.0]</name>
+		<position>
+			<x> 35.0 </x>
+			<y> 66.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 9 </id>
+		<name>pt_38.0_70.0 [38.0, 70.0]</name>
+		<position>
+			<x> 38.0 </x>
+			<y> 70.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 10 </id>
+		<name>pt_42.0_68.0 [42.0, 68.0]</name>
+		<position>
+			<x> 42.0 </x>
+			<y> 68.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 11 </id>
+		<name>pt_35.0_69.0 [35.0, 69.0]</name>
+		<position>
+			<x> 35.0 </x>
+			<y> 69.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 12 </id>
+		<name>pt_45.0_68.0 [45.0, 68.0]</name>
+		<position>
+			<x> 45.0 </x>
+			<y> 68.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 13 </id>
+		<name>pt_22.0_75.0 [22.0, 75.0]</name>
+		<position>
+			<x> 22.0 </x>
+			<y> 75.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 14 </id>
+		<name>pt_18.0_75.0 [18.0, 75.0]</name>
+		<position>
+			<x> 18.0 </x>
+			<y> 75.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 15 </id>
+		<name>pt_20.0_85.0 [20.0, 85.0]</name>
+		<position>
+			<x> 20.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 16 </id>
+		<name>pt_22.0_85.0 [22.0, 85.0]</name>
+		<position>
+			<x> 22.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 17 </id>
+		<name>pt_15.0_75.0 [15.0, 75.0]</name>
+		<position>
+			<x> 15.0 </x>
+			<y> 75.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 18 </id>
+		<name>pt_25.0_85.0 [25.0, 85.0]</name>
+		<position>
+			<x> 25.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 19 </id>
+		<name>pt_15.0_80.0 [15.0, 80.0]</name>
+		<position>
+			<x> 15.0 </x>
+			<y> 80.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 20 </id>
+		<name>pt_20.0_80.0 [20.0, 80.0]</name>
+		<position>
+			<x> 20.0 </x>
+			<y> 80.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 21 </id>
+		<name>pt_30.0_50.0 [30.0, 50.0]</name>
+		<position>
+			<x> 30.0 </x>
+			<y> 50.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 22 </id>
+		<name>pt_25.0_50.0 [25.0, 50.0]</name>
+		<position>
+			<x> 25.0 </x>
+			<y> 50.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 23 </id>
+		<name>pt_28.0_55.0 [28.0, 55.0]</name>
+		<position>
+			<x> 28.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 24 </id>
+		<name>pt_25.0_52.0 [25.0, 52.0]</name>
+		<position>
+			<x> 25.0 </x>
+			<y> 52.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 25 </id>
+		<name>pt_23.0_52.0 [23.0, 52.0]</name>
+		<position>
+			<x> 23.0 </x>
+			<y> 52.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 26 </id>
+		<name>pt_23.0_55.0 [23.0, 55.0]</name>
+		<position>
+			<x> 23.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 27 </id>
+		<name>pt_28.0_52.0 [28.0, 52.0]</name>
+		<position>
+			<x> 28.0 </x>
+			<y> 52.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 28 </id>
+		<name>pt_20.0_50.0 [20.0, 50.0]</name>
+		<position>
+			<x> 20.0 </x>
+			<y> 50.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 29 </id>
+		<name>pt_25.0_55.0 [25.0, 55.0]</name>
+		<position>
+			<x> 25.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 18 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 30 </id>
+		<name>pt_20.0_55.0 [20.0, 55.0]</name>
+		<position>
+			<x> 20.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 13 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 14 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 15 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 16 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 17 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 19 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 20 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 31 </id>
+		<name>pt_30.0_52.0 [30.0, 52.0]</name>
+		<position>
+			<x> 30.0 </x>
+			<y> 52.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 32 </id>
+		<name>pt_10.0_40.0 [10.0, 40.0]</name>
+		<position>
+			<x> 10.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 33 </id>
+		<name>pt_10.0_35.0 [10.0, 35.0]</name>
+		<position>
+			<x> 10.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 34 </id>
+		<name>pt_8.0_40.0 [8.0, 40.0]</name>
+		<position>
+			<x> 8.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 35 </id>
+		<name>pt_2.0_40.0 [2.0, 40.0]</name>
+		<position>
+			<x> 2.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 36 </id>
+		<name>pt_5.0_35.0 [5.0, 35.0]</name>
+		<position>
+			<x> 5.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 37 </id>
+		<name>pt_0.0_45.0 [0.0, 45.0]</name>
+		<position>
+			<x> 0.0 </x>
+			<y> 45.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 38 </id>
+		<name>pt_5.0_45.0 [5.0, 45.0]</name>
+		<position>
+			<x> 5.0 </x>
+			<y> 45.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 39 </id>
+		<name>pt_0.0_40.0 [0.0, 40.0]</name>
+		<position>
+			<x> 0.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 40 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 40 </id>
+		<name>pt_8.0_45.0 [8.0, 45.0]</name>
+		<position>
+			<x> 8.0 </x>
+			<y> 45.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 30 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 34 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 35 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 37 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 38 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 39 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 41 </id>
+		<name>pt_33.0_32.0 [33.0, 32.0]</name>
+		<position>
+			<x> 33.0 </x>
+			<y> 32.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 42 </id>
+		<name>pt_35.0_30.0 [35.0, 30.0]</name>
+		<position>
+			<x> 35.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 43 </id>
+		<name>pt_33.0_35.0 [33.0, 35.0]</name>
+		<position>
+			<x> 33.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 44 </id>
+		<name>pt_35.0_32.0 [35.0, 32.0]</name>
+		<position>
+			<x> 35.0 </x>
+			<y> 32.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 45 </id>
+		<name>pt_32.0_30.0 [32.0, 30.0]</name>
+		<position>
+			<x> 32.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 46 </id>
+		<name>pt_30.0_32.0 [30.0, 32.0]</name>
+		<position>
+			<x> 30.0 </x>
+			<y> 32.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 47 </id>
+		<name>pt_30.0_30.0 [30.0, 30.0]</name>
+		<position>
+			<x> 30.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 48 </id>
+		<name>pt_28.0_30.0 [28.0, 30.0]</name>
+		<position>
+			<x> 28.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 49 </id>
+		<name>pt_28.0_35.0 [28.0, 35.0]</name>
+		<position>
+			<x> 28.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 28 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 50 </id>
+		<name>pt_30.0_35.0 [30.0, 35.0]</name>
+		<position>
+			<x> 30.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 51 </id>
+		<name>pt_26.0_32.0 [26.0, 32.0]</name>
+		<position>
+			<x> 26.0 </x>
+			<y> 32.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 52 </id>
+		<name>pt_25.0_35.0 [25.0, 35.0]</name>
+		<position>
+			<x> 25.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 32 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 36 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 53 </id>
+		<name>pt_25.0_30.0 [25.0, 30.0]</name>
+		<position>
+			<x> 25.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 33 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 49 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 51 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 52 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 54 </id>
+		<name>pt_44.0_5.0 [44.0, 5.0]</name>
+		<position>
+			<x> 44.0 </x>
+			<y> 5.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 55 </id>
+		<name>pt_38.0_5.0 [38.0, 5.0]</name>
+		<position>
+			<x> 38.0 </x>
+			<y> 5.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 56 </id>
+		<name>pt_42.0_10.0 [42.0, 10.0]</name>
+		<position>
+			<x> 42.0 </x>
+			<y> 10.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 57 </id>
+		<name>pt_35.0_5.0 [35.0, 5.0]</name>
+		<position>
+			<x> 35.0 </x>
+			<y> 5.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 53 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 58 </id>
+		<name>pt_40.0_5.0 [40.0, 5.0]</name>
+		<position>
+			<x> 40.0 </x>
+			<y> 5.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 59 </id>
+		<name>pt_38.0_15.0 [38.0, 15.0]</name>
+		<position>
+			<x> 38.0 </x>
+			<y> 15.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 60 </id>
+		<name>pt_40.0_15.0 [40.0, 15.0]</name>
+		<position>
+			<x> 40.0 </x>
+			<y> 15.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 61 </id>
+		<name>pt_42.0_15.0 [42.0, 15.0]</name>
+		<position>
+			<x> 42.0 </x>
+			<y> 15.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 57 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 62 </id>
+		<name>pt_50.0_35.0 [50.0, 35.0]</name>
+		<position>
+			<x> 50.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 63 </id>
+		<name>pt_45.0_30.0 [45.0, 30.0]</name>
+		<position>
+			<x> 45.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 48 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 55 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 64 </id>
+		<name>pt_50.0_40.0 [50.0, 40.0]</name>
+		<position>
+			<x> 50.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 38.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 65 </id>
+		<name>pt_53.0_35.0 [53.0, 35.0]</name>
+		<position>
+			<x> 53.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 34.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 66 </id>
+		<name>pt_48.0_30.0 [48.0, 30.0]</name>
+		<position>
+			<x> 48.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 58 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 67 </id>
+		<name>pt_48.0_40.0 [48.0, 40.0]</name>
+		<position>
+			<x> 48.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 68 </id>
+		<name>pt_53.0_30.0 [53.0, 30.0]</name>
+		<position>
+			<x> 53.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 59 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 34.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 69 </id>
+		<name>pt_47.0_35.0 [47.0, 35.0]</name>
+		<position>
+			<x> 47.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 70 </id>
+		<name>pt_45.0_35.0 [45.0, 35.0]</name>
+		<position>
+			<x> 45.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 47 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 71 </id>
+		<name>pt_47.0_40.0 [47.0, 40.0]</name>
+		<position>
+			<x> 47.0 </x>
+			<y> 40.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 50 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 46 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 72 </id>
+		<name>pt_50.0_30.0 [50.0, 30.0]</name>
+		<position>
+			<x> 50.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 54 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 56 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 60 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 61 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 63 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 42 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 44 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 45 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 41 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 73 </id>
+		<name>pt_95.0_35.0 [95.0, 35.0]</name>
+		<position>
+			<x> 95.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 74 </id>
+		<name>pt_88.0_30.0 [88.0, 30.0]</name>
+		<position>
+			<x> 88.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 75 </id>
+		<name>pt_90.0_35.0 [90.0, 35.0]</name>
+		<position>
+			<x> 90.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 31.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 76 </id>
+		<name>pt_92.0_30.0 [92.0, 30.0]</name>
+		<position>
+			<x> 92.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 38.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 77 </id>
+		<name>pt_88.0_35.0 [88.0, 35.0]</name>
+		<position>
+			<x> 88.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 34.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 78 </id>
+		<name>pt_87.0_30.0 [87.0, 30.0]</name>
+		<position>
+			<x> 87.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 34.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 34.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 79 </id>
+		<name>pt_85.0_25.0 [85.0, 25.0]</name>
+		<position>
+			<x> 85.0 </x>
+			<y> 25.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 38.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 31.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 72 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 66 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 80 </id>
+		<name>pt_85.0_35.0 [85.0, 35.0]</name>
+		<position>
+			<x> 85.0 </x>
+			<y> 35.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 31.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 81 </id>
+		<name>pt_95.0_30.0 [95.0, 30.0]</name>
+		<position>
+			<x> 95.0 </x>
+			<y> 30.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 38.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 68 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 82 </id>
+		<name>pt_75.0_55.0 [75.0, 55.0]</name>
+		<position>
+			<x> 75.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 31.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 83 </id>
+		<name>pt_68.0_60.0 [68.0, 60.0]</name>
+		<position>
+			<x> 68.0 </x>
+			<y> 60.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 38.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 84 </id>
+		<name>pt_70.0_58.0 [70.0, 58.0]</name>
+		<position>
+			<x> 70.0 </x>
+			<y> 58.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 85 </id>
+		<name>pt_63.0_58.0 [63.0, 58.0]</name>
+		<position>
+			<x> 63.0 </x>
+			<y> 58.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 31.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 86 </id>
+		<name>pt_66.0_55.0 [66.0, 55.0]</name>
+		<position>
+			<x> 66.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 31.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 38.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 87 </id>
+		<name>pt_60.0_60.0 [60.0, 60.0]</name>
+		<position>
+			<x> 60.0 </x>
+			<y> 60.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 88 </id>
+		<name>pt_65.0_55.0 [65.0, 55.0]</name>
+		<position>
+			<x> 65.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 1.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 89 </id>
+		<name>pt_72.0_55.0 [72.0, 55.0]</name>
+		<position>
+			<x> 72.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 79 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 90 </id>
+		<name>pt_60.0_55.0 [60.0, 55.0]</name>
+		<position>
+			<x> 60.0 </x>
+			<y> 55.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 74 </id_r>
+			<cost> 37.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 34.0 </cost>
+		</route>
+		<route>
+			<id_r> 78 </id_r>
+			<cost> 36.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 4.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 101 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 91 </id>
+		<name>pt_65.0_60.0 [65.0, 60.0]</name>
+		<position>
+			<x> 65.0 </x>
+			<y> 60.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 73 </id_r>
+			<cost> 39.0 </cost>
+		</route>
+		<route>
+			<id_r> 75 </id_r>
+			<cost> 35.0 </cost>
+		</route>
+		<route>
+			<id_r> 76 </id_r>
+			<cost> 40.0 </cost>
+		</route>
+		<route>
+			<id_r> 77 </id_r>
+			<cost> 33.0 </cost>
+		</route>
+		<route>
+			<id_r> 80 </id_r>
+			<cost> 32.0 </cost>
+		</route>
+		<route>
+			<id_r> 81 </id_r>
+			<cost> 42.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 92 </id>
+		<name>pt_67.0_85.0 [67.0, 85.0]</name>
+		<position>
+			<x> 67.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 93 </id>
+		<name>pt_65.0_85.0 [65.0, 85.0]</name>
+		<position>
+			<x> 65.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 30.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 29.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 94 </id>
+		<name>pt_60.0_80.0 [60.0, 80.0]</name>
+		<position>
+			<x> 60.0 </x>
+			<y> 80.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 95 </id>
+		<name>pt_65.0_82.0 [65.0, 82.0]</name>
+		<position>
+			<x> 65.0 </x>
+			<y> 82.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 96 </id>
+		<name>pt_60.0_85.0 [60.0, 85.0]</name>
+		<position>
+			<x> 60.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 27.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 97 </id>
+		<name>pt_58.0_75.0 [58.0, 75.0]</name>
+		<position>
+			<x> 58.0 </x>
+			<y> 75.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 88 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 9.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 98 </id>
+		<name>pt_62.0_80.0 [62.0, 80.0]</name>
+		<position>
+			<x> 62.0 </x>
+			<y> 80.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 82 </id_r>
+			<cost> 28.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 85 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 86 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 89 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 2.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 3.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 6.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 99 </id>
+		<name>pt_55.0_85.0 [55.0, 85.0]</name>
+		<position>
+			<x> 55.0 </x>
+			<y> 85.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 8.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 100 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 24.0 </cost>
+		</route>
+		<route>
+			<id_r> 11 </id_r>
+			<cost> 25.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 21.0 </cost>
+		</route>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 100 </id>
+		<name>pt_55.0_80.0 [55.0, 80.0]</name>
+		<position>
+			<x> 55.0 </x>
+			<y> 80.0 </y>
+		</position>
+		<isbase>false</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 6 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 9 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 83 </id_r>
+			<cost> 23.0 </cost>
+		</route>
+		<route>
+			<id_r> 84 </id_r>
+			<cost> 26.0 </cost>
+		</route>
+		<route>
+			<id_r> 91 </id_r>
+			<cost> 22.0 </cost>
+		</route>
+		<route>
+			<id_r> 92 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 93 </id_r>
+			<cost> 11.0 </cost>
+		</route>
+		<route>
+			<id_r> 94 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 95 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 96 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 97 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 98 </id_r>
+			<cost> 7.0 </cost>
+		</route>
+		<route>
+			<id_r> 99 </id_r>
+			<cost> 5.0 </cost>
+		</route>
+		<route>
+			<id_r> 87 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+	</point>
+	<point>
+		<id> 101 </id>
+		<name>base_40.0_50.0 [40.0, 50.0]</name>
+		<position>
+			<x> 40.0 </x>
+			<y> 50.0 </y>
+		</position>
+		<isbase>true</isbase>
+		<route>
+			<id_r> 1 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 2 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 3 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 4 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 5 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 7 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 10 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 12 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 21 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 22 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 23 </id_r>
+			<cost> 13.0 </cost>
+		</route>
+		<route>
+			<id_r> 24 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 25 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 26 </id_r>
+			<cost> 17.0 </cost>
+		</route>
+		<route>
+			<id_r> 27 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 29 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 31 </id_r>
+			<cost> 10.0 </cost>
+		</route>
+		<route>
+			<id_r> 62 </id_r>
+			<cost> 18.0 </cost>
+		</route>
+		<route>
+			<id_r> 64 </id_r>
+			<cost> 14.0 </cost>
+		</route>
+		<route>
+			<id_r> 65 </id_r>
+			<cost> 19.0 </cost>
+		</route>
+		<route>
+			<id_r> 67 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 69 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 71 </id_r>
+			<cost> 12.0 </cost>
+		</route>
+		<route>
+			<id_r> 90 </id_r>
+			<cost> 20.0 </cost>
+		</route>
+		<route>
+			<id_r> 43 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+		<route>
+			<id_r> 70 </id_r>
+			<cost> 15.0 </cost>
+		</route>
+		<route>
+			<id_r> 8 </id_r>
+			<cost> 16.0 </cost>
+		</route>
+	</point>
+</network>

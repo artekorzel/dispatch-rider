@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://opensvn.csie.org/AgentDTP"
+            elementFormDefault="qualified" xmlns="https://opensvn.csie.org/AgentDTP">
+    <xsd:element name="resources">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="drivers" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="trucks" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="loadTypes" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="trailers" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="drivers">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="driver" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="trucks">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="truck" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="loadTypes">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="loadType" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="trailers">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="trailer" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="driver">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="id_d" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="name" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="surname" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="id_d" type="xsd:integer"/>
+    <xsd:element name="name" type="xsd:string"/>
+    <xsd:element name="surname" type="xsd:string"/>
+    <xsd:element name="truck">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="id_t" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="id_t" type="xsd:integer"/>
+    <xsd:element name="loadType">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="loadTypeName" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="mapping" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="loadTypeName" type="xsd:string"/>
+    <xsd:element name="mapping" type="xsd:integer"/>
+    <xsd:element name="trailer">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="id_trailer" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="type" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="id_trailer" type="xsd:integer"/>
+    <xsd:element name="type" type="xsd:integer"/>
+</xsd:schema>

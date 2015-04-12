@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="https://opensvn.csie.org/AgentDTP"
+            elementFormDefault="qualified" xmlns="https://opensvn.csie.org/AgentDTP">
+    <xsd:element name="failures">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="failure" minOccurs="1" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="failure">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="id" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="type" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="time" minOccurs="1" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="id" type="xsd:integer"/>
+    <xsd:element name="type" type="xsd:integer"/>
+    <xsd:element name="time" type="xsd:integer"/>
+</xsd:schema>

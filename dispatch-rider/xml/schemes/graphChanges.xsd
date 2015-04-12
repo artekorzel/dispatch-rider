@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="graphChanges">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="change" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="change">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="link" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="time" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="link">
+        <xs:complexType>
+            <xs:attribute name="sPoint" type="xs:integer" use="required"/>
+            <xs:attribute name="ePoint" type="xs:integer" use="required"/>
+            <xs:attribute name="cost" type="xs:double" use="required"/>
+            <xs:attribute name="both" type="xs:boolean" default="true"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+
