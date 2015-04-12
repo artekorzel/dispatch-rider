@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public class HolonConfiguration implements Serializable {
 
-    private Boolean simmulatedTrading;
+    private Boolean simulatedTrading;
 
     /**
      * Algorithm which is responsible for inserting new commissions into
@@ -27,12 +27,12 @@ public class HolonConfiguration implements Serializable {
      */
     private Boolean dist;
 
-    public Boolean getSimmulatedTrading() {
-        return simmulatedTrading;
+    public Boolean getSimulatedTrading() {
+        return simulatedTrading;
     }
 
-    public void setSimmulatedTrading(Boolean simmulatedTrading) {
-        this.simmulatedTrading = simmulatedTrading;
+    public void setSimulatedTrading(Boolean simulatedTrading) {
+        this.simulatedTrading = simulatedTrading;
     }
 
     public Algorithm getAlgorithm() {

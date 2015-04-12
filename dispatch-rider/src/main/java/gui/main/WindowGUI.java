@@ -2,7 +2,7 @@ package gui.main;
 
 import dtp.graph.Graph;
 import dtp.jade.gui.CalendarStatsHolder;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import gui.commissions.CommissionTableModel;
 import gui.holon.HolonTableModel;
 import gui.holonstats.HolonStatsTableModel;

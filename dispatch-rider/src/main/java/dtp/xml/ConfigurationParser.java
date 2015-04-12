@@ -23,7 +23,6 @@ import org.xml.sax.SAXParseException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.geom.Point2D;
-import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,7 +57,7 @@ public class ConfigurationParser {
         return Double.valueOf(attr.getTextContent());
     }
 
-    private static TestConfiguration parseTest(Element element, String baseDir)
+    private static TestConfiguration parseTest(Element element)
             throws ParseException {
         TestConfiguration configuration = new TestConfiguration();
 
@@ -89,7 +88,7 @@ public class ConfigurationParser {
 
         if (graph != null) {
             String graphFile = graph.getTextContent();
-            Graph graphObj = new GraphParser().parse(baseDir + File.separator + graphFile.trim());
+            Graph graphObj = new GraphParser().parse(graphFile.trim());
             String trackFinder = graph.getAttribute("trackFinder");
             String predictor = graph.getAttribute("predictor");
             String historySize = graph.getAttribute("historySize");
@@ -107,7 +106,7 @@ public class ConfigurationParser {
             }
             if (graphChanges != null && graphChanges.length() > 0) {
                 GraphChangesConfiguration graphConf = GraphChangesParser
-                        .parse(baseDir + File.separator + graphChanges);
+                        .parse(graphChanges);
                 graphConf.setGraph(graphObj);
                 configuration.setGraphChangesConf(graphConf);
             }
@@ -122,16 +121,16 @@ public class ConfigurationParser {
         }
 
         if (ml != null) {
-            configuration = parseMachineLearningPart(configuration, ml, baseDir);
+            configuration = parseMachineLearningPart(configuration, ml);
         }
 
         if (mlAlgorithm != null) {
-            configuration = parseMLAlgorithmPart(configuration, mlAlgorithm, baseDir);
+            configuration = parseMLAlgorithmPart(configuration, mlAlgorithm);
         }
 
         configuration.setBrute2Sorter(commissions
                 .getAttribute("BruteForceAlgorithm2Sorter"));
-        configuration.setCommissions(baseDir + File.separator + commissions.getTextContent());
+        configuration.setCommissions(commissions.getTextContent());
         configuration.setConfChange(stringToBoolean(commissions
                 .getAttribute("confChange")));
         configuration.setAutoConfigure(stringToBoolean(commissions
@@ -175,8 +174,8 @@ public class ConfigurationParser {
         configuration.setFirstComplexSTResultOnly(stringToBoolean(commissions
                 .getAttribute("firstComplexSTResultOnly")));
         configuration.setDefaultAgentsData(parseAgents(agents));
-        configuration.setConfigurationDirectory(baseDir + File.separator + configDir.getTextContent());
-        configuration.setResults(baseDir + File.separator + results.getTextContent());
+        configuration.setConfigurationDirectory(configDir.getTextContent());
+        configuration.setResults(results.getTextContent());
         configuration.setEvents(parseEvents(events));
 
         configuration = parseExchangeAlgorithms(configuration, element);
@@ -333,9 +332,8 @@ public class ConfigurationParser {
 
             NodeList nodes = document.getElementsByTagName("test");
 
-            String configurationBaseDir = new File(filename).getAbsoluteFile().getParent();
             for (int i = 0; i < nodes.getLength(); ++i) {
-                tests.add(parseTest((Element) nodes.item(i), configurationBaseDir));
+                tests.add(parseTest((Element) nodes.item(i)));
             }
         } catch (Exception e) {
             throw new ParseException(e.getMessage(), e);
@@ -403,11 +401,11 @@ public class ConfigurationParser {
     }
 
     private static TestConfiguration parseMachineLearningPart(
-            TestConfiguration conf, Element ml, String baseDir) throws ParseException {
+            TestConfiguration conf, Element ml) throws ParseException {
         boolean exploration = stringToBoolean(ml.getAttribute("exploration"));
 
         String path = ml.getTextContent();
-        conf.setMlTableFileName(baseDir + File.separator + path);
+        conf.setMlTableFileName(path);
         String params = ml.getAttribute("params");
 
         QLearning alg = new QLearning();
@@ -431,13 +429,13 @@ public class ConfigurationParser {
     }
 
     private static TestConfiguration parseMLAlgorithmPart(
-            TestConfiguration conf, Element ml, String baseDir) throws ParseException {
+            TestConfiguration conf, Element ml) throws ParseException {
 
         boolean exploration = stringToBoolean(ml.getAttribute("exploration"));
         String algName = ml.getAttribute("algorithm");
 
         String path = ml.getAttribute("file");
-        conf.setMlTableFileName(baseDir + File.separator + path);
+        conf.setMlTableFileName(path);
 
         NodeList params = ml.getElementsByTagName("param");
         Element param;
@@ -448,6 +446,9 @@ public class ConfigurationParser {
         }
 
         MLAlgorithm alg = MLAlgorithmFactory.createAlgorithm(algName);
+        if(alg == null) {
+            throw new ParseException("MLAlgorithm " + algName + "not found");
+        }
         alg.init(path);
         alg.setAlgorithmParameters(parameters);
 

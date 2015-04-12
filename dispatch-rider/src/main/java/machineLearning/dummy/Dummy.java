@@ -1,7 +1,7 @@
 package machineLearning.dummy;
 
 import algorithm.Schedule;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 import machineLearning.MLAlgorithm;
 import measure.configuration.GlobalConfiguration;

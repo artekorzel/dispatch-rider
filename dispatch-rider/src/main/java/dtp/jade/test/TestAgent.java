@@ -126,7 +126,7 @@ public class TestAgent extends GUIAgent {
     public void nextTest() {
 		/* If there's no more test then exit */
         if (!configurationIterator.hasNext()) {
-            logger.info("End of simmulation: "
+            logger.info("End of simulation: "
                     + Calendar.getInstance().getTime());
             System.out.println(Calendar.getInstance().getTime());
             //System.exit(0);
@@ -296,7 +296,7 @@ public class TestAgent extends GUIAgent {
         setDefaultAgentsData(configuration.getDefaultAgentsData());
         setSendingCommissionsInGroups(configuration.isPackageSending());
         setChoosingByCost(configuration.isChoosingByCost());
-        setSimmulatedTrading(configuration.getSimulatedTrading());
+        setSimulatedTrading(configuration.getSimulatedTrading());
         recording = configuration.isRecording();
         setSTTimestampGap(configuration.getSTTimeGap());
         setSTCommissionGap(configuration.getSTCommissionGap());

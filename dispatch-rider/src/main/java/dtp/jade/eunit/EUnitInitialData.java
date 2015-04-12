@@ -1,7 +1,7 @@
 package dtp.jade.eunit;
 
 import dtp.jade.distributor.NewTeamData;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 
 import java.io.Serializable;
 

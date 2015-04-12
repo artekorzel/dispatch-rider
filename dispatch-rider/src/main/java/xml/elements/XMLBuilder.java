@@ -34,7 +34,7 @@ public class XMLBuilder {
             DocumentBuilder db = dbf.newDocumentBuilder();
             dom = db.newDocument();
 
-            Element rootEl = dom.createElement("simmulation");
+            Element rootEl = dom.createElement("simulation");
             dom.appendChild(rootEl);
 
             Element simTimeEl;

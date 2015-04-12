@@ -26,7 +26,7 @@ import dtp.jade.transport.TransportElementInitialDataTrailer;
 import dtp.jade.transport.TransportElementInitialDataTruck;
 import dtp.jade.transport.TransportType;
 import dtp.optimization.TrackFinder;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import gui.main.SingletonGUI;
 import jade.core.AID;
 import jade.core.Agent;
@@ -84,7 +84,7 @@ public abstract class GUIAgent extends Agent {
     protected String graphChangeTime;
     protected int graphChangeFreq;
     protected int simInfoReceived;
-    Map<Integer, List<SimmulationData>> simmulationData = new TreeMap<Integer, List<SimmulationData>>();
+    Map<Integer, List<SimmulationData>> simulationData = new TreeMap<Integer, List<SimmulationData>>();
     private long simTime;
     private String punishmentFunction;
     private Map<String, Double> punishmentFunctionDefaults;
@@ -99,7 +99,7 @@ public abstract class GUIAgent extends Agent {
     private ExchangeAlgorithmsFactory exchangeAlgFactory;
     private boolean commissionSendingType = false;
     private boolean choosingByCost = true;
-    private int simmulatedTradingCount = 0;
+    private int simulatedTradingCount = 0;
     private int STDepth = 1;
     private DefaultAgentsData defaultAgentsData = null;
     private String chooseWorstCommission;
@@ -383,7 +383,7 @@ public abstract class GUIAgent extends Agent {
     /*
      * (non-Javadoc)
      *
-     * @see dtp.jade.gui.GUIAgent2#sendSimInfoToAll(dtp.simmulation.SimInfo)
+     * @see dtp.jade.gui.GUIAgent2#sendSimInfoToAll(dtp.simulation.SimInfo)
      */
     public void sendSimInfoToAll(SimInfo simInfo) {
 
@@ -577,8 +577,8 @@ public abstract class GUIAgent extends Agent {
         this.STDepth = STDepth;
     }
 
-    public void setSimmulatedTrading(int simmulatedTrading) {
-        this.simmulatedTradingCount = simmulatedTrading;
+    public void setSimulatedTrading(int simulatedTrading) {
+        this.simulatedTradingCount = simulatedTrading;
     }
 
     public void setDefaultAgentsData(DefaultAgentsData data) {
@@ -691,7 +691,7 @@ public abstract class GUIAgent extends Agent {
             try {
                 cfp.setContentObject(new CommissionsHolder(tempCommissions,
                         commissionSendingType, choosingByCost,
-                        simmulatedTradingCount, STDepth, defaultAgentsData,
+                        simulatedTradingCount, STDepth, defaultAgentsData,
                         chooseWorstCommission, algorithm, dist, STTimestampGap,
                         STCommissionGap, confChange));
 
@@ -1219,7 +1219,7 @@ public abstract class GUIAgent extends Agent {
                 calendarStatsHolderForFile = null;
 
                 if (recording)
-                    new XMLBuilder(simmulationData, gui.getSimInfo().getDepot())
+                    new XMLBuilder(simulationData, gui.getSimInfo().getDepot())
                             .save(file.getAbsolutePath() + ".xml");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1703,7 +1703,7 @@ public abstract class GUIAgent extends Agent {
         ///
         SingletonGUI.getInstance().update(data);
         if (eUnitsCount == 0) {
-            simmulationData.put(timeStamp, this.data);
+            simulationData.put(timeStamp, this.data);
             gui.nextSimStep2();
         }
     }

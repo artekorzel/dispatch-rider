@@ -108,9 +108,9 @@ public class MLTableToXMLWriter {
             if (conf.isChoosingByCost() != null)
                 actionEl.setAttribute("choosingByCost", conf.isChoosingByCost()
                         .toString());
-            if (conf.getSimmulatedTrading() != null)
-                actionEl.setAttribute("simmulatedTrading", conf
-                        .getSimmulatedTrading().toString());
+            if (conf.getSimulatedTrading() != null)
+                actionEl.setAttribute("simulatedTrading", conf
+                        .getSimulatedTrading().toString());
             if (conf.getSTDepth() != null)
                 actionEl.setAttribute("STDepth", conf.getSTDepth().toString());
             if (conf.getChooseWorstCommission() != null)
@@ -144,9 +144,9 @@ public class MLTableToXMLWriter {
                 actionEl.setAttribute("algorithm",
                         algorithmName[algorithmName.length - 1]);
             }
-            if (conf.getSimmulatedTrading() != null) {
-                actionEl.setAttribute("simmulatedTrading", conf
-                        .getSimmulatedTrading().toString());
+            if (conf.getSimulatedTrading() != null) {
+                actionEl.setAttribute("simulatedTrading", conf
+                        .getSimulatedTrading().toString());
             }
             actionsEl.appendChild(actionEl);
         }

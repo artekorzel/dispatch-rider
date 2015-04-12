@@ -3,7 +3,7 @@ package measure;
 import algorithm.Helper;
 import algorithm.Schedule;
 import dtp.commission.Commission;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 
 import java.awt.geom.Point2D;

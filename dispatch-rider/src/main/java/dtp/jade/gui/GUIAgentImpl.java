@@ -8,7 +8,6 @@ import dtp.jade.test.behaviour.GetTransportAgentConfirmationBehaviour;
 import dtp.jade.test.behaviour.GetTransportAgentCreatedBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
-import org.apache.log4j.PropertyConfigurator;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,14 +23,12 @@ public class GUIAgentImpl extends GUIAgent {
 
     protected void setup() {
 
-        PropertyConfigurator.configure("conf" + File.separator + "Log4j.properties");
-
         logger.info(this.getLocalName() + " - Hello World!");
 
         /* -------- INITIALIZATION SECTION ------- */
         try {
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
         }
 
         /* -------- SERVICES SECTION ------- */

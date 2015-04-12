@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<network xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">	<point>
+<network xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:noNamespaceSchemaLocation="xml/schemes/graph.xsd">
+	<point>
 		<id> 1 </id>
 		<name>pt_42.0_66.0 [42.0, 66.0]</name>
 		<position>

@@ -8,7 +8,7 @@ import dtp.graph.GraphLink;
 import dtp.graph.GraphPoint;
 import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.gui.CalendarStatsHolder;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.SparseMultigraph;

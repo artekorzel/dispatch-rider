@@ -2,7 +2,7 @@ package dtp.jade.distributor.behaviour;
 
 import dtp.jade.CommunicationHelper;
 import dtp.jade.distributor.DistributorAgent;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;

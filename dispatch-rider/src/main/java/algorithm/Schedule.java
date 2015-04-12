@@ -1,7 +1,7 @@
 package algorithm;
 
 import dtp.commission.Commission;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 import punishment.PunishmentFunction;
 

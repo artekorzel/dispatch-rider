@@ -2,7 +2,7 @@ package adapter;
 
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 
 import java.awt.geom.Point2D;
 import java.io.BufferedReader;

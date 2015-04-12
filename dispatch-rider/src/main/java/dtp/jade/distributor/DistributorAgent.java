@@ -1,13 +1,9 @@
 package dtp.jade.distributor;
 
-import algorithm.Algorithm;
-import algorithm.CommissionsComparator;
-import algorithm.GraphSchedule;
-import algorithm.Helper;
+import algorithm.*;
 import algorithm.STLike.ExchangeAlgorithmsFactory;
 import algorithm.STLike.SimulatedTrading;
-import algorithm.Schedule;
-import algorithm.simmulatedTrading.SimmulatdTradingParameters;
+import algorithm.simulatedTrading.SimmulatdTradingParameters;
 import dtp.commission.Commission;
 import dtp.graph.Graph;
 import dtp.jade.BaseAgent;
@@ -20,14 +16,8 @@ import dtp.jade.eunit.behaviour.GetCalendarStatsBehaviour;
 import dtp.jade.gui.CalendarStatsHolder;
 import dtp.jade.gui.CommissionsHolder;
 import dtp.jade.test.DefaultAgentsData;
-import dtp.jade.transport.NewHolonOffer;
-import dtp.jade.transport.TransportAgent;
-import dtp.jade.transport.TransportAgentData;
-import dtp.jade.transport.TransportElementInitialData;
-import dtp.jade.transport.TransportElementInitialDataTrailer;
-import dtp.jade.transport.TransportElementInitialDataTruck;
-import dtp.jade.transport.TransportType;
-import dtp.simmulation.SimInfo;
+import dtp.jade.transport.*;
+import dtp.simulation.SimInfo;
 import dtp.util.AIDsComparator;
 import gui.main.SingletonGUI;
 import gui.parameters.DRParams;
@@ -48,21 +38,10 @@ import measure.configuration.MeasureConfigurationChangerImpl;
 import measure.printer.MeasureData;
 import measure.visualization.MeasuresVisualizationRunner;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Represents a distributor as a jade agent.
@@ -87,17 +66,17 @@ public class DistributorAgent extends BaseAgent {
     private int STTimestampGap;
     private int nextSTTimestamp;
     private int nextMeasureTimestamp;
-    private int STCommissionsionsGap;
+    private int STCommissionsGap;
     private MeasureData measureData;
     private boolean isConfigurationChangeable = true;
     private SimInfo simInfo;
     private MeasureCalculatorsHolder calculatorsHolder;
     private MLAlgorithm mlAlgorithm;
     private MeasuresVisualizationRunner measuresVisualizationRunner;
-    private int handeledCommissionsCount = 0;
+    private int handledCommissionsCount = 0;
     private boolean commissionSendingType;
     private boolean choosingByCost;
-    private int simmulatedTradingCount;
+    private int simulatedTradingCount;
     private int STDepth;
     private Commission[] commsGroup;
     private DefaultAgentsData defaultAgentsData;
@@ -106,7 +85,7 @@ public class DistributorAgent extends BaseAgent {
     private boolean confSet = false;
     private Commission currentCommission;
     private CalendarStatsHolder calendarStatsHolder;
-    private boolean simmulatedTrading;
+    private boolean simulatedTrading;
     private CalendarStats bestStat;
     private int transportUnitsPrepare;
     private int transportUnitCount;
@@ -126,7 +105,7 @@ public class DistributorAgent extends BaseAgent {
     private Set<AID> holonsAIDs;
     private boolean complexSTStatus;
     private int maxFullSTDepth = 8;
-    private boolean fullSimmulatedTrading = false;
+    private boolean fullSimulatedTrading = false;
     private Algorithm algorithm;
     private boolean calendarsForMeasures = false;
     private Map<AID, Schedule> oldSchedule;
@@ -164,10 +143,6 @@ public class DistributorAgent extends BaseAgent {
 
     @Override
     protected void setup() {
-
-        PropertyConfigurator.configure("conf" + File.separator
-                + "Log4j.properties");
-
         logger.info(this.getLocalName() + " - Hello World!");
 
         /* -------- INITIALIZATION SECTION ------- */
@@ -209,7 +184,7 @@ public class DistributorAgent extends BaseAgent {
         calendarStatsHolder = null;
         transportUnitsPrepare = 0;
         transportUnitCount = -1;
-        simmulatedTradingCount = 0;
+        simulatedTradingCount = 0;
         nextSTTimestamp = 0;
         nextMeasureTimestamp = 0;
         measureData = new MeasureData();
@@ -294,7 +269,7 @@ public class DistributorAgent extends BaseAgent {
             Map<TransportType, List<TransportAgentData>> agents) {
         this.agents = agents;
 
-        ACLMessage cfp = null;
+        ACLMessage cfp;
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "GUIService");
@@ -351,14 +326,14 @@ public class DistributorAgent extends BaseAgent {
             this.commissionSendingType = holder.getType();
             this.dist = holder.isDist();
             this.choosingByCost = holder.isChoosingByCost();
-            this.simmulatedTradingCount = holder.getSimulatedTrading();
+            this.simulatedTradingCount = holder.getSimulatedTrading();
             this.commsGroup = com;
             this.defaultAgentsData = holder.getDefaultAgentsData();
             this.chooseWorstCommission = holder.getChooseWorstCommission();
             this.algorithm = holder.getAlgorithm();
             this.maxFullSTDepth = holder.getSTDepth();
             this.STTimestampGap = holder.getSTTimestampGap();
-            this.STCommissionsionsGap = holder.getSTCommissionGap();
+            this.STCommissionsGap = holder.getSTCommissionGap();
             this.isConfigurationChangeable = holder.isConfChange();
             confSet = true;
 
@@ -369,15 +344,15 @@ public class DistributorAgent extends BaseAgent {
             params.setAlgorithm("" + this.algorithm);
             params.setChooseWorstCommission(this.chooseWorstCommission);
             params.setMaxFullSTDepth(this.maxFullSTDepth);
-            params.setSimmulatedTradingCount(this.simmulatedTradingCount);
-            params.setSTCommissionsionsGap(this.STCommissionsionsGap);
+            params.setSimulatedTradingCount(this.simulatedTradingCount);
+            params.setSTCommissionsionsGap(this.STCommissionsGap);
             params.setSTTimestampGap(this.STTimestampGap);
             SingletonGUI.getInstance().update(params);
         }
 
-        commissions = new LinkedList<Commission>();
-        commissionsToCarry = new LinkedList<Commission>();
-        simmulatedTrading = false;
+        commissions = new LinkedList<>();
+        commissionsToCarry = new LinkedList<>();
+        simulatedTrading = false;
         for (Commission c : com) {
             commissions.add(c);
             commissionsToCarry.add(Commission.copy(c));
@@ -389,7 +364,7 @@ public class DistributorAgent extends BaseAgent {
                 new CommissionsComparator(simInfo.getDepot()));
 
         if (commissions.size() > 0)
-            if (commissionSendingType == false)
+            if (!commissionSendingType)
                 addCommission(commissions.remove(0));
             else
                 addCommission(null);
@@ -397,8 +372,8 @@ public class DistributorAgent extends BaseAgent {
 
     // odbiera zlecenie od GUIAgenta...
     public synchronized void addCommission(Commission commission) {
-        if (commissionSendingType == false) {
-            handeledCommissionsCount++;
+        if (!commissionSendingType) {
+            handledCommissionsCount++;
             sendGUIMessage("new commission added to the queue (id = "
                     + commission.getID() + ")");
             logger.info(getLocalName()
@@ -412,10 +387,11 @@ public class DistributorAgent extends BaseAgent {
         }
         commissionsQueue.add(commission);
 
-        if (commissionSendingType == false)
-            carryCommission();
-        else
+        if (commissionSendingType) {
             carryCommissions();
+        } else {
+            carryCommission();
+        }
     }
 
     // jezeli kolejka zlecen nie jest pusta i nie jest wlasnie przeprowadzana
@@ -429,11 +405,11 @@ public class DistributorAgent extends BaseAgent {
 
         }
 
-        simmulatedTrading = false;
+        simulatedTrading = false;
         currentCommission = commissionsQueue.poll();
 
         commissionsToCarry.remove(currentCommission);
-        eUnitOffers = new LinkedList<EUnitOffer>();
+        eUnitOffers = new LinkedList<>();
         eUnitsCount = sendOffers(currentCommission);
         if (eUnitsCount == 0) {
             beginTransportUnitsNegotiation();
@@ -442,7 +418,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private synchronized void carryCommissions() {
-        simmulatedTrading = false;
+        simulatedTrading = false;
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "TransportUnitService");
@@ -452,8 +428,8 @@ public class DistributorAgent extends BaseAgent {
 
         ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION);
 
-        for (int i = 0; i < aids.length; i++) {
-            cfp.addReceiver(aids[i]);
+        for (AID aid : aids) {
+            cfp.addReceiver(aid);
         }
         try {
             cfp.setContentObject(commsGroup);
@@ -474,8 +450,9 @@ public class DistributorAgent extends BaseAgent {
             ACLMessage cfp = new ACLMessage(
                     CommunicationHelper.COMMISSION_OFFER_REQUEST);
 
-            for (int i = 0; i < aids.length; i++)
-                cfp.addReceiver(aids[i]);
+            for (AID aid : aids) {
+                cfp.addReceiver(aid);
+            }
 
             try {
                 cfp.setContentObject(commission);
@@ -491,18 +468,7 @@ public class DistributorAgent extends BaseAgent {
 
     public synchronized void addOffer(EUnitOffer offer) {
 
-        if (simmulatedTrading == false) {
-            eUnitsCount--;
-            if (offer.getValue() > 0)
-                eUnitOffers.add(offer);
-            if (eUnitsCount == 0) {
-                sendGUIMessage("eUnits offers are collected");
-                if (choosingByCost == false && eUnitOffers.size() > 0)
-                    chooseBestOffer();
-                else
-                    beginTransportUnitsNegotiation();
-            }
-        } else {
+        if (simulatedTrading) {
             currentAuction.addOffer(offer);
             if (currentAuction.gotAllOffers()) {
                 sendGUIMessage("all EUnit offres has been collected (com id = "
@@ -512,6 +478,18 @@ public class DistributorAgent extends BaseAgent {
                         + currentAuction.getCommission().getID() + ")");
 
                 chooseBestSTOffer();
+            }
+        } else {
+            eUnitsCount--;
+            if (offer.getValue() > 0){
+                eUnitOffers.add(offer);
+            }
+            if (eUnitsCount == 0) {
+                sendGUIMessage("eUnits offers are collected");
+                if (!choosingByCost && eUnitOffers.size() > 0)
+                    chooseBestOffer();
+                else
+                    beginTransportUnitsNegotiation();
             }
         }
     }
@@ -525,8 +503,8 @@ public class DistributorAgent extends BaseAgent {
 
         ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION);
 
-        for (int i = 0; i < aids.length; i++) {
-            cfp.addReceiver(aids[i]);
+        for (AID aid : aids) {
+            cfp.addReceiver(aid);
         }
         try {
             cfp.setContentObject(new Commission[]{currentCommission});
@@ -575,8 +553,8 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void checkSTStatus() {
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
@@ -586,9 +564,8 @@ public class DistributorAgent extends BaseAgent {
 
             cfp = new ACLMessage(CommunicationHelper.EUNIT_SHOW_STATS);
 
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp.addReceiver(aids[i]);
+            for (AID aid : aids) {
+                cfp.addReceiver(aid);
             }
 
             try {
@@ -613,15 +590,15 @@ public class DistributorAgent extends BaseAgent {
         calendarStatsHolder.addCalendarStats(calendarStats);
     }
 
-    private void simmulatedTrading() {
+    private void simulatedTrading() {
 
-        System.out.println("fullSimmulatedTrading");
-        fullSimmulatedTrading = true;
+        System.out.println("fullSimulatedTrading");
+        fullSimulatedTrading = true;
         complexSimmulatedTrading(null);
 
     }
 
-    private void fullSimmulatedTrading(Map<AID, Schedule> holons) {
+    private void fullSimulatedTrading(Map<AID, Schedule> holons) {
 
         Map<AID, Schedule> tmpMapForMeasure = Helper.copyAID(holons);
 
@@ -634,7 +611,7 @@ public class DistributorAgent extends BaseAgent {
                     .doExchangesAfterComAdded(holons.keySet(), holons, i,
                             simInfo, timestamp);
 
-            // holons = SimmulatedTrading.fullSimmulatedTrading(holons.keySet(),
+            // holons = SimmulatedTrading.fullSimulatedTrading(holons.keySet(),
             // holons, i, 1, simInfo, new HashSet<Integer>(),
             // chooseWorstCommission, timestamp);
 
@@ -649,7 +626,7 @@ public class DistributorAgent extends BaseAgent {
         // calculateMeasure(tmpMapForMeasure, holons);
 
         eUnitsCount = holons.size();// getEUnitsAids().length;
-        fullSimmulatedTrading = false;
+        fullSimulatedTrading = false;
         for (AID aid : holons.keySet()) {// getEUnitsAids()) {
             ACLMessage msg = new ACLMessage(
                     CommunicationHelper.HOLONS_NEW_CALENDAR);
@@ -658,8 +635,7 @@ public class DistributorAgent extends BaseAgent {
                 msg.setContentObject(holons.get(aid));
                 send(msg);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                e.printStackTrace(); //FIXME
             }
         }
 
@@ -688,9 +664,7 @@ public class DistributorAgent extends BaseAgent {
             }
         }
         if (eUnitsCount == 0) {
-            if (bestStat.getCost() < 0) {
-                // TODO koniec
-            } else {
+            if (bestStat.getCost() >= 0) {
                 ACLMessage msg = new ACLMessage(
                         CommunicationHelper.CHANGE_SCHEDULE);
                 msg.addReceiver(stat.getAID());
@@ -698,8 +672,7 @@ public class DistributorAgent extends BaseAgent {
                     msg.setContentObject(stat.getSchedule2());
                     send(msg);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    e.printStackTrace();//FIXME
                 }
             }
         }
@@ -734,7 +707,7 @@ public class DistributorAgent extends BaseAgent {
                 && timestamp >= nextMeasureTimestamp)
             nextMeasureTimestamp += calculatorsHolder.getTimeGap();
 
-        AID[] aids = null;
+        AID[] aids;
 
         aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
 
@@ -749,13 +722,13 @@ public class DistributorAgent extends BaseAgent {
 
     public synchronized void sendNooneList() {
 
-        AID[] aids = null;
+        AID[] aids;
         // ACLMessage cfp = null;
 
         aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
-            Serializable content = null;
+            Serializable content;
             if (nooneList == null) {
                 content = 0;
             } else {
@@ -780,11 +753,8 @@ public class DistributorAgent extends BaseAgent {
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
-        aidsList = new ArrayList<AID>();
-        for (AID aid : aids) {
-            aidsList.add(aid);
-        }
-
+        aidsList = new ArrayList<>();
+        Collections.addAll(aidsList, aids);
         Collections.sort(aidsList, new AIDsComparator());
 
         iter = aidsList.iterator();
@@ -800,8 +770,8 @@ public class DistributorAgent extends BaseAgent {
 
     public synchronized void resetAgent() {
 
-        commissionsQueue = new LinkedList<Commission>();
-        nooneList = new ArrayList<Commission>();
+        commissionsQueue = new LinkedList<>();
+        nooneList = new ArrayList<>();
         currentAuction = null;
         currentSTAuction = null;
         transportUnitsPrepare = 0;
@@ -831,13 +801,13 @@ public class DistributorAgent extends BaseAgent {
             logger.info(getLocalName()
                     + " - sending signal to Transport Agents to start negotiation process");
 
-            newHolonOffers = new TreeSet<NewHolonOffer>();
+            newHolonOffers = new TreeSet<>();
 
             ACLMessage cfp = new ACLMessage(
                     CommunicationHelper.START_NEGOTIATION);
 
-            for (int i = 0; i < aids.length; i++) {
-                cfp.addReceiver(aids[i]);
+            for (AID aid : aids) {
+                cfp.addReceiver(aid);
             }
             try {
                 cfp.setContentObject("");
@@ -859,16 +829,16 @@ public class DistributorAgent extends BaseAgent {
         transportUnitsPrepare++;
         if (transportUnitsPrepare == transportUnitCount) {
             transportUnitsPrepare = 0;
-            if (commissionSendingType == false)
-                chooseBestHolon();
-            else {
-                List<NewHolonOffer> offers = new LinkedList<NewHolonOffer>();
+            if (commissionSendingType) {
+                List<NewHolonOffer> offers = new LinkedList<>();
                 for (NewHolonOffer o : newHolonOffers) {
                     if (o.isValid())
                         offers.add(o);
                 }
                 newHolonOffersList = offers;
                 sendCommissionsToBestHolons();
+            } else {
+                chooseBestHolon();
             }
         }
     }
@@ -895,8 +865,9 @@ public class DistributorAgent extends BaseAgent {
         // dist, currentCommission);
         double cost;
         for (NewHolonOffer offer : newHolonOffers) {
-            if (offer.isValid() == false)
+            if (!offer.isValid()) {
                 continue;
+            }
             cost = calculateCost(getTruck(offer.getTruck()),
                     getTrailer(offer.getTrailer()),
                     getDriver(offer.getDriver()), dist, currentCommission);
@@ -956,8 +927,8 @@ public class DistributorAgent extends BaseAgent {
      * Przesyla zlecenia do EUnitow, w trybie przesylania paczkami
      */
     private synchronized void sendNextCommissionToEUnit() {
-        handeledCommissionsCount++;
-        simmulatedTrading = false;
+        handledCommissionsCount++;
+        simulatedTrading = false;
         if (commissions.size() == 0) {
             System.out.println("Zlecenia przyznane");
             sendGUIMessage("NEXT_SIMSTEP");
@@ -985,7 +956,7 @@ public class DistributorAgent extends BaseAgent {
             return;
         }
 
-        if (choosingByCost == false) {
+        if (!choosingByCost) {
             sendCommissionToEUnit();
             return;
         }
@@ -1089,13 +1060,15 @@ public class DistributorAgent extends BaseAgent {
             // TODO
             // tutaj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            if (simmulatedTradingCount != 0 && checkSTCondition()) {
-                if (commissionSendingType == false)
-                    simmulatedTrading();
-                else if (currentCommission != null)
-                    simmulatedTrading();
-                else
-                    getCalendarsForMesure();
+            if (simulatedTradingCount != 0 && checkSTCondition()) {
+                if (commissionSendingType) {
+                    if (currentCommission != null)
+                        simulatedTrading();
+                    else
+                        getCalendarsForMesure();
+                } else {
+                    simulatedTrading();
+                }
             } else {
                 getCalendarsForMesure();
             }
@@ -1158,13 +1131,13 @@ public class DistributorAgent extends BaseAgent {
     }
 
     public synchronized void undeliveredCommissionResponse() {
-        if (commissionSendingType == false) {
+        if (commissionSendingType) {
+            sendCommissionsToBestHolons();
+        } else {
             if (commissions.size() > 0)
                 addCommission(commissions.remove(0));
             else
                 sendGUIMessage("NEXT_SIMSTEP");
-        } else {
-            sendCommissionsToBestHolons();
         }
     }
 
@@ -1200,10 +1173,10 @@ public class DistributorAgent extends BaseAgent {
     public synchronized void eUnitCreated() {
         if (defaultEUnitCreation) {
             defaultEUnitCreation = false;
-            if (simmulatedTradingCount == 0 || !checkSTCondition()) {
+            if (simulatedTradingCount == 0 || !checkSTCondition()) {
                 getCalendarsForMesure();
             } else
-                simmulatedTrading();
+                simulatedTrading();
             return;
         }
         sentConfirmationToTransportUnit(bestOffer.getTruck());
@@ -1242,8 +1215,8 @@ public class DistributorAgent extends BaseAgent {
     }
 
     public synchronized void complexSimmulatedTrading(Commission com) {
-        holons = new HashMap<AID, Schedule>();
-        holonsAIDs = new HashSet<AID>();
+        holons = new HashMap<>();
+        holonsAIDs = new HashSet<>();
         AID aids[] = getEUnitsAids();
         eUnitsCount = aids.length;
         if (com != null)
@@ -1283,13 +1256,13 @@ public class DistributorAgent extends BaseAgent {
                 createNewEUnit();
             } else {
 
-                if (commissionSendingType == false) {
+                if (commissionSendingType) {
+                    sendCommissionsToBestHolons();
+                } else {
                     if (commissions.size() > 0)
                         addCommission(commissions.remove(0));
                     else
                         sendGUIMessage("NEXT_SIMSTEP");
-                } else {
-                    sendCommissionsToBestHolons();
                 }
 
             }
@@ -1308,14 +1281,14 @@ public class DistributorAgent extends BaseAgent {
                 return;
             }
 
-            Map<AID, Schedule> map = new HashMap<AID, Schedule>();
+            Map<AID, Schedule> map = new HashMap<>();
             for (AID key : holons.keySet()) {
                 if (holons.get(key).size() > 0)
                     map.put(key, holons.get(key));
             }
             holons = map;
-            if (fullSimmulatedTrading) {
-                fullSimmulatedTrading(holons);
+            if (fullSimulatedTrading) {
+                fullSimulatedTrading(holons);
                 return;
             }
 
@@ -1370,7 +1343,7 @@ public class DistributorAgent extends BaseAgent {
 
     private boolean checkSTCondition() {
         return timestamp >= nextSTTimestamp
-                && handeledCommissionsCount % STCommissionsionsGap == 0;
+                && handledCommissionsCount % STCommissionsGap == 0;
     }
 
     private void getCalendarsForMesure() {
@@ -1383,7 +1356,7 @@ public class DistributorAgent extends BaseAgent {
 
         if (calculatorsHolder != null && timestamp >= nextMeasureTimestamp) {
 
-            List<Measure> measures = new LinkedList<Measure>();
+            List<Measure> measures = new LinkedList<>();
 
             Measure measure;
 
@@ -1426,14 +1399,14 @@ public class DistributorAgent extends BaseAgent {
                 if (newSchedule.size() == 0)
                     newSchedule = null;
                 else {
-                    copyOfNewSchedule = new HashMap<AID, Schedule>();
+                    copyOfNewSchedule = new HashMap<>();
                     for (AID key : newSchedule.keySet()) {
                         copyOfNewSchedule.put(key,
                                 Schedule.copy(newSchedule.get(key)));
                     }
                 }
             }
-            Map<AID, Schedule> copyOfOldSchedule = new HashMap<AID, Schedule>();
+            Map<AID, Schedule> copyOfOldSchedule = new HashMap<>();
             for (AID key : oldSchedule.keySet()) {
                 copyOfOldSchedule.put(key, Schedule.copy(oldSchedule.get(key)));
             }
@@ -1460,8 +1433,10 @@ public class DistributorAgent extends BaseAgent {
             calendarsForMeasures = false;
             if (defaultEUnitCreation) {
                 defaultEUnitCreation = false;
-                if (simmulatedTradingCount == 0 || !checkSTCondition()) {
-                    if (commissionSendingType == false) {
+                if (simulatedTradingCount == 0 || !checkSTCondition()) {
+                    if (commissionSendingType) {
+                        sendCommissionsToBestHolons();
+                    } else {
                         if (commissions.size() > 0)
                             addCommission(commissions.remove(0));
                         else {
@@ -1482,15 +1457,15 @@ public class DistributorAgent extends BaseAgent {
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
                         }
-                    } else {
-                        sendCommissionsToBestHolons();
                     }
                 }
             } else {
-                if (simmulatedTradingCount != 0 && checkSTCondition()) {
+                if (simulatedTradingCount != 0 && checkSTCondition()) {
                     sendCommissionsToBestHolons();
                 } else {
-                    if (commissionSendingType == false) {
+                    if (commissionSendingType) {
+                        sendCommissionsToBestHolons();
+                    } else {
                         if (commissions.size() > 0)
                             addCommission(commissions.remove(0));
                         else {
@@ -1511,19 +1486,17 @@ public class DistributorAgent extends BaseAgent {
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
                         }
-                    } else {
-                        sendCommissionsToBestHolons();
                     }
                 }
             }
         } else {
-            if (commissionSendingType == false) {
+            if (commissionSendingType) {
+                sendCommissionsToBestHolons();
+            } else {
                 if (commissions.size() > 0)
                     addCommission(commissions.remove(0));
                 else
                     sendGUIMessage("NEXT_SIMSTEP");
-            } else {
-                sendCommissionsToBestHolons();
             }
         }
     }
@@ -1552,8 +1525,8 @@ public class DistributorAgent extends BaseAgent {
                 this.commissionSendingType = globalConf.isType();
             if (globalConf.isChoosingByCost() != null)
                 this.choosingByCost = globalConf.isChoosingByCost();
-            if (globalConf.getSimmulatedTrading() != null)
-                this.simmulatedTradingCount = globalConf.getSimmulatedTrading();
+            if (globalConf.getSimulatedTrading() != null)
+                this.simulatedTradingCount = globalConf.getSimulatedTrading();
 
             ExchangeAlgorithmsFactory factory = simInfo.getExchangeAlgFactory();
             if (factory.getAlgAfterComAdd().getClass()
@@ -1574,7 +1547,7 @@ public class DistributorAgent extends BaseAgent {
                     factory.getAlgAfterComAdd()
                             .getParameters()
                             .put("maxFullSTDepth",
-                                    new Integer(this.maxFullSTDepth).toString());
+                                    Integer.toString(this.maxFullSTDepth));
                 }
             }
 
@@ -1620,7 +1593,7 @@ public class DistributorAgent extends BaseAgent {
         if (simInfo.isSTAfterGraphChange()) {
             graphChanged = true;
 
-            simmulatedTrading();
+            simulatedTrading();
         } else {
             ACLMessage response = new ACLMessage(
                     CommunicationHelper.GRAPH_CHANGED);

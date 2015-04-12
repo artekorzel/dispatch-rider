@@ -1,6 +1,6 @@
 package gui.common;
 
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import xml.elements.SimmulationData;
 
 import java.util.Arrays;

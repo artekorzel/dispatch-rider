@@ -122,8 +122,8 @@ public class MLTableStructureParser {
             conf.setChooseWorstCommission(attributeToString(action,
                     "chooseWorstCommission"));
             conf.setChoosingByCost(attributeToBoolean(action, "choosingByCost"));
-            conf.setSimmulatedTrading(attributeToInt(action,
-                    "simmulatedTrading"));
+            conf.setSimulatedTrading(attributeToInt(action,
+                    "simulatedTrading"));
             conf.setSTDepth(attributeToInt(action, "STDepth"));
             conf.setType(attributeToBoolean(action, "sendingType"));
             table.addGlobalAction(attributeToString(action, "name"), conf);
@@ -143,8 +143,8 @@ public class MLTableStructureParser {
             conf = new HolonConfiguration();
             conf.setAlgorithm(attributeToString(action, "algorithm"));
             conf.setDist(attributeToBoolean(action, "newCommissionCostByDist"));
-            conf.setSimmulatedTrading(attributeToBoolean(action,
-                    "simmulatedTrading"));
+            conf.setSimulatedTrading(attributeToBoolean(action,
+                    "simulatedTrading"));
             table.addHolonAction(attributeToString(action, "name"), conf);
         }
     }

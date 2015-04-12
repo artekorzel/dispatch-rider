@@ -13,9 +13,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -47,17 +45,15 @@ public class InfoAgent extends BaseAgent {
 
     protected void setup() {
 
-        agents = new HashMap<TransportType, List<TransportAgentData>>();
-
-        PropertyConfigurator.configure("conf" + File.separator + "Log4j.properties");
+        agents = new HashMap<>();
 
         logger.info(this.getLocalName() + " - Hello World!");
 
         /*-------- INITIALIZATION SECTION -------*/
-        this.driverAgentsInfo = new ArrayList<AgentInfoPOJO>();
-        this.truckAgentsInfo = new ArrayList<AgentInfoPOJO>();
-        this.trailerAgentsInfo = new ArrayList<AgentInfoPOJO>();
-        this.eunitAgentsInfo = new ArrayList<AgentInfoPOJO>();
+        this.driverAgentsInfo = new ArrayList<>();
+        this.truckAgentsInfo = new ArrayList<>();
+        this.trailerAgentsInfo = new ArrayList<>();
+        this.eunitAgentsInfo = new ArrayList<>();
 
         /*-------- SERVICES SECTION -------*/
         registerServices();
@@ -110,7 +106,7 @@ public class InfoAgent extends BaseAgent {
     public void addTransportAgentData(TransportAgentData data, TransportType type) {
         List<TransportAgentData> transportData = agents.get(type);
         if (transportData == null) {
-            transportData = new LinkedList<TransportAgentData>();
+            transportData = new LinkedList<>();
             agents.put(type, transportData);
         }
         transportData.add(data);
@@ -157,53 +153,46 @@ public class InfoAgent extends BaseAgent {
     }
 
     public void simEnd() {
-        this.driverAgentsInfo = new ArrayList<AgentInfoPOJO>();
-        this.truckAgentsInfo = new ArrayList<AgentInfoPOJO>();
-        this.trailerAgentsInfo = new ArrayList<AgentInfoPOJO>();
-        this.eunitAgentsInfo = new ArrayList<AgentInfoPOJO>();
+        this.driverAgentsInfo = new ArrayList<>();
+        this.truckAgentsInfo = new ArrayList<>();
+        this.trailerAgentsInfo = new ArrayList<>();
+        this.eunitAgentsInfo = new ArrayList<>();
         eunitAgentsNo = 0;
         driverAgentsNo = 0;
         trailerAgentsNo = 0;
         truckAgentsNo = 0;
-        agents = new HashMap<TransportType, List<TransportAgentData>>();
+        agents = new HashMap<>();
     }
 
     public void sendDataToAgents() {
-        ACLMessage cfp = null;
+        ACLMessage cfp;
         AID[] aids = CommunicationHelper.findAgentByServiceName(this, "TransportUnitService");
 
         logger.info("InfoAgent - sending agents data to agents");
-        if (aids.length != 0) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject(new TransportAgentsMessage(agents));
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException " + e.getMessage());
-                }
-                send(cfp);
+        for (AID aid : aids) {
+            cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
+            cfp.addReceiver(aid);
+            try {
+                cfp.setContentObject(new TransportAgentsMessage(agents));
+            } catch (IOException e) {
+                logger.error(getLocalName() + " - IOException " + e.getMessage());
             }
+            send(cfp);
         }
 
         aids = CommunicationHelper.findAgentByServiceName(this, "CommissionService");
 
         logger.info("InfoAgent - sending agents data to Distributor");
-        if (aids.length != 0) {
+        for (AID aid : aids) {
 
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject(new TransportAgentsMessage(agents));
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException " + e.getMessage());
-                }
-                send(cfp);
+            cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
+            cfp.addReceiver(aid);
+            try {
+                cfp.setContentObject(new TransportAgentsMessage(agents));
+            } catch (IOException e) {
+                logger.error(getLocalName() + " - IOException " + e.getMessage());
             }
+            send(cfp);
         }
     }
 }

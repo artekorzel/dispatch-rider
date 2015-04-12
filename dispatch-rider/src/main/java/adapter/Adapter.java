@@ -1,7 +1,7 @@
 package adapter;
 
 import dtp.commission.CommissionHandler;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 
 import java.util.List;
 

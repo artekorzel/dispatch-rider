@@ -1,9 +1,8 @@
 package algorithm.STLike;
 
 import algorithm.Schedule;
-import algorithm.simmulatedTrading.SimmulatedTrading;
 import dtp.commission.Commission;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 
 import java.util.HashSet;
@@ -24,7 +23,7 @@ public class SimulatedTrading extends ExchangeAlgorithm {
         if (parameters.containsKey("chooseWorstCommission"))
             chooseWorstCommission = parameters.get("chooseWorstCommission");
 
-        return SimmulatedTrading.fullSimmulatedTrading(aids, holons, holon, 1,
+        return algorithm.simulatedTrading.SimulatedTrading.fullSimulatedTrading(aids, holons, holon, 1,
                 info, new HashSet<Integer>(), chooseWorstCommission, timestamp);
     }
 
@@ -39,7 +38,7 @@ public class SimulatedTrading extends ExchangeAlgorithm {
             firstComplexSTResultOnly = Boolean.parseBoolean(parameters
                     .get("firstComplexSTResultOnly"));
 
-        return SimmulatedTrading.complexSimmulatedTrading(aids, holons, com,
+        return algorithm.simulatedTrading.SimulatedTrading.complexSimmulatedTrading(aids, holons, com,
                 maxFullSTDepth, new TreeSet<Integer>(), timestamp, info,
                 firstComplexSTResultOnly);
     }

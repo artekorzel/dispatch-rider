@@ -13,10 +13,8 @@
                 <xsd:element ref="id" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="name" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="position" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="isbase" minOccurs="0" maxOccurs="1"/>
                 <xsd:element ref="route" minOccurs="1" maxOccurs="unbounded"/>
-                <xsd:element ref="isbase" minOccurs="0" maxOccurs="1">
-
-                </xsd:element>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -30,19 +28,19 @@
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
-    <xsd:element name="x" type="xsd:integer"/>
-    <xsd:element name="y" type="xsd:integer"/>
+    <xsd:element name="x" type="xsd:double"/>
+    <xsd:element name="y" type="xsd:double"/>
     <xsd:element name="route">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element ref="id_r" minOccurs="1" maxOccurs="1"/>
                 <xsd:element ref="cost" minOccurs="1" maxOccurs="1"/>
-                <xsd:element ref="time" minOccurs="1" maxOccurs="1"/>
+                <xsd:element ref="time" minOccurs="0" maxOccurs="1"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
     <xsd:element name="id_r" type="xsd:integer"/>
-    <xsd:element name="cost" type="xsd:integer"/>
+    <xsd:element name="cost" type="xsd:double"/>
     <xsd:element name="time" type="xsd:integer"/>
     <xsd:element name="isbase" type="xsd:boolean"/>
 </xsd:schema>

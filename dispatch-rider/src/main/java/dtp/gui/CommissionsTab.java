@@ -5,7 +5,7 @@ import dtp.commission.CommissionHandler;
 import dtp.commission.TxtFileReader;
 import dtp.jade.ProblemType;
 import dtp.jade.gui.GUIAgent;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import dtp.util.DirectoriesResolver;
 
 import javax.swing.*;

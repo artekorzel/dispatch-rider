@@ -9,10 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class PatternCalculator {
     private final String benchmarksPath = "benchmarks";
@@ -43,8 +40,8 @@ public class PatternCalculator {
     private String fileName;
 
     public PatternCalculator() {
-        tests = new TreeMap<String, String[]>();
-        paths = new TreeMap<String, String>();
+        tests = new TreeMap<>();
+        paths = new TreeMap<>();
 
         tests.put("pdp_100", pdp_100);
         paths.put("pdp_100", "pdp_100");
@@ -86,9 +83,8 @@ public class PatternCalculator {
 
     private void initNextTest(String fileName) {
         Commission[] commissions = TxtFileReader.getCommissions(fileName);
-        this.commissions = new LinkedList<Commission>();
-        for (Commission com : commissions)
-            this.commissions.add(com);
+        this.commissions = new LinkedList<>();
+        Collections.addAll(this.commissions, commissions);
 
         int depotX;
         int depotY;
@@ -118,7 +114,7 @@ public class PatternCalculator {
 
     /* Srednia z ilosci ladunkow w kazdym zleceniu */
     public Double pattern1() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : commissions) {
             values.add((double) com.getLoad());
         }
@@ -127,7 +123,7 @@ public class PatternCalculator {
 
     /* Odchylenie standardowe z ilosci ladunkow w kazdym zleceniu */
     public Double pattern2() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : commissions) {
             values.add((double) com.getLoad());
         }
@@ -136,7 +132,7 @@ public class PatternCalculator {
 
     /* Srednia z odleglosci miedzy parami zaladunku, wyladunku oraz baza */
     public Double pattern3() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         double dist;
         for (Commission com : commissions) {
             dist = 0.0;
@@ -158,7 +154,7 @@ public class PatternCalculator {
      * oraz baza
      */
     public Double pattern4() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         double dist;
         for (Commission com : commissions) {
             dist = 0.0;
@@ -177,7 +173,7 @@ public class PatternCalculator {
 
     /* Srednia dlugosc okien czasowych */
     public Double pattern5() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : commissions) {
             values.add(com.getPickupTime2() - com.getPickupTime1());
             values.add(com.getDeliveryTime2() - com.getDeliveryTime1());
@@ -214,7 +210,7 @@ public class PatternCalculator {
      * zaladunku/wyladunku (liczone dla kazdego punktu)
      */
     public Double pattern6() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         Point2D.Double location;
         for (Commission com : commissions) {
             location = new Point2D.Double(com.getPickupX(), com.getPickupY());
@@ -233,7 +229,7 @@ public class PatternCalculator {
      * punktami zaladunku/wyladunku (liczone dla kazdego punktu)
      */
     public Double pattern7() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         Point2D.Double location;
         for (Commission com : commissions) {
             location = new Point2D.Double(com.getPickupX(), com.getPickupY());
@@ -249,8 +245,8 @@ public class PatternCalculator {
 
     /* Odlegosc srodka ciezkosci od bazy */
     public Double pattern8() {
-        List<Double> x = new LinkedList<Double>();
-        List<Double> y = new LinkedList<Double>();
+        List<Double> x = new LinkedList<>();
+        List<Double> y = new LinkedList<>();
         for (Commission com : commissions) {
             x.add(com.getPickupX());
             x.add(com.getDeliveryX());
@@ -281,7 +277,7 @@ public class PatternCalculator {
 
     /* Wskaznik do odroznienia problemow z waskimi i szerokimi oknami */
     public Double pattern9() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : commissions) {
             values.add(getCommissionsBetweenTimeWindow(com.getPickupTime1(),
                     com.getPickupTime2(), com.getPickUpId()));
@@ -326,7 +322,7 @@ public class PatternCalculator {
      * ka�dego zlecenia
      */
     public Double pattern12() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         double time;
         double time2;
         for (Commission com : commissions) {
@@ -342,7 +338,7 @@ public class PatternCalculator {
      * ka�dego zlecenia
      */
     public Double pattern13() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         double time;
         double time2;
         for (Commission com : commissions) {
@@ -355,7 +351,7 @@ public class PatternCalculator {
 
     /* Odchylenie standardowe z dystansow zlecen od bazy */
     public Double pattern14() {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : commissions) {
             values.add(Helper.calculateDistance(depot,
                     new Point2D.Double(com.getPickupX(), com.getPickupY())));

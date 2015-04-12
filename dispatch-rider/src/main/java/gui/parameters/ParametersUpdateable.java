@@ -11,12 +11,12 @@ public class ParametersUpdateable extends TimestampUpdateable {
             "choosingByCost",
             "commissionSendingType",
             "dist",
-            "simmulatedTradingCount",
+            "simulatedTradingCount",
             "chooseWorstCommission",
             "algorithm",
             "maxFullSTDepth",
             "STTimestampGap",
-            "STCommissionsionsGap",
+            "STCommissionsGap",
 
             // etc
     };
@@ -48,7 +48,7 @@ public class ParametersUpdateable extends TimestampUpdateable {
         extracted.put(columnNames[1], params.isChoosingByCost());
         extracted.put(columnNames[2], params.isCommissionSendingType());
         extracted.put(columnNames[3], params.isDist());
-        extracted.put(columnNames[4], params.getSimmulatedTradingCount());
+        extracted.put(columnNames[4], params.getSimulatedTradingCount());
         extracted.put(columnNames[5], params.getChooseWorstCommission());
         extracted.put(columnNames[6], params.getAlgorithm());
         extracted.put(columnNames[7], params.getMaxFullSTDepth());

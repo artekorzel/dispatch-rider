@@ -32,7 +32,7 @@ public class GlobalConfiguration implements Serializable {
      * How much simulated trading loops we want to run for one commission. If
      * you set it to 0, simulated trading will be disabled
      */
-    private Integer simmulatedTrading;
+    private Integer simulatedTrading;
 
     /**
      * It is connected with complexSimmulatedTrading algorithm. It determines
@@ -72,12 +72,12 @@ public class GlobalConfiguration implements Serializable {
         this.choosingByCost = choosingByCost;
     }
 
-    public Integer getSimmulatedTrading() {
-        return simmulatedTrading;
+    public Integer getSimulatedTrading() {
+        return simulatedTrading;
     }
 
-    public void setSimmulatedTrading(Integer simmulatedTrading) {
-        this.simmulatedTrading = simmulatedTrading;
+    public void setSimulatedTrading(Integer simulatedTrading) {
+        this.simulatedTrading = simulatedTrading;
     }
 
     public Integer getSTDepth() {

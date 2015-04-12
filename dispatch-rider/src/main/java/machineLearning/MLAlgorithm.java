@@ -1,7 +1,7 @@
 package machineLearning;
 
 import algorithm.Schedule;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 import measure.Measure;
 import measure.MeasureCalculator;
@@ -10,14 +10,9 @@ import measure.MeasureCalculatorsHolder;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URL;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Base class for all machine learning algorithms. To add new algorithm, you

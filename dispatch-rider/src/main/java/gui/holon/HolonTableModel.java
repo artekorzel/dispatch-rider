@@ -1,7 +1,7 @@
 package gui.holon;
 
 
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import gui.common.Updateable;
 import xml.elements.SimmulationData;
 

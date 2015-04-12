@@ -1,7 +1,7 @@
 package measure;
 
 import dtp.commission.Commission;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 
 import java.io.Serializable;
 import java.util.LinkedList;

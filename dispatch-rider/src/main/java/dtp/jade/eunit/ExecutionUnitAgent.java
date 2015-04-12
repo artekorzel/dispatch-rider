@@ -14,7 +14,7 @@ import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.distributor.NewTeamData;
 import dtp.jade.eunit.behaviour.*;
 import dtp.jade.transport.*;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -23,12 +23,10 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import measure.configuration.HolonConfiguration;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 import xml.elements.CommissionData;
 import xml.elements.SimmulationData;
 
 import java.awt.geom.Point2D;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -84,7 +82,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     private EUnitInitialData initialData;
 
-    private boolean simmulatedTrading;
+    private boolean simulatedTrading;
 
     private boolean isSimmulatedTradingEnabled = true;
     private int previousTimestamp = 0;
@@ -94,9 +92,6 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     @Override
     protected void setup() {
-
-        PropertyConfigurator.configure("conf" + File.separator
-                + "Log4j.properties");
 
         logg("Hello World!");
 
@@ -302,7 +297,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     public Commission getWorstCommissionST() {
 
-        if (simmulatedTrading == false)
+        if (simulatedTrading == false)
             return null;
 
         return worstCommissionST;
@@ -369,7 +364,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         schedule = Schedule.copy(scheduleBackup);
 
         worstCommissionST = null;
-        simmulatedTrading = false;
+        simulatedTrading = false;
     }
 
     public void sendOfferToDistributor(EUnitOffer offer) {
@@ -408,7 +403,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     public synchronized boolean addCommissionToCalendar(Commission commission) {
 
-        simmulatedTrading = true;
+        simulatedTrading = true;
 
         schedule.setCreationTime(creationTime);
         Schedule tmpSchedule = algorithm.makeSchedule(commission, null,
@@ -1089,8 +1084,8 @@ public class ExecutionUnitAgent extends BaseAgent {
                     schedule.setAlgorithm(algorithm);
                 }
             }
-            if (conf.getSimmulatedTrading() != null)
-                isSimmulatedTradingEnabled = conf.getSimmulatedTrading();
+            if (conf.getSimulatedTrading() != null)
+                isSimmulatedTradingEnabled = conf.getSimulatedTrading();
 
         }
         ACLMessage msg = new ACLMessage(

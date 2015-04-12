@@ -9,7 +9,7 @@ import dtp.jade.eunit.EUnitInfo;
 import dtp.jade.gui.GUIAgent;
 import dtp.jade.transport.TransportElementInitialDataTrailer;
 import dtp.jade.transport.TransportElementInitialDataTruck;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import dtp.visualisation.VisGUI;
 
 import javax.swing.*;
@@ -152,7 +152,7 @@ public class SimLogic extends javax.swing.JFrame {
     /*
      * (non-Javadoc)
      *
-     * @see dtp.gui.Gui2#setSimInfo(dtp.simmulation.SimInfo)
+     * @see dtp.gui.Gui2#setSimInfo(dtp.simulation.SimInfo)
      */
     public void setSimInfo(SimInfo simInfo) {
 

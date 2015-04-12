@@ -6,12 +6,8 @@ import dtp.graph.GraphLink;
 import dtp.graph.GraphPoint;
 import dtp.graph.GraphTrack;
 import dtp.graph.predictor.GraphLinkPredictor;
-import dtp.graph.predictor.StandardGraphLinkPredictor;
-import dtp.optimization.Dijkstra;
 import dtp.optimization.TrackFinder;
-import dtp.simmulation.SimInfo;
-import dtp.xml.GraphParser;
-import dtp.xml.ParseException;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 
 import java.awt.geom.Point2D;

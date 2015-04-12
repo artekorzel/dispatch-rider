@@ -1,7 +1,7 @@
 package machineLearning.qlearning;
 
 import algorithm.Schedule;
-import dtp.simmulation.SimInfo;
+import dtp.simulation.SimInfo;
 import jade.core.AID;
 
 import java.util.HashMap;

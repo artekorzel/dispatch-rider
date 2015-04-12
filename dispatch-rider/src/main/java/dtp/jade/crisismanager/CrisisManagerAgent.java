@@ -11,9 +11,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,9 +33,6 @@ public class CrisisManagerAgent extends Agent {
     ArrayList<RoadTrafficExclusionEventSolver> roadTrafficExclusionEventSolvers;
 
     protected void setup() {
-
-        PropertyConfigurator.configure("conf" + File.separator + "Log4j.properties");
-
         logger.info(this.getLocalName() + " - Hello World!");
 
         /*-------- INITIALIZATION SECTION -------*/
@@ -51,26 +46,26 @@ public class CrisisManagerAgent extends Agent {
         addBehaviour(new GetCrisisEventFinalFeedbackBehaviour(this));
         addBehaviour(new EndOfSimulationBehaviour(this));
 
-        eventsHolder = new ArrayList<CrisisEvent>();
+        eventsHolder = new ArrayList<>();
 
-        commissionWithdrawalEventSolvers = new ArrayList<CommissionWithdrawalEventSolver>();
-        commissionDelayEventSolvers = new ArrayList<CommissionDelayEventSolver>();
-        eUnitFailureEventSolvers = new ArrayList<EUnitFailureEventSolver>();
-        trafficJamEventSolvers = new ArrayList<TrafficJamEventSolver>();
-        roadTrafficExclusionEventSolvers = new ArrayList<RoadTrafficExclusionEventSolver>();
+        commissionWithdrawalEventSolvers = new ArrayList<>();
+        commissionDelayEventSolvers = new ArrayList<>();
+        eUnitFailureEventSolvers = new ArrayList<>();
+        trafficJamEventSolvers = new ArrayList<>();
+        roadTrafficExclusionEventSolvers = new ArrayList<>();
 
 
         System.out.println("CrisisManagementAgent - end of initialization");
     }
 
     public void simEnd() {
-        eventsHolder = new ArrayList<CrisisEvent>();
+        eventsHolder = new ArrayList<>();
 
-        commissionWithdrawalEventSolvers = new ArrayList<CommissionWithdrawalEventSolver>();
-        commissionDelayEventSolvers = new ArrayList<CommissionDelayEventSolver>();
-        eUnitFailureEventSolvers = new ArrayList<EUnitFailureEventSolver>();
-        trafficJamEventSolvers = new ArrayList<TrafficJamEventSolver>();
-        roadTrafficExclusionEventSolvers = new ArrayList<RoadTrafficExclusionEventSolver>();
+        commissionWithdrawalEventSolvers = new ArrayList<>();
+        commissionDelayEventSolvers = new ArrayList<>();
+        eUnitFailureEventSolvers = new ArrayList<>();
+        trafficJamEventSolvers = new ArrayList<>();
+        roadTrafficExclusionEventSolvers = new ArrayList<>();
     }
 
     public void registerServices() {
@@ -169,7 +164,7 @@ public class CrisisManagerAgent extends Agent {
         Iterator<CrisisEvent> iter;
         CrisisEvent tmpEvent;
 
-        eventsOnTime = new ArrayList<CrisisEvent>();
+        eventsOnTime = new ArrayList<>();
 
         iter = eventsHolder.iterator();
         while (iter.hasNext()) {
@@ -256,11 +251,10 @@ public class CrisisManagerAgent extends Agent {
         aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.GUI_MESSAGE);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(getLocalName() + " - " + messageText);
                 } catch (IOException e) {
@@ -274,7 +268,6 @@ public class CrisisManagerAgent extends Agent {
     }
 
     public void logg(String message) {
-
         logger.info(getLocalName() + " - " + message);
     }
 }

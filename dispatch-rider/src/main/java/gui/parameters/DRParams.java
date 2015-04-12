@@ -4,7 +4,7 @@ public class DRParams {
     private boolean commissionSendingType;
     private boolean dist;
     private boolean choosingByCost;
-    private int simmulatedTradingCount;
+    private int simulatedTradingCount;
     private String chooseWorstCommission;
     private String algorithm;
     private int maxFullSTDepth;
@@ -67,12 +67,12 @@ public class DRParams {
         this.choosingByCost = choosingByCost;
     }
 
-    public int getSimmulatedTradingCount() {
-        return simmulatedTradingCount;
+    public int getSimulatedTradingCount() {
+        return simulatedTradingCount;
     }
 
-    public void setSimmulatedTradingCount(int simmulatedTradingCount) {
-        this.simmulatedTradingCount = simmulatedTradingCount;
+    public void setSimulatedTradingCount(int simulatedTradingCount) {
+        this.simulatedTradingCount = simulatedTradingCount;
     }
 
     public String getChooseWorstCommission() {

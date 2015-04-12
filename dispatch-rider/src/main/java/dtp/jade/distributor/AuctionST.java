@@ -1,6 +1,6 @@
 package dtp.jade.distributor;
 
-import algorithm.simmulatedTrading.SimmulatdTradingParameters;
+import algorithm.simulatedTrading.SimmulatdTradingParameters;
 import jade.core.AID;
 
 /**
