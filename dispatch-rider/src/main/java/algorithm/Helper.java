@@ -9,8 +9,6 @@ import jade.core.AID;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class Helper {
@@ -53,52 +51,11 @@ public class Helper {
         return result;
     }
 
-    public static double calculateSummaryDistance(Map<Integer, Schedule> calendar, Point2D.Double depot) {
-        double result = 0.0;
-        for (Schedule schedule : calendar.values()) {
-            result += schedule.getDistance(depot);
-        }
-        return result;
-    }
-
-    public static double calculateSummaryTime(Map<Integer, Schedule> calendar, Point2D.Double depot, boolean construction) {
-        double result = 0.0;
-        if (construction) {
-            double time;
-            for (Schedule s : calendar.values()) {
-                time = s.calculateTime2(depot);
-                if (time < 0) {
-                    System.out.println("err");
-                    System.exit(0);
-                }
-                result += time;
-            }
-        } else
-            for (Schedule schedule : calendar.values()) {
-                result += schedule.calculateTime(depot);
-            }
-        return result;
-    }
-
-    public static Map<Integer, Schedule> copy(Map<Integer, Schedule> map) {
-        Map<Integer, Schedule> result = new HashMap<Integer, Schedule>();
-        for (int key : map.keySet()) {
-            result.put(key, Schedule.copy(map.get(key)));
-        }
-        return result;
-    }
-
     public static Map<AID, Schedule> copyAID(Map<AID, Schedule> map) {
-        Map<AID, Schedule> result = new HashMap<AID, Schedule>();
+        Map<AID, Schedule> result = new HashMap<>();
         for (AID key : map.keySet()) {
             result.put(key, Schedule.copy(map.get(key)));
         }
-        return result;
-    }
-
-    public static List<Commission> copy(List<Commission> commissions) {
-        List<Commission> result = new LinkedList<Commission>();
-        for (Commission com : commissions) result.add(Commission.copy(com));
         return result;
     }
 }

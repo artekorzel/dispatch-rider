@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BasicSchedule extends Schedule {
 
-    private static Map<AID, Boolean> eunitFirstTime = new HashMap<AID, Boolean>();
+    private static Map<AID, Boolean> eUnitFirstTime = new HashMap<>();
     private Point2D.Double nextLocation;
     private double waitTime = 0.0;
     private boolean waiting = false;
@@ -70,12 +70,12 @@ public class BasicSchedule extends Schedule {
                                       AID aid) {
         if (previousTimestamp != timestamp) {
             previousTimestamp = timestamp;
-            if (currentLocation == null || eunitFirstTime.get(aid) == true) {
+            if (currentLocation == null || eUnitFirstTime.get(aid)) {
                 if (currentLocation == null) {
-                    eunitFirstTime.put(aid, true);
+                    eUnitFirstTime.put(aid, true);
                     currentCommission = new Commission(0, depot.getX(), depot.getY(), 0, Integer.MAX_VALUE, depot.getX(), depot.getY(), 0, Integer.MAX_VALUE, 0, 0, 0);
                 } else {
-                    eunitFirstTime.put(aid, false);
+                    eUnitFirstTime.put(aid, false);
                     currentCommission = getCommission(0);
                 }
 
@@ -116,7 +116,7 @@ public class BasicSchedule extends Schedule {
                         com = getCommission(i);
                         if (isPickup(i) && id == com.getPickUpId())
                             break;
-                        else if (isPickup(i) == false && id == com.getDeliveryId())
+                        else if (!isPickup(i) && id == com.getDeliveryId())
                             break;
                     }
                     if (i + 1 >= getAllCommissions().size()) {

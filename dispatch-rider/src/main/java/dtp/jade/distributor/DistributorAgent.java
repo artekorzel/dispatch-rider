@@ -2,8 +2,7 @@ package dtp.jade.distributor;
 
 import algorithm.*;
 import algorithm.STLike.ExchangeAlgorithmsFactory;
-import algorithm.STLike.SimulatedTrading;
-import algorithm.simulatedTrading.SimmulatdTradingParameters;
+import algorithm.simulatedTrading.SimulatedTradingParameters;
 import dtp.commission.Commission;
 import dtp.graph.Graph;
 import dtp.jade.BaseAgent;
@@ -33,8 +32,6 @@ import measure.MeasureCalculator;
 import measure.MeasureCalculatorsHolder;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
-import measure.configuration.MeasureConfigurationChanger;
-import measure.configuration.MeasureConfigurationChangerImpl;
 import measure.printer.MeasureData;
 import measure.visualization.MeasuresVisualizationRunner;
 import org.apache.log4j.Logger;
@@ -51,7 +48,6 @@ import java.util.*;
 public class DistributorAgent extends BaseAgent {
 
     private static Logger logger = Logger.getLogger(DistributorAgent.class);
-    private final MeasureConfigurationChanger confChanger = new MeasureConfigurationChangerImpl();
     Map<TransportType, List<TransportAgentData>> agents;
     // kolejka zlecen do obsluzenia
     private LinkedList<Commission> commissionsQueue;
@@ -531,7 +527,7 @@ public class DistributorAgent extends BaseAgent {
 
             sendFeedback(bestHolon, currentAuction.getCommission());
         } else {
-            sendFeedback(currentSTAuction.getOwnerAID(),
+            sendFeedback(null,
                     currentAuction.getCommission());
         }
 
@@ -595,10 +591,6 @@ public class DistributorAgent extends BaseAgent {
                     .getAlgAfterComAdd()
                     .doExchangesAfterComAdded(holons.keySet(), holons, i,
                             simInfo, timestamp);
-
-            // holons = SimmulatedTrading.fullSimulatedTrading(holons.keySet(),
-            // holons, i, 1, simInfo, new HashSet<Integer>(),
-            // chooseWorstCommission, timestamp);
 
             if (Helper.calculateCalendarCost(holons, simInfo.getDepot()) > Helper
                     .calculateCalendarCost(tmpMap, simInfo.getDepot())) {
@@ -673,7 +665,7 @@ public class DistributorAgent extends BaseAgent {
 
         cfp.addReceiver(aid);
         try {
-            SimmulatdTradingParameters params = currentSTAuction.getParams();
+            SimulatedTradingParameters params = currentSTAuction.getParams();
             params.commission = commission;
             cfp.setContentObject(params);
         } catch (IOException e) {
@@ -1415,15 +1407,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void changeConfiguration() {
-        confChanger.setMeasureData(measureData);
-
-        GlobalConfiguration globalConf = confChanger
-                .getNewGlobalConfiguration();
-        Map<AID, HolonConfiguration> conf = confChanger
-                .getNewHolonsConfigurations();
-
-        changeConfiguration(globalConf, conf);
-
+        changeConfiguration(null, null);
     }
 
     private void changeConfiguration(GlobalConfiguration globalConf,
@@ -1438,26 +1422,20 @@ public class DistributorAgent extends BaseAgent {
                 this.simulatedTradingCount = globalConf.getSimulatedTrading();
 
             ExchangeAlgorithmsFactory factory = simInfo.getExchangeAlgFactory();
-            if (factory.getAlgAfterComAdd().getClass()
-                    .equals(SimulatedTrading.class)) {
-                if (globalConf.getChooseWorstCommission() != null) {
-                    this.chooseWorstCommission = globalConf
-                            .getChooseWorstCommission();
-                    factory.getAlgAfterComAdd()
-                            .getParameters()
-                            .put("chooseWorstCommission",
-                                    this.chooseWorstCommission);
-                }
+            if (globalConf.getChooseWorstCommission() != null) {
+                this.chooseWorstCommission = globalConf
+                        .getChooseWorstCommission();
+                factory.getAlgAfterComAdd()
+                        .getParameters()
+                        .put("chooseWorstCommission",
+                                this.chooseWorstCommission);
             }
-            if (factory.getAlgWhenCantAdd().getClass()
-                    .equals(SimulatedTrading.class)) {
-                if (globalConf.getSTDepth() != null) {
-                    this.maxFullSTDepth = globalConf.getSTDepth();
-                    factory.getAlgAfterComAdd()
-                            .getParameters()
-                            .put("maxFullSTDepth",
-                                    Integer.toString(this.maxFullSTDepth));
-                }
+            if (globalConf.getSTDepth() != null) {
+                this.maxFullSTDepth = globalConf.getSTDepth();
+                factory.getAlgAfterComAdd()
+                        .getParameters()
+                        .put("maxFullSTDepth",
+                                Integer.toString(this.maxFullSTDepth));
             }
 
         }

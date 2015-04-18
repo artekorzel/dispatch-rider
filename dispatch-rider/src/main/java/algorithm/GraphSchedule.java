@@ -36,7 +36,7 @@ public class GraphSchedule extends Schedule {
      * timestamp when we change current link
      */
     private int changePointTimestamp;
-    private Map<Point2D.Double, Map<Point2D.Double, List<Double>>> cache = new HashMap<Point2D.Double, Map<Point2D.Double, List<Double>>>();
+    private Map<Point2D.Double, Map<Point2D.Double, List<Double>>> cache = new HashMap<>();
     private Map<Point2D.Double, Map<Point2D.Double, List<Double>>> tmpCache;
     private GraphLink currentLink;
     private GraphTrack currentTrack;
@@ -68,10 +68,6 @@ public class GraphSchedule extends Schedule {
         return trackFinder;
     }
 
-    public GraphLinkPredictor getLinkPredictor() {
-        return linkPredictor;
-    }
-
     @Override
     protected double calculateDistance(Point2D.Double point1,
                                        Point2D.Double point2) {
@@ -91,17 +87,17 @@ public class GraphSchedule extends Schedule {
      */
     @Override
     protected void beginTimeCalculating() {
-        tmpCache = new HashMap<Point2D.Double, Map<Point2D.Double, List<Double>>>();
+        tmpCache = new HashMap<>();
         Map<Point2D.Double, List<Double>> tmp;
         Map<Point2D.Double, List<Double>> copyTmp;
         List<Double> values;
         List<Double> copyValues;
         for (Point2D.Double key : cache.keySet()) {
             tmp = cache.get(key);
-            copyTmp = new HashMap<Point2D.Double, List<Double>>();
+            copyTmp = new HashMap<>();
             for (Point2D.Double key2 : tmp.keySet()) {
                 values = tmp.get(key2);
-                copyValues = new LinkedList<Double>();
+                copyValues = new LinkedList<>();
                 for (double val : values)
                     copyValues.add(val);
                 copyTmp.put(key2, copyValues);
@@ -147,7 +143,7 @@ public class GraphSchedule extends Schedule {
                     point2);
             GraphTrack track = trackFinder.findTrack(gp, gp2);
 
-            if (checkIfCurrentLink(track) == false) {
+            if (!checkIfCurrentLink(track)) {
                 if (predictive && linkPredictor != null) {
                     return getTrackCost(track);
                 }
@@ -221,7 +217,7 @@ public class GraphSchedule extends Schedule {
         GraphPoint gp2 = trackFinder.getGraph().getPointByCoordinates(point2);
         GraphTrack track = trackFinder.findTrack(gp, gp2);
 
-        if (checkIfCurrentLink(track) == false) {
+        if (!checkIfCurrentLink(track)) {
             if (predictive && linkPredictor != null) {
                 return getTrackCost(track);
             }
@@ -246,18 +242,6 @@ public class GraphSchedule extends Schedule {
         } else {
             time += track.getCost();
         }
-        // if (point1.getX() == 85.0 && point1.getY() == 35.0
-        // && point2.getX() == 88.0 && point2.getY() == 35.0) {
-        // System.out.println("OTHER");
-        // System.out.println("cur drive time :" + currentDriveTime);
-        // System.out.println("add "
-        // + (previousGraphChangeTimestamp - changePointTimestamp));
-        // System.out.println("add "
-        // + getLink(trackFinder.getGraph(), currentLink).getCost()
-        // * (dist - partDistance) / dist);
-        // System.out.println("track cost " + track.getCost());
-        // System.out.println("result " + time);
-        // }
 
         return time;
     }
@@ -325,11 +309,9 @@ public class GraphSchedule extends Schedule {
         GraphPoint point1 = currentLink.getStartPoint();
         GraphPoint point2 = currentLink.getEndPoint();
 
-        double dist = Helper.calculateDistance(new Point2D.Double(
+        return Helper.calculateDistance(new Point2D.Double(
                 point1.getX(), point1.getY()), new Point2D.Double(
                 point2.getX(), point2.getY()));
-
-        return dist;
     }
 
     public void changeGraph(Graph graph, int timestamp, Point2D.Double depot,
@@ -351,9 +333,6 @@ public class GraphSchedule extends Schedule {
             double dist = getLastLinkDist(depot);
 
             partDistance += timeDiff * dist / oldCost;
-
-            // System.out.println("part disr - " + partDistance);
-
         }
 
         linkPredictor.addGraphToHistory(trackFinder.getGraph());
@@ -396,10 +375,6 @@ public class GraphSchedule extends Schedule {
         return currentLocation;
     }
 
-    public GraphLink getCurLink() {
-        return currentLink;
-    }
-
     @Override
     public void updateCurrentLocation(int timestamp, Point2D.Double depot,
                                       AID aid) {
@@ -430,22 +405,17 @@ public class GraphSchedule extends Schedule {
         double driveTime;
         if (currentCommission.isPickup()) {
             departureTime = calculateTimeToDeparture(depot,
-                    currentCommission.getPickUpId(), aid);
+                    currentCommission.getPickUpId());
             driveTime = calculateTimeToDriveToCommission(depot,
-                    currentCommission.getPickUpId(), aid);
+                    currentCommission.getPickUpId());
         } else {
             departureTime = calculateTimeToDeparture(depot,
-                    currentCommission.getDeliveryId(), aid);
+                    currentCommission.getDeliveryId());
             driveTime = calculateTimeToDriveToCommission(depot,
-                    currentCommission.getDeliveryId(), aid);
+                    currentCommission.getDeliveryId());
         }
 
         if (departureTime <= timestamp) {
-
-            // if (aid.getLocalName().contains("EUnitAgent#0")) {
-            // System.out.println("?????????????????????????????????????");
-            // // System.exit(0);
-            // }
             Point2D.Double start;
             Point2D.Double end;
 
@@ -458,12 +428,12 @@ public class GraphSchedule extends Schedule {
 
             Map<Point2D.Double, List<Double>> tmp = cache.get(start);
             if (tmp == null) {
-                tmp = new HashMap<Point2D.Double, List<Double>>();
+                tmp = new HashMap<>();
                 cache.put(start, tmp);
             }
             List<Double> values = tmp.get(end);
             if (values == null) {
-                values = new LinkedList<Double>();
+                values = new LinkedList<>();
                 tmp.put(end, values);
             }
             values.add(time);
@@ -471,7 +441,7 @@ public class GraphSchedule extends Schedule {
             int curCommissionIndex = this.getIndexOf(currentCommission,
                     currentCommission.isPickup());
             Commission nextCommission;
-            // TODO sprawdza� co z ostatnim
+            // TODO sprawdzac co z ostatnim
             if (curCommissionIndex + 1 == this.size()) {
                 return;
             }
@@ -492,22 +462,6 @@ public class GraphSchedule extends Schedule {
                 end = new Point2D.Double(nextCommission.getDeliveryX(),
                         nextCommission.getDeliveryY());
             }
-
-            // if (aid.getLocalName().contains("EUnitAgent#0")) {
-            // System.out.println("cur com: " + currentCommission);
-            // System.out.println("cur com is pickup: "
-            // + currentCommission.isPickup());
-            // System.out.println("next com: " + nextCommission);
-            // System.out.println("nex com is pickup: "
-            // + nextCommission.isPickup());
-            // System.out.println(currentTrack);
-            // System.out.println(currentLink);
-            // System.out.println("start: " + start);
-            // System.out.println("end: " + end);
-            // System.out.println(departureTime + " < " + timestamp);
-            // System.out
-            // .println("END pf ???????????????????????????????????????????????");
-            // }
 
             if (start.equals(end)) {
                 currentCommission = nextCommission;
@@ -549,39 +503,12 @@ public class GraphSchedule extends Schedule {
             GraphPoint gp2 = trackFinder.getGraph().getPointByCoordinates(
                     point2);
 
-            GraphTrack track = null;
-
-            // if (aid.getLocalName().contains("EUnitAgent#0")) {
-            // System.out.println("DriveTime before change " + driveTime);
-            // }
+            GraphTrack track;
 
             if (gp.getX() != gp2.getX() || gp.getY() != gp2.getY()) {
                 track = trackFinder.findTrack(gp, gp2);
-
-                // if (aid.getLocalName().contains("EUnitAgent#0")) {
-                // System.out.println("Track cost " + track.getCost());
-                // }
                 driveTime -= track.getCost();
             }
-            // if (currentCommission.isPickup())
-            // driveTime -= currentCommission.getPickUpServiceTime();
-            // else
-            // driveTime -= currentCommission.getDeliveryServiceTime();
-
-            // if (aid.getLocalName().contains("EUnitAgent#0")) {
-            // System.out.println("cur com: " + currentCommission);
-            // System.out.println("cur location: " + currentLocation);
-            // System.out.println("cur com is pickup: "
-            // + currentCommission.isPickup());
-            // System.out.println(currentTrack);
-            // System.out.println(currentLink);
-            // System.out.println("gp: " + gp);
-            // System.out.println("gp2: " + gp2);
-            // System.out.println("track " + track);
-            // if (track != null)
-            // System.out.println("track cost: " + track.getCost());
-            // System.out.println(driveTime + " < " + timestamp);
-            // }
 
             if (driveTime < timestamp) {
                 gp = getLink(trackFinder.getGraph(), currentLink).getEndPoint();
@@ -603,16 +530,6 @@ public class GraphSchedule extends Schedule {
                 gp2 = getLink(trackFinder.getGraph(), currentLink)
                         .getEndPoint();
 
-                // if (aid.getLocalName().contains("EUnitAgent#0")) {
-                // System.out.println("CUR DRIVETIME: " + currentDriveTime);
-                // System.out.println("ADD "
-                // + calculateTime(
-                // new Point2D.Double(gp.getX(), gp.getY()),
-                // new Point2D.Double(gp2.getX(), gp2.getY()),
-                // depot));
-                // System.out.println("ADD: " + (timestamp - driveTime));
-                // }
-
                 currentDriveTime = calculateTime(new Point2D.Double(gp.getX(),
                                 gp.getY()), new Point2D.Double(gp2.getX(), gp2.getY()),
                         depot, false);
@@ -625,10 +542,6 @@ public class GraphSchedule extends Schedule {
                 changePointTimestamp = timestamp;
                 currentLocation = calculateCurLocation(currentLink, timestamp
                         - driveTime);
-
-                // if (aid.getLocalName().contains("EUnitAgent#0")) {
-                // System.out.println("PART DIST: " + partDistance);
-                // }
 
                 if (currentLink != null)
                     nextLocation = new Point2D.Double(currentLink.getEndPoint()
@@ -646,9 +559,6 @@ public class GraphSchedule extends Schedule {
                     double dTime = currentLink.getCost()
                             * Helper.calculateDistance(currentLocation,
                             endPoint) / totalDist;
-                    // if (aid.getLocalName().contains("EUnitAgent#0")) {
-                    // System.out.println("DTIME: " + dTime);
-                    // }
 
                     if (dTime != 0) {
                         double newX = currentLocation.getX()
@@ -674,7 +584,7 @@ public class GraphSchedule extends Schedule {
     }
 
     private double calculateTimeToDeparture(Point2D.Double depot,
-                                            int comOriginalId, AID aid) {
+                                            int comOriginalId) {
         this.beginTimeCalculating();
         double time = 0.0;
         Point2D.Double currentLocation = depot;
@@ -689,7 +599,6 @@ public class GraphSchedule extends Schedule {
                         com.getPickupY());
                 driveTime = calculateTime(currentLocation, nextLocation, depot,
                         false);
-                // if (aid.getLocalName().contains("EUnitAgent#0"))
                 if (driveTime < 0) {
                     System.out.println(currentLocation + " -> " + nextLocation
                             + " = " + driveTime);
@@ -727,7 +636,7 @@ public class GraphSchedule extends Schedule {
                         com.getDeliveryY());
                 driveTime = calculateTime(currentLocation, nextLocation, depot,
                         false);
-                // if (aid.getLocalName().contains("EUnitAgent#0"))
+
                 if (driveTime < 0) {
                     System.out.println(currentLocation + " -> " + nextLocation
                             + " = " + driveTime);
@@ -776,7 +685,7 @@ public class GraphSchedule extends Schedule {
     }
 
     private double calculateTimeToDriveToCommission(Point2D.Double depot,
-                                                    int comOriginalId, AID aid) {
+                                                    int comOriginalId) {
         this.beginTimeCalculating();
         double time = 0.0;
         Point2D.Double currentLocation = depot;
@@ -791,9 +700,6 @@ public class GraphSchedule extends Schedule {
                         com.getPickupY());
                 driveTime = calculateTime(currentLocation, nextLocation, depot,
                         false);
-                // if (aid.getLocalName().contains("EUnitAgent#0"))
-                // System.out.println(currentLocation + " -> " + nextLocation
-                // + " = " + driveTime);
 
                 if (com.getPickUpId() == comOriginalId) {
                     time += driveTime;
@@ -810,9 +716,6 @@ public class GraphSchedule extends Schedule {
                         com.getDeliveryY());
                 driveTime = calculateTime(currentLocation, nextLocation, depot,
                         false);
-                // if (aid.getLocalName().contains("EUnitAgent#0"))
-                // System.out.println(currentLocation + " -> " + nextLocation
-                // + " = " + driveTime);
 
                 if (com.getDeliveryId() == comOriginalId) {
                     time += driveTime;
@@ -829,21 +732,6 @@ public class GraphSchedule extends Schedule {
             currentLocation = nextLocation;
         }
         return time;
-    }
-
-    public void find(GraphPoint point1, GraphPoint point2) {
-        GraphTrack t = trackFinder.findTrack(point1, point2);
-        System.out.print(t);
-        GraphLink link;
-        GraphPoint start = point1;
-        GraphPoint end;
-        for (int i = 1; i < t.size(); i++) {
-            end = t.get(i);
-            link = start.getLinkTo(end);
-            System.out.println(start + " " + end + " --> " + link.getCost());
-            start = end;
-        }
-        System.out.println(t.getCost());
     }
 
     @Override
@@ -885,10 +773,6 @@ public class GraphSchedule extends Schedule {
 
     public GraphLink getChangeLink() {
         return changedLink;
-    }
-
-    public void resetChangeLink() {
-        changedLink = null;
     }
 
     public void insertGraphChanges(List<GraphLink> links) {

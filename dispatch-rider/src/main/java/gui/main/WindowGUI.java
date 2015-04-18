@@ -36,21 +36,21 @@ public class WindowGUI implements ChangeListener, ActionListener {
     private JFrame frame;
     private JTabbedPane tabbedPane;
     private JSlider timestampSlider;
-    private JPanel mainPane, mapPanel, holonPanel, commissionPanel, holonStatsPanel, paramsPanel, pathPanel;
-    private List<JPanel> measurePanels = new LinkedList<JPanel>();
+    private JPanel mapPanel;
+    private List<JPanel> measurePanels = new LinkedList<>();
     private JTable holonTable, commissionTable, holonStatsTable, paramsTable, pathTable;
     private MapHolder mapHolder;
 
-    private Vector<Integer> timestamps = new Vector<Integer>();
+    private Vector<Integer> timestamps = new Vector<>();
 
     private CalendarStatsHolder statsHolder;
 
     protected WindowGUI() {
 
-        mainPane = new JPanel();
+        JPanel mainPane = new JPanel();
         tabbedPane = new JTabbedPane();
         frame = new JFrame("Dispatch Rider");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //slider
         timestampSlider = new JSlider();
@@ -63,7 +63,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
         mapHolder = new MapHolder();
 
         // tabela holonw
-        holonPanel = new JPanel();
+        JPanel holonPanel = new JPanel();
         holonPanel.setLayout(new BorderLayout());
         holonTable = new JTable(new HolonTableModel());
         holonTable.setAutoCreateRowSorter(true);
@@ -71,7 +71,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
         holonPanel.add(new JScrollPane(holonTable), BorderLayout.CENTER);
 
         // trasy
-        pathPanel = new JPanel();
+        JPanel pathPanel = new JPanel();
         pathPanel.setLayout(new BorderLayout());
         pathTable = new JTable(new PathTableModel());
         pathTable.setAutoCreateRowSorter(true);
@@ -82,7 +82,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
         pathPanel.add(holonList, BorderLayout.NORTH);
 
         //tabela zlecen
-        commissionPanel = new JPanel();
+        JPanel commissionPanel = new JPanel();
         commissionPanel.setLayout(new BorderLayout());
         commissionTable = new JTable(new CommissionTableModel());
         commissionTable.setAutoCreateRowSorter(true);
@@ -90,7 +90,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
         commissionPanel.add(new JScrollPane(commissionTable), BorderLayout.CENTER);
 
         // tabela statystyk holonw
-        holonStatsPanel = new JPanel();
+        JPanel holonStatsPanel = new JPanel();
         holonStatsPanel.setLayout(new BorderLayout());
         holonStatsTable = new JTable(new HolonStatsTableModel());
         holonStatsTable.setAutoCreateRowSorter(true);
@@ -98,7 +98,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
         holonStatsPanel.add(new JScrollPane(holonStatsTable), BorderLayout.CENTER);
 
         // parametry
-        paramsPanel = new JPanel();
+        JPanel paramsPanel = new JPanel();
         paramsPanel.setLayout(new BorderLayout());
         paramsTable = new JTable(new ParametersTableModel());
         paramsTable.setAutoCreateRowSorter(true);
@@ -175,16 +175,11 @@ public class WindowGUI implements ChangeListener, ActionListener {
         timestampSlider.setPaintTicks(true);
         timestampSlider.setPaintLabels(true);
         timestampSlider.setSnapToTicks(true);
-        Hashtable<Integer, JLabel> table = new Hashtable<Integer, JLabel>();
+        Hashtable<Integer, JLabel> table = new Hashtable<>();
         for (Integer i : timestamps) {
             table.put(i, new JLabel(i.toString()));
         }
 
-        /*table.put(timestamps.firstElement(), new JLabel("" + timestamps.firstElement()));
-        table.put(timestamps.lastElement(), new JLabel(timestamps.lastElement().toString()));
-        int currentVal = ((HolonTableModel)holonTable.getModel()).getDrawnTimestamp();
-        table.put(currentVal, new JLabel("" + currentVal));
-        table.put(timestamps.get(Math.max(0,timestamps.size() - 2)), new JLabel("" + timestamps.get(Math.max(0,timestamps.size() - 2))));*/
         timestampSlider.setLabelTable(table);
     }
 
@@ -197,7 +192,6 @@ public class WindowGUI implements ChangeListener, ActionListener {
     /**
      * Aktualizacja gui o przychodzace dane
      *
-     * @param data
      */
     public void update(SimulationData data) {
         if (data == null) {
@@ -227,7 +221,6 @@ public class WindowGUI implements ChangeListener, ActionListener {
      * Metoda wywolywana z kazdym nowym timestamp symulacji,
      * informuje o nadejsciu nowego kroku czasowego
      *
-     * @param val
      */
     public void newTimestamp(int val) {
         HolonTableModel model = (HolonTableModel) holonTable.getModel();
@@ -260,19 +253,16 @@ public class WindowGUI implements ChangeListener, ActionListener {
     /**
      * Metoda wywolywana w celu przekazaniu do GUI grafu do wyswietlenia
      *
-     * @param graph
      */
     public void update(Graph graph) {
         if (graph == null) {
             System.out.println("null w grafie");
-            return;
         }
     }
 
     /**
      * Metoda sluzaca do przekazania do gui informacji o parametrach algorytmu
      *
-     * @param params
      */
     public void update(DRParams params) {
         ParametersTableModel model = (ParametersTableModel) paramsTable.getModel();
@@ -282,7 +272,6 @@ public class WindowGUI implements ChangeListener, ActionListener {
     /**
      * Metoda wywolywana tylko raz, majaca na celu przekazanie do gui danych z poczatku symulacji
      *
-     * @param info
      */
     public void update(SimInfo info) {
         if (info == null) {
@@ -298,9 +287,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

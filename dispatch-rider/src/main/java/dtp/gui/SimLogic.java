@@ -144,7 +144,7 @@ public class SimLogic extends javax.swing.JFrame {
 
                     int coms = commissionsTab.newCommissions();
 
-                    if (coms > 0 || (guiAgent.getCommissionHandler() != null && guiAgent.getCommissionHandler().isAnyEUnitAtNode(timestamp, true))) {
+                    if (coms > 0 || (guiAgent.getCommissionHandler() != null && guiAgent.getCommissionHandler().isAnyEUnitAtNode(true))) {
                         comsReady = false;
                         sthChanged = true;
                     }

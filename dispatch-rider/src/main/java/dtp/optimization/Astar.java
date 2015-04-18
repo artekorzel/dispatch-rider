@@ -39,14 +39,6 @@ public class Astar implements TrackFinder {
         this.graph = world;
     }
 
-    public int getHeuristicNumber() {
-        return heuristicType;
-    }
-
-    public void setHeuristicNumber(int heuristicNumber) {
-        this.heuristicType = heuristicNumber;
-    }
-
     private double distance(GraphPoint startPoint, GraphPoint endPoint) {
         return Math.sqrt(Math.pow(endPoint.getX() - startPoint.getX(), 2)
                 + Math.pow(endPoint.getY() - startPoint.getY(), 2));
@@ -85,10 +77,8 @@ public class Astar implements TrackFinder {
     }
 
     public GraphTrack findTrack(GraphPoint startPoint, GraphPoint endPoint) {
-
         try {
-
-            HashSet<GraphPoint> visited = new HashSet<GraphPoint>();
+            HashSet<GraphPoint> visited = new HashSet<>();
             PriorityWeightQueue q = new PriorityWeightQueue();
             GraphTrack initial = new GraphTrack();
             initial.addPoint(startPoint);

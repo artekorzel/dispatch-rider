@@ -5,7 +5,6 @@ public enum MeasurePrinterType {
     XLS(XLSPrinter.class),
     XML(XMLPrinter.class);
 
-
     private Class<? extends MeasurePrinter> typeClass;
 
     MeasurePrinterType(Class<? extends MeasurePrinter> typeClass) {

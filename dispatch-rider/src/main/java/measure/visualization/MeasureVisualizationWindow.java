@@ -8,9 +8,6 @@ import java.awt.*;
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class MeasureVisualizationWindow extends JFrame {
 
-
-    // private static final String PREFERRED_LOOK_AND_FEEL = null;
-
     private MeasureVisualizationPanel panel;
 
     public MeasureVisualizationWindow(String name) {

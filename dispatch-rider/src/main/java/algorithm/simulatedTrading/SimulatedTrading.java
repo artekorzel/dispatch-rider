@@ -20,76 +20,10 @@ import java.util.*;
 public class SimulatedTrading {
 
     /*
-     * See description belowe
-     */
-    public static Map<Integer, Schedule> fullSimulatedTrading(
-            Map<Integer, Schedule> holons, Integer holon, int STDepth,
-            SimInfo info, Algorithm algorithm, Set<Integer> commissionsId,
-            String chooseWorstCommission, int timestamp) {
-        Schedule schedule = holons.get(holon);
-        Schedule backup = Schedule.copy(schedule);
-        Commission worstCommission = schedule.getWorstCommission(0, STDepth,
-                info, chooseWorstCommission);
-        if (worstCommission == null)
-            return holons;
-        if (commissionsId.contains(worstCommission.getID())) {
-            holons.put(holon, backup);
-            return holons;
-        } else
-            commissionsId.add(worstCommission.getID());
-        double bestCost = Double.MAX_VALUE;
-        Integer bestHolon = null;
-        boolean added = false;
-        Schedule tmpSchedule;
-        Schedule bestSchedule = null;
-        // double extraDistance;
-        double extraCost;
-        for (Integer key : holons.keySet()) {
-            schedule = holons.get(key);
-            algorithm = schedule.getAlgorithm();
-            tmpSchedule = algorithm
-                    .makeSchedule(Commission.copy(worstCommission), null,
-                            schedule, timestamp);
-            if (tmpSchedule != null) {
-                tmpSchedule.setAlgorithm(algorithm);
-                // extraDistance = tmpSchedule.getDistance(depot)
-                // - schedule.getDistance(depot);
-                extraCost = tmpSchedule.calculateCost(algorithm.getSimInfo())
-                        - schedule.calculateCost(algorithm.getSimInfo());
-                // if (bestCost > Helper.getRatio(extraDistance,
-                // worstCommission)) {
-                // bestCost = Helper.getRatio(extraDistance, worstCommission);
-                if (bestCost > extraCost && extraCost > 0) {
-                    bestCost = extraCost;
-                    bestHolon = key;
-                    bestSchedule = tmpSchedule;
-                }
-                added = true;
-            }
-        }
-        if (added) {
-            holons.put(bestHolon, bestSchedule);
-        } else {
-            // System.err.println("fatal error (new ST)");
-            // System.exit(0);
-            holons.put(holon, backup);
-            return holons;
-        }
-
-        if (bestHolon == holon) {
-            return fullSimulatedTrading(holons, bestHolon, STDepth + 1, info,
-                    algorithm, commissionsId, chooseWorstCommission, timestamp);
-        }
-        return fullSimulatedTrading(holons, bestHolon, 1, info, algorithm,
-                commissionsId, chooseWorstCommission, timestamp);
-    }
-
-    /*
      * This is implementation of simple simulated trading algorithm. It is based
      * on moving commissions between units.
      */
-    public static Map<AID, Schedule> fullSimulatedTrading(Set<AID> aids,
-                                                          Map<AID, Schedule> holons, AID holon, int STDepth, SimInfo info,
+    public static Map<AID, Schedule> fullSimulatedTrading(Map<AID, Schedule> holons, AID holon, int STDepth, SimInfo info,
                                                           Set<Integer> commissionsId, String chooseWorstCommission,
                                                           int timestamp) {
         Schedule schedule = holons.get(holon);
@@ -164,21 +98,17 @@ public class SimulatedTrading {
          * worstCommission, the procedure is begun for it.
          */
         if (bestHolon == holon) {
-            return fullSimulatedTrading(aids, holons, bestHolon, STDepth + 1,
+            return fullSimulatedTrading(holons, bestHolon, STDepth + 1,
                     info, commissionsId, chooseWorstCommission, timestamp);
         }
-        return fullSimulatedTrading(aids, holons, bestHolon, 1, info,
+        return fullSimulatedTrading(holons, bestHolon, 1, info,
                 commissionsId, chooseWorstCommission, timestamp);
     }
 
-    /*
-     * This method chooses commissions which should be moved to other agent, so
-     * that new commission could be added to schedule
-     */
     public static List<Container> getCommissionsToReplace(
             Commission commission, Schedule schedule, Algorithm algorithm,
             int timestamp) {
-        List<Container> result = new LinkedList<Container>();
+        List<Container> result = new LinkedList<>();
         Schedule backup = Schedule.copy(schedule);
         Schedule tmp;
         Commission com;
@@ -232,9 +162,7 @@ public class SimulatedTrading {
                                 .copy(comToReplace.commission));
                         schedule = algorithm.makeSchedule(Commission.copy(com),
                                 null, schedule, timestamp);
-                        if (schedule == null) {
-                            continue;
-                        } else {
+                        if (schedule != null) {
                             holons.put(i, schedule);
                             return holons;
                         }
@@ -245,146 +173,6 @@ public class SimulatedTrading {
         return null;
     }
 
-    /*
-     * See description below
-     */
-    public static Map<Integer, Schedule> complexSimmulatedTrading(
-            Map<Integer, Schedule> holons, Commission com, Algorithm algorithm,
-            int depth, Set<Integer> comsId, int timestamp, SimInfo info) {
-        return complexSimmulatedTrading(holons, com, algorithm, depth, comsId,
-                timestamp, info, null, Double.MAX_VALUE);
-    }
-
-    public static Map<Integer, Schedule> complexSimmulatedTrading(
-            Map<Integer, Schedule> holons, Commission com, Algorithm algorithm,
-            int depth, Set<Integer> comsId, int timestamp, SimInfo info,
-            Map<Integer, Schedule> bestResult, Double bestResultCost) {
-        if (depth == 0)
-            return bestResult;
-        Schedule schedule;
-        Schedule tmp;
-        Schedule scheduleBackup;
-        Map<Integer, Schedule> holonsBackup = Helper.copy(holons);
-        Map<Integer, Schedule> holonsTmp;
-        for (Integer i : holons.keySet()) {
-            holons = Helper.copy(holonsBackup);
-            schedule = holons.get(i);
-            scheduleBackup = Schedule.copy(schedule);
-            algorithm = schedule.getAlgorithm();
-            tmp = algorithm.makeSchedule(Commission.copy(com), null,
-                    Schedule.copy(schedule), timestamp);
-            if (tmp != null) {
-                tmp.setAlgorithm(algorithm);
-                holons.put(i, tmp);
-                if (info.isFirstComplexSTResultOnly())
-                    return holons;
-                double cost = calculateSummaryCost2(holons, info);
-                if (cost < bestResultCost) {
-                    bestResult = holons;
-                    bestResultCost = cost;
-                }
-            }
-            List<Container> commissions = getCommissionsToReplace(com,
-                    Schedule.copy(schedule), algorithm, timestamp);
-            for (Container comToReplace : commissions) {
-                if (comsId.contains(comToReplace.commission.getID()))
-                    continue;
-                else
-                    comsId.add(comToReplace.commission.getID());
-                if (com.getID() == comToReplace.commission.getID())
-                    continue;
-                holons = Helper.copy(holonsBackup);
-                schedule = Schedule.copy(scheduleBackup);
-                schedule.removeCommission(Commission
-                        .copy(comToReplace.commission));
-                schedule = algorithm.makeSchedule(Commission.copy(com), null,
-                        schedule, timestamp);
-                if (schedule == null) {
-                    System.err.println("complexST err");
-                    System.exit(0);
-                }
-                holons.put(i, schedule);
-                // for(int j=0;j<holons.size();j++) {
-                // if(i==j) continue;
-                holonsTmp = complexSimmulatedTrading(holons,
-                        Commission.copy(comToReplace.commission), algorithm,
-                        depth - 1, comsId, timestamp, info, bestResult,
-                        bestResultCost);
-                if (holonsTmp != null) {
-                    if (info.isFirstComplexSTResultOnly())
-                        return holonsTmp;
-                    double cost = calculateSummaryCost2(holonsTmp, info);
-                    if (cost < bestResultCost) {
-                        bestResult = holonsTmp;
-                        bestResultCost = cost;
-                    }
-                }
-                // }
-            }
-        }
-        return null;
-    }
-
-    /*
-     * Not used
-     */
-    public static Map<Integer, Schedule> complexST(
-            Map<Integer, Schedule> holons, Commission commission,
-            Algorithm algorithm, int depth, Set<Integer> ids, int timestamp) {
-        if (depth == 0)
-            return null;
-        if (ids.contains(commission.getID()))
-            return null;
-        Schedule schedule;
-        Schedule tmp;
-        Map<Integer, Schedule> holonsBackup = Helper.copy(holons);
-        Map<Integer, Schedule> holonsTmp;
-        List<Container> comsToRepolace;
-        for (Integer holon : holons.keySet()) {
-            schedule = Schedule.copy(holons.get(holon));
-            tmp = algorithm.makeSchedule(Commission.copy(commission), null,
-                    schedule, timestamp);
-            if (tmp != null) {
-                holons.put(holon, tmp);
-                return holons;
-            }
-            System.out.println("Schedule1 " + commission + " " + depth + "\n"
-                    + schedule);
-            comsToRepolace = getCommissionsToReplace(
-                    Commission.copy(commission), Schedule.copy(schedule),
-                    algorithm, timestamp);
-            for (Container com : comsToRepolace) {
-                if (ids.contains(com.commission.getID()))
-                    continue;
-                else
-                    ids.add(com.commission.getID());
-                holons = Helper.copy(holonsBackup);
-                schedule = Schedule.copy(holons.get(holon));
-
-                System.out.println("Schedule2 " + commission + " " + depth
-                        + "\n" + schedule);
-                schedule.removeCommission(com.commission);
-                tmp = algorithm.makeSchedule(Commission.copy(commission), null,
-                        schedule, timestamp);
-                if (tmp == null) {
-                    System.err.println("complexST err " + commission);
-                    System.exit(0);
-                }
-                schedule = Schedule.copy(tmp);
-                holons.put(holon, schedule);
-                holonsTmp = complexST(holons, com.commission, algorithm,
-                        depth - 1, ids, timestamp);
-                if (holonsTmp != null) {
-                    return holonsTmp;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Method used in system.
-     */
     public static Map<AID, Schedule> complexSimmulatedTrading(Set<AID> aids,
                                                               Map<AID, Schedule> holons, Commission com, int depth,
                                                               Set<Integer> comsId, int timestamp, SimInfo info,
@@ -501,14 +289,6 @@ public class SimulatedTrading {
                                                SimInfo info) {
         double result = 0.0;
         for (AID aid : schedules.keySet())
-            result += schedules.get(aid).calculateSummaryCost(info);
-        return result;
-    }
-
-    private static double calculateSummaryCost2(
-            Map<Integer, Schedule> schedules, SimInfo info) {
-        double result = 0.0;
-        for (Integer aid : schedules.keySet())
             result += schedules.get(aid).calculateSummaryCost(info);
         return result;
     }

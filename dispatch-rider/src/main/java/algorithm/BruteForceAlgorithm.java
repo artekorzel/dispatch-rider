@@ -25,7 +25,6 @@ public class BruteForceAlgorithm implements Algorithm {
         this.maxLoad = maxLoad;
         this.simInfo = simInfo;
         depot = simInfo.getDepot();
-        // deadline = (int) simInfo.getDeadline();
     }
 
     /**
@@ -35,8 +34,6 @@ public class BruteForceAlgorithm implements Algorithm {
     }
 
     /**
-     * @param currentSchedule
-     * @param simInfo
      * @return Copied currentSchedule. Things which are copied : all commissions, originalCommissions,
      * algorithm, currentCommissionNr, creationTime.
      * Schedule is also initialized.

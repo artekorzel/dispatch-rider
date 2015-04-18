@@ -765,7 +765,7 @@ public class SimTab extends JPanel {
 
         gui.displayMessage("GUI - network graph generated (points = " + graph.getPointsSize() + ", links = "
                 + graph.getLinksSize() + ")");
-        gui.displayMessage("GUI - is graph consistant = " + graph.isConsistant());
+        gui.displayMessage("GUI - is graph consistant = " + graph.isFullyTraversable());
 
         buttonVisStart.setEnabled(true);
 
@@ -805,7 +805,7 @@ public class SimTab extends JPanel {
 
         gui.displayMessage("GUI - network graph generated (points = " + graph.getPointsSize() + ", links = "
                 + graph.getLinksSize() + ")");
-        gui.displayMessage("GUI - is graph consistant = " + graph.isConsistant());
+        gui.displayMessage("GUI - is graph consistant = " + graph.isFullyTraversable());
 
         buttonVisStart.setEnabled(true);
 

@@ -12,7 +12,7 @@ public class MeasureVisualizationControl extends JPanel {
 
 
     private final MeasureVisualizationPanel measurePanel;
-    private final Set<String> aids = new TreeSet<String>();
+    private final Set<String> aids = new TreeSet<>();
     private JPanel panel;
 
     public MeasureVisualizationControl(MeasureVisualizationPanel measurePanel) {

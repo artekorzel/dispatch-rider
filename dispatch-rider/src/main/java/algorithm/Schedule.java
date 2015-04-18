@@ -21,16 +21,13 @@ public abstract class Schedule implements Serializable {
     protected Commission currentCommission = null;
     private int currentCommissionNr = -1;
 
-    /**
-     * @author Szyna
-     */
     private boolean refreshCurrentLocation = false;
 
     public Schedule(Algorithm algorithm) {
         this.algorithm = algorithm;
-        commissions = new LinkedList<Commission>();
-        types = new LinkedList<Boolean>();
-        originalCommissions = new LinkedList<Commission>();
+        commissions = new LinkedList<>();
+        types = new LinkedList<>();
+        originalCommissions = new LinkedList<>();
     }
 
     public Schedule(Algorithm algorithm, int currentCommission,
@@ -38,9 +35,9 @@ public abstract class Schedule implements Serializable {
         this.creationTime = creationTime;
         this.currentCommissionNr = currentCommission;
         this.algorithm = algorithm;
-        commissions = new LinkedList<Commission>();
-        types = new LinkedList<Boolean>();
-        originalCommissions = new LinkedList<Commission>();
+        commissions = new LinkedList<>();
+        types = new LinkedList<>();
+        originalCommissions = new LinkedList<>();
     }
 
     public static Schedule copy(Schedule schedule) {
@@ -72,10 +69,6 @@ public abstract class Schedule implements Serializable {
         refreshCurrentLocation = refresh;
     }
 
-    public int getCurrentTimestamp() {
-        return currentTimestamp;
-    }
-
     public Commission getCurrentCommission() {
         return currentCommission;
     }
@@ -101,10 +94,6 @@ public abstract class Schedule implements Serializable {
         return originalCommissions;
     }
 
-    public void setOriginalCommissions(List<Commission> originalCommissions) {
-        this.originalCommissions = originalCommissions;
-    }
-
     public void addOriginalCommission(Commission com) {
         for (Commission c : originalCommissions)
             if (c.getID() == com.getID())
@@ -118,10 +107,6 @@ public abstract class Schedule implements Serializable {
         types.add(pickup);
     }
 
-
-    /**
-     * dodanie zlecenia do planu
-     */
     public void addCommission(int index, Commission com, boolean pickup) {
         commissions.add(index, com);
         types.add(index, pickup);
@@ -146,8 +131,8 @@ public abstract class Schedule implements Serializable {
     }
 
     public void removeCommission(int index) {
-        List<Commission> tmp = new LinkedList<Commission>();
-        List<Boolean> typesTmp = new LinkedList<Boolean>();
+        List<Commission> tmp = new LinkedList<>();
+        List<Boolean> typesTmp = new LinkedList<>();
         for (int i = 0; i < index; i++) {
             tmp.add(commissions.get(i));
             typesTmp.add(types.get(i));
@@ -164,17 +149,6 @@ public abstract class Schedule implements Serializable {
         return types.get(index);
     }
 
-    public Point2D.Double getLastCommissionLocation() {
-        if (commissions.size() == 0)
-            return null;
-        Commission last = commissions.get(commissions.size() - 1);
-        if (types.get(types.size() - 1)) {
-            return new Point2D.Double(last.getPickupX(), last.getPickupY());
-        } else {
-            return new Point2D.Double(last.getDeliveryX(), last.getDeliveryY());
-        }
-    }
-
     public int size() {
         return commissions.size();
     }
@@ -184,7 +158,7 @@ public abstract class Schedule implements Serializable {
     }
 
     public List<Commission> getCommissions() {
-        List<Commission> result = new LinkedList<Commission>();
+        List<Commission> result = new LinkedList<>();
         for (int i = 0; i < commissions.size(); i++) {
             if (types.get(i))
                 result.add(commissions.get(i));
@@ -194,7 +168,7 @@ public abstract class Schedule implements Serializable {
 
     public List<Commission> getUndeliveredCommissions(Point2D.Double depot,
                                                       int timestamp) {
-        List<Commission> result = new LinkedList<Commission>();
+        List<Commission> result = new LinkedList<>();
         int begin = getNextLocationId(depot, timestamp);
         for (int i = begin; i < commissions.size(); i++)
             if (types.get(i))
@@ -236,44 +210,14 @@ public abstract class Schedule implements Serializable {
         return -1;
     }
 
-    // public double getDepartureTime(int comId, Point2D.Double depot) {
-    // double time=creationTime;
-    // Point2D.Double currentLocation=depot;
-    // Point2D.Double nextLocation;
-    // Commission com;
-    // double dist;
-    // for(int i=0;i<commissions.size();i++) {
-    // com=commissions.get(i);
-    // if(types.get(i)) {
-    // nextLocation=new Point2D.Double(com.getPickupX(),com.getPickupY());
-    // dist=Helper.calculateDistance(currentLocation, nextLocation);
-    // if(time+dist>com.getPickupTime2()) return -1;
-    // if(time+dist<com.getPickupTime1()) time=com.getPickupTime1();
-    // else time+=dist;
-    // if(com.getPickUpId()==comId) return time+com.getServiceTime();
-    // } else {
-    // nextLocation=new Point2D.Double(com.getDeliveryX(), com.getDeliveryY());
-    // dist=Helper.calculateDistance(currentLocation, nextLocation);
-    // if(time+dist>com.getDeliveryTime2()) return -1;
-    // if(time+dist<com.getDeliveryTime1()) time=com.getDeliveryTime1();
-    // else time+=dist;
-    // if(com.getDeliveryId()==comId) return time+com.getServiceTime();
-    // }
-    // time+=com.getServiceTime();
-    //
-    // currentLocation=nextLocation;
-    // }
-    // return -1;
-    // }
-
     // TODO - dynamic
     public Commission getWorstCommission(int timestamp, int STDepth,
                                          SimInfo info, String chooseWorstCommission) {
         int begin = getNextLocationId(info.getDepot(), timestamp);
 
-        Commission worstCommission = null;
-        List<Container> times = new LinkedList<Container>();
-        Set<Commission> coms = new TreeSet<Commission>();
+        Commission worstCommission;
+        List<Container> times = new LinkedList<>();
+        Set<Commission> coms = new TreeSet<>();
         
         /*
          * Set containing commissions which at least pickup part was done
@@ -282,13 +226,13 @@ public abstract class Schedule implements Serializable {
 		 * even though in previous code we didn't take that into account - look at for loop "from begin to size".
 		 * If statement was added there)
 		 */
-        Set<Integer> doneIDs = new TreeSet<Integer>();
+        Set<Integer> doneIDs = new TreeSet<>();
         for (int i = 0; i < begin; i++) {
-            doneIDs.add(new Integer(commissions.get(i).getID()));
+            doneIDs.add(commissions.get(i).getID());
         }
 
         for (int i = begin; i < size(); i++) {
-            if (!doneIDs.contains(commissions.get(i)))
+            if (!doneIDs.contains(commissions.get(i).getID()))
                 coms.add(commissions.get(i));
             else {
                 System.err.println(commissions.get(i).getID());
@@ -298,29 +242,34 @@ public abstract class Schedule implements Serializable {
 
         if (STDepth >= coms.size())
             return null;
-        if (chooseWorstCommission.equals("time"))
-            for (Commission com : coms) {
-                times.add(new Container(com,
-                        calculateTime(info.getDepot(), com)));
-            }
-        else if (chooseWorstCommission.equals("wTime"))
-            for (Commission com : coms) {
-                times.add(new Container(com, waitTime(info.getDepot(), com)));// calculateTime(depot,
-                // com)));
-            }
-        else if (chooseWorstCommission.equals("timeWithPunishment")) {
-            for (Commission com : coms) {
-                times.add(new Container(com, calculateTimeWithPunishment(info,
-                        com)));
-            }
-        } else if (chooseWorstCommission.equals("distWithPunishment")) {
-            for (Commission com : coms) {
-                times.add(new Container(com, calculateDistWithPunishment(info,
-                        com)));
-            }
-        } else
-            throw new IllegalArgumentException("Bad argument: "
-                    + chooseWorstCommission);
+        switch (chooseWorstCommission) {
+            case "time":
+                for (Commission com : coms) {
+                    times.add(new Container(com,
+                            calculateTime(info.getDepot(), com)));
+                }
+                break;
+            case "wTime":
+                for (Commission com : coms) {
+                    times.add(new Container(com, waitTime(info.getDepot(), com)));
+                }
+                break;
+            case "timeWithPunishment":
+                for (Commission com : coms) {
+                    times.add(new Container(com, calculateTimeWithPunishment(info,
+                            com)));
+                }
+                break;
+            case "distWithPunishment":
+                for (Commission com : coms) {
+                    times.add(new Container(com, calculateDistWithPunishment(info,
+                            com)));
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Bad argument: "
+                        + chooseWorstCommission);
+        }
 
         Collections.sort(times);
         Collections.reverse(times);
@@ -336,95 +285,6 @@ public abstract class Schedule implements Serializable {
 
     public void setAlgorithm(Algorithm algorithm) {
         this.algorithm = algorithm;
-    }
-
-    public Point2D.Double getNextLocation(Point2D.Double depot, int timestamp) {
-        if (currentCommissionNr == -1) {
-            return depot;
-            // if(size()==0) return depot;
-            // currentCommission=getCommission(0).getPickUpId();
-        }
-        Commission com;
-        int j = -1;
-        for (int i = 0; i < size(); i++) {
-            com = getCommission(i);
-            if (isPickup(i)) {
-                if (currentCommissionNr != com.getPickUpId()) {
-                    j = i;
-                    break;
-                }
-            } else {
-                if (currentCommissionNr != com.getDeliveryId()) {
-                    j = i;
-                    break;
-                }
-            }
-        }
-        if (j == -1 || j >= size())
-            return depot;
-        com = getCommission(j);
-        if (isPickup(j)) {
-            return new Point2D.Double(com.getPickupX(), com.getPickupY());
-        } else {
-            return new Point2D.Double(com.getDeliveryX(), com.getDeliveryY());
-        }
-
-    }
-
-    // private void setNextCommission() {
-    // Commission com;
-    // int j=-1;
-    // for(int i=0;i<size();i++) {
-    // com=getCommission(i);
-    // if(isPickup(i)) {
-    // if(currentCommission.getPickUpId()<=com.getPickUpId()) {
-    // j=i+1;
-    // break;
-    // }
-    // } else {
-    // if(currentCommission.getDeliveryId()>=com.getDeliveryId()) {
-    // j=i+1;
-    // break;
-    // }
-    // }
-    // }
-    // if(j==-1) {
-    // currentCommission=null;
-    // return;
-    // }
-    // currentCommission=getCommission(j);
-    // }
-
-    public void nextCommission() {
-        if (currentCommissionNr == -1) {
-            if (size() == 0)
-                return;
-            currentCommissionNr = getCommission(0).getPickUpId();
-        }
-        Commission com;
-        int j = -1;
-        for (int i = 0; i < size(); i++) {
-            com = getCommission(i);
-            if (isPickup(i)) {
-                if (currentCommissionNr != com.getPickUpId()) {
-                    j = i;
-                    break;
-                }
-            } else {
-                if (currentCommissionNr != com.getDeliveryId()) {
-                    j = i;
-                    break;
-                }
-            }
-        }
-        if (j == -1)
-            currentCommissionNr = -1;
-        else {
-            if (isPickup(j))
-                currentCommissionNr = getCommission(j).getPickUpId();
-            else
-                currentCommissionNr = getCommission(j).getDeliveryId();
-        }
     }
 
     public int getNextLocationId(Point2D.Double depot, int timestamp) {
@@ -464,30 +324,6 @@ public abstract class Schedule implements Serializable {
             currentLocation = nextLocation;
         }
         return commissions.size();
-        // if (currentCommission == -1) {
-        // return 0;
-        // // currentCommission=getCommission(0).getPickUpId();
-        // }
-        // Commission com;
-        // int j = -1;
-        // for (int i = 0; i < size(); i++) {
-        // com = getCommission(i);
-        // if (isPickup(i)) {
-        // if (currentCommission != com.getPickUpId()) {
-        // j = i + 1;
-        // break;
-        // }
-        // } else {
-        // if (currentCommission != com.getDeliveryId()) {
-        // j = i + 1;
-        // break;
-        // }
-        // }
-        // }
-        // if (j == -1)
-        // return size();
-        // return j;
-
     }
 
     public int getNextLocationPickupId(Point2D.Double depot, int timestamp) {
@@ -535,48 +371,6 @@ public abstract class Schedule implements Serializable {
                 return i;
         }
         return getCommissions().size();
-        // if (currentCommission == -1) {
-        // return 0;
-        // // currentCommission=getCommission(0).getPickUpId();
-        // }
-        // Commission com;
-        // int j = -1;
-        // for (int i = 0; i < size(); i++) {
-        // com = getCommission(i);
-        // if (isPickup(i)) {
-        // if (currentCommission != com.getPickUpId()) {
-        // j = i + 1;
-        // break;
-        // }
-        // }
-        // }
-        // if (j == -1)
-        // return getCommissions().size();
-        // return j;
-
-    }
-
-    public void setTimeStamp(Point2D.Double depot,
-                             Point2D.Double currentLocation, int timestamp) {
-
-        // if(!currentLocation.equals(depot)) time++;
-        // if(holonLocation==null) holonLocation=depot;
-        // if(!holonLocation.equals(currentLocation)) {
-        // if(!depot.equals(currentLocation))
-        // distance+=Helper.calculateDistance(currentLocation, holonLocation);
-        // } else {
-        // if(serviceRemaining==0) {
-        // serviceRemaining=currentCommission.getServiceTime();
-        // } else {
-        // serviceRemaining--;
-        // if(serviceRemaining==0) {
-        // setNextCommission();
-        // }
-        // }
-        // }
-        //
-        // this.holonLocation = currentLocation;
-        currentTimestamp = timestamp;
     }
 
     public Point2D.Double getCurrentLocation() {
@@ -964,7 +758,7 @@ public abstract class Schedule implements Serializable {
 
     @Override
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < commissions.size(); i++) {
             if (types.get(i))
                 buffer.append("P ");
@@ -1012,49 +806,6 @@ public abstract class Schedule implements Serializable {
                     time += driveTime;
                 time += com.getDeliveryServiceTime();
             }
-            currentLocation = nextLocation;
-        }
-        time += calculateTime(currentLocation, depot, depot);
-        return time;
-    }
-
-    public double calculateTime2(Point2D.Double depot) {
-        this.beginTimeCalculating();
-        double time = creationTime;
-        Point2D.Double currentLocation = depot;
-        Point2D.Double nextLocation;
-        Commission com;
-        double driveTime;
-        for (int i = 0; i < commissions.size(); i++) {
-            com = null;
-            for (int j = 0; j < originalCommissions.size(); j++) //po co?? moze sa gdzies zmieniane po drodze inteligentnie
-                if (originalCommissions.get(j).getID() == commissions.get(i).getID())
-                    com = originalCommissions.get(j);
-            if (types.get(i)) {
-                nextLocation = new Point2D.Double(com.getPickupX(), com.getPickupY());
-                driveTime = calculateTime(currentLocation, nextLocation, depot);
-                if (time + driveTime > com.getPickupTime2()) {
-                    return -1;
-                }
-                if (time + driveTime < com.getPickupTime1())
-                    time = com.getPickupTime1();
-                else
-                    time += driveTime;
-                time += com.getPickUpServiceTime();
-            } else {
-                nextLocation = new Point2D.Double(com.getDeliveryX(), com.getDeliveryY());
-                driveTime = calculateTime(currentLocation, nextLocation, depot);
-                if (time + driveTime > com.getDeliveryTime2()) {
-
-                    return -1;
-                }
-                if (time + driveTime < com.getDeliveryTime1())
-                    time = com.getDeliveryTime1();
-                else
-                    time += driveTime;
-                time += com.getDeliveryServiceTime();
-            }
-
             currentLocation = nextLocation;
         }
         time += calculateTime(currentLocation, depot, depot);
@@ -1111,7 +862,6 @@ public abstract class Schedule implements Serializable {
 
             currentLocation = nextLocation;
         }
-        time += calculateTime(currentLocation, depot, depot);
         return waitTime;
     }
 
@@ -1375,7 +1125,6 @@ public abstract class Schedule implements Serializable {
 
             currentLocation = nextLocation;
         }
-        time += calculateTime(currentLocation, depot, depot);
         return waitTime;
     }
 

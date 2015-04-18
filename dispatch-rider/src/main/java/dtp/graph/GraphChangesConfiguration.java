@@ -3,7 +3,7 @@ package dtp.graph;
 import java.util.*;
 
 public class GraphChangesConfiguration {
-    private final Map<Integer, List<GraphChange>> changes = new HashMap<Integer, List<GraphChange>>();
+    private final Map<Integer, List<GraphChange>> changes = new HashMap<>();
     private Graph graph;
 
     public Graph getGraph() {
@@ -20,14 +20,14 @@ public class GraphChangesConfiguration {
         GraphChange change = new GraphChange(sPointId, ePointId, cost, isBoth);
         List<GraphChange> changes = this.changes.get(timestamp);
         if (changes == null) {
-            changes = new LinkedList<GraphChange>();
+            changes = new LinkedList<>();
             this.changes.put(timestamp, changes);
         }
         changes.add(change);
     }
 
     public Object[] changeGraph(int timestamp) {
-        List<Integer> keys = new LinkedList<Integer>(this.changes.keySet());
+        List<Integer> keys = new LinkedList<>(this.changes.keySet());
         if (keys.size() == 0)
             return null;
         Collections.sort(keys);

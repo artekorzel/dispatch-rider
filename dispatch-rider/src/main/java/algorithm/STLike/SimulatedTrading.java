@@ -23,7 +23,7 @@ public class SimulatedTrading extends ExchangeAlgorithm {
         if (parameters.containsKey("chooseWorstCommission"))
             chooseWorstCommission = parameters.get("chooseWorstCommission");
 
-        return algorithm.simulatedTrading.SimulatedTrading.fullSimulatedTrading(aids, holons, holon, 1,
+        return algorithm.simulatedTrading.SimulatedTrading.fullSimulatedTrading(holons, holon, 1,
                 info, new HashSet<Integer>(), chooseWorstCommission, timestamp);
     }
 

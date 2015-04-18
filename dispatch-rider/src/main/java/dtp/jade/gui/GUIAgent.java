@@ -683,7 +683,7 @@ public class GUIAgent extends Agent {
         AID[] aids = CommunicationHelper.findAgentByServiceName(this, "ExecutionUnitService");
         sendUpdateCurrentLocationRequest(aids, i);
 
-        while (i <= gui.getSimInfo().getDeadline() && commissionsHandler.getCommissionsBeforeTime(i).length == 0 && !commissionsHandler.isAnyEUnitAtNode(i, false)) {
+        while (i <= gui.getSimInfo().getDeadline() && commissionsHandler.getCommissionsBeforeTime(i).length == 0 && !commissionsHandler.isAnyEUnitAtNode(false)) {
             if (i == backToDepotTimestamp) {
                 ACLMessage cfp;
                 for (AID aid : aids) {

@@ -9,13 +9,13 @@ import java.util.*;
 
 public class CommissionsHandler {
 
-    private static Map<AID, Point2D.Double> eunitsPosition = new HashMap<AID, Point2D.Double>();
+    private static Map<AID, Point2D.Double> eunitsPosition = new HashMap<>();
     HashSet<CommissionHandler> commissions;
     int id;
 
     public CommissionsHandler() {
 
-        commissions = new HashSet<CommissionHandler>();
+        commissions = new HashSet<>();
         id = 0;
     }
 
@@ -55,13 +55,12 @@ public class CommissionsHandler {
         }
 
         comsNew = new CommissionHandler[count];
-        for (int i = 0; i < count; i++)
-            comsNew[i] = coms[i];
+        System.arraycopy(coms, 0, comsNew, 0, count);
 
         return comsNew;
     }
 
-    private boolean hasEunitMoved(AID aid, Point2D.Double currentLocation, boolean change, int timestamp) {
+    private boolean hasEUnitMoved(AID aid, Point2D.Double currentLocation, boolean change) {
         if (eunitsPosition.get(aid).equals(currentLocation))
             return false;
         else {
@@ -71,13 +70,13 @@ public class CommissionsHandler {
         }
     }
 
-    public boolean isAnyEUnitAtNode(int timestamp, boolean change) {
+    public boolean isAnyEUnitAtNode(boolean change) {
         Map<AID, Schedule> eunits = DistributorAgent.getEUnits();
         boolean result = false;
 
         if (eunits != null && eunits.size() > 0) {
 
-            List<Point2D.Double> commissionsPositions = new LinkedList<Point2D.Double>();
+            List<Point2D.Double> commissionsPositions = new LinkedList<>();
 
             for (AID aid : eunits.keySet()) {
                 if (eunitsPosition.get(aid) == null)
@@ -90,12 +89,12 @@ public class CommissionsHandler {
                 }
                 Point2D.Double currentLocation = schedule.getCurrentLocation();
 
-                if (commissionsPositions.contains(currentLocation) && hasEunitMoved(aid, currentLocation, change, timestamp)) {
+                if (commissionsPositions.contains(currentLocation) && hasEUnitMoved(aid, currentLocation, change)) {
                     /*if(aid.getName().contains("EUnitAgent#0"))
 	    				System.err.println(timestamp + " " + change + " " + currentLocation);*/
                     result = true;
                 }
-                commissionsPositions = new LinkedList<Point2D.Double>();
+                commissionsPositions = new LinkedList<>();
             }
         }
         return result;

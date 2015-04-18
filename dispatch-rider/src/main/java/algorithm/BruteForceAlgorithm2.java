@@ -21,7 +21,6 @@ public class BruteForceAlgorithm2 implements Algorithm {
     public BruteForceAlgorithm2(double maxLoad, SimInfo simInfo) {
         this.maxLoad = maxLoad;
         this.simInfo = simInfo;
-        // this.deadline = (int) simInfo.getDeadline();
         this.depot = simInfo.getDepot();
     }
 
@@ -35,7 +34,6 @@ public class BruteForceAlgorithm2 implements Algorithm {
     public void init(double maxLoad, SimInfo simInfo) {
         this.maxLoad = maxLoad;
         this.simInfo = simInfo;
-        // this.deadline = (int) simInfo.getDeadline();
         this.depot = simInfo.getDepot();
     }
 
@@ -48,7 +46,7 @@ public class BruteForceAlgorithm2 implements Algorithm {
      * currentLocation - not used!!
      */
     private Schedule addCommissionToSchedule(Commission commissionToAdd,
-                                             Point2D.Double currentLocation, Schedule currentSchedule,
+                                             Schedule currentSchedule,
                                              int timestamp) {
 
         Schedule schedule = BruteForceAlgorithm.copyScheduleContent(currentSchedule, simInfo);
@@ -251,7 +249,7 @@ public class BruteForceAlgorithm2 implements Algorithm {
 		 * then we try to assign rest commissions (which 100% has pickup and delivery) to schedule
 		 */
         for (Commission com : commissions) {
-            tmpSchedule = addCommissionToSchedule(com, null, schedule, timestamp);
+            tmpSchedule = addCommissionToSchedule(com, schedule, timestamp);
             if (tmpSchedule == null) {
                 return null;
             }
@@ -272,7 +270,7 @@ public class BruteForceAlgorithm2 implements Algorithm {
     private void sortCommissions(List<Commission> commissions) {
         switch (simInfo.getBrute2Sorter()) {
             case TIME:
-                Collections.sort(commissions, new TimeComparator(true, null));
+                Collections.sort(commissions, new TimeComparator(true));
                 break;
             case DISTANCE:
                 Collections.sort(commissions, new DistanceComparator(true, depot));

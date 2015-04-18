@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Standard implements Adapter {
 
-    private List<CommissionHandler> commissions = new LinkedList<CommissionHandler>();
+    private List<CommissionHandler> commissions = new LinkedList<>();
     private SimInfo simInfo;
 
     public Standard(String fileName) {

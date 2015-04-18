@@ -38,8 +38,8 @@ public class Commission implements Serializable, Comparable<Commission> {
 
     private boolean isPickup;
 
-    private Map<String, Double> punishmentFunParamsPickup = new HashMap<String, Double>();
-    private Map<String, Double> punishmentFunParamsDelivery = new HashMap<String, Double>();
+    private Map<String, Double> punishmentFunParamsPickup = new HashMap<>();
+    private Map<String, Double> punishmentFunParamsDelivery = new HashMap<>();
 
     public Commission() {
 

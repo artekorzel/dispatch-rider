@@ -28,46 +28,11 @@ public class TxtFileReader {
 
     /**
      * @param fileName nazwa pliku z definicja problemu
-     * @return liczba pojazdow do wykorzystania
-     */
-    public static int getTrucksNo(String fileName) {
-
-        BufferedReader in = null;
-
-        String line = "";
-        String[] lineParts;
-
-        try {
-
-            in = new BufferedReader(new FileReader(fileName));
-
-        } catch (FileNotFoundException e) {
-
-            System.out.println("TxtFileReader.read() -> no such file: "
-                    + fileName);
-            return -1;
-        }
-
-        try {
-            line = in.readLine();
-
-        } catch (IOException e) {
-
-            System.out.println("TxtFileReader.read() -> IOException occured");
-        }
-
-        lineParts = line.split("\t");
-
-        return new Integer(lineParts[0]).intValue();
-    }
-
-    /**
-     * @param fileName nazwa pliku z definicja problemu
      * @return ladownosc pojazdu
      */
     public static int getTruckCapacity(String fileName) {
 
-        BufferedReader in = null;
+        BufferedReader in;
 
         String line = "";
         String[] lineParts;
@@ -93,7 +58,7 @@ public class TxtFileReader {
 
         lineParts = line.split("\t");
 
-        return new Integer(lineParts[1]).intValue();
+        return new Integer(lineParts[1]);
     }
 
     /**
@@ -102,7 +67,7 @@ public class TxtFileReader {
      */
     public static Point2D.Double getDepot(String fileName) {
 
-        BufferedReader in = null;
+        BufferedReader in;
 
         String line = "";
         String[] lineParts;
@@ -129,8 +94,8 @@ public class TxtFileReader {
 
         lineParts = line.split("\t");
 
-        return new Point2D.Double(new Integer(lineParts[1]).intValue(),
-                new Integer(lineParts[2]).intValue());
+        return new Point2D.Double(Integer.parseInt(lineParts[1]),
+                Integer.parseInt(lineParts[2]));
     }
 
     /**
@@ -140,7 +105,7 @@ public class TxtFileReader {
      */
     public static int getDeadline(String fileName) {
 
-        BufferedReader in = null;
+        BufferedReader in;
 
         String line = "";
         String[] lineParts;
@@ -167,11 +132,11 @@ public class TxtFileReader {
 
         lineParts = line.split("\t");
 
-        return new Integer(lineParts[5]).intValue();
+        return new Integer(lineParts[5]);
     }
 
     /**
-     * @param fileName nazwa pliku z definicja problemu
+     * @param filename nazwa pliku z definicja problemu
      * @return odleglosc najdalszego punktu zaladunku od bazy
      */
     public static double getFarthestPickupLocation(String filename) {
@@ -185,10 +150,9 @@ public class TxtFileReader {
         commissions = getCommissions(filename);
         depot = getDepot(filename);
 
-        for (int i = 0; i < commissions.length; i++) {
-
+        for (Commission commission : commissions) {
             tempDistance = Point.distance(depot.getX(), depot.getY(),
-                    commissions[i].getPickupX(), commissions[i].getPickupY());
+                    commission.getPickupX(), commission.getPickupY());
 
             if (tempDistance > farthestPickupLocVal) {
 
@@ -214,7 +178,7 @@ public class TxtFileReader {
      */
     private static CommissionPart[] read(String fileName) {
 
-        BufferedReader in = null;
+        BufferedReader in;
 
         String line;
         String lineParts[];
@@ -226,29 +190,23 @@ public class TxtFileReader {
 
         try {
             in = new BufferedReader(new FileReader(fileName));
-        } catch (FileNotFoundException e1) {
-
-            System.out.println("TxtFileReader.read() -> no such file: "
-                    + fileName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();//FIXME
             return null;
         }
 
         try {
-            while ((line = in.readLine()) != null) {
-
+            while (in.readLine() != null) {
                 partsNo++;
             }
         } catch (IOException e) {
-
-            System.out.println("TxtFileReader.read() -> IOException occured");
+            e.printStackTrace();//FIXME
             return null;
         }
 
         try {
-
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-
             System.out.println("TxtFileReader.read() -> no such file: "
                     + fileName);
             return null;
@@ -260,72 +218,50 @@ public class TxtFileReader {
 
         try {
             while ((line = in.readLine()) != null) {
-
                 lineParts = line.split("\t");
 
                 // pierwsza linia informuje o ilosci dostepnych pojazdow oraz
                 // ich
                 // ladownosci
-                if (counter == 0) {
+                if (counter > 1) {
+                    if (lineParts.length < 9 || lineParts.length > 10) {
+                        System.out.println("TxtFileReader -> wrong file format");
+                    } else {
+                        comParts[counter - 1] = new CommissionPart(
+                                Integer.parseInt(lineParts[0]),
+                                Integer.parseInt(lineParts[1]),
+                                Integer.parseInt(lineParts[2]),
+                                Integer.parseInt(lineParts[4]),
+                                Integer.parseInt(lineParts[5]),
+                                Integer.parseInt(lineParts[6]),
+                                Integer.parseInt(lineParts[3]),
+                                Integer.parseInt(lineParts[7]),
+                                Integer.parseInt(lineParts[8]));
 
-                }
-                // druga linia mowi o bazie i calkowitym przewidzianym czasie
-                else if (counter == 1) {
-
-                } else {
-
-                    for (int i = 0; i < lineParts.length; i++) {
-
-                        if (lineParts.length < 9 || lineParts.length > 10) {
-
-                            System.out
-                                    .println("TxtFileReader -> wrong file format");
-
-                        } else {
-
-                            comParts[counter - 1] = new CommissionPart(
-                                    Integer.parseInt(lineParts[0]),
-                                    new Integer(lineParts[1]).intValue(),
-                                    new Integer(lineParts[2]).intValue(),
-                                    new Integer(lineParts[4]).intValue(),
-                                    new Integer(lineParts[5]).intValue(),
-                                    new Integer(lineParts[6]).intValue(),
-                                    new Integer(lineParts[3]).intValue(),
-                                    new Integer(lineParts[7]).intValue(),
-                                    new Integer(lineParts[8]).intValue());
-
-                            try {
-                                if (lineParts.length > 9) {
-                                    Map<String, Double> params = new HashMap<String, Double>();
-                                    String[] parts;
-                                    for (String param : lineParts[9].split(";")) {
-                                        parts = param.trim().split("=");
-                                        if (parts.length != 2)
-                                            throw new IllegalArgumentException();
-                                        params.put(parts[0], new Double(
-                                                parts[1]));
-                                    }
-                                    comParts[counter - 1]
-                                            .setPunishmentFunParams(params);
+                        try {
+                            if (lineParts.length > 9) {
+                                Map<String, Double> params = new HashMap<>();
+                                String[] parts;
+                                for (String param : lineParts[9].split(";")) {
+                                    parts = param.trim().split("=");
+                                    if (parts.length != 2)
+                                        throw new IllegalArgumentException();
+                                    params.put(parts[0], new Double(
+                                            parts[1]));
                                 }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                System.exit(0);
+                                comParts[counter - 1]
+                                        .setPunishmentFunParams(params);
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();//FIXME
+                            System.exit(0);
                         }
                     }
                 }
                 counter++;
             }
-        } catch (NumberFormatException e) {
-
-            System.out
-                    .println("TxtFileReader.read() -> NumberFormatException occured");
-            return null;
-
-        } catch (IOException e) {
-
-            System.out.println("TxtFileReader.read() -> IOException occured");
+        } catch (Exception e) {
+            e.printStackTrace();//FIXME
             return null;
         }
 
@@ -392,11 +328,11 @@ public class TxtFileReader {
         Commission[] commissions = new Commission[(commissionsTmp.length - 1) / 2];
         int counter = 0;
 
-        for (int i = 0; i < commissionsTmp.length; i++) {
+        for (Commission aCommissionsTmp : commissionsTmp) {
 
-            if (commissionsTmp[i].getLoad() >= 0) {
+            if (aCommissionsTmp.getLoad() >= 0) {
 
-                commissions[counter] = commissionsTmp[i];
+                commissions[counter] = aCommissionsTmp;
                 commissions[counter].setID(counter);
 
                 counter++;
@@ -409,7 +345,7 @@ public class TxtFileReader {
     public static int[] getIncomeTimes(String fileName, int size) {
         int ret[] = new int[size];
 
-        BufferedReader in = null;
+        BufferedReader in;
 
         String line;
         int counter = 0;
@@ -466,7 +402,7 @@ class CommissionPart {
 
     public int id;
 
-    private Map<String, Double> punishmentFunParams = new HashMap<String, Double>();
+    private Map<String, Double> punishmentFunParams = new HashMap<>();
 
     CommissionPart(int id, int x, int y, int time1, int time2, int serviceTime,
                    int load, int pickup, int delivery) {

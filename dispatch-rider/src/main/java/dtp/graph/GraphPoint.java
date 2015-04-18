@@ -7,11 +7,12 @@ package dtp.graph;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class GraphPoint implements Serializable {
 
     private final double x, y;
-    private final ArrayList<GraphLink> linksIn, linksOut;
+    private final List<GraphLink> linksOut;
     private String name;
     private boolean isBase;
     private int id;
@@ -19,9 +20,7 @@ public class GraphPoint implements Serializable {
     private boolean isPickup;
 
     public GraphPoint(double xVal, double yVal) {
-
-        this.linksIn = new ArrayList<GraphLink>();
-        this.linksOut = new ArrayList<GraphLink>();
+        this.linksOut = new ArrayList<>();
         this.x = xVal;
         this.y = yVal;
         // zaokraglij do dwoch miejsc po przecinku
@@ -32,9 +31,7 @@ public class GraphPoint implements Serializable {
     }
 
     public GraphPoint(double xVal, double yVal, String name) {
-
-        this.linksIn = new ArrayList<GraphLink>();
-        this.linksOut = new ArrayList<GraphLink>();
+        this.linksOut = new ArrayList<>();
         this.x = xVal;
         this.y = yVal;
         this.name = name;
@@ -42,9 +39,7 @@ public class GraphPoint implements Serializable {
     }
 
     public GraphPoint(double xVal, double yVal, String name, boolean isBase, int id) {
-
-        this.linksIn = new ArrayList<GraphLink>();
-        this.linksOut = new ArrayList<GraphLink>();
+        this.linksOut = new ArrayList<>();
         this.x = xVal;
         this.y = yVal;
         this.name = name;
@@ -61,11 +56,8 @@ public class GraphPoint implements Serializable {
     }
 
     public boolean equals(GraphPoint pt) {
-        if (x == pt.getX() && y == pt.getY()
-                && name.equalsIgnoreCase(pt.getName()))
-            return true;
-        else
-            return false;
+        return x == pt.getX() && y == pt.getY()
+                && name.equalsIgnoreCase(pt.getName());
     }
 
     public Integer getId() {
@@ -92,11 +84,6 @@ public class GraphPoint implements Serializable {
         this.name = name;
     }
 
-    public void setAsBase(boolean b) {
-
-        isBase = b;
-    }
-
     public boolean isBase() {
 
         return isBase;
@@ -114,36 +101,14 @@ public class GraphPoint implements Serializable {
         return isPickup;
     }
 
-    // //////// links IN //////////
-
-    public void addElementToListIn(GraphLink link) {
-
-        this.linksIn.add(link);
-    }
-
-    public void addAllToLinksIn(ArrayList<GraphLink> linksIn) {
-
-        Iterator<GraphLink> iter;
-
-        iter = linksIn.iterator();
-        while (iter.hasNext()) {
-
-            addElementToListIn(iter.next());
-        }
-    }
-
     /**
      * Returns link (if one exists) from this point to target
-     *
-     * @param target
      */
     public GraphLink getLinkTo(GraphPoint target) {
 
         GraphLink result;
-        Iterator<GraphLink> it = this.linksOut.iterator();
-        boolean found = false;
-        while (it.hasNext() && !found) {
-            result = it.next();
+        for (GraphLink aLinksOut : this.linksOut) {
+            result = aLinksOut;
             if (target.getX() == result.getEndPoint().getX()
                     && target.getY() == result.getEndPoint().getY())
                 return result;
@@ -152,67 +117,9 @@ public class GraphPoint implements Serializable {
         return null;
     }
 
-    /**
-     * Returns link (if one exists) by it's number in LinksIn ArrayList, if
-     * number>=LinksIn.size(), the result is null
-     *
-     * @param number - link's number in LinksIn ArrayList
-     */
-    public GraphLink getLinkInByNumber(int number) {
-        if (number >= this.linksIn.size())
-            return null;
-        else
-            return this.linksIn.get(number);
-    }
-
-    public void removeElementFromListIn(GraphLink link) {
-
-        this.linksIn.remove(link);
-    }
-
-    public Iterator<GraphLink> getLinksInIterator() {
-        return this.linksIn.iterator();
-    }
-
-    public int getLinksInSize() {
-        return linksIn.size();
-    }
-
-    // //////// links OUT //////////
-
     public void addElementToListOut(GraphLink link) {
 
         this.linksOut.add(link);
-    }
-
-    public void addAllToLinksOut(ArrayList<GraphLink> linksOut) {
-
-        Iterator<GraphLink> iter;
-
-        iter = linksOut.iterator();
-        while (iter.hasNext()) {
-
-            addElementToListOut(iter.next());
-        }
-    }
-
-    /**
-     * Returns link (if one exists) from source to this point
-     *
-     * @param source
-     */
-    public GraphLink getLinkFrom(GraphPoint source) {
-
-        GraphLink result;
-        Iterator<GraphLink> it = this.linksIn.iterator();
-        boolean found = false;
-        while (it.hasNext() && !found) {
-            result = it.next();
-            if (source.equals(result.getStartPoint()))
-                return result;
-        }
-
-        return null;
     }
 
     /**
@@ -229,11 +136,6 @@ public class GraphPoint implements Serializable {
             return this.linksOut.get(number);
     }
 
-    public void removeElementFromListOut(GraphLink link) {
-
-        this.linksOut.remove(link);
-    }
-
     public Iterator<GraphLink> getLinksOutIterator() {
 
         return this.linksOut.iterator();
@@ -242,8 +144,6 @@ public class GraphPoint implements Serializable {
     public int getLinksOutSize() {
         return linksOut.size();
     }
-
-    // //////// other functions //////////
 
     public boolean hasSameCoordinates(GraphPoint other) {
 
@@ -255,45 +155,4 @@ public class GraphPoint implements Serializable {
 
         return this.name + " [" + this.x + ", " + this.y + "]";
     }
-
-    /**
-     * Removes links to and from this point. All to this point should be set too
-     * null anyway.
-     */
-    public void dispose() {
-        Iterator<GraphLink> it = linksIn.iterator();
-        while (it.hasNext()) {
-            GraphLink ln = it.next();
-            ln.getStartPoint().removeElementFromListOut(ln);
-        }
-
-        it = linksOut.iterator();
-        while (it.hasNext()) {
-            GraphLink ln = it.next();
-            ln.getEndPoint().removeElementFromListIn(ln);
-        }
-    }
-
-    /*
-     * public GraphPoint clone() {
-     *
-     * GraphPoint newGraphPoint; Iterator<GraphLink> iter;
-     *
-     * ArrayList<GraphLink> newLinksIn = new ArrayList<GraphLink>();
-     * ArrayList<GraphLink> newLinksOut = new ArrayList<GraphLink>();
-     *
-     * iter = linksIn.iterator(); while (iter.hasNext()) {
-     *
-     * newLinksIn.add(iter.next().clone()); }
-     *
-     * iter = linksOut.iterator(); while (iter.hasNext()) {
-     *
-     * newLinksOut.add(iter.next().clone()); }
-     *
-     * newGraphPoint = new GraphPoint(x, y, new String(name), isBase);
-     * newGraphPoint.addAllToLinksIn(newLinksIn);
-     * newGraphPoint.addAllToLinksOut(newLinksOut);
-     *
-     * return newGraphPoint; }
-     */
 }

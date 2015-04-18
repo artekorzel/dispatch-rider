@@ -79,7 +79,6 @@ public class GraphGenerator {
             int time = (int) (distance(point.getX(), point.getY(), source.getX(), source.getY()));
             GraphLink link = new GraphLink(source, point, time);
             graph.addLink(link);
-            point.addElementToListIn(link);
             source.addElementToListOut(link);
         }
     }
@@ -99,7 +98,6 @@ public class GraphGenerator {
             GraphLink link = new GraphLink(point, target, time);
             graph.addLink(link);
             point.addElementToListOut(link);
-            target.addElementToListIn(link);
         }
     }
 

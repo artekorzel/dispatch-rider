@@ -105,7 +105,7 @@ public class RUtils {
     }
 
     public List<Map<String, Double>> getCentres(REXP result, String[] cnames) {
-        List<Map<String, Double>> centres = new LinkedList<Map<String, Double>>();
+        List<Map<String, Double>> centres = new LinkedList<>();
 
         logger.info("getting centres from:\n" + result.getContent());
 
@@ -121,8 +121,8 @@ public class RUtils {
         for (int i = 0; i < clustersCount; i++) {
             Map<String, Double> c = new HashMap<String, Double>();
             int measureNumber = i;
-            for (int name = 0; name < measuresCount; name++) {
-                c.put(cnames[name], values[measureNumber]);
+            for (String cname : cnames) {
+                c.put(cname, values[measureNumber]);
                 measureNumber += clustersCount;
             }
             centres.add(c);
@@ -135,7 +135,7 @@ public class RUtils {
 
     public Map<String, List<List<Double>>> getStatesAssignment(
             REXP clusteringResult, String[] stateNames) {
-        Map<String, List<List<Double>>> assignment = new HashMap<String, List<List<Double>>>();
+        Map<String, List<List<Double>>> assignment = new HashMap<>();
 
         RVector pamkAsVector = ((REXP) clusteringResult.asVector().get(0))
                 .asVector();
@@ -333,15 +333,6 @@ public class RUtils {
         REXP tree = rengine.eval(deciSionTreeCommand);
 
         rengine.eval("print(" + treeName + ")");
-
-//		rengine.eval("X11()");
-//		rengine.eval("plot(" + treeName + ")");
-//		rengine.eval("text(" + treeName + ",use.n=TRUE,all=TRUE,cex=0.8)");
-//
-//		rengine.eval("X11()");
-//		rengine.eval("plot(" + treeName + ")");
-//		rengine.eval("text(" + treeName + ",use.n=TRUE,all=TRUE,cex=0.8)");
-
     }
 
     public String predictStateByTree(double[] point, String[] measureNames,

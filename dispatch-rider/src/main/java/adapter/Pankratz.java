@@ -17,7 +17,7 @@ public class Pankratz implements Adapter {
     private final SimInfo simInfo;
 
     public Pankratz(String fileName) throws Exception {
-        handler = new LinkedList<CommissionHandler>();
+        handler = new LinkedList<>();
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         reader.readLine();
         reader.readLine();
@@ -28,7 +28,7 @@ public class Pankratz implements Adapter {
         Point2D.Double depot = new Point2D.Double(Integer.parseInt(parts[1]),
                 Integer.parseInt(parts[2]));
         simInfo = new SimInfo(depot, deadline, maxLoad);
-        Map<String, Point2D.Double> nodes = new HashMap<String, Point2D.Double>();
+        Map<String, Point2D.Double> nodes = new HashMap<>();
         String line;
         while (!(line = reader.readLine()).equals("DEMAND_SECTION:")) {
             parts = line.split("\t");

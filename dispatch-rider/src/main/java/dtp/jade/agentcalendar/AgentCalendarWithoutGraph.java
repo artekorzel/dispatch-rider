@@ -4,7 +4,7 @@ import dtp.commission.Commission;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.Hashtable;
 import java.util.List;
 
 // TODO nie jest do konca uwzgledniany aspekt "NOW" (timestamp)
@@ -54,7 +54,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         ActionQueueWithoutGraph minSchedule;
         double minExtraDistance;
         double originalDistance;
-        double loadDiffrence = 0;
+        double loadDifference = 0;
 
         minSchedule = null;
         minExtraDistance = Double.MAX_VALUE;
@@ -70,9 +70,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
             backupCurActionPickup = backupSchedulePickup
                     .get(tmpIndex);
 
-            boolean pickup;
-
-            pickup = true;
+            boolean pickup = true;
             // pickupAction - zwraca stworzona akcje PICKUP
             pickupAction = putCom(com, pickup, curAction, nextPDDAction,
                     timestamp);
@@ -132,10 +130,10 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                                 minSchedule = schedule.backup();
                             }
                         } else {
-                            loadDiffrence = loadOk;
+                            loadDifference = loadOk;
                             System.out
                                     .println("AgentCalendar -> LOAD NOT OK >> "
-                                            + loadDiffrence);
+                                            + loadDifference);
                         }
 
                         schedule = backupScheduleDelivery;
@@ -168,7 +166,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
 
             removeComFromHashtable(String.valueOf(com.getID()));
 
-            return loadDiffrence;
+            return loadDifference;
         }
     }
 

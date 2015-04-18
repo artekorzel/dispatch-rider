@@ -22,11 +22,6 @@ public abstract class MeasureCalculator implements Serializable {
     protected int timestamp;
     protected List<Commission> commissions;
 
-    /**
-     * @param oldSchedules - schedules before ST
-     * @param newSchedules - schedules after ST
-     * @return
-     */
     public abstract Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                              Map<AID, Schedule> newSchedules);
 

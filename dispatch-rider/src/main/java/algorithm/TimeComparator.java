@@ -2,13 +2,12 @@ package algorithm;
 
 import dtp.commission.Commission;
 
-import java.awt.geom.Point2D;
 import java.util.Comparator;
 
 public class TimeComparator implements Comparator<Commission> {
     private Boolean pickups;
 
-    public TimeComparator(Boolean pickups, Point2D.Double currentLocation) {
+    public TimeComparator(Boolean pickups) {
         this.pickups = pickups;
     }
 

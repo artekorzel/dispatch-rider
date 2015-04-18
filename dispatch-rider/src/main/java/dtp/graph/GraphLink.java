@@ -21,7 +21,6 @@ public class GraphLink implements Serializable, Comparable<GraphLink> {
         this.to = to;
         this.cost = cost;
         this.from.addElementToListOut(this);
-        this.to.addElementToListIn(this);
     }
 
     @Override
@@ -72,14 +71,6 @@ public class GraphLink implements Serializable, Comparable<GraphLink> {
         this.cost = cost;
     }
 
-    public void setFromPoint(GraphPoint from) {
-        this.from = from;
-    }
-
-    public void setToPoint(GraphPoint to) {
-        this.to = to;
-    }
-
     /**
      * @return geometrical lenght of link
      */
@@ -90,12 +81,8 @@ public class GraphLink implements Serializable, Comparable<GraphLink> {
     }
 
     public boolean equals(GraphLink ln) {
-
-        if (this.cost == ln.getCost() && this.from.equals(ln.getStartPoint())
-                && this.to.equals(ln.getEndPoint()))
-            return true;
-        else
-            return false;
+        return this.cost == ln.getCost() && this.from.equals(ln.getStartPoint())
+                && this.to.equals(ln.getEndPoint());
     }
 
     @Override
@@ -103,18 +90,4 @@ public class GraphLink implements Serializable, Comparable<GraphLink> {
         return "<(" + from.getX() + "," + from.getY() + ") -> (" + to.getX()
                 + "," + to.getY() + ")";
     }
-
-    /**
-     * Disconnects Link from Points
-     */
-    public void dispose() {
-        from.removeElementFromListOut(this);
-        from.removeElementFromListIn(this);
-    }
-
-    /*
-     * public GraphLink clone() {
-     *
-     * return new GraphLink(from.clone(), to.clone(), cost); }
-     */
 }

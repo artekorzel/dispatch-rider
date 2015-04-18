@@ -15,7 +15,7 @@ public class MitrovicMinic implements Adapter {
     private final SimInfo simInfo;
 
     public MitrovicMinic(String fileName) throws Exception {
-        handler = new LinkedList<CommissionHandler>();
+        handler = new LinkedList<>();
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         for (int i = 0; i < 2; i++)
             reader.readLine();

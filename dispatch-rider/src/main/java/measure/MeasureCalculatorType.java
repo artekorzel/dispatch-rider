@@ -1,5 +1,7 @@
 package measure;
 
+import measure.calculator.*;
+
 public enum MeasureCalculatorType {
     AverageDistanceFromCurLocationToBaseForAllCommissions(AverageDistanceFromCurLocationToBaseForAllCommissions.class),
     AverageDistanceFromCurLocationToBaseForUndeliveredCommissions(AverageDistanceFromCurLocationToBaseForUndeliveredCommissions.class),

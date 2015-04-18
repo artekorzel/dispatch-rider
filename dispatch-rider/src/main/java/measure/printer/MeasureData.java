@@ -9,7 +9,6 @@ import java.util.List;
 
 public class MeasureData implements Iterable<List<Measure>>, Serializable {
 
-
     private final List<List<Measure>> measures = new LinkedList<List<Measure>>();
 
     public void addMeasures(List<Measure> measures) {
