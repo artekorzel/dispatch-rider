@@ -1149,7 +1149,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         ACLMessage cfp;
         cfp = new ACLMessage(CommunicationHelper.UPDATE_CURRENT_LOCATION);
         cfp.addReceiver(sender);
-        cfp.setContent(new String(""));
+        cfp.setContent("");
         send(cfp);
     }
 

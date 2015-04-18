@@ -2,10 +2,7 @@ package machineLearning.xml;
 
 import dtp.xml.ParseException;
 import dtp.xml.ValidatorErrorHandler;
-import machineLearning.qlearning.MLTableCell;
-import machineLearning.qlearning.MLTableGlobalStates;
-import machineLearning.qlearning.MLTableHolonStates;
-import machineLearning.qlearning.QLearning;
+import machineLearning.clustering.*;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
 import org.w3c.dom.Document;
@@ -20,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MLTableStructureParser {
+public class ClusTableStructureParser {
 
     /**
      * Converts XML boolean attribute to Java boolean type
@@ -77,36 +74,62 @@ public class MLTableStructureParser {
         return attr.getTextContent();
     }
 
-    private static void parseGlobalStates(QLearning table,
-                                          Element states) throws ParseException {
+    private static void parseGlobalStates(Clustering table, Element states)
+            throws ParseException {
         NodeList statesList = states.getElementsByTagName("state");
         Element state;
-        MLTableGlobalStates mlStates = new MLTableGlobalStates();
+        ClusTableGlobalStates mlStates = new ClusTableGlobalStates();
         mlStates.setK(attributeToDouble(states, "k"));
         for (int i = 0; i < statesList.getLength(); i++) {
             state = (Element) statesList.item(i);
-            mlStates.addState(state.getAttribute("name"),
-                    state.getAttribute("value"));
+
+            NodeList measuresList = state.getElementsByTagName("measure");
+
+            Map<String, Double> measures = new HashMap<>();
+            Element measure;
+            for (int j = 0; j < measuresList.getLength(); j++) {
+                measure = (Element) measuresList.item(j);
+                measures.put(measure.getAttribute("name"),
+                        Double.valueOf(measure.getAttribute("value")));
+            }
+
+            mlStates.addState(state.getAttribute("name"), measures);
         }
+        mlStates.setMeasures(table.getGlobalMeasures());
+        mlStates.setLearning(table.isLearning());
+        mlStates.setUseTrees(table.isUseTrees());
         table.setGlobalStates(mlStates);
     }
 
-    private static void parseHolonStates(QLearning table,
-                                         Element states) throws ParseException {
+    private static void parseHolonStates(Clustering table, Element states)
+            throws ParseException {
         NodeList statesList = states.getElementsByTagName("state");
         Element state;
-        MLTableHolonStates mlStates = new MLTableHolonStates();
+        ClusTableHolonStates mlStates = new ClusTableHolonStates();
         mlStates.setK(attributeToDouble(states, "k"));
         for (int i = 0; i < statesList.getLength(); i++) {
             state = (Element) statesList.item(i);
-            mlStates.addState(state.getAttribute("name"),
-                    state.getAttribute("value"));
+
+            NodeList measuresList = state.getElementsByTagName("measure");
+
+            Map<String, Double> measures = new HashMap<String, Double>();
+            Element measure;
+            for (int j = 0; j < measuresList.getLength(); j++) {
+                measure = (Element) measuresList.item(j);
+                measures.put(measure.getAttribute("name"),
+                        Double.valueOf(measure.getAttribute("value")));
+            }
+
+            mlStates.addState(state.getAttribute("name"), measures);
         }
+        mlStates.setMeasures(table.getHolonMeasures());
+        mlStates.setLearning(table.isLearning());
+        mlStates.setUseTrees(table.isUseTrees());
         table.setHolonStates(mlStates);
     }
 
-    private static void parseGlobalActions(QLearning table,
-                                           Element actions) throws ParseException {
+    private static void parseGlobalActions(Clustering table, Element actions)
+            throws ParseException {
         table.setGlobalActionsFunction(actions.getAttribute("function"));
         table.setGlobalFactor(attributeToDouble(actions, "factor"));
         table.setGlobalDeterministic(attributeToBoolean(actions,
@@ -128,8 +151,8 @@ public class MLTableStructureParser {
         }
     }
 
-    private static void parseHolonActions(QLearning table,
-                                          Element actions) throws ParseException {
+    private static void parseHolonActions(Clustering table, Element actions)
+            throws ParseException {
         table.setHolonActionsFunction(actions.getAttribute("function"));
         table.setHolonsFactor(attributeToDouble(actions, "factor"));
         table.setHolonDeterministic(attributeToBoolean(actions, "deterministic"));
@@ -147,9 +170,13 @@ public class MLTableStructureParser {
         }
     }
 
-    private static void parseStructure(QLearning table, Element element)
+    private static void parseStructure(Clustering table, Element element)
             throws ParseException {
 
+        Element globalMeasures = (Element) element.getElementsByTagName(
+                "globalMeasures").item(0);
+        Element holonMeasures = (Element) element.getElementsByTagName(
+                "holonMeasures").item(0);
         Element globalStates = (Element) element.getElementsByTagName(
                 "globalStates").item(0);
         Element holonStates = (Element) element.getElementsByTagName(
@@ -160,29 +187,118 @@ public class MLTableStructureParser {
                 "holonActions").item(0);
 
         boolean isGlobalStatesPresent = false;
-        if (globalStates != null) {
-            isGlobalStatesPresent = true;
-            parseGlobalStates(table, globalStates);
-            if (globalActions != null) {
-                parseGlobalActions(table, globalActions);
-            } else {
-                throw new ParseException("There's no global actions definition");
+
+        if (globalMeasures != null) {
+
+            parseGlobalMeasures(table, globalMeasures);
+
+            if (globalStates != null) {
+                isGlobalStatesPresent = true;
+                parseGlobalStates(table, globalStates);
+                if (globalActions != null) {
+                    parseGlobalActions(table, globalActions);
+                } else {
+                    throw new ParseException(
+                            "There's no global actions definition");
+                }
             }
         }
-        if (holonStates != null) {
-            parseHolonStates(table, holonStates);
-            if (holonActions != null) {
-                parseHolonActions(table, holonActions);
-            } else {
-                throw new ParseException("There's no holon actions definition");
+
+        if (holonMeasures != null) {
+
+            parseHolonMeasures(table, holonMeasures);
+
+            if (holonStates != null) {
+                parseHolonStates(table, holonStates);
+                if (holonActions != null) {
+                    parseHolonActions(table, holonActions);
+                } else {
+                    throw new ParseException(
+                            "There's no holon actions definition");
+                }
+            } else if (!isGlobalStatesPresent) {
+                throw new ParseException("There's no states definition part");
             }
-        } else if (!isGlobalStatesPresent) {
-            throw new ParseException("There's no states definition part");
         }
+
     }
 
-    private static boolean[] parseContent(QLearning table,
-                                          Element contentEl) {
+    private static void parseHolonMeasures(Clustering table,
+                                           Element holonMeasures) {
+
+        NodeList measuresList = holonMeasures.getElementsByTagName("measure");
+        Element measure;
+        ClusTableHolonMeasures clusMeasures = new ClusTableHolonMeasures();
+
+        for (int i = 0; i < measuresList.getLength(); i++) {
+            measure = (Element) measuresList.item(i);
+            clusMeasures.addMeasure(measure.getAttribute("name"),
+                    measure.getAttribute("value"));
+
+        }
+        table.setHolonMeasures(clusMeasures);
+
+    }
+
+    private static void parseGlobalMeasures(Clustering table,
+                                            Element globalMeasures) {
+        NodeList measuresList = globalMeasures.getElementsByTagName("measure");
+        Element measure;
+        ClusTableGlobalMeasures clusMeasures = new ClusTableGlobalMeasures();
+
+        for (int i = 0; i < measuresList.getLength(); i++) {
+            measure = (Element) measuresList.item(i);
+            clusMeasures.addMeasure(measure.getAttribute("name"),
+                    measure.getAttribute("value"));
+
+        }
+        table.setGlobalMeasures(clusMeasures);
+
+    }
+
+    private static void parseObservations(Clustering table, Element observations)
+            throws ParseException {
+        NodeList globalObservations = observations
+                .getElementsByTagName("globalObservations");
+        Element globalEle = (Element) globalObservations.item(0);
+        ClusTableObservations clusGlobalObservations = parseObservations(globalEle);
+        table.setGlobalObservations(clusGlobalObservations);
+
+        NodeList holonObservations = observations
+                .getElementsByTagName("holonObservations");
+        Element holonEle = (Element) holonObservations.item(0);
+        ClusTableObservations clusHolonObservations = parseObservations(holonEle);
+        table.setHolonObservations(clusHolonObservations);
+    }
+
+    private static ClusTableObservations parseObservations(Element globalEle)
+            throws ParseException {
+        ClusTableObservations ctos = new ClusTableObservations();
+        NodeList obsList = globalEle.getElementsByTagName("observation");
+
+        Element obs;
+        String stateName;
+        ClusTableObservation cto;
+        for (int i = 0; i < obsList.getLength(); i++) {
+            obs = (Element) obsList.item(i);
+            stateName = attributeToString(obs, "state");
+            cto = new ClusTableObservation(stateName);
+
+            NodeList measuresList = obs.getElementsByTagName("measure");
+            Element mes;
+            for (int j = 0; j < measuresList.getLength(); j++) {
+                mes = (Element) measuresList.item(j);
+                cto.addMeasureElement(attributeToString(mes, "name"),
+                        attributeToDouble(mes, "value"));
+            }
+            ctos.addObservation(cto);
+
+        }
+
+        return ctos;
+    }
+
+    private static boolean[] parseContent(Clustering table, Element contentEl) {
         Element globalTableContent = (Element) contentEl.getElementsByTagName(
                 "globalTableContent").item(0);
         Element holonTableContent = (Element) contentEl.getElementsByTagName(
@@ -201,23 +317,23 @@ public class MLTableStructureParser {
         return added;
     }
 
-    private static Map<String, List<MLTableCell>> readContent(Element content) {
-        Map<String, List<MLTableCell>> rows = new HashMap<>();
+    private static Map<String, List<ClusTableCell>> readContent(Element content) {
+        Map<String, List<ClusTableCell>> rows = new HashMap<String, List<ClusTableCell>>();
         NodeList nodes = content.getElementsByTagName("state");
         NodeList cells;
         Element state;
         Element cell;
         String stateName;
-        MLTableCell tableCell;
-        List<MLTableCell> cellList;
+        ClusTableCell tableCell;
+        List<ClusTableCell> cellList;
         for (int i = 0; i < nodes.getLength(); i++) {
             state = (Element) nodes.item(i);
             stateName = state.getAttribute("name");
             cells = state.getElementsByTagName("action");
-            cellList = new ArrayList<>();
+            cellList = new ArrayList<ClusTableCell>();
             for (int j = 0; j < cells.getLength(); j++) {
                 cell = (Element) cells.item(j);
-                tableCell = new MLTableCell();
+                tableCell = new ClusTableCell();
                 tableCell.setState(stateName);
                 tableCell.setAction(cell.getAttribute("name"));
                 tableCell.setUseCount(Integer.parseInt(cell
@@ -231,7 +347,7 @@ public class MLTableStructureParser {
         return rows;
     }
 
-    public static void parse(String filename, QLearning table)
+    public static void parse(String filename, Clustering table)
             throws ParseException {
 
         try {
@@ -240,7 +356,7 @@ public class MLTableStructureParser {
             factory.setNamespaceAware(true);
             factory.setValidating(true);
 
-            /* Use embedded location of XML schema to validate document */
+			/* Use embedded location of XML schema to validate document */
             factory.setAttribute(
                     "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
                     "http://www.w3.org/2001/XMLSchema");
@@ -249,9 +365,17 @@ public class MLTableStructureParser {
             builder.setErrorHandler(new ValidatorErrorHandler());
             Document document = builder.parse(filename);
 
-            Element root = (Element) document.getElementsByTagName("MLTable")
+            Element root = (Element) document.getElementsByTagName("ClusTable")
                     .item(0);
             table.setSchema(root.getAttribute("xsi:noNamespaceSchemaLocation"));
+
+            table.setLearning(attributeToBoolean(root, "learning"));
+            table.setUseTrees(attributeToBoolean(root, "useTrees"));
+            table.setMinClusCount(attributeToString(root, "minClustCount"));
+            table.setMaxClusCount(attributeToString(root, "maxClustCount"));
+            table.setUsePam(attributeToBoolean(root, "usepam"));
+            table.setOverwriteConf(attributeToBoolean(root, "overwriteConf"));
+
             Element structure = (Element) root
                     .getElementsByTagName("structure").item(0);
             parseStructure(table, structure);
@@ -269,6 +393,11 @@ public class MLTableStructureParser {
                 table.init(table.getGlobalStates(), table.getGlobalActions());
                 table.init(table.getHolonStates(), table.getHolonActions());
             }
+
+            Element obs = (Element) root.getElementsByTagName("observations")
+                    .item(0);
+            parseObservations(table, obs);
+
         } catch (Exception e) {
             throw new ParseException(e.getMessage(), e);
         }
@@ -276,11 +405,15 @@ public class MLTableStructureParser {
 
     public static void main(String args[]) {
         try {
-            QLearning table = new QLearning();
-            table.init("table.xml");
-            MLTableToXMLWriter.writeToXML("proba.xml", table);
+            Clustering table = new Clustering();
+            table.init("clustable.xml");
+
+            System.out.println(table.isLearning());
+            System.out.println("UseTrees: " + table.isUseTrees());
+            System.out.println(table.getGlobalObservations()
+                    .getObservationsAsList().get(0).getMeasure());
+            ClusTableToXMLWriter.writeToXML("proba.xml", table);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

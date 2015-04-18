@@ -5,9 +5,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,12 +19,7 @@ public class GraphChangesParser {
      * @return true if value is "true" or "1"
      */
     private static boolean stringToBoolean(String value) {
-        if ("true".equals(value))
-            return true;
-        else if ("1".equals(value))
-            return true;
-        else
-            return false;
+        return "true".equals(value) || "1".equals(value);
     }
 
     private static int attributeToInt(Node node, String attribute)
@@ -70,7 +62,7 @@ public class GraphChangesParser {
                     "http://www.w3.org/2001/XMLSchema");
 
             DocumentBuilder builder = factory.newDocumentBuilder();
-            builder.setErrorHandler(new SimpleErrorHandler());
+            builder.setErrorHandler(new ValidatorErrorHandler());
             Document document = builder.parse(filename);
 
             Element changes = (Element) document.getElementsByTagName(
@@ -98,24 +90,5 @@ public class GraphChangesParser {
             throw new ParseException(e.getMessage(), e);
         }
         return conf;
-    }
-
-    public static class SimpleErrorHandler implements ErrorHandler {
-
-        @Override
-        public void error(SAXParseException e) throws SAXException {
-            throw e;
-
-        }
-
-        @Override
-        public void fatalError(SAXParseException e) throws SAXException {
-            throw e;
-        }
-
-        @Override
-        public void warning(SAXParseException e) throws SAXException {
-            throw e;
-        }
     }
 }

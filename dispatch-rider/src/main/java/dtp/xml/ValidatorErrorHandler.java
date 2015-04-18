@@ -13,8 +13,7 @@ public class ValidatorErrorHandler implements ErrorHandler {
      * Returns a string describing parse exception details
      */
     private String getParseExceptionInfo(SAXParseException e) {
-        String info = "URI=" + e.getSystemId() + " Line=" + e.getLineNumber() + ": " + e.getMessage();
-        return info;
+        return "URI=" + e.getSystemId() + " Line=" + e.getLineNumber() + ": " + e.getMessage();
     }
 
     // The following methods are standard SAX ErrorHandler methods.

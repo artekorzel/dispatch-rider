@@ -1,7 +1,11 @@
 package dtp.graph.predictor;
 
 public enum GraphLinkPredictorType {
-    Standard(StandardGraphLinkPredictor.class);
+
+    Standard(StandardGraphLinkPredictor.class),
+    Average(AverageGraphLinkPredictor.class),
+    MovingAverage(MovingAverageGraphLinkPredictor.class),
+    WeightedAverage(WeightedAverageGraphLinkPredictor.class);
 
     private final Class<? extends GraphLinkPredictor> typeClass;
 

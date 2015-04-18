@@ -51,25 +51,16 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-/**
- * Main entry point for project
- *
- * @author kony.pl
- */
 public abstract class GUIAgent extends Agent {
 
 
     public static Semaphore updateCurrentLocationSemaphore;
-    /**
-     * Logger.
-     */
+
     protected static Logger logger = Logger.getLogger(GUIAgentImpl.class);
     // trzyma obiekty CommissionHandler (zlecenie wraz z czasem naplyniecia
     // do systemu), w odpowiednim czasie wysyla zlecenie do dystrybutora
     protected CommissionsHandler commissionsHandler;
-    /**
-     * Graphic User Interface
-     */
+
     protected SimLogic gui;
     protected Timer timer;
     protected ActionListener timerTaskPerformer;
@@ -84,7 +75,7 @@ public abstract class GUIAgent extends Agent {
     protected String graphChangeTime;
     protected int graphChangeFreq;
     protected int simInfoReceived;
-    Map<Integer, List<SimmulationData>> simulationData = new TreeMap<Integer, List<SimmulationData>>();
+    Map<Integer, List<SimmulationData>> simulationData = new TreeMap<>();
     private long simTime;
     private String punishmentFunction;
     private Map<String, Double> punishmentFunctionDefaults;
@@ -115,7 +106,7 @@ public abstract class GUIAgent extends Agent {
     private int defaultStats;
     private List<SimmulationData> data;
     private Integer timeStamp;
-    private List<NewTeamData> undeliveredCommissions = new LinkedList<NewTeamData>();
+    private List<NewTeamData> undeliveredCommissions = new LinkedList<>();
     private Graph graph;
     private Boolean updateAfterArrival;
     private int graphChangeTimestamp = -1;
@@ -614,7 +605,7 @@ public abstract class GUIAgent extends Agent {
                 for (AID aid : aids) {
                     cfp = new ACLMessage(CommunicationHelper.BACK_TO_DEPOT);
                     cfp.addReceiver(aid);
-                    cfp.setContent(new String(""));
+                    cfp.setContent("");
                     send(cfp);
                 }
             }
@@ -642,7 +633,7 @@ public abstract class GUIAgent extends Agent {
         for (AID aid : aids) {
             cfp = new ACLMessage(CommunicationHelper.UPDATE_CURRENT_LOCATION);
             cfp.addReceiver(aid);
-            cfp.setContent(new Integer(timestamp).toString());
+            cfp.setContent(Integer.toString(timestamp));
             send(cfp);
         }
 
