@@ -1,20 +1,10 @@
 package dtp.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class GraphGenerator {
 
-    /**
-     * Tworzy dtp.graph.Graph na podstawie listy punktow (dtp.graph.GraphPoint). W grafie nie ma linkow.
-     *
-     * @param points       lista punktow
-     * @param howManyLinks do/z ilu punktow maja wchodzic/wychodzic linki [0, 1]
-     * @return wygenerowany graf
-     */
-    public Graph create(ArrayList<GraphPoint> points) {
+    public Graph create(List<GraphPoint> points) {
 
         Graph graph;
         Iterator<GraphPoint> pit;
@@ -28,14 +18,7 @@ public class GraphGenerator {
         return graph;
     }
 
-    /**
-     * Generuje dtp.graph.Graph na podstawie listy punktow (dtp.graph.GraphPoint)
-     *
-     * @param points       lista punktow
-     * @param howManyLinks do/z ilu punktow maja wchodzic/wychodzic linki
-     * @return wygenerowany graf
-     */
-    public Graph generateRandom(ArrayList<GraphPoint> points, int howManyLinks) {
+    public Graph generateRandom(List<GraphPoint> points, int howManyLinks) {
 
         Graph graph;
         Iterator<GraphPoint> pit;
@@ -59,7 +42,7 @@ public class GraphGenerator {
         return graph;
     }
 
-    public Graph generateWithNeighbours(ArrayList<GraphPoint> points, int howManyNeighbours, int howManyPoints) {
+    public Graph generateWithNeighbours(List<GraphPoint> points, int howManyNeighbours, int howManyPoints) {
 
         Graph graph;
         Iterator<GraphPoint> pit;
@@ -82,12 +65,8 @@ public class GraphGenerator {
         return graph;
     }
 
-    private void setLinksIn(Graph graph, GraphPoint point, ArrayList<GraphPoint> sources) {
-
-        Iterator<GraphPoint> pit = sources.iterator();
-        while (pit.hasNext()) {
-            GraphPoint source = pit.next();
-
+    private void setLinksIn(Graph graph, GraphPoint point, List<GraphPoint> sources) {
+        for (GraphPoint source : sources) {
             // nie dodawaj linku do siebie samego
             if (point.hasSameCoordinates(source))
                 continue;
@@ -105,12 +84,8 @@ public class GraphGenerator {
         }
     }
 
-    private void setLinksOut(Graph graph, GraphPoint point, ArrayList<GraphPoint> targets) {
-
-        Iterator<GraphPoint> pit = targets.iterator();
-        while (pit.hasNext()) {
-            GraphPoint target = pit.next();
-
+    private void setLinksOut(Graph graph, GraphPoint point, List<GraphPoint> targets) {
+        for (GraphPoint target : targets) {
             // nie dodawaj linku do siebie samego
             if (point.hasSameCoordinates(target))
                 continue;
@@ -128,21 +103,16 @@ public class GraphGenerator {
         }
     }
 
-    /**
-     * @param points        pula z ktorej losowane beda punkty
-     * @param howManyPoints ile punktow ma zostac wylosowanych [0, 1]
-     * @return
-     */
-    private ArrayList<GraphPoint> getRandomPoints(ArrayList<GraphPoint> points, int howMany) {
+    private List<GraphPoint> getRandomPoints(List<GraphPoint> points, int howMany) {
 
-        ArrayList<GraphPoint> newPoints;
+        List<GraphPoint> newPoints;
         GraphPoint point;
         Random rand;
 
         if (howMany > points.size())
             return points;
 
-        newPoints = new ArrayList<GraphPoint>();
+        newPoints = new ArrayList<>();
         rand = new Random(System.nanoTime());
 
         while (newPoints.size() < howMany) {
@@ -156,22 +126,19 @@ public class GraphGenerator {
         return newPoints;
     }
 
-    // wylosuj nowManyPoints sposrod howManyNeighbours najblizszych punktow
-    private ArrayList<GraphPoint> getClosePoints(GraphPoint point, ArrayList<GraphPoint> points, int howManyNeighbours,
-                                                 int howManyPoints) {
+    private List<GraphPoint> getClosePoints(GraphPoint point, List<GraphPoint> points,
+                                            int howManyNeighbours, int howManyPoints) {
 
-        ArrayList<GraphPoint> neighbours;
-
+        List<GraphPoint> neighbours;
         neighbours = getNeighbours(point, points, howManyNeighbours);
-
         return getRandomPoints(neighbours, howManyPoints);
     }
 
-    private ArrayList<GraphPoint> getNeighbours(GraphPoint point, ArrayList<GraphPoint> points, int howMany) {
+    private List<GraphPoint> getNeighbours(GraphPoint point, List<GraphPoint> points, int howMany) {
 
         HashMap<String, Double> neighboursMap;
         Iterator<String> iterString;
-        ArrayList<GraphPoint> neighboursList;
+        List<GraphPoint> neighboursList;
         Iterator<GraphPoint> iterPoint;
         GraphPoint tmpPoint;
         double distance;
@@ -179,14 +146,12 @@ public class GraphGenerator {
         int count;
         int index;
 
-        neighboursMap = new HashMap<String, Double>();
+        neighboursMap = new HashMap<>();
         iterPoint = points.iterator();
         count = 0;
         index = 0;
 
-        // losowe punkty na start, bez point
         while (count < Math.min(howMany, points.size() - 1)) {
-
             distance = distance(points.get(index).getX(), points.get(index).getY(), point.getX(), point.getY());
 
             if (distance != 0) {
@@ -198,7 +163,6 @@ public class GraphGenerator {
             index++;
         }
 
-        // neighbours ma zawierac howMany najblizszych punktow
         while (iterPoint.hasNext()) {
 
             tmpPoint = iterPoint.next();
@@ -213,18 +177,17 @@ public class GraphGenerator {
         }
 
         // przepisz do ArrayList
-        neighboursList = new ArrayList<GraphPoint>();
+        neighboursList = new ArrayList<>();
         iterString = neighboursMap.keySet().iterator();
 
         while (iterString.hasNext()) {
-
             neighboursList.add(getPointByName(points, iterString.next()));
         }
 
         return neighboursList;
     }
 
-    private GraphPoint getPointByName(ArrayList<GraphPoint> points, String name) {
+    private GraphPoint getPointByName(List<GraphPoint> points, String name) {
 
         Iterator<GraphPoint> iter;
         GraphPoint tmpPoint;
@@ -245,7 +208,6 @@ public class GraphGenerator {
     }
 
     private double distance(double ax, double ay, double bx, double by) {
-
         return Math.sqrt(Math.pow(ax - bx, 2) + Math.pow(ay - by, 2));
     }
 
@@ -262,9 +224,9 @@ public class GraphGenerator {
         while (iter.hasNext()) {
 
             key = iter.next();
-            dist = points.get(key).doubleValue();
+            dist = points.get(key);
 
-            if (dist > points.get(keyWithMaxDist).doubleValue())
+            if (dist > points.get(keyWithMaxDist))
                 keyWithMaxDist = key;
         }
 

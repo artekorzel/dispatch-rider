@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 public class GetGraphUpdateBehaviour extends CyclicBehaviour {
 
-
     private static Logger logger = Logger.getLogger(GetGraphUpdateBehaviour.class);
 
     private GUIAgent guiAgent;
@@ -21,18 +20,15 @@ public class GetGraphUpdateBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-
         MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.GRAPH_UPDATE);
         ACLMessage msg = myAgent.receive(template);
 
         Graph graph;
 
         if (msg != null) {
-
             try {
                 graph = (Graph) msg.getContentObject();
                 guiAgent.updateGraph(graph);
-
             } catch (UnreadableException e) {
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }

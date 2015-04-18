@@ -29,9 +29,9 @@ public class NewHolonOffer implements Serializable, Comparable<NewHolonOffer> {
     }
 
     public int compareTo(NewHolonOffer offer) {
-        if (isValid() == false && offer.isValid() == false) return 0;
-        if (offer.isValid() == false) return 1;
-        if (isValid() == false) return -1;
+        if (!isValid() && !offer.isValid()) return 0;
+        if (!offer.isValid()) return 1;
+        if (!isValid()) return -1;
         if (truck.equals(offer.getTruck()) && trailer.equals(offer.getTrailer()) && driver.equals(offer.getDriver()))
             return 0;
         return driver.compareTo(offer.getDriver());
@@ -50,11 +50,7 @@ public class NewHolonOffer implements Serializable, Comparable<NewHolonOffer> {
     }
 
     public boolean isValid() {
-        if (isValid == false) return false;
-        if (truck == null) return false;
-        if (trailer == null) return false;
-        if (driver == null) return false;
-        return true;
+        return isValid && truck != null && trailer != null && driver != null;
     }
 
     public AID getTruck() {

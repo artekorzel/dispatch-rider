@@ -19,13 +19,13 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-public class TrailerCreationBeaviour extends CyclicBehaviour {
+public class TrailerCreationBehaviour extends CyclicBehaviour {
 
-    private static Logger logger = Logger.getLogger(TrailerCreationBeaviour.class);
+    private static Logger logger = Logger.getLogger(TrailerCreationBehaviour.class);
 
     private InfoAgent agent;
 
-    public TrailerCreationBeaviour(InfoAgent agent) {
+    public TrailerCreationBehaviour(InfoAgent agent) {
         this.agent = agent;
     }
 
@@ -36,7 +36,7 @@ public class TrailerCreationBeaviour extends CyclicBehaviour {
 
         if (message != null) {
             AgentContainer container = agent.getContainerController();
-            AgentController controller = null;
+            AgentController controller;
             AgentInfoPOJO agentInfo = new AgentInfoPOJO();
 
             agentInfo.setName("Trailer #" + agent.getTrailerAgentsNo());
@@ -46,16 +46,15 @@ public class TrailerCreationBeaviour extends CyclicBehaviour {
                 controller.start();
 
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
-                agentInfo.setAgentController(controller);
 
                 MessageTemplate template2 = MessageTemplate
                         .MatchPerformative(CommunicationHelper.TRANSPORT_TRAILER_AID);
                 ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
-                AID aid = null;
+                AID aid;
                 try {
                     aid = (AID) msg2.getContentObject();
                     agentInfo.setAID(aid);
-                    agent.addTrailerAgentInfo(agentInfo);
+                    agent.addTrailerAgentInfo();
 
                     //TODO sprawdzic, czy initial sie nie zmienia
                     agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.TRAILER);
@@ -65,10 +64,8 @@ public class TrailerCreationBeaviour extends CyclicBehaviour {
                     logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
                 }
 
-            } catch (StaleProxyException e) {
-                e.printStackTrace();
-            } catch (UnreadableException e) {
-                e.printStackTrace();
+            } catch (StaleProxyException | UnreadableException e) {
+                e.printStackTrace(); //FIXME
             }
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");

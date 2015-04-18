@@ -11,9 +11,7 @@ import org.apache.log4j.Logger;
 
 public class GetMeasureDataBehaviour extends CyclicBehaviour {
 
-
-    private static Logger logger = Logger
-            .getLogger(GetMeasureDataBehaviour.class);
+    private static Logger logger = Logger.getLogger(GetMeasureDataBehaviour.class);
 
     private final dtp.jade.gui.GUIAgent GUIAgent;
 

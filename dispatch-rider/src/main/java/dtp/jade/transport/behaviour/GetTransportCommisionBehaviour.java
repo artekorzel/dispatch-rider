@@ -44,7 +44,7 @@ public class GetTransportCommisionBehaviour extends CyclicBehaviour {
             try {
                 //logger.info("Got commision from e unit");
                 transportCommision = (TransportCommission) message.getContentObject();
-                agent.checkNewCommision(transportCommision);
+                agent.checkNewCommission(transportCommision);
             } catch (UnreadableException e) {
                 logger.error(agent.getLocalName() + " - UndeadableException - " + e.getMessage());
             }

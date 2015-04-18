@@ -6,11 +6,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-/**
- * @author kony.pl
- */
 public class GetSimInfoRequestBehaviour extends CyclicBehaviour {
-
 
     private GUIAgent guiAgent;
 
@@ -24,11 +20,8 @@ public class GetSimInfoRequestBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
             guiAgent.sendSimInfo(msg.getSender());
-
         } else {
-
             block();
         }
     }

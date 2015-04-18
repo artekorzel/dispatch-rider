@@ -1042,7 +1042,7 @@ public abstract class TransportAgent extends BaseAgent {
      *
      * @param commission commission to check
      */
-    public abstract void checkNewCommision(TransportCommission commission);
+    public abstract void checkNewCommission(TransportCommission commission);
 
     public abstract void checkReorganize(TransportCommission commission);/*
                                                                          * {

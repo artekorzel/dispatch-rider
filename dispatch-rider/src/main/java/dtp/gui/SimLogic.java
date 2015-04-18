@@ -1,5 +1,6 @@
 package dtp.gui;
 
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.graph.GraphGenerator;
@@ -12,10 +13,9 @@ import dtp.jade.transport.TransportElementInitialDataTruck;
 import dtp.simulation.SimInfo;
 import dtp.visualisation.VisGUI;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -30,29 +30,18 @@ import java.util.Calendar;
 public class SimLogic extends javax.swing.JFrame {
 
     protected GUIAgent guiAgent;
-
     protected Graph networkGraph;
-
     protected VisGUI visGui;
-
     protected int timestamp;
-
     protected SimInfo simInfo;
-
     protected int problemType;
-
-    protected ArrayList<TransportElementInitialDataTruck> trucksProperties;
-
-    protected ArrayList<TransportElementInitialDataTrailer> trailersProperties;
+    protected List<TransportElementInitialDataTruck> trucksProperties;
+    protected List<TransportElementInitialDataTrailer> trailersProperties;
 
     // //////// GUI components //////////
 
-    protected JTabbedPane mainPane;
-
     protected SimTab simTab;
-
     protected CommissionsTab commissionsTab;
-
     protected CrisisManagementTab crisisTab;
     protected boolean isAutoSimulation = false;
     protected boolean comsReady = true;
@@ -62,8 +51,7 @@ public class SimLogic extends javax.swing.JFrame {
 
     {
         try {
-            javax.swing.UIManager
-                    .setLookAndFeel("com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
+            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,159 +76,48 @@ public class SimLogic extends javax.swing.JFrame {
         this.graphConfChanges = graphConfChanges;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getSimTab()
-     */
-    public SimTab getSimTab() {
-
-        return simTab;
-    }
-
-    // :(
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getCommissionsTab()
-     */
     public CommissionsTab getCommissionsTab() {
-
         return commissionsTab;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#simStart()
-     */
     public void simStart() {
-
         guiAgent.simulationStart();
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getTimestamp()
-     */
     public int getTimestamp() {
-
         return timestamp;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setTimestamp(int)
-     */
     public void setTimestamp(int timestamp) {
-
         this.timestamp = timestamp;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getSimInfo()
-     */
     public SimInfo getSimInfo() {
-
         return simInfo;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setSimInfo(dtp.simulation.SimInfo)
-     */
     public void setSimInfo(SimInfo simInfo) {
-
         this.simInfo = simInfo;
-
         guiAgent.sendSimInfoToAll(this.simInfo);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getProblemType()
-     */
     public int getProblemType() {
-
         return problemType;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setProblemType(int)
-     */
     public void setProblemType(int problemType) {
-
         this.problemType = problemType;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#enableSimStartButton()
-     */
     public void enableSimStartButton() {
-
         simTab.enableSimStartButton();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#pauseSim(boolean)
-     */
-    public void pauseSim(boolean pause) {
-        /*
-         * simTab.pauseSim(pause);
-         *
-         * if (pause) {
-         *
-         * guiAgent.timerStop();
-         *
-         * } else {
-         *
-         * guiAgent.timerStart(); }
-         */
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#refreshComsWaiting()
-     */
     public void refreshComsWaiting() {
-
         simTab.setComsWaiting(guiAgent.getComsWaiting());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#sendTimestamp(int)
-     */
-    public void sendTimestamp(int simTime) {
-        guiAgent.sendTimestamp(simTime);
-    }
-
-    public boolean isSthChanged() {
-        return sthChanged;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#autoSimulation()
-     */
     public void autoSimulation() {
-        FileDialog fd = new FileDialog(this, "Plik do zapisu wynikow",
-                FileDialog.SAVE);
+        FileDialog fd = new FileDialog(this, "Plik do zapisu wynikow", FileDialog.SAVE);
         fd.setDirectory(".");
         fd.setFile("wynik.xls");
         fd.setVisible(true);
@@ -249,10 +126,11 @@ public class SimLogic extends javax.swing.JFrame {
 
     public void autoSimulation(String file) {
         final String fileName;
-        if (file.endsWith(".xls") == false)
+        if (!file.endsWith(".xls")) {
             fileName = file + ".xls";
-        else
+        } else {
             fileName = file;
+        }
         Thread thread = new Thread(new Runnable() {
 
             @Override
@@ -277,9 +155,7 @@ public class SimLogic extends javax.swing.JFrame {
                     while (!comsReady) {
                         try {
                             Thread.sleep(200);
-                            // if(waitCount>coms) break;
-                            // waitCount++;
-                        } catch (InterruptedException ex) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                     simTab.validate();
@@ -293,61 +169,22 @@ public class SimLogic extends javax.swing.JFrame {
         thread.start();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#nextAutoSimStep()
-     */
     public synchronized void nextAutoSimStep() {
-        // System.out.println("autosim1 "+timestamp);
-        // if(isAutoSimulation) {
-        // if(simInfo.getDeadline() > timestamp) {
-        // System.out.println("autosim "+timestamp);
-        // try {
-        // Thread.sleep(300);
-        // } catch(InterruptedException ex) {}
-        // nextSimStep();
-        // }
-        // else
-        // isAutoSimulation = false;
-        // }
-
         if (isAutoSimulation && !comsReady)
             comsReady = true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#nextSimStep()
-     */
     public void nextSimStep() {
-
-        /*
-         * if (guiAgent.getComsWaiting() == 0) {
-         *
-         * pauseSim(true);
-         *
-         * if (simGOD != null) {
-         *
-         * simGOD.completed();
-         *
-         * return; } }
-         */
         if (timestamp >= 0 && guiAgent.isRecording() && sthChanged) {
-            guiAgent.getSimmulationData(timestamp);
+            guiAgent.getSimulationData(timestamp);
         } else {
             nextSimStep2();
         }
-
     }
 
     public void nextSimStep2() {
         timestamp = guiAgent.getNextTimestamp(timestamp);// timestamp++;
-
-        // if (timestamp >= 5)
-        // System.exit(0);
-        simTab.setLabelDate(timestamp);
+        simTab.setLabelDate();
 
         params = null;
         if (graphConfChanges == null) {
@@ -380,89 +217,29 @@ public class SimLogic extends javax.swing.JFrame {
 
     public void nextSimStep5() {
         guiAgent.sendCommissions(timestamp);
-
         refreshComsWaiting();
-
         commissionsTab.markSentCommissions();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getTimerDelay()
-     */
-    public int getTimerDelay() {
-
-        return guiAgent.getTimerDelay();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setTimerDelay(int)
-     */
     public void setTimerDelay(int timerDelay) {
-
         guiAgent.setTimerDelay(timerDelay);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#displayMessage(java.lang.String)
-     */
     public void displayMessage(String txt) {
-
         simTab.appendInfo(txt);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#displayCalendar(java.lang.String)
-     */
-    public void displayCalendar(String calendar) {
-
-        if (calendar == null) {
-
-            return;
-        }
-
-        simTab.appendInfo(calendar);
-    }
-
-    // //////// NETWORK GRAPH //////////
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getNetworkGraph()
-     */
     public Graph getNetworkGraph() {
-
         return this.networkGraph;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setNetworkGraph(dtp.graph.Graph)
-     */
     public void setNetworkGraph(Graph networkGraph) {
-
         this.networkGraph = networkGraph;
-
         guiAgent.sendGraphToEUnits(networkGraph);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#createNetworkGraph()
-     */
     public Graph createNetworkGraph() {
-
-        ArrayList<GraphPoint> points;
+        List<GraphPoint> points;
 
         points = guiAgent.getLocations();
 
@@ -472,15 +249,9 @@ public class SimLogic extends javax.swing.JFrame {
         return new GraphGenerator().create(points);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#generateNeighboursNetworkGraph(int, int)
-     */
     public Graph generateNeighboursNetworkGraph(int howManyNeighbours,
                                                 int howManyPoints) {
-
-        ArrayList<GraphPoint> points;
+        List<GraphPoint> points;
         Graph graph;
 
         points = guiAgent.getLocations();
@@ -498,14 +269,9 @@ public class SimLogic extends javax.swing.JFrame {
         return graph;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#generateRandomNetworkGraph(double)
-     */
     public Graph generateRandomNetworkGraph(double linksRatio) {
 
-        ArrayList<GraphPoint> points;
+        List<GraphPoint> points;
         Graph graph;
 
         points = guiAgent.getLocations();
@@ -523,122 +289,40 @@ public class SimLogic extends javax.swing.JFrame {
         return graph;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getDepotLocation()
-     */
     public Point getDepotLocation() {
-
         return commissionsTab.getDepotLocation();
     }
 
-    // //////// VISUALIZATION //////////
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getVisGui()
-     */
-    public VisGUI getVisGui() {
-
-        return visGui;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setVisGui(dtp.visualisation.VisGUI)
-     */
     public void setVisGui(VisGUI visGui) {
-
         this.visGui = visGui;
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#updateEUnitsInfo(dtp.jade.eunit.EUnitInfo)
-     */
     public void updateEUnitsInfo(EUnitInfo eUnitInfo) {
-
         if (this.visGui == null) {
-
             return;
         }
-
         this.visGui.updateEUnitsInfo(eUnitInfo);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#updateGraph(dtp.graph.Graph)
-     */
     public void updateGraph(Graph graph) {
-
         networkGraph = graph;
-
         if (visGui != null) {
-
             visGui.updateGraph(graph);
         }
     }
 
-    // //////// BIG SIMMULATION //////////
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#resetEnvironment()
-     */
-    public void resetEnvironment() {
-
-        setTimestamp(-1);
-
-        setNetworkGraph(null);
-
-        problemType = ProblemType.WITHOUT_GRAPH;
-
-        visGui = null;
-
-        simInfo = null;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getTrucksProperties()
-     */
-    public ArrayList<TransportElementInitialDataTruck> getTrucksProperties() {
+    public List<TransportElementInitialDataTruck> getTrucksProperties() {
         return trucksProperties;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setTrucksProperties(java.util.ArrayList)
-     */
-    public void setTrucksProperties(
-            ArrayList<TransportElementInitialDataTruck> trucksProperties) {
+    public void setTrucksProperties(List<TransportElementInitialDataTruck> trucksProperties) {
         this.trucksProperties = trucksProperties;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#getTrailersProperties()
-     */
-    public ArrayList<TransportElementInitialDataTrailer> getTrailersProperties() {
+    public List<TransportElementInitialDataTrailer> getTrailersProperties() {
         return trailersProperties;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.gui.Gui2#setTrailersProperties(java.util.ArrayList)
-     */
-    public void setTrailersProperties(
-            ArrayList<TransportElementInitialDataTrailer> trailersProperties) {
+    public void setTrailersProperties(List<TransportElementInitialDataTrailer> trailersProperties) {
         this.trailersProperties = trailersProperties;
     }
 }

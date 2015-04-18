@@ -8,10 +8,10 @@ import jade.lang.acl.MessageTemplate;
 
 public class SimInfoReceivedBehaviour extends CyclicBehaviour {
 
-
-
+    private final GUIAgent agent;
 
     public SimInfoReceivedBehaviour(GUIAgent agent) {
+        this.agent = agent;
     }
 
     public void action() {
@@ -20,11 +20,9 @@ public class SimInfoReceivedBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
-
+            agent.simInfoReceived();
         } else {
             block();
         }
     }
-
 }

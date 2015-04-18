@@ -1,7 +1,7 @@
 package gui.common;
 
 import dtp.simulation.SimInfo;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -34,7 +34,7 @@ public abstract class TimestampUpdateable implements Updateable {
         records.add(newRecord);
     }
 
-    abstract public void update(SimmulationData data);
+    abstract public void update(SimulationData data);
 
     public void setSimInfo(SimInfo simInfo) {
         this.simInfo = simInfo;

@@ -112,7 +112,7 @@ public class ClusTableStructureParser {
 
             NodeList measuresList = state.getElementsByTagName("measure");
 
-            Map<String, Double> measures = new HashMap<String, Double>();
+            Map<String, Double> measures = new HashMap<>();
             Element measure;
             for (int j = 0; j < measuresList.getLength(); j++) {
                 measure = (Element) measuresList.item(j);
@@ -330,7 +330,7 @@ public class ClusTableStructureParser {
             state = (Element) nodes.item(i);
             stateName = state.getAttribute("name");
             cells = state.getElementsByTagName("action");
-            cellList = new ArrayList<ClusTableCell>();
+            cellList = new ArrayList<>();
             for (int j = 0; j < cells.getLength(); j++) {
                 cell = (Element) cells.item(j);
                 tableCell = new ClusTableCell();

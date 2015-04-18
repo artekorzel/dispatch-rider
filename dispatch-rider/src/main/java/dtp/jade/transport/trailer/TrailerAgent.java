@@ -123,7 +123,7 @@ public class TrailerAgent extends TransportAgent {
     }
 
     @Override
-    public synchronized void checkNewCommision(TransportCommission commission) {
+    public synchronized void checkNewCommission(TransportCommission commission) {
         if (isBooked() || commission.getLoad() > getCapacity()) {
             TransportOffer offer = new TransportOffer();
             offer.setRatio(-1);

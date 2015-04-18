@@ -1,4 +1,4 @@
-package dtp.jade.test.behaviour;
+package dtp.jade.gui.behaviour;
 
 import dtp.jade.CommunicationHelper;
 import dtp.jade.gui.GUIAgent;
@@ -9,13 +9,11 @@ import org.apache.log4j.Logger;
 
 public class GetTransportAgentCreatedBehaviour extends CyclicBehaviour {
 
-
     private static Logger logger = Logger.getLogger(GetTransportAgentCreatedBehaviour.class);
 
     private GUIAgent guiAgent;
 
     public GetTransportAgentCreatedBehaviour(GUIAgent agent) {
-
         this.guiAgent = agent;
     }
 

@@ -10,10 +10,7 @@ import org.apache.log4j.Logger;
 
 public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
 
-
-
-    private static Logger logger = Logger
-            .getLogger(GetUndeliveredCommissionBehaviour.class);
+    private static Logger logger = Logger.getLogger(GetUndeliveredCommissionBehaviour.class);
 
     private final GUIAgent guiAgent;
 
@@ -29,7 +26,6 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
             try {
                 guiAgent.addUndeliveredCommission((NewTeamData) msg
                         .getContentObject());

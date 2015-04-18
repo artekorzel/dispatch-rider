@@ -15,45 +15,27 @@ import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class InfoAgent extends BaseAgent {
 
-
-    /**
-     * Logger.
-     */
     private static Logger logger = Logger.getLogger(InfoAgent.class);
 
-    private ArrayList<AgentInfoPOJO> driverAgentsInfo;
-
     private int driverAgentsNo;
-
-    private ArrayList<AgentInfoPOJO> truckAgentsInfo;
-
     private int truckAgentsNo;
-
-    private ArrayList<AgentInfoPOJO> trailerAgentsInfo;
-
     private int trailerAgentsNo;
-
-    private ArrayList<AgentInfoPOJO> eunitAgentsInfo;
+    private int eunitAgentsNo;
 
     private Map<TransportType, List<TransportAgentData>> agents;
-
-    private int eunitAgentsNo;
 
     protected void setup() {
 
         agents = new HashMap<>();
 
         logger.info(this.getLocalName() + " - Hello World!");
-
-        /*-------- INITIALIZATION SECTION -------*/
-        this.driverAgentsInfo = new ArrayList<>();
-        this.truckAgentsInfo = new ArrayList<>();
-        this.trailerAgentsInfo = new ArrayList<>();
-        this.eunitAgentsInfo = new ArrayList<>();
 
         /*-------- SERVICES SECTION -------*/
         registerServices();
@@ -62,7 +44,7 @@ public class InfoAgent extends BaseAgent {
         addBehaviour(new EUnitCreationBehaviour(this));
         addBehaviour(new DriverCreationBehaviour(this));
         addBehaviour(new TruckCreationBehaviour(this));
-        addBehaviour(new TrailerCreationBeaviour(this));
+        addBehaviour(new TrailerCreationBehaviour(this));
         addBehaviour(new EndOfSimulationBehaviour(this));
         addBehaviour(new GetAgentsDataBehaviour(this));
 
@@ -112,16 +94,11 @@ public class InfoAgent extends BaseAgent {
         transportData.add(data);
     }
 
-    public Map<TransportType, List<TransportAgentData>> getAgentsData() {
-        return agents;
-    }
-
     public int getDriverAgentsNo() {
         return this.driverAgentsNo;
     }
 
-    public void addDriverAgentInfo(AgentInfoPOJO info) {
-        this.driverAgentsInfo.add(info);
+    public void addDriverAgentInfo() {
         this.driverAgentsNo++;
     }
 
@@ -129,8 +106,7 @@ public class InfoAgent extends BaseAgent {
         return this.truckAgentsNo;
     }
 
-    public void addTruckAgentInfo(AgentInfoPOJO info) {
-        this.truckAgentsInfo.add(info);
+    public void addTruckAgentInfo() {
         this.truckAgentsNo++;
     }
 
@@ -138,8 +114,7 @@ public class InfoAgent extends BaseAgent {
         return this.trailerAgentsNo;
     }
 
-    public void addTrailerAgentInfo(AgentInfoPOJO info) {
-        this.trailerAgentsInfo.add(info);
+    public void addTrailerAgentInfo() {
         this.trailerAgentsNo++;
     }
 
@@ -147,16 +122,11 @@ public class InfoAgent extends BaseAgent {
         return this.eunitAgentsNo;
     }
 
-    public void addEUnitAgentInfo(AgentInfoPOJO info) {
-        this.eunitAgentsInfo.add(info);
+    public void addEUnitAgentInfo() {
         this.eunitAgentsNo++;
     }
 
     public void simEnd() {
-        this.driverAgentsInfo = new ArrayList<>();
-        this.truckAgentsInfo = new ArrayList<>();
-        this.trailerAgentsInfo = new ArrayList<>();
-        this.eunitAgentsInfo = new ArrayList<>();
         eunitAgentsNo = 0;
         driverAgentsNo = 0;
         trailerAgentsNo = 0;

@@ -19,7 +19,7 @@ import java.util.Set;
 public class PunishmentFunction implements Serializable {
 
 
-    private final Map<String, String> functions = new HashMap<String, String>();
+    private final Map<String, String> functions = new HashMap<>();
 
     public PunishmentFunction(String function) {
         String parts[];
@@ -35,7 +35,7 @@ public class PunishmentFunction implements Serializable {
     public static void main(String args[]) {
         PunishmentFunction function = new PunishmentFunction(
                 "x;x>=0?-x;x<0?3;x==8");
-        Map<String, Double> def = new HashMap<String, Double>();
+        Map<String, Double> def = new HashMap<>();
         def.put("x", -1.0);
         Commission com = new Commission();
         System.out.println(function.getValue(def, com, 0, true));
@@ -49,7 +49,7 @@ public class PunishmentFunction implements Serializable {
             comParams = com.getPunishmentFunParamsPickup();
         else
             comParams = com.getPunishmentFunParamsDelivery();
-        params = new HashMap<String, Double>(comParams);
+        params = new HashMap<>(comParams);
         Set<String> keys = comParams.keySet();
         for (String key : defaults.keySet())
             if (!keys.contains(key))

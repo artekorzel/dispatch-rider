@@ -8,7 +8,6 @@ import jade.lang.acl.MessageTemplate;
 
 public class EndOfSimulationBehaviour extends CyclicBehaviour {
 
-
     private InfoAgent agent;
 
     public EndOfSimulationBehaviour(InfoAgent agent) {

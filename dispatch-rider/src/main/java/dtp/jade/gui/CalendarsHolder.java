@@ -24,27 +24,18 @@ public class CalendarsHolder {
     }
 
     public boolean gotAllCalendarStats() {
-
-        if (collectedCalendarsNumber == collectedCalendars.length) {
-
-            return true;
-        }
-
-        return false;
+        return collectedCalendarsNumber == collectedCalendars.length;
     }
 
     public String getAllStats() {
-
-        StringBuilder str;
-
-        str = new StringBuilder();
+        StringBuilder str = new StringBuilder();
 
         str.append("****************************** CALENDARS ******************************\n");
 
         for (int i = 0; i < collectedCalendars.length; i++) {
 
-            str.append("ExecutionUnit#" + i + ": \n");
-            str.append(collectedCalendars[i] + "\n");
+            str.append("ExecutionUnit#").append(i).append(": \n");
+            str.append(collectedCalendars[i]).append("\n");
         }
 
         str.append("***********************************************************************\n");

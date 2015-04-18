@@ -15,7 +15,7 @@ import dtp.jade.eunit.EUnitOffer;
 import dtp.jade.eunit.behaviour.GetCalendarStatsBehaviour;
 import dtp.jade.gui.CalendarStatsHolder;
 import dtp.jade.gui.CommissionsHolder;
-import dtp.jade.test.DefaultAgentsData;
+import dtp.jade.gui.DefaultAgentsData;
 import dtp.jade.transport.*;
 import dtp.simulation.SimInfo;
 import dtp.util.AIDsComparator;
@@ -81,7 +81,6 @@ public class DistributorAgent extends BaseAgent {
     private Commission[] commsGroup;
     private DefaultAgentsData defaultAgentsData;
     private boolean dist;
-    private List<Commission> commissionsToCarry;
     private boolean confSet = false;
     private Commission currentCommission;
     private CalendarStatsHolder calendarStatsHolder;
@@ -98,12 +97,9 @@ public class DistributorAgent extends BaseAgent {
     private int transportAgentsCount;
     private NewTeamData newTeamData;
     private boolean defaultEUnitCreation;
-    /* Complex SimmulatedTrading Part */
-    private AuctionST complexST;
+
     private Commission complexSTCommission;
     private static Map<AID, Schedule> holons;
-    private Set<AID> holonsAIDs;
-    private boolean complexSTStatus;
     private int maxFullSTDepth = 8;
     private boolean fullSimulatedTrading = false;
     private Algorithm algorithm;
@@ -111,10 +107,6 @@ public class DistributorAgent extends BaseAgent {
     private Map<AID, Schedule> oldSchedule;
     private Map<AID, Schedule> newSchedule;
     private boolean graphChanged = false;
-
-    /**
-     * @author Szyna
-     */
 
     public static Map<AID, Schedule> getEUnits(){
         return holons;
@@ -335,6 +327,7 @@ public class DistributorAgent extends BaseAgent {
             this.STTimestampGap = holder.getSTTimestampGap();
             this.STCommissionsGap = holder.getSTCommissionGap();
             this.isConfigurationChangeable = holder.isConfChange();
+            this.STDepth = holder.getSTDepth();
             confSet = true;
 
             DRParams params = new DRParams();
@@ -351,12 +344,8 @@ public class DistributorAgent extends BaseAgent {
         }
 
         commissions = new LinkedList<>();
-        commissionsToCarry = new LinkedList<>();
         simulatedTrading = false;
-        for (Commission c : com) {
-            commissions.add(c);
-            commissionsToCarry.add(Commission.copy(c));
-        }
+        Collections.addAll(commissions, com);
 
         // pattern=new PatternCalculator(commissions).pattern1();
 
@@ -408,7 +397,6 @@ public class DistributorAgent extends BaseAgent {
         simulatedTrading = false;
         currentCommission = commissionsQueue.poll();
 
-        commissionsToCarry.remove(currentCommission);
         eUnitOffers = new LinkedList<>();
         eUnitsCount = sendOffers(currentCommission);
         if (eUnitsCount == 0) {
@@ -543,9 +531,6 @@ public class DistributorAgent extends BaseAgent {
 
             sendFeedback(bestHolon, currentAuction.getCommission());
         } else {
-
-            // TODO
-            // createDefaultHolon(currentAuction.getCommission());
             sendFeedback(currentSTAuction.getOwnerAID(),
                     currentAuction.getCommission());
         }
@@ -819,11 +804,6 @@ public class DistributorAgent extends BaseAgent {
         }
     }
 
-    /**
-     * Wolana po przybyciu nowej oferty przez TransportUnity
-     *
-     * @param offer
-     */
     public synchronized void newHolonOffer(NewHolonOffer offer) {
         newHolonOffers.add(offer);
         transportUnitsPrepare++;
@@ -843,10 +823,6 @@ public class DistributorAgent extends BaseAgent {
         }
     }
 
-    /**
-     * Metoda wolana po tym jak wszystkie TransportUnity zakonczyli nagocjacje,
-     * w trybie wysylania zlecen jeden po drugim
-     */
     private void chooseBestHolon() {
         bestOffer = null;
         bestCost = Double.MAX_VALUE;
@@ -860,9 +836,6 @@ public class DistributorAgent extends BaseAgent {
                 * (currentCommission.getPickupY() - currentCommission
                 .getDeliveryY());
 
-        // pattern=new PatternCalculator(commissionsToCarry).pattern1();
-        // bestOffer=HolonPatternChooser.getBestOffer(newHolonOffers, pattern,
-        // dist, currentCommission);
         double cost;
         for (NewHolonOffer offer : newHolonOffers) {
             if (!offer.isValid()) {
@@ -934,7 +907,7 @@ public class DistributorAgent extends BaseAgent {
             sendGUIMessage("NEXT_SIMSTEP");
             return;
         }
-        eUnitOffers = new LinkedList<EUnitOffer>();
+        eUnitOffers = new LinkedList<>();
         bestCost = Double.MAX_VALUE;
         currentCommission = commissions.remove(0);
         sendGUIMessage("search for EUnit to carry commission (id="
@@ -981,13 +954,6 @@ public class DistributorAgent extends BaseAgent {
         System.out.println("Send Team");
         if (bestOffer == null) {
             createDefaultHolon(currentCommission);
-            /*
-             * System.err.println("Brak wolnych EUnit�w!!!");
-             * nooneList.add(currentCommission);
-             *
-             * if (commissions.size() > 0) addCommission(commissions.remove(0));
-             * else sendGUIMessage("NEXT_SIMSTEP");
-             */
             return;
         }
 
@@ -1013,11 +979,6 @@ public class DistributorAgent extends BaseAgent {
         sentCommissionToEUnit();
     }
 
-    /**
-     * Potwierdzenie dla TransportUnita, ze jest czescia holonu
-     *
-     * @param aid
-     */
     private void sentConfirmationToTransportUnit(AID aid) {
         ACLMessage cfp = new ACLMessage(
                 CommunicationHelper.CONFIRMATIO_FROM_DISTRIBUTOR);
@@ -1056,10 +1017,6 @@ public class DistributorAgent extends BaseAgent {
     public synchronized void feedbackFromEUnit() {
         transportAgentsCount--;
         if (transportAgentsCount == 0) {
-
-            // TODO
-            // tutaj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
             if (simulatedTradingCount != 0 && checkSTCondition()) {
                 if (commissionSendingType) {
                     if (currentCommission != null)
@@ -1075,11 +1032,6 @@ public class DistributorAgent extends BaseAgent {
         }
     }
 
-    /**
-     * Tworzenie nowego EUnita
-     *
-     * @param data
-     */
     protected void createNewEUnit(NewTeamData data) {
         newTeamData = data;
         if (checkSTCondition()) {
@@ -1184,11 +1136,6 @@ public class DistributorAgent extends BaseAgent {
         sentConfirmationToTransportUnit(bestOffer.getDriver());
     }
 
-    /**
-     * Tworzy nowego wypozyczonego holona
-     *
-     * @param commission
-     */
     private synchronized void createDefaultHolon(Commission commission) {
         sendGUIMessage("create new default EUnit");
         defaultEUnitCreation = true;
@@ -1208,15 +1155,8 @@ public class DistributorAgent extends BaseAgent {
         createNewEUnit(data);
     }
 
-    public synchronized AID getNextUnit() {
-        AID result = complexST.getCurrentAID();
-        complexST.increaseCurrentAIDNumber();
-        return result;
-    }
-
     public synchronized void complexSimmulatedTrading(Commission com) {
         holons = new HashMap<>();
-        holonsAIDs = new HashSet<>();
         AID aids[] = getEUnitsAids();
         eUnitsCount = aids.length;
         if (com != null)
@@ -1227,7 +1167,6 @@ public class DistributorAgent extends BaseAgent {
         }
         ACLMessage msg = new ACLMessage(CommunicationHelper.HOLONS_CALENDAR);
         for (AID aid : aids) {
-            holonsAIDs.add(aid);
             msg.addReceiver(aid);
         }
 
@@ -1235,37 +1174,7 @@ public class DistributorAgent extends BaseAgent {
             msg.setContentObject("");
             send(msg);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        /*
-         * complexSTCommission=Commission.copy(com); complexST=new
-         * AuctionST(getEUnitsAids()); SimmulatdTradingParameters params=new
-         * SimmulatdTradingParameters(); params.commission=Commission.copy(com);
-         * params.STDepth=maxComplexSTDepth; params.commissionsId=new
-         * TreeSet<Integer>(); if(complexST.allDone()) { closeComplexST(false);
-         * return; } sendComplexSTRequest(getNextUnit(), params);
-         */
-    }
-
-    public synchronized void finishComplexSimmulatedTrading() {
-        eUnitsCount--;
-        if (eUnitsCount == 0) {
-            if (!complexSTStatus) {
-                createNewEUnit();
-            } else {
-
-                if (commissionSendingType) {
-                    sendCommissionsToBestHolons();
-                } else {
-                    if (commissions.size() > 0)
-                        addCommission(commissions.remove(0));
-                    else
-                        sendGUIMessage("NEXT_SIMSTEP");
-                }
-
-            }
+            e.printStackTrace(); //fixme
         }
     }
 

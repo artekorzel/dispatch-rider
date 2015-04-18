@@ -46,7 +46,6 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
                 controller.start();
 
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
-                agentInfo.setAgentController(controller);
 
                 MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_TRUCK_AID);
                 ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
@@ -54,7 +53,7 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
                 try {
                     aid = (AID) msg2.getContentObject();
                     agentInfo.setAID(aid);
-                    agent.addTruckAgentInfo(agentInfo);
+                    agent.addTruckAgentInfo();
 
                     //TODO sprawdzic, czy initial sie nie zmienia
                     agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.TRUCK);

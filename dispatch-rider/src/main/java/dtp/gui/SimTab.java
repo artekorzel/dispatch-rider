@@ -68,8 +68,6 @@ public class SimTab extends JPanel {
 
     // graph type button group
 
-    private ButtonGroup buttonGroupGraphType;
-
     // // WITHOUT_GRAPH
 
     private JRadioButton radioProblemTypeWithoutGraph;
@@ -79,8 +77,6 @@ public class SimTab extends JPanel {
     private JRadioButton radioProblemTypeWithGraph;
 
 
-    // generate/read from file radio buttons
-    private ButtonGroup buttonGroupGenerate;
     // // // Generate
 
     private JRadioButton radioGraphGenerate;
@@ -176,7 +172,7 @@ public class SimTab extends JPanel {
         sliderSimSpeed.addChangeListener(new ChangeListener() {
 
             public void stateChanged(ChangeEvent evt) {
-                sliderSimSpeedStateChanged(evt);
+                sliderSimSpeedStateChanged();
             }
         });
         sliderSimSpeed.setEnabled(false);
@@ -220,7 +216,7 @@ public class SimTab extends JPanel {
         buttonNextSimStep.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-                buttonNextSimStepActionPerformed(evt);
+                buttonNextSimStepActionPerformed();
             }
         });
         buttonNextSimStep.setEnabled(false);
@@ -232,7 +228,7 @@ public class SimTab extends JPanel {
         buttonShowCalendars.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
-                buttonShowCalendarsActionPerformed(evt);
+                buttonShowCalendarsActionPerformed();
             }
         });
         buttonShowCalendars.setEnabled(false);
@@ -315,7 +311,7 @@ public class SimTab extends JPanel {
         radioProblemTypeWithGraph.setActionCommand("withGraph");
         radioProblemTypeWithGraph.addActionListener(graphRadioButtonListener);
 
-        buttonGroupGraphType = new ButtonGroup();
+        ButtonGroup buttonGroupGraphType = new ButtonGroup();
         buttonGroupGraphType.add(radioProblemTypeWithoutGraph);
         buttonGroupGraphType.add(radioProblemTypeWithGraph);
 
@@ -354,7 +350,7 @@ public class SimTab extends JPanel {
             radioGraphFromFile.addActionListener(graphGenerateListener);
 
         }
-        buttonGroupGenerate = new ButtonGroup();
+        ButtonGroup buttonGroupGenerate = new ButtonGroup();
         buttonGroupGenerate.add(radioGraphGenerate);
         buttonGroupGenerate.add(radioGraphFromFile);
 
@@ -492,7 +488,7 @@ public class SimTab extends JPanel {
 
     }
 
-    private void sliderSimSpeedStateChanged(ChangeEvent evt) {
+    private void sliderSimSpeedStateChanged() {
 
         labelSimSpeedValue.setText("1 per " + String.valueOf(sliderSimSpeed.getValue()) + "s");
         gui.setTimerDelay(1000 * sliderSimSpeed.getValue());
@@ -544,11 +540,9 @@ public class SimTab extends JPanel {
     }
 
     private void buttonSimPauseMouseClicked() {
-
         buttonNextSimStep.setEnabled(false);
-
         gui.autoSimulation();
-  
+
 
         /*
         if (guiAgent.isTimerRunning()) {
@@ -562,14 +556,12 @@ public class SimTab extends JPanel {
         */
     }
 
-    private void buttonNextSimStepActionPerformed(ActionEvent evt) {
-
+    private void buttonNextSimStepActionPerformed() {
         gui.nextSimStep();
         buttonSimPause.setEnabled(false);
     }
 
-    private void buttonShowCalendarsActionPerformed(ActionEvent evt) {
-
+    private void buttonShowCalendarsActionPerformed() {
         guiAgent.askForEUnitsCalendars();
     }
 
@@ -579,8 +571,7 @@ public class SimTab extends JPanel {
     }
 
     private void buttonVisStartMouseClicked() {
-
-        VisGUI visGUI = null;
+        VisGUI visGUI;
         Graph graph = null;
 
         if (gui.getProblemType() == ProblemType.WITHOUT_GRAPH) {
@@ -891,40 +882,22 @@ public class SimTab extends JPanel {
         buttonSimStart.setEnabled(false);
     }
 
-    public void pauseSim(boolean pause) {
-
-        if (pause) {
-
-            // this.buttonSimPause.setText("Go");
-
-        } else {
-
-            //  this.buttonSimPause.setText("Pause");
-        }
-    }
-
-    public void setLabelDate(int simTime) {
+    public void setLabelDate() {
 
         // jezeli time <0 to ustaw go w ""
         if (gui.getTimestamp() < 0) {
-
             labelDate.setText("\"" + String.valueOf(gui.getTimestamp()) + "\"");
-
         } else {
-
             labelDate.setText(String.valueOf(gui.getTimestamp()));
         }
     }
 
     public void setComsWaiting(int comsWaiting) {
-
         labelCommissionsLeft.setText("Coms waiting: " + comsWaiting);
     }
 
     public void appendInfo(String info) {
-
         try {
-
             textAreaInfo.append(info + "\n");
             if (checkBoxAutoScroll.isSelected()) {
                 JScrollBar scroll = scrollPaneInfo.getVerticalScrollBar();
@@ -932,20 +905,8 @@ public class SimTab extends JPanel {
                     scroll.setValue(scroll.getMaximum());
                 }
             }
-
         } catch (Exception e) {
-
             e.printStackTrace();
         }
-    }
-
-    public void clearScreen() {
-
-        textAreaInfo = new JTextArea();
-
-        textAreaInfo.setText("CLEAN SCREEN....\n\n");
-
-        scrollPaneInfo.setViewportView(textAreaInfo);
-        textAreaInfo.setBounds(14, 70, 861, 364);
     }
 }

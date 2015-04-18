@@ -21,11 +21,6 @@ import java.io.IOException;
 
 public class DriverCreationBehaviour extends CyclicBehaviour {
 
-    /**
-     *
-     */
-
-
     private static Logger logger = Logger.getLogger(DriverCreationBehaviour.class);
 
     private InfoAgent agent;
@@ -41,7 +36,7 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
 
         if (message != null) {
             AgentContainer container = agent.getContainerController();
-            AgentController controller = null;
+            AgentController controller;
             AgentInfoPOJO agentInfo = new AgentInfoPOJO();
 
             agentInfo.setName("Driver #" + agent.getDriverAgentsNo());
@@ -51,15 +46,14 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
                 controller.start();
 
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
-                agentInfo.setAgentController(controller);
 
                 MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_DRIVER_AID);
                 ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
-                AID aid = null;
+                AID aid;
                 try {
                     aid = (AID) msg2.getContentObject();
                     agentInfo.setAID(aid);
-                    agent.addDriverAgentInfo(agentInfo);
+                    agent.addDriverAgentInfo();
 
                     //TODO sprawdzic, czy initial sie nie zmienia
                     agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.DRIVER);
@@ -69,10 +63,8 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
                     logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
                 }
 
-            } catch (StaleProxyException e) {
-                e.printStackTrace();
-            } catch (UnreadableException e) {
-                e.printStackTrace();
+            } catch (StaleProxyException | UnreadableException e) {
+                e.printStackTrace(); //FIXME
             }
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");

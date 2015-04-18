@@ -1,7 +1,7 @@
 package gui.parameters;
 
 import gui.common.TimestampUpdateable;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import java.util.HashMap;
 
@@ -21,7 +21,7 @@ public class ParametersUpdateable extends TimestampUpdateable {
             // etc
     };
 
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         // inicjujemy obiekt na porzadany typ dla wezla czasowego
         if (newRecord.getData() == null)
             newRecord.setData(new HashMap<String, Object>());

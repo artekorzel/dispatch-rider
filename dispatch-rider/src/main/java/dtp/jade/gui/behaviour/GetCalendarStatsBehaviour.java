@@ -9,19 +9,13 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-/**
- * @author KONY
- */
 public class GetCalendarStatsBehaviour extends CyclicBehaviour {
-
-
 
     private static Logger logger = Logger.getLogger(GetCalendarStatsBehaviour.class);
 
     private GUIAgent guiAgent;
 
     public GetCalendarStatsBehaviour(GUIAgent agent) {
-
         this.guiAgent = agent;
     }
 
@@ -33,19 +27,13 @@ public class GetCalendarStatsBehaviour extends CyclicBehaviour {
         CalendarStats calendarStats;
 
         if (msg != null) {
-
             try {
-
                 calendarStats = (CalendarStats) msg.getContentObject();
                 guiAgent.addCalendarStats(calendarStats);
-
             } catch (UnreadableException e) {
-
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }
-
         } else {
-
             block();
         }
     }

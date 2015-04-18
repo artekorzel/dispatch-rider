@@ -2,7 +2,6 @@ package dtp.gui;
 
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
-import dtp.jade.gui.GUIAgentImpl;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -21,7 +20,7 @@ import java.awt.event.ActionListener;
  */
 public class AddEditCommission extends JFrame {
 
-    private static Logger logger = Logger.getLogger(GUIAgentImpl.class);
+    private static Logger logger = Logger.getLogger(AddEditCommission.class);
 
     private final CommissionsTab commissionsTab;
     // adding new commission -> true

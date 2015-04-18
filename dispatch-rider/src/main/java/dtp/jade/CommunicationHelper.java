@@ -187,19 +187,19 @@ public class CommunicationHelper {
     public static AID[] findAgentByServiceName(Agent agent, String serviceName) {
 
         DFAgentDescription[] descriptions = null;
-        AID[] aids = null;
+        AID[] aids;
 
         DFAgentDescription template = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
         sd.setType(serviceName);
         template.addServices(sd);
-        SearchConstraints constarints = new SearchConstraints();
-        constarints.setMaxResults(1000000L);
+        SearchConstraints constraints = new SearchConstraints();
+        constraints.setMaxResults(1000000L);
 
         try {
-            descriptions = DFService.search(agent, template, constarints);
+            descriptions = DFService.search(agent, template, constraints);
         } catch (FIPAException fe) {
-            fe.printStackTrace();
+            fe.printStackTrace();       //FIXME
         }
 
         aids = new AID[descriptions.length];

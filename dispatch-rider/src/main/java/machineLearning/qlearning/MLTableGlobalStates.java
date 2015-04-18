@@ -8,15 +8,13 @@ import java.util.Map;
 
 public class MLTableGlobalStates extends MLTableStates {
 
-
-
     @Override
     public String getCurrentState(Map<String, Measure> measures, AID aid) {
         aggregatorManager.setMeasures(measures);
         String fun;
         for (String state : values.keySet()) {
             fun = aggregatorManager.insertAggregateValues(values.get(state));
-            if (Calculator.calculateBoolExpr(fun) == true) {
+            if (Calculator.calculateBoolExpr(fun)) {
                 aggregatorManager.aggregationFinished();
                 return state;
             }

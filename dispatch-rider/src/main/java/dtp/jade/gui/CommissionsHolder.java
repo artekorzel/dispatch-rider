@@ -2,7 +2,6 @@ package dtp.jade.gui;
 
 import algorithm.Algorithm;
 import dtp.commission.Commission;
-import dtp.jade.test.DefaultAgentsData;
 
 import java.io.Serializable;
 

@@ -22,26 +22,19 @@ public class GetCalenderStatsToFileBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-
         MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_MY_FILE_STATS);
         ACLMessage msg = myAgent.receive(template);
 
         CalendarStats calendarStats;
 
         if (msg != null) {
-
             try {
-
                 calendarStats = (CalendarStats) msg.getContentObject();
                 guiAgent.addCalendarStatsToFile(calendarStats);
-
             } catch (UnreadableException e) {
-
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }
-
         } else {
-
             block();
         }
     }

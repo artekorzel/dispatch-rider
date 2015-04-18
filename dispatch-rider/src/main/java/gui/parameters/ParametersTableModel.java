@@ -2,7 +2,7 @@ package gui.parameters;
 
 import dtp.simulation.SimInfo;
 import gui.common.Updateable;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public class ParametersTableModel extends AbstractTableModel implements Updateab
     }
 
     @Override
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         updateable.update(data);
     }
 

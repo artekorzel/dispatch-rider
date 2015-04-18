@@ -1,17 +1,21 @@
 package dtp.jade.gui;
 
+import adapter.Adapter;
 import algorithm.Algorithm;
 import algorithm.Brute2Sorter;
 import algorithm.BruteForceAlgorithm;
 import algorithm.STLike.ExchangeAlgorithmsFactory;
 import algorithm.Schedule;
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
 import dtp.commission.CommissionsHandler;
 import dtp.graph.Graph;
+import dtp.graph.GraphChangesConfiguration;
 import dtp.graph.GraphLink;
 import dtp.graph.GraphPoint;
 import dtp.graph.predictor.GraphLinkPredictor;
+import dtp.gui.ExtensionFilter;
 import dtp.gui.SimLogic;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.agentcalendar.CalendarAction;
@@ -19,14 +23,15 @@ import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.crisismanager.crisisevents.CrisisEvent;
 import dtp.jade.distributor.NewTeamData;
 import dtp.jade.eunit.EUnitInfo;
-import dtp.jade.eunit.EUnitInitialData;
-import dtp.jade.test.DefaultAgentsData;
+import dtp.jade.gui.behaviour.*;
 import dtp.jade.transport.TransportElementInitialData;
 import dtp.jade.transport.TransportElementInitialDataTrailer;
 import dtp.jade.transport.TransportElementInitialDataTruck;
 import dtp.jade.transport.TransportType;
 import dtp.optimization.TrackFinder;
 import dtp.simulation.SimInfo;
+import dtp.xml.ConfigurationParser;
+import dtp.xml.ParseException;
 import gui.main.SingletonGUI;
 import jade.core.AID;
 import jade.core.Agent;
@@ -40,30 +45,31 @@ import measure.MeasureCalculatorsHolder;
 import measure.printer.MeasureData;
 import measure.printer.PrintersHolder;
 import org.apache.log4j.Logger;
-import xml.elements.SimmulationData;
+import pattern.ConfigurationChooser;
+import xml.elements.SimulationData;
 import xml.elements.XMLBuilder;
 
+import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-public abstract class GUIAgent extends Agent {
+public class GUIAgent extends Agent {
 
+    public static Semaphore updateCurrentLocationSemaphore;//FIXME
 
-    public static Semaphore updateCurrentLocationSemaphore;
-
-    protected static Logger logger = Logger.getLogger(GUIAgentImpl.class);
+    protected static Logger logger = Logger.getLogger(GUIAgent.class);
     // trzyma obiekty CommissionHandler (zlecenie wraz z czasem naplyniecia
     // do systemu), w odpowiednim czasie wysyla zlecenie do dystrybutora
     protected CommissionsHandler commissionsHandler;
 
     protected SimLogic gui;
     protected Timer timer;
-    protected ActionListener timerTaskPerformer;
     protected int timerDelay;
     protected CalendarsHolder calendarsHolder;
     protected CalendarStatsHolder calendarStatsHolder;
@@ -75,70 +81,187 @@ public abstract class GUIAgent extends Agent {
     protected String graphChangeTime;
     protected int graphChangeFreq;
     protected int simInfoReceived;
-    Map<Integer, List<SimmulationData>> simulationData = new TreeMap<>();
-    private long simTime;
-    private String punishmentFunction;
-    private Map<String, Double> punishmentFunctionDefaults;
-    private Double delayLimit;
-    private int holons;
-    private boolean firstComplexSTResultOnly;
-    private MLAlgorithm mlAlgorithm;
-    private boolean exploration;
-    private TrackFinder trackFinder;
-    private GraphLinkPredictor graphLinkPredictor;
-    private boolean STAfterChange;
-    private ExchangeAlgorithmsFactory exchangeAlgFactory;
-    private boolean commissionSendingType = false;
-    private boolean choosingByCost = true;
-    private int simulatedTradingCount = 0;
-    private int STDepth = 1;
-    private DefaultAgentsData defaultAgentsData = null;
-    private String chooseWorstCommission;
-    private Algorithm algorithm = new BruteForceAlgorithm();
-    private boolean dist;
-    private int STTimestampGap;
-    private int STCommissionGap;
-    private PrintersHolder printersHolder;
-    private MeasureCalculatorsHolder calculatorsHolder;
-    private boolean confChange;
-    private String mlTableFileName;
-    private int stamps;
-    private int defaultStats;
-    private List<SimmulationData> data;
-    private Integer timeStamp;
-    private List<NewTeamData> undeliveredCommissions = new LinkedList<>();
-    private Graph graph;
-    private Boolean updateAfterArrival;
-    private int graphChangeTimestamp = -1;
-    private LinkedList<GraphLink> changedGraphLinks;
-    private Brute2Sorter brute2Sorter;
-    private int backToDepotTimestamp = -1;
+    protected Map<Integer, List<SimulationData>> simulationData = new TreeMap<>();
+    protected long simTime;
+    protected String punishmentFunction;
+    protected Map<String, Double> punishmentFunctionDefaults;
+    protected Double delayLimit;
+    protected int holons;
+    protected boolean firstComplexSTResultOnly;
+    protected MLAlgorithm mlAlgorithm;
+    protected boolean exploration;
+    protected TrackFinder trackFinder;
+    protected GraphLinkPredictor graphLinkPredictor;
+    protected boolean STAfterChange;
+    protected ExchangeAlgorithmsFactory exchangeAlgFactory;
+    protected boolean commissionSendingType = false;
+    protected boolean choosingByCost = true;
+    protected int simulatedTradingCount = 0;
+    protected int STDepth = 1;
+    protected DefaultAgentsData defaultAgentsData = null;
+    protected String chooseWorstCommission;
+    protected Algorithm algorithm = new BruteForceAlgorithm();
+    protected boolean dist;
+    protected int STTimestampGap;
+    protected int STCommissionGap;
+    protected PrintersHolder printersHolder;
+    protected MeasureCalculatorsHolder calculatorsHolder;
+    protected boolean confChange;
+    protected String mlTableFileName;
+    protected int stamps;
+    protected int defaultStats;
+    protected List<SimulationData> data;
+    protected Integer timeStamp;
+    protected List<NewTeamData> undeliveredCommissions = new LinkedList<>();
+    protected Graph graph;
+    protected int graphChangeTimestamp = -1;
+    protected LinkedList<GraphLink> changedGraphLinks;
+    protected Brute2Sorter brute2Sorter;
+    protected int backToDepotTimestamp = -1;
 
-    public Brute2Sorter getBrute2Sorter() {
-        return brute2Sorter;
-    }
+    private boolean otherBenchmarks = false;
+    private Iterator<TestConfiguration> configurationIterator = null;
+    private TestConfiguration configuration;
+    private int transportAgentsCreated;
+    private int level;
+    private int transportAgentsCount;
 
     public void setBrute2Sorter(Brute2Sorter sorter) {
         this.brute2Sorter = sorter;
     }
 
     @Override
-    protected abstract void setup();
+    protected void setup() {
+        logger.info(this.getLocalName() + " - Hello World!");
 
-    protected int getEUnitsCount() {
-        return eUnitsCount;
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ignored) {
+        }
+
+		/* -------- SERVICES SECTION ------- */
+        registerServices();
+
+		/* -------- BEHAVIOURS SECTION ------- */
+        this.addBehaviour(new GetSimInfoRequestBehaviour(this));
+        this.addBehaviour(new GetMessageBehaviour(this));
+        this.addBehaviour(new GetCalendarBehaviour(this));
+        this.addBehaviour(new GetCalendarStatsBehaviour(this));
+        this.addBehaviour(new GetEUnitInfoBehaviour(this));
+        this.addBehaviour(new GetGraphUpdateBehaviour(this));
+        this.addBehaviour(new GetCalenderStatsToFileBehaviour(this));
+        this.addBehaviour(new GetTransportAgentCreatedBehaviour(this));
+        this.addBehaviour(new SimInfoReceivedBehaviour(this));
+        this.addBehaviour(new GetConfirmOfTimeStampBehaviour(this));
+        this.addBehaviour(new GetTransportAgentConfirmationBehaviour(this));
+        this.addBehaviour(new GetSimulationDataBehaviour(this));
+        this.addBehaviour(new GetUndeliveredCommissionBehaviour(this));
+        this.addBehaviour(new GetMeasureDataBehaviour(this));
+        this.addBehaviour(new GetMLTableBehaviour(this));
+        this.addBehaviour(new GetGraphChangedBehaviour(this));
+        this.addBehaviour(new GetAskForGraphChangesBehaviour(this));
+        this.addBehaviour(new GetGraphLinkChangedBehaviour(this));
+        this.addBehaviour(new GetConfirmUpdateCurrentLocation(this));
+
+        System.out.println("TestAgent - end of initialization");
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
+        } catch (Exception e) {
+            e.printStackTrace();  //FIXME
+        }
+
+        Object[] args = getArguments();
+        String configurationFile;
+        if (args != null && args.length == 1) {
+            /* Use supplied argument as location of configuration file */
+            configurationFile = args[0].toString();
+        } else {
+            /* Allow use to choose configuration file */
+            JFileChooser chooser = new JFileChooser(".");
+            chooser.setSelectedFile(new File("configuration.xml"));
+            chooser.setDialogTitle("Choose DispatchRider configuration file");
+            chooser.setFileFilter(new ExtensionFilter(new String[]{"xml"}));
+            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                configurationFile = chooser.getSelectedFile().getAbsolutePath();
+            } else {
+                throw new RuntimeException("No configuration file supplied");
+            }
+        }
+
+		/* -------- READ CONFIGURATION -------- */
+        try {
+            configurationIterator = ConfigurationParser
+                    .parse(configurationFile).iterator();
+        } catch (ParseException cause) {
+            throw new RuntimeException(
+                    "Error while parsing configuration file", cause);
+        }
+
+        nextTest();
+    }
+
+    public void nextTest() {
+        /* If there's no more test then exit */
+        if (!configurationIterator.hasNext()) {
+            logger.info("End of simulation: "
+                    + Calendar.getInstance().getTime());
+            System.out.println(Calendar.getInstance().getTime());
+            //System.exit(0);
+        } else {
+
+            configuration = configurationIterator.next();
+
+		/* -------- INTERFACE CREATION SECTION ------- */
+            gui = new SimLogic(this);
+		/* -------- TIME TASK PERFORMER SECTION ------- */
+            ActionListener timerTaskPerformer = new ActionListener() {
+
+                public void actionPerformed(ActionEvent evt) {
+                    gui.nextSimStep();
+
+                    // w simGOD timer startowany jest zeby zapisac statystyki, zaraz
+                    // potem trzeba go zatrzynamc
+                }
+            };
+
+            timerDelay = 200;
+            timer = new Timer(timerDelay, timerTaskPerformer);
+
+		/* -------- COMMISSIONS HANDLER SECTION ------- */
+            commissionsHandler = new CommissionsHandler();
+
+            // eUnitsCount=configuration.getEunits();
+		/* -------- EUNITS CREATION SECTION ------- */
+		/*
+		 * for (int i = 0; i < configuration.getEunits(); i++) {
+		 * EUnitInitialData data = new EUnitInitialData(
+		 * configuration.getReorganization(),
+		 * configuration.getReorganizationParam(),
+		 * configuration.getOrganization(),
+		 * configuration.getOrganizationParam()); data.setDepot(0);
+		 * createNewEUnit(data); }
+		 */
+            try {
+                transportAgentsCreated = 0;
+                level = 1;
+                agentsCount = loadDriversProperties(configuration
+                        .getConfigurationDirectory()
+                        + File.separator
+                        + "drivers.properties");
+            } catch (FileNotFoundException e) {
+                logger.fatal("properties file not found", e);
+
+            } catch (IOException e) {
+                logger.fatal("reading properties file failed", e);
+            }
+        }
     }
 
     public boolean isRecording() {
         return recording;
     }
 
-    /**
-     * Reads configuration file and adds agents representing drivers
-     *
-     * @param filePath path where drivers configuration file is
-     * @throws IOException
-     */
     protected int loadDriversProperties(String filePath) throws IOException {
         FileReader fr = new FileReader(new File(filePath));
         BufferedReader br = new BufferedReader(fr);
@@ -158,16 +281,49 @@ public abstract class GUIAgent extends Agent {
         return driversCount;
     }
 
-    public abstract void transportAgentConfirmationOfReceivingAgentsData();
+    public void transportAgentConfirmationOfReceivingAgentsData() {
+        transportAgentsCount--;
+        if (transportAgentsCount == -1) {
+            next2();
+        }
+    }
 
-    public abstract void transportAgentCreated();
+    public void transportAgentCreated() {
+        transportAgentsCreated++;
+        if (transportAgentsCreated == agentsCount) {
+            switch (level) {
+                case 1:
+                    level = 2;
+                    try {
+                        transportAgentsCreated = 0;
+                        agentsCount = loadTrailersProperties(configuration
+                                .getConfigurationDirectory()
+                                + File.separator
+                                + "trailers.properties");
+                    } catch (IOException e) {
+                        logger.fatal("reading properties file failed", e);
+                    }
+                    break;
+                case 2:
+                    try {
+                        level = 3;
+                        transportAgentsCreated = 0;
+                        agentsCount = loadTrucksProperties(configuration
+                                .getConfigurationDirectory()
+                                + File.separator
+                                + "trucks.properties");
+                    } catch (IOException e) {
+                        logger.fatal("reading properties file failed", e);
+                    }
+                    break;
+                case 3:
+                    level = 0;
+                    next();
+                    break;
+            }
+        }
+    }
 
-    /**
-     * Reads configuration file and adds agents representing trucks
-     *
-     * @param filePath path where trucks configuration file is
-     * @throws IOException
-     */
     protected int loadTrucksProperties(String filePath) throws IOException {
         FileReader fr = new FileReader(new File(filePath));
         BufferedReader br = new BufferedReader(fr);
@@ -179,7 +335,7 @@ public abstract class GUIAgent extends Agent {
         if (parts.length > 1)
             defaultCostFunction = parts[1];
 
-        ArrayList<TransportElementInitialDataTruck> trucksProperties = new ArrayList<TransportElementInitialDataTruck>();
+        List<TransportElementInitialDataTruck> trucksProperties = new ArrayList<>();
 
         for (int i = 0; i < trucksCount; i++) {
 
@@ -212,12 +368,6 @@ public abstract class GUIAgent extends Agent {
         return trucksCount;
     }
 
-    /**
-     * Reads configuration file and adds agents representing trailers
-     *
-     * @param filePath path where trailers configuration file is
-     * @throws IOException
-     */
     protected int loadTrailersProperties(String filePath) throws IOException {
         FileReader fr = new FileReader(new File(filePath));
         BufferedReader br = new BufferedReader(fr);
@@ -229,7 +379,7 @@ public abstract class GUIAgent extends Agent {
         if (parts.length > 1)
             defaultCostFunction = parts[1];
 
-        ArrayList<TransportElementInitialDataTrailer> trailersProperties = new ArrayList<TransportElementInitialDataTrailer>();
+        ArrayList<TransportElementInitialDataTrailer> trailersProperties = new ArrayList<>();
 
         for (int i = 0; i < trailersCount; i++) {
 
@@ -265,9 +415,6 @@ public abstract class GUIAgent extends Agent {
         return trailersCount;
     }
 
-    /**
-     * Registers services such as GuiService offered by a GuiAgent.
-     */
     protected void registerServices() {
 
         DFAgentDescription dfd = new DFAgentDescription();
@@ -334,14 +481,9 @@ public abstract class GUIAgent extends Agent {
         this.graphLinkPredictor = predictor;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#sendSimInfo(jade.core.AID)
-     */
     public void sendSimInfo(AID aid) {
 
-        ACLMessage cfp = null;
+        ACLMessage cfp;
 
         cfp = new ACLMessage(CommunicationHelper.SIM_INFO);
         cfp.addReceiver(aid);
@@ -371,15 +513,10 @@ public abstract class GUIAgent extends Agent {
         send(cfp);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#sendSimInfoToAll(dtp.simulation.SimInfo)
-     */
     public void sendSimInfoToAll(SimInfo simInfo) {
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "CommissionService");
@@ -400,10 +537,9 @@ public abstract class GUIAgent extends Agent {
         simInfo.setBrute2Sorter(brute2Sorter);
         if (aids.length != 0) {
             simInfoReceived = aids.length;
-            for (int i = 0; i < aids.length; i++) {
-
+            for (AID aid : aids) {
                 cfp = new ACLMessage(CommunicationHelper.SIM_INFO);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(simInfo);
                 } catch (IOException e) {
@@ -416,15 +552,9 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#sendGraphToEUnits(dtp.graph.Graph)
-     */
     public void sendGraphToEUnits(Graph graph) {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
@@ -433,11 +563,10 @@ public abstract class GUIAgent extends Agent {
                 + " EUnitAgents");
 
         if (aids.length != 0) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.GRAPH);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(graph);
                 } catch (IOException e) {
@@ -449,15 +578,9 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#sendUpdatedGraphToEunits(dtp.graph.Graph)
-     */
     public void sendUpdatedGraphToEunits(Graph graph) {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
@@ -466,11 +589,10 @@ public abstract class GUIAgent extends Agent {
                 + aids.length + " EUnitAgents");
 
         if (aids.length != 0) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.GRAPH_UPDATE);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(graph);
                 } catch (IOException e) {
@@ -482,57 +604,20 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#updateGraph(dtp.graph.Graph)
-     */
     public void updateGraph(Graph graph) {
-
         gui.updateGraph(graph);
-
         sendUpdatedGraphToEunits(graph);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#simulationStart()
-     */
     public void simulationStart() {
         SingletonGUI.getInstance().update(gui.getSimInfo());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#nextSimstep()
-     */
-    public void nextSimstep() {
-
-        gui.nextSimStep();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * dtp.jade.gui.GUIAgent2#addCommissionHandler(dtp.commission.CommissionHandler
-     * )
-     */
     public void addCommissionHandler(CommissionHandler commissionHandler) {
-
         commissionsHandler.addCommissionHandler(commissionHandler);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @seedtp.jade.gui.GUIAgent2#removeCommissionHandler(dtp.commission.
-     * CommissionHandler)
-     */
     public void removeCommissionHandler(CommissionHandler comHandler) {
-
         commissionsHandler.removeCommissionHandler(comHandler);
     }
 
@@ -592,11 +677,10 @@ public abstract class GUIAgent extends Agent {
         STCommissionGap = sTCommissionGap;
     }
 
-    public int getNextTimestamp(int timestamp) {//TODO
+    public int getNextTimestamp(int timestamp) {
         int i = timestamp + 1;
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this, "ExecutionUnitService");
-
         sendUpdateCurrentLocationRequest(aids, i);
 
         while (i <= gui.getSimInfo().getDeadline() && commissionsHandler.getCommissionsBeforeTime(i).length == 0 && !commissionsHandler.isAnyEUnitAtNode(i, false)) {
@@ -611,7 +695,6 @@ public abstract class GUIAgent extends Agent {
             }
 
             i++;
-
             sendUpdateCurrentLocationRequest(aids, i);
         }
 
@@ -620,10 +703,6 @@ public abstract class GUIAgent extends Agent {
 
     /**
      * Trzeba to robic ze wzgledu na to ze sprawdzamy czy eunit w danym momencie dojechal do commissiona (do tego potrzeba zupdatowac ich current location)
-     *
-     * @param aids
-     * @param timestamp
-     * @author Szyna
      */
     private void sendUpdateCurrentLocationRequest(AID[] aids, int timestamp) {
         ACLMessage cfp;
@@ -646,13 +725,7 @@ public abstract class GUIAgent extends Agent {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#sendCommissions(int)
-     */
     public void sendCommissions(int simTime) {
-
         CommissionHandler[] tempCommissionsHandler = commissionsHandler
                 .getCommissionsBeforeTime(simTime);
 
@@ -711,19 +784,14 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#sendTimestamp(int)
-     */
     public void sendTimestamp(int time) {
 
         logger.info(getLocalName() + " - sending time stamp [" + time + "]");
         gui.displayMessage(getLocalName() + " - sending time stamp [" + time + "]");
         SingletonGUI.getInstance().newTimestamp(time);
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         /* -------- EUNITS SECTION ------- */
         aids = CommunicationHelper.findAgentByServiceName(this,
@@ -732,8 +800,8 @@ public abstract class GUIAgent extends Agent {
         stamps = aids.length + 2;
         if (aids.length > 0) {
             cfp = new ACLMessage(CommunicationHelper.TIME_CHANGED);
-            for (int i = 0; i < aids.length; i++) {
-                cfp.addReceiver(aids[i]);
+            for (AID aid : aids) {
+                cfp.addReceiver(aid);
             }
             try {
                 cfp.setContentObject(time);
@@ -754,10 +822,9 @@ public abstract class GUIAgent extends Agent {
                 "CrisisManagementService");
 
         if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
                 cfp = new ACLMessage(CommunicationHelper.TIME_CHANGED);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(time);
                 } catch (IOException e) {
@@ -766,9 +833,7 @@ public abstract class GUIAgent extends Agent {
                 }
                 send(cfp);
             }
-
         } else {
-
             logger.info(getLocalName()
                     + " - none or more than one Crisis Manager Agent in the system");
         }
@@ -778,10 +843,9 @@ public abstract class GUIAgent extends Agent {
                 "CommissionService");
 
         if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
                 cfp = new ACLMessage(CommunicationHelper.TIME_CHANGED);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(time);
                 } catch (IOException e) {
@@ -790,9 +854,7 @@ public abstract class GUIAgent extends Agent {
                 }
                 send(cfp);
             }
-
         } else {
-
             logger.info(getLocalName()
                     + " - none or more than one Crisis Manager Agent in the system");
         }
@@ -805,72 +867,16 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#timerStart()
-     */
-    public void timerStart() {
-
-        timer.start();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#timerStop()
-     */
-    public void timerStop() {
-
-        timer.stop();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#isTimerRunning()
-     */
-    public boolean isTimerRunning() {
-
-        return timer.isRunning();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#getTimerDelay()
-     */
-    public int getTimerDelay() {
-
-        return timerDelay;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#setTimerDelay(int)
-     */
     public void setTimerDelay(int timerDelay) {
 
         this.timerDelay = timerDelay;
         timer.setDelay(timerDelay);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#getComsWaiting()
-     */
     public int getComsWaiting() {
-
         return commissionsHandler.getComsSize();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#getLocations()
-     */
     public ArrayList<GraphPoint> getLocations() {
 
         CommissionHandler[] coms;
@@ -882,19 +888,19 @@ public abstract class GUIAgent extends Agent {
         if (coms.length == 0)
             return null;
 
-        points = new ArrayList<GraphPoint>();
+        points = new ArrayList<>();
 
         // POINTS
-        for (int i = 0; i < coms.length; i++) {
+        for (CommissionHandler com : coms) {
 
-            px = coms[i].getCommission().getPickupX();
-            py = coms[i].getCommission().getPickupY();
+            px = com.getCommission().getPickupX();
+            py = com.getCommission().getPickupY();
 
             if (!containsPoint(points, px, py))
                 points.add(new GraphPoint(px, py, "pt_" + px + "_" + py));
 
-            px = coms[i].getCommission().getDeliveryX();
-            py = coms[i].getCommission().getDeliveryY();
+            px = com.getCommission().getDeliveryX();
+            py = com.getCommission().getDeliveryY();
 
             if (!containsPoint(points, px, py))
                 points.add(new GraphPoint(px, py, "pt_" + px + "_" + py));
@@ -909,15 +915,9 @@ public abstract class GUIAgent extends Agent {
         return points;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#askForEUnitsCalendars()
-     */
     public void askForEUnitsCalendars() {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
@@ -931,11 +931,10 @@ public abstract class GUIAgent extends Agent {
         }
 
         if (aids.length > 0) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.EUNIT_SHOW_CALENDAR);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject("");
                 } catch (IOException e) {
@@ -946,7 +945,6 @@ public abstract class GUIAgent extends Agent {
             }
 
             calendarsHolder = new CalendarsHolder(aids.length);
-
         } else {
 
             logger.info(getLocalName()
@@ -955,16 +953,8 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#addCalendar(java.lang.String,
-     * java.lang.String)
-     */
     public void addCalendar(String agent, String calendar) {
-
         if (calendarsHolder == null) {
-
             logger.error(getLocalName()
                     + " - no calendarStatsHolder to add stats to");
             return;
@@ -973,31 +963,20 @@ public abstract class GUIAgent extends Agent {
         calendarsHolder.addCalendar(agent, calendar);
 
         if (calendarsHolder.gotAllCalendarStats()) {
-
             displayCalendars();
             calendarsHolder = null;
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#displayCalendars()
-     */
     public void displayCalendars() {
 
         displayMessage(calendarsHolder.getAllStats());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#askForEUnitsCalendarStats()
-     */
     public void askForEUnitsCalendarStats() {
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
@@ -1011,11 +990,10 @@ public abstract class GUIAgent extends Agent {
         }
 
         if (aids.length > 0) {
-
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.EUNIT_SHOW_STATS);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject("");
                 } catch (IOException e) {
@@ -1035,17 +1013,12 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#saveStatsToFile(java.lang.String)
-     */
     public void saveStatsToFile(String fileName, long simTime) {
 
         this.simTime = simTime;
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         saveFileName = fileName;
 
@@ -1065,11 +1038,10 @@ public abstract class GUIAgent extends Agent {
             defaultStats = 0;
             calendarStatsHolderForFile = new CalendarStatsHolder(aids.length);
 
-            for (int i = 0; i < aids.length; i++) {
-
+            for (AID aid : aids) {
                 cfp = new ACLMessage(
                         CommunicationHelper.EUNIT_SHOW_STATS_TO_WRITE);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject("");
                 } catch (IOException e) {
@@ -1080,24 +1052,14 @@ public abstract class GUIAgent extends Agent {
             }
 
         } else {
-
             logger.info(getLocalName()
                     + " - There are no agents with ExecutionUnitService in the system");
             gui.displayMessage("There are no agents with ExecutionUnitService in the system");
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * dtp.jade.gui.GUIAgent2#addCalendarStats(dtp.jade.agentcalendar.CalendarStats
-     * )
-     */
     public void addCalendarStats(CalendarStats calendarStats) {
-
         if (calendarStatsHolder == null) {
-
             logger.error(getLocalName()
                     + " - no calendarStatsHolder to add stats to");
             return;
@@ -1111,13 +1073,6 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * dtp.jade.gui.GUIAgent2#addCalendarStatsToFile(dtp.jade.agentcalendar.
-     * CalendarStats)
-     */
     public void addCalendarStatsToFile(CalendarStats calendarStats) {
         if (calendarStatsHolderForFile == null) {
 
@@ -1152,10 +1107,11 @@ public abstract class GUIAgent extends Agent {
             try {
                 File file;
                 File roadFile;
-                if (saveFileName == null)
+                if (saveFileName == null) {
                     file = new File("wynik.xls");
-                else
+                } else {
                     file = new File(saveFileName);
+                }
                 roadFile = new File(file.getAbsolutePath() + "_road.txt");
                 file.createNewFile();
                 roadFile.createNewFile();
@@ -1179,17 +1135,17 @@ public abstract class GUIAgent extends Agent {
                     wr.write("Total cost\tTotal distance\tTotal WAIT time\tTotal drive time\tTotal punishment\tSim Time\tCommisions Count\tDelivered");
                     wr.newLine();
                     wr.flush();
-                    wr.write(new Double(calendarStatsHolderForFile
-                            .calculateCost(null)).toString() + "\t");
-                    wr.write(new Double(calendarStatsHolderForFile
-                            .calculateDistanceSum()).toString() + "\t");
-                    wr.write(new Double(calendarStatsHolderForFile
-                            .calculateWaitTime()).toString() + "\t");
-                    wr.write(new Double(calendarStatsHolderForFile
-                            .calculateDriveTime()).toString() + "\t");
-                    wr.write(new Double(calendarStatsHolderForFile
-                            .calculatePunishment()).toString() + "\t");
-                    wr.write(new Long(simTime).toString() + "\t");
+                    wr.write(Double.toString(calendarStatsHolderForFile
+                            .calculateCost(null)) + "\t");
+                    wr.write(Double.toString(calendarStatsHolderForFile
+                            .calculateDistanceSum()) + "\t");
+                    wr.write(Double.toString(calendarStatsHolderForFile
+                            .calculateWaitTime()) + "\t");
+                    wr.write(Double.toString(calendarStatsHolderForFile
+                            .calculateDriveTime()) + "\t");
+                    wr.write(Double.toString(calendarStatsHolderForFile
+                            .calculatePunishment()) + "\t");
+                    wr.write(Long.toString(simTime) + "\t");
                     wr.write(gui.getCommissionsTab().getCommisionsCount()
                             + "\t");
                     wr.write(delivery.toString());
@@ -1234,27 +1190,27 @@ public abstract class GUIAgent extends Agent {
             wr.write(stat.getAID().getLocalName() + "\t");
             wr.write(stat.getCapacity() + "\t");
             wr.write(stat.getCost() + "\t");
-            wr.write(new Double(stat.getDistance()).toString() + "\t");
-            wr.write(new Double(stat.getWaitTime()).toString() + "\t");
-            wr.write(new Double(stat.getDriveTime()).toString() + "\t");
-            wr.write(new Double(stat.getPunishment()).toString() + "\t");
-            wr.write(new Double(stat.getMass()).toString() + "\t");
-            wr.write(new Double(stat.getPower()).toString() + "\t");
-            wr.write(new Double(stat.getReliability()).toString() + "\t");
-            wr.write(new Double(stat.getComfort()).toString() + "\t");
-            wr.write(new Double(stat.getFuelConsumption()).toString() + "\t");
-            wr.write(new Integer(stat.getMaxSTDepth()).toString());
+            wr.write(Double.toString(stat.getDistance()) + "\t");
+            wr.write(Double.toString(stat.getWaitTime()) + "\t");
+            wr.write(Double.toString(stat.getDriveTime()) + "\t");
+            wr.write(Double.toString(stat.getPunishment()) + "\t");
+            wr.write(Double.toString(stat.getMass()) + "\t");
+            wr.write(Double.toString(stat.getPower()) + "\t");
+            wr.write(Double.toString(stat.getReliability()) + "\t");
+            wr.write(Double.toString(stat.getComfort()) + "\t");
+            wr.write(Double.toString(stat.getFuelConsumption()) + "\t");
+            wr.write(Integer.toString(stat.getMaxSTDepth()));
             wr.newLine();
             wr.flush();
             if (stat.getSchedule2() == null)
                 for (CalendarAction action : stat.getSchedule()) {
                     if (action.getType().equals("DELIVERY")) {
                         delivery++;
-                        wr_road.write(new Integer(action
-                                .getSourceCommissionID()).toString() + " ");
+                        wr_road.write(Integer.toString(action
+                                .getSourceCommissionID()) + " ");
                     } else if (action.getType().equals("PICKUP")) {
-                        wr_road.write(new Integer(action
-                                .getSourceCommissionID()).toString() + " ");
+                        wr_road.write(Integer.toString(action
+                                .getSourceCommissionID()) + " ");
                     }
                 }
             else {
@@ -1279,12 +1235,12 @@ public abstract class GUIAgent extends Agent {
         wr.write("Total cost\tTotal distance\tTotal WAIT time\tTotal drive time\tTotal punishment\tSim Time\tCommisions Count\tDelivered");
         wr.newLine();
         wr.flush();
-        wr.write(new Double(holder.calculateCost(null)).toString() + "\t");
-        wr.write(new Double(holder.calculateDistanceSum()).toString() + "\t");
-        wr.write(new Double(holder.calculateWaitTime()).toString() + "\t");
-        wr.write(new Double(holder.calculateDriveTime()).toString() + "\t");
-        wr.write(new Double(holder.calculatePunishment()).toString() + "\t");
-        wr.write(new Long(simTime).toString() + "\t");
+        wr.write(Double.toString(holder.calculateCost(null)) + "\t");
+        wr.write(Double.toString(holder.calculateDistanceSum()) + "\t");
+        wr.write(Double.toString(holder.calculateWaitTime()) + "\t");
+        wr.write(Double.toString(holder.calculateDriveTime()) + "\t");
+        wr.write(Double.toString(holder.calculatePunishment()) + "\t");
+        wr.write(Long.toString(simTime) + "\t");
         wr.write(gui.getCommissionsTab().getCommisionsCount() + "\t");
         wr.write(delivery.toString());
         wr.flush();
@@ -1306,7 +1262,6 @@ public abstract class GUIAgent extends Agent {
         try {
             msg.setContentObject("");
         } catch (IOException e) {
-            e.printStackTrace();
             logger.error(e.getMessage());
         }
 
@@ -1326,7 +1281,7 @@ public abstract class GUIAgent extends Agent {
     }
 
     private void saveMLTable() {
-        if (mlAlgorithm != null && exploration == true) {
+        if (mlAlgorithm != null && exploration) {
             AID aid = CommunicationHelper.findAgentByServiceName(this,
                     "CommissionService")[0];
             ACLMessage msg = new ACLMessage(CommunicationHelper.MLTable);
@@ -1337,15 +1292,12 @@ public abstract class GUIAgent extends Agent {
                 e.printStackTrace();
             }
             this.send(msg);
-        } // else {
-        // simEnd();
-        // }
+        }
     }
 
     public void saveMLAlgorithm(MLAlgorithm table) {
         try {
             table.save(mlTableFileName, saveFileName);
-
             simEnd();
         } catch (Exception e) {
             e.printStackTrace();
@@ -1353,96 +1305,32 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    protected void displayStats() {
-
+    private void displayStats() {
         displayMessage(calendarStatsHolder.getAllStatsToString());
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#askForDistributorNooneList()
-     */
-    public void askForDistributorNooneList() {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "CommissionService");
-
-        if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(
-                        CommunicationHelper.DISTRIBUTOR_SHOW_NOONE_LIST);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-
-        } else {
-
-            logger.info(getLocalName()
-                    + " - none or more than one agent with CommissionService in the system");
-            gui.displayMessage("None or more than one agent with CommissionService in the system");
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#addNooneList(int)
-     */
-    public void addNooneList(int nooneListSize) {
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#displayMessage(java.lang.String)
-     */
     public synchronized void displayMessage(String msg) {
-
         gui.displayMessage(msg);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#updateEUnitInfo(dtp.jade.eunit.EUnitInfo)
-     */
     public void updateEUnitInfo(EUnitInfo eUnitInfo) {
         gui.updateEUnitsInfo(eUnitInfo);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * dtp.jade.gui.GUIAgent2#sendCrisisEvent(dtp.jade.crisismanager.crisisevents
-     * .CrisisEvent)
-     */
     public void sendCrisisEvent(CrisisEvent event) {
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this,
                 "CrisisManagementService");
 
         if (aids.length == 1) {
 
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.CRISIS_EVENT);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(event);
                 } catch (IOException e) {
@@ -1460,8 +1348,7 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    protected boolean containsPoint(ArrayList<GraphPoint> points, double px,
-                                    double py) {
+    private boolean containsPoint(ArrayList<GraphPoint> points, double px, double py) {
 
         Iterator<GraphPoint> iter;
         GraphPoint tmpPoint;
@@ -1478,35 +1365,14 @@ public abstract class GUIAgent extends Agent {
         return false;
     }
 
-    protected void createNewEUnit(EUnitInitialData initialData) {
-
+    private void createNewTransportElement(TransportElementInitialData data,
+                                           TransportType type) {
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "AgentCreationService");
 
         if (aids.length == 1) {
 
-            ACLMessage cfp = new ACLMessage(
-                    CommunicationHelper.EXECUTION_UNIT_CREATION);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject(initialData);
-            } catch (IOException e) {
-                logger.error("IOException " + e.getMessage());
-            }
-            send(cfp);
-        } else {
-            logger.error("None or more than one Info Agent in the system");
-        }
-    }
-
-    protected void createNewTransportElement(TransportElementInitialData data,
-                                             TransportType type) {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
-                "AgentCreationService");
-
-        if (aids.length == 1) {
-
-            ACLMessage cfp = null;
+            ACLMessage cfp;
             if (type == TransportType.DRIVER) {
                 cfp = new ACLMessage(CommunicationHelper.DRIVER_CREATION);
             } else if (type == TransportType.TRAILER) {
@@ -1527,146 +1393,24 @@ public abstract class GUIAgent extends Agent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#resetEnvironment()
-     */
-    public void resetEnvironment() {
-
-        commissionsHandler = new CommissionsHandler();
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#resetEUnitAgents()
-     */
-    public void resetEUnitAgents() {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "ExecutionUnitService");
-
-        logger.info(getLocalName()
-                + " - sending RESET request to ExecutionUnit Agents");
-        gui.displayMessage("Sending RESET request to ExecutionUnit Agents");
-
-        if (aids.length > 0) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(CommunicationHelper.RESET);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-
-        } else {
-
-            logger.info(getLocalName()
-                    + " - There are no agents with ExecutionUnitService in the system");
-            gui.displayMessage("There are no agents with ExecutionUnitService in the system");
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#resetTransportUnits()
-     */
-    public void resetTransportUnits() {
-        AID[] aids = null;
-        ACLMessage msg = null;
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "TransportUnitService");
-
-        logger.info(getLocalName()
-                + " - sending RESET request to TransportUnit Agents");
-        gui.displayMessage("Sending RESET request to TransportUnit Agents");
-
-        if (aids.length > 0) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                msg = new ACLMessage(CommunicationHelper.RESET);
-                msg.addReceiver(aids[i]);
-                try {
-                    msg.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(msg);
-            }
-
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#resetDistributorAgent()
-     */
-    public void resetDistributorAgent() {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "CommissionService");
-
-        logger.info(getLocalName()
-                + " - sending RESET request to DistributorAgent");
-        gui.displayMessage("Sending RESET request to DistributorAgent");
-
-        if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(CommunicationHelper.RESET);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-
-        } else {
-
-            logger.info(getLocalName()
-                    + " - None or more than one agent with CommissionService in the system ("
-                    + aids.length + ")");
-            gui.displayMessage("None or more than one agent with CommissionService in the system ("
-                    + aids.length + ")");
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see dtp.jade.gui.GUIAgent2#nextAutoSimStep()
-     */
     public void nextAutoSimStep() {
         gui.nextAutoSimStep();
     }
 
     public void simEnd() {
+        logger.info("Test end");
+        sendEndOfSimInfo("ExecutionUnitService");
+        sendEndOfSimInfo("TransportUnitService");
+        sendEndOfSimInfo("InfoAgentService");
+        sendEndOfSimInfo("CommissionService");
+        sendEndOfSimInfo("CrisisManagementService");
 
+        resetGUIAgent();
+        nextTest();
     }
 
-    public void getSimmulationData(int timestamp) {
-        data = new LinkedList<SimmulationData>();
+    public void getSimulationData(int timestamp) {
+        data = new LinkedList<>();
         this.timeStamp = timestamp;
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
@@ -1687,8 +1431,7 @@ public abstract class GUIAgent extends Agent {
 
     }
 
-    public synchronized void addSimmulationData(SimmulationData data) {
-        //System.err.println(data);
+    public synchronized void addSimulationData(SimulationData data) {
         eUnitsCount--;
         this.data.add(data);
         ///
@@ -1700,7 +1443,7 @@ public abstract class GUIAgent extends Agent {
     }
 
     public void resetGUIAgent() {
-        undeliveredCommissions = new LinkedList<NewTeamData>();
+        undeliveredCommissions = new LinkedList<>();
     }
 
     public synchronized void addUndeliveredCommission(NewTeamData data) {
@@ -1708,6 +1451,7 @@ public abstract class GUIAgent extends Agent {
     }
 
     public synchronized void changeGraph(Graph graph, int timestamp) {
+        boolean updateAfterArrival;
         if (graphChangeTime.equals("immediately")) {
             updateAfterArrival = false;
         } else {
@@ -1763,7 +1507,7 @@ public abstract class GUIAgent extends Agent {
             gui.nextSimStep5();
             return;
         }
-        changedGraphLinks = new LinkedList<GraphLink>();
+        changedGraphLinks = new LinkedList<>();
         ACLMessage msg = new ACLMessage(
                 CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
@@ -1809,5 +1553,153 @@ public abstract class GUIAgent extends Agent {
 
     public CommissionsHandler getCommissionHandler() {
         return commissionsHandler;
+    }
+
+    private void next() {
+        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+                "AgentCreationService");
+        transportAgentsCount = CommunicationHelper.findAgentByServiceName(this,
+                "TransportUnitService").length;
+
+        if (aids.length == 1) {
+
+            ACLMessage cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA);
+            cfp.addReceiver(aids[0]);
+            try {
+                cfp.setContentObject("");
+            } catch (IOException e) {
+                logger.error("IOException " + e.getMessage());
+            }
+            send(cfp);
+        } else {
+            logger.error("None or more than one Info Agent in the system");
+        }
+    }
+
+    private void next2() {
+
+        System.out.println("End of initialization");
+        Adapter adapter = configuration.getAdapter();
+        if (adapter == null) {
+            gui.getCommissionsTab().addCommissionGroup(
+                    configuration.getCommissions(), configuration.isDynamic());
+            otherBenchmarks = false;
+        } else {
+            otherBenchmarks = true;
+            try {
+                for (CommissionHandler com : adapter.readCommissions()) {
+                    gui.getCommissionsTab().addCommissionHandler(com);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        GraphChangesConfiguration graphConfChanges = configuration
+                .getGraphChangesConf();
+        if (graphConfChanges != null) {
+            gui.setGraphConfChanges(graphConfChanges);
+            graphChangeTime = configuration.getGraphChangeTime();
+            graphChangeFreq = configuration.getGraphChangeFreq();
+            this.setSTAfterChange(configuration.isSTAfterGraphChange());
+        }
+        TrackFinder finder = configuration.getTrackFinder();
+        if (finder != null) {
+            setTrackFinder(finder);
+            setGraphLinkPredictor(configuration.getGraphLinkPredictor());
+        }
+        setBrute2Sorter(configuration.getBrute2Sorter());
+        setExchangeAlgFactory(configuration.getExchangeAlgFactory());
+        setDefaultAgentsData(configuration.getDefaultAgentsData());
+        setSendingCommissionsInGroups(configuration.isPackageSending());
+        setChoosingByCost(configuration.isChoosingByCost());
+        setSimulatedTrading(configuration.getSimulatedTrading());
+        recording = configuration.isRecording();
+        setSTTimestampGap(configuration.getSTTimeGap());
+        setSTCommissionGap(configuration.getSTCommissionGap());
+        setPrintersHolder(configuration.getPrintersHolder());
+        setCalculatorsHolder(configuration.getCalculatorsHolder());
+        setConfChange(configuration.isConfChange());
+        setPunishmentFunction(configuration.getPunishmentFunction());
+        setPunishmentFunctionDefaults(configuration
+                .getDefaultPunishmentFunValues());
+        setHolons(configuration.getHolons());
+        setDelayLimit(configuration.getDelayLimit());
+        setFirstComplexSTResultOnly(configuration.isFirstComplexSTResultOnly());
+        if (configuration.getMlTableFileName() != null) {
+
+            MLAlgorithm table = configuration.getMlAlgorithm();
+            setMLAlgorithm(table);
+
+        }
+        setExploration(configuration.isExploration());
+        setMlTableFileName(configuration.getMlTableFileName());
+        if (configuration.isAutoConfigure()) {
+            Map<String, Object> conf = new ConfigurationChooser()
+                    .getConfiguration(configuration.getCommissions());
+            setSTDepth((Integer) conf.get("STDepth"));
+            setAlgorithm((Algorithm) conf.get("algorithm"));
+            boolean time = (Boolean) conf
+                    .get("chooseWorstCommissionByGlobalTime");
+            if (time) {
+                setChooseWorstCommission("time");
+            } else {
+                setChooseWorstCommission("wTime");
+            }
+            setDist((Boolean) conf.get("dist"));
+        } else {
+            setSTDepth(configuration.getSTDepth());
+            setAlgorithm(configuration.getAlgorithm());
+            setChooseWorstCommission(configuration.getWorstCommissionChoose());
+            setDist(configuration.isDist());
+        }
+
+        if (adapter == null)
+            gui.getCommissionsTab().setConstraintsTestMode();
+        else
+            gui.setSimInfo(adapter.getSimInfo());
+    }
+
+    public void simInfoReceived() {
+        simInfoReceived--;
+        if (simInfoReceived == 0) {
+            if (!otherBenchmarks)
+                gui.getCommissionsTab().setConstraints();
+            next3();
+        }
+    }
+
+    private void next3() {
+        for (CrisisEvent event : configuration.getEvents()) {
+            sendCrisisEvent(event);
+        }
+
+        gui.simStart();
+        logger.info("Starting test: " + configuration.getResults());
+        gui.autoSimulation(configuration.getResults());
+    }
+
+    private void sendEndOfSimInfo(String serviceName) {
+//		AID[] aids;
+//		ACLMessage cfp;
+//
+//		aids = CommunicationHelper.findAgentByServiceName(this, serviceName);
+//
+//		logger.info(getLocalName() + " - sending SimEndInfo to " + aids.length
+//				+ " " + serviceName);
+//
+//		if (aids.length != 0) {
+//            for (AID aid : aids) {
+//
+//                cfp = new ACLMessage(CommunicationHelper.SIM_END);
+//                cfp.addReceiver(aid);
+//                try {
+//                    cfp.setContentObject("");
+//                } catch (IOException e) {
+//                    logger.error(getLocalName() + " - IOException "
+//                            + e.getMessage());
+//                }
+//                send(cfp);
+//            }
+//		}
     }
 }

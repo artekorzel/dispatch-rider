@@ -8,16 +8,13 @@ import jade.lang.acl.MessageTemplate;
 
 public class GetConfirmOfTimeStampBehaviour extends CyclicBehaviour {
 
-
     private GUIAgent guiAgent;
 
     public GetConfirmOfTimeStampBehaviour(GUIAgent agent) {
-
         this.guiAgent = agent;
     }
 
     public void action() {
-
         MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TIME_STAMP_CONFIRM);
         ACLMessage msg = myAgent.receive(template);
 

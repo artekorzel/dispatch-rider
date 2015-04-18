@@ -16,7 +16,7 @@ public class MLTableHolonStates extends MLTableStates {
         for (String state : values.keySet()) {
             fun = aggregatorManager.insertAggregateValues(values.get(state));
             fun = insertHolonMeasures(fun, measures, aid);
-            if (Calculator.calculateBoolExpr(fun) == true) {
+            if (Calculator.calculateBoolExpr(fun)) {
                 aggregatorManager.aggregationFinished();
                 return state;
             }

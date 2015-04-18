@@ -11,10 +11,6 @@ import org.apache.log4j.Logger;
 
 public class GetEUnitInfoBehaviour extends CyclicBehaviour {
 
-
-    /**
-     * Logger.
-     */
     private static Logger logger = Logger.getLogger(GetEUnitInfoBehaviour.class);
 
     private GUIAgent guiAgent;
@@ -31,11 +27,9 @@ public class GetEUnitInfoBehaviour extends CyclicBehaviour {
         EUnitInfo info;
 
         if (msg != null) {
-
             try {
                 info = (EUnitInfo) msg.getContentObject();
                 guiAgent.updateEUnitInfo(info);
-
             } catch (UnreadableException e) {
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }

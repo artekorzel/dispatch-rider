@@ -24,7 +24,7 @@ import jade.lang.acl.ACLMessage;
 import measure.configuration.HolonConfiguration;
 import org.apache.log4j.Logger;
 import xml.elements.CommissionData;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
@@ -989,7 +989,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         //SummaryLatency sumLat = new SummaryLatency();
         //sumLat.calculateMeasure(this.schedule, newSchedules);
 
-        SimmulationData data = new SimmulationData();
+        SimulationData data = new SimulationData();
         data.setHolonId(Integer.parseInt(getAID().getLocalName().split("#")[1]));
         data.setHolonCreationTime(creationTime);
         data.setDriver(driver.getTransportElementData());

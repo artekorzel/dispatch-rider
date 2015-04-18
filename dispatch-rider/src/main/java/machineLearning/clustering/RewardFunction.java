@@ -11,7 +11,7 @@ import java.util.Map;
 
 public abstract class RewardFunction implements Serializable {
 
-	private final Map<String, String> functions = new HashMap<String, String>();
+	private final Map<String, String> functions = new HashMap<>();
 	private final String rewardFunction;
 	protected final AggregatorsManager aggregatorManager = new AggregatorsManager();
 

@@ -1,7 +1,7 @@
 package gui.path;
 
 import gui.common.TimestampUpdateable;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import java.util.Set;
 import java.util.TreeMap;
@@ -25,7 +25,7 @@ public class PathUpdateable extends TimestampUpdateable {
             // etc
     };
 
-    private String getStatusString(SimmulationData data) {
+    private String getStatusString(SimulationData data) {
         if (data.getLocation().x == data.getSchedule().getCurrentCommission().getPickupX()
                 && data.getLocation().y == data.getSchedule().getCurrentCommission().getPickupY()
                 && data.getLocation().x == data.getSchedule().getCurrentCommission().getDeliveryX()
@@ -41,7 +41,7 @@ public class PathUpdateable extends TimestampUpdateable {
     }
 
     @Override
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         if (newRecord.getData() == null) {
             TreeMap<Integer, TreeMap<Integer, TreeMap<String, Object>>> young = new TreeMap<Integer, TreeMap<Integer, TreeMap<String, Object>>>();
             newRecord.setData(young);

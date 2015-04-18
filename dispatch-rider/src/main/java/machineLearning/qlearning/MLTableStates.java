@@ -16,7 +16,7 @@ public abstract class MLTableStates implements Serializable {
     /**
      * states definitions
      */
-    protected final Map<String, String> values = new HashMap<String, String>();
+    protected final Map<String, String> values = new HashMap<>();
     protected final AggregatorsManager aggregatorManager = new AggregatorsManager();
     private final Random rand = new Random(Calendar.getInstance()
             .getTimeInMillis());

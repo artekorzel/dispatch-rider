@@ -48,10 +48,10 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
             EUnitInitialData initialData = null;
             try {
                 initialData = (EUnitInitialData) msg.getContentObject();
-            } catch (UnreadableException e) {
+            } catch (UnreadableException ignored) {
             }
             AgentContainer container = myAgent.getContainerController();
-            AgentController newAgent = null;
+            AgentController newAgent;
             AgentInfoPOJO newAgentInfo = new AgentInfoPOJO();
 
             /* -------- SETTING EUNIT AGENT NAME ------- */
@@ -64,9 +64,6 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
             } catch (StaleProxyException e) {
                 logger.error(this.infoAgent.getLocalName() + " - StaleProxyException " + e.getMessage());
             }
-
-            /* -------- SETTING EUNIT AGENT CONTROLLER ------- */
-            newAgentInfo.setAgentController(newAgent);
 
             /* -------- WAITING FOR AID FROM NEW EUNIT AGENT ------- */
             MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.EXECUTION_UNIT_AID);
@@ -82,10 +79,7 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
             }
 
             /* -------- ADDING EUNIT AGENT INFO TO EUNITS INFO LIST ------- */
-            this.infoAgent.addEUnitAgentInfo(newAgentInfo);
-            // logger.info(this.infoAgent.getLocalName() + " - AID recieved from
-            // "
-            // + msg2.getSender().getLocalName());
+            this.infoAgent.addEUnitAgentInfo();
 
             /* -------- INITIALIZE EUNIT AGENT BY EUNIT INFO DATA ------- */
             try {

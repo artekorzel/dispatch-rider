@@ -1,4 +1,4 @@
-package dtp.jade.test.behaviour;
+package dtp.jade.gui.behaviour;
 
 import dtp.jade.CommunicationHelper;
 import dtp.jade.gui.GUIAgent;
@@ -8,12 +8,9 @@ import jade.lang.acl.MessageTemplate;
 
 public class GetTransportAgentConfirmationBehaviour extends CyclicBehaviour {
 
-
-
     private GUIAgent agent;
 
     public GetTransportAgentConfirmationBehaviour(GUIAgent agent) {
-
         this.agent = agent;
     }
 

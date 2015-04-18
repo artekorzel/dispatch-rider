@@ -21,9 +21,9 @@ public interface MeasureConfigurationChanger {
      *
      * @param data
      */
-    public void setMeasureData(MeasureData data);
+    void setMeasureData(MeasureData data);
 
-    public Map<AID, HolonConfiguration> getNewHolonsConfigurations();
+    Map<AID, HolonConfiguration> getNewHolonsConfigurations();
 
-    public GlobalConfiguration getNewGlobalConfiguration();
+    GlobalConfiguration getNewGlobalConfiguration();
 }

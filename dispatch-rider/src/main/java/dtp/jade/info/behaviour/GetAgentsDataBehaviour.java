@@ -8,11 +8,6 @@ import jade.lang.acl.MessageTemplate;
 
 public class GetAgentsDataBehaviour extends CyclicBehaviour {
 
-    /**
-     *
-     */
-
-
     private InfoAgent agent;
 
     public GetAgentsDataBehaviour(InfoAgent agent) {

@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class SimmulationData implements Serializable {
+public class SimulationData implements Serializable {
 
     private int holonId;
     private int holonCreationTime;

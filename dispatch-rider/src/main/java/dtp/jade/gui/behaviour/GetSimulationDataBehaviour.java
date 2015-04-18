@@ -6,7 +6,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 /**
  * @author kony.pl
@@ -26,8 +26,7 @@ public class GetSimulationDataBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
             try {
-                //System.err.println(msg.getSender() + " " + ((SimmulationData) msg.getContentObject()).getLocation());
-                guiAgent.addSimmulationData((SimmulationData) msg.getContentObject());
+                guiAgent.addSimulationData((SimulationData) msg.getContentObject());
             } catch (UnreadableException e) {
                 e.printStackTrace();
             }

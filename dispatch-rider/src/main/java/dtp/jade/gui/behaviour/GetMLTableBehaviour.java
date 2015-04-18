@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
  */
 public class GetMLTableBehaviour extends CyclicBehaviour {
 
-
     private static Logger logger = Logger.getLogger(GetMLTableBehaviour.class);
 
     private final GUIAgent guiAgent;
@@ -25,13 +24,10 @@ public class GetMLTableBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-
-        MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.MLTable);
+        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.MLTable);
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
             try {
                 guiAgent.saveMLAlgorithm((MLAlgorithm) msg.getContentObject());
             } catch (UnreadableException e) {

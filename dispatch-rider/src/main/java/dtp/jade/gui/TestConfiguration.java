@@ -1,4 +1,4 @@
-package dtp.jade.test;
+package dtp.jade.gui;
 
 import adapter.Adapter;
 import adapter.AdapterType;

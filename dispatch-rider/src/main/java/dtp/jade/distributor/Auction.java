@@ -16,12 +16,12 @@ public class Auction {
     private int sentOffersNo;
 
     // oferty zgloszone przez EUnity
-    private List<EUnitOffer> offers = new LinkedList<EUnitOffer>();
+    private List<EUnitOffer> offers = new LinkedList<>();
 
     public Auction() {
 
         this.sentOffersNo = 0;
-        offers = new LinkedList<EUnitOffer>();
+        offers = new LinkedList<>();
     }
 
     public Commission getCommission() {
@@ -39,25 +39,15 @@ public class Auction {
         return sentOffersNo;
     }
 
-    public void setSentOffersNo(int sentOffersNo) {
-
-        this.sentOffersNo = sentOffersNo;
-    }
-
     public void addOffer(EUnitOffer offer) {
         for (EUnitOffer off : offers) {
-            if (off.getAgent().equals(offer)) {
+            if (off.getAgent().equals(offer.getAgent())) {
                 System.err
                         .println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ SAME AGENT ADDED TWICE");
             }
         }
         if (!offers.contains(offer)) offers.add(offer);
 
-    }
-
-    public int getOffersNo() {
-
-        return offers.size();
     }
 
     public EUnitOffer[] getOffers() {

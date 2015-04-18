@@ -2,7 +2,7 @@ package gui.path;
 
 import dtp.simulation.SimInfo;
 import gui.common.Updateable;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Set;
@@ -67,7 +67,7 @@ public class PathTableModel extends AbstractTableModel implements Updateable {
     }
 
     @Override
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         updateable.update(data);
     }
 

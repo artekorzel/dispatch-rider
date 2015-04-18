@@ -10,7 +10,7 @@ import gui.map.MapHolder;
 import gui.parameters.DRParams;
 import gui.parameters.ParametersTableModel;
 import gui.path.PathTableModel;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -199,7 +199,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
      *
      * @param data
      */
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         if (data == null) {
             return;
         }

@@ -5,14 +5,14 @@ import dtp.jade.transport.TransportElementInitialDataTruck;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.util.List;
 
 public class TruckProperties extends JFrame {
 
     public TruckProperties(SimLogic gui) {
         super("Truck properties");
 
-        ArrayList<TransportElementInitialDataTruck> truckProperties = gui.getTrucksProperties();
+        List<TransportElementInitialDataTruck> truckProperties = gui.getTrucksProperties();
 
         String data[][] = new String[truckProperties.size()][5];
         int index = 0;

@@ -13,10 +13,6 @@ import org.apache.log4j.Logger;
  */
 public class GetCalendarBehaviour extends CyclicBehaviour {
 
-
-    /**
-     * Logger.
-     */
     private static Logger logger = Logger.getLogger(GetCalendarBehaviour.class);
 
     private GUIAgent guiAgent;
@@ -26,18 +22,15 @@ public class GetCalendarBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-
         MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_MY_CALENDAR);
         ACLMessage msg = myAgent.receive(template);
 
         String calendar;
 
         if (msg != null) {
-
             try {
                 calendar = (String) msg.getContentObject();
                 guiAgent.addCalendar(msg.getSender().getLocalName(), calendar);
-
             } catch (UnreadableException e) {
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }

@@ -2,10 +2,6 @@ package dtp.jade.transport;
 
 public class TransportElementInitialDataTrailer extends TransportElementInitialData {
 
-    /**
-     *
-     */
-
     private int mass;
     private int capacity_;
     private int cargoType;
@@ -15,9 +11,7 @@ public class TransportElementInitialDataTrailer extends TransportElementInitialD
     public TransportElementInitialDataTrailer(String costFunction, int capacity,
                                               int defaultCapacity, int depot) {
         super(costFunction, capacity, defaultCapacity, depot);
-        // TODO Auto-generated constructor stub
     }
-
 
     public TransportElementInitialDataTrailer(String costFunction, int capacity, int defaultCapacity,
                                               int depot, int mass, int capacity_, int cargoType,

@@ -5,17 +5,16 @@ package dtp.jade.gui.behaviour;
  */
 
 import dtp.jade.CommunicationHelper;
-import dtp.jade.test.TestAgent;
+import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class GetConfirmUpdateCurrentLocation extends CyclicBehaviour {
 
+    private final GUIAgent gui;
 
-    private final TestAgent gui;
-
-    public GetConfirmUpdateCurrentLocation(TestAgent agent) {
+    public GetConfirmUpdateCurrentLocation(GUIAgent agent) {
         gui = agent;
     }
 

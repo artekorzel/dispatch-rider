@@ -52,7 +52,7 @@ public class Calculator {
             } catch (Throwable e) {
                 System.err.println("Exception emerged from JEL compiled"
                         + " code (IT'S OK) :");
-                System.err.print(e);
+                System.err.print(e);           //fixme
             }
             ;
 

@@ -10,8 +10,6 @@ import org.apache.log4j.Logger;
 
 public class GetMessageBehaviour extends CyclicBehaviour {
 
-
-
     private static Logger logger = Logger.getLogger(GetMessageBehaviour.class);
 
     private GUIAgent guiAgent;

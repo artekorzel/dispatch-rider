@@ -3,7 +3,6 @@ package dtp.gui;
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
 import dtp.commission.TxtFileReader;
-import dtp.jade.ProblemType;
 import dtp.jade.gui.GUIAgent;
 import dtp.simulation.SimInfo;
 import dtp.util.DirectoriesResolver;
@@ -33,7 +32,7 @@ public class CommissionsTab extends JPanel {
 
     // //////// GUI components //////////
 
-    private JCheckBox checkBoxMarkSentCommisssions;
+    private JCheckBox checkBoxMarkSentCommissions;
 
     private JCheckBox checkBoxIsProblemDynamic;
 
@@ -68,12 +67,12 @@ public class CommissionsTab extends JPanel {
         setLayout(null);
         this.setPreferredSize(new java.awt.Dimension(945, 623));
 
-        checkBoxMarkSentCommisssions = new JCheckBox();
-        add(checkBoxMarkSentCommisssions);
-        checkBoxMarkSentCommisssions.setText("Show sent commissions");
-        checkBoxMarkSentCommisssions.setBounds(7, 150, 133, 21);
-        checkBoxMarkSentCommisssions.setSelected(false);
-        checkBoxMarkSentCommisssions.addActionListener(new ActionListener() {
+        checkBoxMarkSentCommissions = new JCheckBox();
+        add(checkBoxMarkSentCommissions);
+        checkBoxMarkSentCommissions.setText("Show sent commissions");
+        checkBoxMarkSentCommissions.setBounds(7, 150, 133, 21);
+        checkBoxMarkSentCommissions.setSelected(false);
+        checkBoxMarkSentCommissions.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent evt) {
                 checkBoxMarkSentCommissionsActionPerformed();
@@ -222,7 +221,7 @@ public class CommissionsTab extends JPanel {
     }
 
     private void checkBoxMarkSentCommissionsActionPerformed() {
-        if (checkBoxMarkSentCommisssions.isSelected()) {
+        if (checkBoxMarkSentCommissions.isSelected()) {
             listCommissions.setSelectionBackground(java.awt.Color.GREEN.darker());
             markSentCommissions();
         } else {
@@ -412,15 +411,6 @@ public class CommissionsTab extends JPanel {
 
         gui.displayMessage("GUI - constrains set: depot = (" + depot.getX() + ", " + depot.getY() + ") deadline = "
                 + deadline + " capacity = " + maxLoad);
-
-        if (gui.getProblemType() == ProblemType.WITHOUT_GRAPH) {
-
-            gui.enableSimStartButton();
-
-        } else if (gui.getProblemType() == ProblemType.WITH_GRAPH && gui.getNetworkGraph() != null) {
-
-            gui.enableSimStartButton();
-        }
     }
 
     // Podswietla juz wyslane do Dystrybutora zadania
@@ -430,7 +420,7 @@ public class CommissionsTab extends JPanel {
         int[] indicesToSelect;
         int indicesToSelectNo = 0;
 
-        if (checkBoxMarkSentCommisssions.isSelected()) {
+        if (checkBoxMarkSentCommissions.isSelected()) {
 
             ListModel listModel = listCommissions.getModel();
             CommissionHandler[] content = new CommissionHandler[listModel.getSize()];

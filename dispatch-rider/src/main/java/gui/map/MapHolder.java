@@ -18,7 +18,7 @@ import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import gui.common.TimestampUpdateable;
 import org.apache.commons.collections15.Transformer;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -38,12 +38,12 @@ public class MapHolder extends TimestampUpdateable {
     private Map<Integer, List<LocationRecord>> locations = new HashMap<Integer, List<LocationRecord>>();
 
     @Override
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         if (newRecord.getData() == null)
-            newRecord.setData(new HashSet<SimmulationData>());
+            newRecord.setData(new HashSet<SimulationData>());
 
         @SuppressWarnings("unchecked")
-        Set<SimmulationData> extracted = (Set<SimmulationData>) newRecord.getData();
+        Set<SimulationData> extracted = (Set<SimulationData>) newRecord.getData();
         extracted.add(data);
         ColorCreator.setMaxID(data.getHolonId());
         java.awt.geom.Point2D.Double currentLoc = data.getSchedule().getCurrentLocation();
@@ -79,10 +79,10 @@ public class MapHolder extends TimestampUpdateable {
 
     private void insertHolonEdges() {
         @SuppressWarnings("unchecked")
-        Set<SimmulationData> toVisualise = (Set<SimmulationData>) visualisedRecord.getData();
+        Set<SimulationData> toVisualise = (Set<SimulationData>) visualisedRecord.getData();
         if (toVisualise == null)
             return;
-        for (SimmulationData data : toVisualise) {
+        for (SimulationData data : toVisualise) {
             if (locations.containsKey(data.getHolonId())) {
                 List<LocationRecord> holonLoc = locations.get(data.getHolonId());
                 ListIterator<LocationRecord> it = holonLoc.listIterator();
@@ -109,7 +109,7 @@ public class MapHolder extends TimestampUpdateable {
             }
         }
         //przyszle zlecenia
-        for (SimmulationData data : toVisualise) {
+        for (SimulationData data : toVisualise) {
             for (Commission c : data.getSchedule().getCommissions()) {
                 if (c.getDeliveryTime2() >= visualisedRecord.getTimestamp()) {
                     GraphPoint start = new InvisibleGraphPoint(c.getPickupX(), c.getPickupY());
@@ -127,11 +127,11 @@ public class MapHolder extends TimestampUpdateable {
 
     private void insertCommissionVertices() {
         @SuppressWarnings("unchecked")
-        Set<SimmulationData> toVisualise = (Set<SimmulationData>) visualisedRecord.getData();
+        Set<SimulationData> toVisualise = (Set<SimulationData>) visualisedRecord.getData();
         if (toVisualise == null || toVisualise.isEmpty())
             return;
         List<Commission> lista = null;
-        for (SimmulationData data : toVisualise) {
+        for (SimulationData data : toVisualise) {
             lista = data.getSchedule().getCommissions();//tylko pierwszy element ze zbioru SimmulationData
 
             if (lista == null || lista.isEmpty())
@@ -243,10 +243,10 @@ public class MapHolder extends TimestampUpdateable {
     //wstawia wierzcholki z visualisedRecord
     private void insertHolonVertices() {
         @SuppressWarnings("unchecked")
-        Set<SimmulationData> toVisualise = (Set<SimmulationData>) visualisedRecord.getData();
+        Set<SimulationData> toVisualise = (Set<SimulationData>) visualisedRecord.getData();
         if (toVisualise == null)
             return;
-        for (SimmulationData data : toVisualise) {
+        for (SimulationData data : toVisualise) {
             HolonGraphPoint point = new HolonGraphPoint(data.getLocation().x, data.getLocation().y);
             point.setHolonID(data.getHolonId());
             point.setHolonCreationTime(data.getHolonCreationTime());

@@ -2,7 +2,7 @@ package gui.commissions;
 
 import dtp.commission.Commission;
 import gui.common.TimestampUpdateable;
-import xml.elements.SimmulationData;
+import xml.elements.SimulationData;
 
 import java.util.HashMap;
 
@@ -28,7 +28,7 @@ public class CommisionUpdateable extends TimestampUpdateable {
     };
 
     @Override
-    public void update(SimmulationData data) {
+    public void update(SimulationData data) {
         // inicjujemy obiekt na porzadany typ dla wezla czasowego
         if (newRecord.getData() == null)
             newRecord.setData(new HashMap<Integer, HashMap<String, Object>>());

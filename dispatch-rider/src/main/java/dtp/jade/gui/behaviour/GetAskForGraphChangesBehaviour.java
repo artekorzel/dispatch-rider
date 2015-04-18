@@ -11,12 +11,7 @@ import org.apache.log4j.Logger;
 
 public class GetAskForGraphChangesBehaviour extends CyclicBehaviour {
 
-
-    /**
-     * Logger.
-     */
-    private static Logger logger = Logger
-            .getLogger(GetAskForGraphChangesBehaviour.class);
+    private static Logger logger = Logger.getLogger(GetAskForGraphChangesBehaviour.class);
 
     private final GUIAgent guiAgent;
 
@@ -26,13 +21,11 @@ public class GetAskForGraphChangesBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-
         MessageTemplate template = MessageTemplate
                 .MatchPerformative(CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
             try {
                 guiAgent.addChangedLink((GraphLink) msg.getContentObject());
 

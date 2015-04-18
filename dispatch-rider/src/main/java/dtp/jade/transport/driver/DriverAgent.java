@@ -13,19 +13,11 @@ import java.util.LinkedList;
  */
 public class DriverAgent extends TransportAgent {
 
-    /**
-     * Serial Version
-     */
-
-
     @Override
     protected TransportType getType() {
         return TransportType.DRIVER;
     }
 
-    /**
-     * {@inherit-doc}
-     */
     @Override
     public double getRatio() {
         return 1.0;
@@ -38,7 +30,7 @@ public class DriverAgent extends TransportAgent {
                 + (commission.getPickupY() - commission.getDeliveryY())
                 * (commission.getPickupY() - commission.getDeliveryY());
         double cost;
-        holonPartsCostList = new LinkedList<HolonPartsCost>();
+        holonPartsCostList = new LinkedList<>();
         TransportElementInitialDataTrailer trailerData;
         TransportElementInitialDataTruck truckData;
         for (TransportAgentData agent : trailers) {
@@ -66,7 +58,7 @@ public class DriverAgent extends TransportAgent {
 
     @Override
     protected synchronized void makeHolonPartsListFromAllAgents() {
-        holonPartsCostList = new LinkedList<HolonPartsCost>();
+        holonPartsCostList = new LinkedList<>();
         TransportElementInitialDataTrailer trailerData;
         TransportElementInitialDataTruck truckData;
         for (TransportAgentData agent : trailers) {
@@ -103,22 +95,17 @@ public class DriverAgent extends TransportAgent {
         TransportElementInitialDataTrailer trailerData;
         trailerData = (TransportElementInitialDataTrailer) part.getAgents()[0]
                 .getData();
-        if (trailerData.getCapacity() >= calculateLoad(com,
-                part.getCommissions()))
-            return true;
-        return false;
+        return trailerData.getCapacity() >= calculateLoad(com,
+                part.getCommissions());
     }
 
-    /**
-     * {@inherit-doc}
-     */
     @Override
     public TransportType getTransportType() {
         return TransportType.DRIVER;
     }
 
     @Override
-    public synchronized void checkNewCommision(TransportCommission commission) {
+    public synchronized void checkNewCommission(TransportCommission commission) {
         if (isBooked()) {
             TransportOffer offer = new TransportOffer();
             offer.setRatio(-1);

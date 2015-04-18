@@ -17,11 +17,11 @@ import java.util.Map;
 
 public class XMLBuilder {
 
-    private final Map<Integer, List<SimmulationData>> data;
+    private final Map<Integer, List<SimulationData>> data;
     private final Point2D.Double depot;
     private Document dom;
 
-    public XMLBuilder(Map<Integer, List<SimmulationData>> data,
+    public XMLBuilder(Map<Integer, List<SimulationData>> data,
                       Point2D.Double depot) {
         this.data = data;
         this.depot = depot;
@@ -44,13 +44,13 @@ public class XMLBuilder {
             Element transportEl;
             Element commsEl;
             Element comEl;
-            List<SimmulationData> lastSimData = null;
+            List<SimulationData> lastSimData = null;
             for (Integer time : data.keySet()) {
                 simTimeEl = dom.createElement("simTime");
                 simTimeEl.setAttribute("time", time.toString());
                 holonsEl = dom.createElement("holons");
                 lastSimData = data.get(time);
-                for (SimmulationData simData : data.get(time)) {
+                for (SimulationData simData : data.get(time)) {
                     holonEl = dom.createElement("holon");
                     holonEl.setAttribute("id", simData.getHolonId().toString());
                     holonEl.setAttribute("creationTime", simData
@@ -118,7 +118,7 @@ public class XMLBuilder {
             CommissionData commData;
             Double dist;
             Double time;
-            for (SimmulationData data : lastSimData) {
+            for (SimulationData data : lastSimData) {
                 holonEl = dom.createElement("holon");
                 holonEl.setAttribute("id", data.getHolonId().toString());
                 commsData = data.getCommissions();
