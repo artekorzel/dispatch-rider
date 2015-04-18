@@ -3,7 +3,6 @@ package dtp.simulation;
 import algorithm.*;
 import algorithm.STLike.ExchangeAlgorithmsFactory;
 import dtp.graph.predictor.GraphLinkPredictor;
-import dtp.jade.gui.CommissionsHolder;
 import dtp.optimization.TrackFinder;
 import machineLearning.MLAlgorithm;
 import measure.MeasureCalculatorsHolder;
@@ -26,8 +25,6 @@ public class SimInfo implements Serializable {
 
     private double maxLoad;
 
-    private CommissionsHolder holder;
-
     private MeasureCalculatorsHolder calculatorsHolder;
 
     private PunishmentFunction punishmentFunction;
@@ -43,7 +40,6 @@ public class SimInfo implements Serializable {
 
     private ExchangeAlgorithmsFactory exchangeAlgFactory;
 
-    private Boolean updateAfterArrival;
     private Schedule scheduleCreator = new BasicSchedule(null);
 
     private Brute2Sorter brute2Sorter;
@@ -61,14 +57,6 @@ public class SimInfo implements Serializable {
 
     public void setBrute2Sorter(Brute2Sorter sorter) {
         this.brute2Sorter = sorter;
-    }
-
-    public Boolean getUpdateAfterArrival() {
-        return updateAfterArrival;
-    }
-
-    public void setUpdateAfterArrival(Boolean updateAfterArrival) {
-        this.updateAfterArrival = updateAfterArrival;
     }
 
     public ExchangeAlgorithmsFactory getExchangeAlgFactory() {
@@ -169,14 +157,6 @@ public class SimInfo implements Serializable {
         this.punishmentFunction = new PunishmentFunction(punishmentFunction);
     }
 
-    public CommissionsHolder getHolder() {
-        return holder;
-    }
-
-    public void setHolder(CommissionsHolder holder) {
-        this.holder = holder;
-    }
-
     public Point2D.Double getDepot() {
 
         return depot;
@@ -190,11 +170,6 @@ public class SimInfo implements Serializable {
     public double getDeadline() {
 
         return deadline;
-    }
-
-    public void setDeadline(double deadline) {
-
-        this.deadline = deadline;
     }
 
     public double getMaxLoad() {

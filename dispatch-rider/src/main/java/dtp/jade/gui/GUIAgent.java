@@ -1146,7 +1146,7 @@ public class GUIAgent extends Agent {
                     wr.write(Double.toString(calendarStatsHolderForFile
                             .calculatePunishment()) + "\t");
                     wr.write(Long.toString(simTime) + "\t");
-                    wr.write(gui.getCommissionsTab().getCommisionsCount()
+                    wr.write(gui.getCommissionsTab().getCommissionsCount()
                             + "\t");
                     wr.write(delivery.toString());
                     wr.flush();
@@ -1241,7 +1241,7 @@ public class GUIAgent extends Agent {
         wr.write(Double.toString(holder.calculateDriveTime()) + "\t");
         wr.write(Double.toString(holder.calculatePunishment()) + "\t");
         wr.write(Long.toString(simTime) + "\t");
-        wr.write(gui.getCommissionsTab().getCommisionsCount() + "\t");
+        wr.write(gui.getCommissionsTab().getCommissionsCount() + "\t");
         wr.write(delivery.toString());
         wr.flush();
         return delivery;

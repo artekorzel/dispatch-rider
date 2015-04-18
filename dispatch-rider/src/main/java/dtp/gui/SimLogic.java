@@ -108,10 +108,6 @@ public class SimLogic extends javax.swing.JFrame {
         this.problemType = problemType;
     }
 
-    public void enableSimStartButton() {
-        simTab.enableSimStartButton();
-    }
-
     public void refreshComsWaiting() {
         simTab.setComsWaiting(guiAgent.getComsWaiting());
     }
@@ -218,7 +214,6 @@ public class SimLogic extends javax.swing.JFrame {
     public void nextSimStep5() {
         guiAgent.sendCommissions(timestamp);
         refreshComsWaiting();
-        commissionsTab.markSentCommissions();
     }
 
     public void setTimerDelay(int timerDelay) {
