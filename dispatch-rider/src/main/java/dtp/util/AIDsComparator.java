@@ -2,7 +2,6 @@ package dtp.util;
 
 import jade.core.AID;
 
-@SuppressWarnings("rawtypes")
 public class AIDsComparator implements java.util.Comparator {
 
     public int compare(Object arg0, Object arg1) {

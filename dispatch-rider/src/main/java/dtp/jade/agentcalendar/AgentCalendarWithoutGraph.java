@@ -170,45 +170,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         }
     }
 
-    public boolean removeCommission(Commission com) {
-
-        CalendarActionWithoutGraph pickupActionToRemove;
-        CalendarActionWithoutGraph deliveryActionToRemove;
-
-        // no such commission in hashtable
-        if (getComFromHashtable(String.valueOf(com.getID())) == null) {
-
-            System.out
-                    .println("AgentCalendar.removeCommission() -> no such commission in hashtable, com Id = "
-                            + com.getID());
-            return false;
-        }
-
-        pickupActionToRemove = getPickupAction(com);
-        deliveryActionToRemove = getDeliveryAction(com);
-
-        if (pickupActionToRemove == null || deliveryActionToRemove == null) {
-
-            return false;
-        }
-
-        // update load
-        removeLoad(com, pickupActionToRemove, deliveryActionToRemove);
-
-        // remove PICKUP action
-        removeAction(pickupActionToRemove);
-
-        // remove DELIVERY action
-        removeAction(deliveryActionToRemove);
-
-        // remove com from hashtable
-        removeComFromHashtable(String.valueOf(com.getID()));
-
-        return true;
-    }
-
     public double getDistance() {
-
         return calculateWholeDistance();
     }
 
@@ -598,50 +560,34 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                     .getCommissionID()));
             double timeWindow1 = 0;
             double timeWindow2 = 0;
-            if (tmpPDDAction.getType().equals("PICKUP")) {
-
-                timeWindow1 = tmpCom.getPickupTime1();
-                timeWindow2 = tmpCom.getPickupTime2();
-
-            } else if (tmpPDDAction.getType().equals("DELIVERY")) {
-
-                timeWindow1 = tmpCom.getDeliveryTime1();
-                timeWindow2 = tmpCom.getDeliveryTime2();
-
-            } else {
-
-                System.out.println("AgentCalendar.elbowLeft() -> sth wrong!");
+            switch (tmpPDDAction.getType()) {
+                case "PICKUP":
+                    timeWindow1 = tmpCom.getPickupTime1();
+                    timeWindow2 = tmpCom.getPickupTime2();
+                    break;
+                case "DELIVERY":
+                    timeWindow1 = tmpCom.getDeliveryTime1();
+                    timeWindow2 = tmpCom.getDeliveryTime2();
+                    break;
+                default:
+                    System.out.println("AgentCalendar.elbowLeft() -> sth wrong!");
+                    break;
             }
 
             earliestPossibleTime = Double.MAX_VALUE;
 
-            if (latestTime < earliestTime) {
-
+            if (latestTime < earliestTime || earliestTime > timeWindow2) {
                 return;
-
-            } else if (earliestTime > timeWindow2) {
-
-                return;
-
             } else if (earliestTime >= timeWindow1) {
-
                 earliestPossibleTime = earliestTime;
-
             } else if (earliestTime < timeWindow1) {
-
                 if (latestTime >= timeWindow1) {
-
                     earliestPossibleTime = timeWindow1;
-
                 } else {
-
                     return;
                 }
-
             } else {
-
                 System.out.println("AgentCalendar.elbowLeft -> sth wrong!");
-                // return;
             }
 
             double extraTime = tmpPDDAction.getStartTime()
@@ -726,13 +672,6 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
             timeService = tmpPDDAction.getEndTime()
                     - tmpPDDAction.getStartTime();
 
-            timeTotal = timeDriveFromPrev + timeService + timeDriveToNext;
-
-            // ograniczenie czasow dojazdu
-            if (timeTotal > tmpPDDActionNext.getStartTime()
-                    - tmpPDDActionPrev.getEndTime()) {
-            }
-
             // wyznaczenie najwczesniejszego i najpozniejszego czasu w jakim
             // moze rozpoczac sie pickup/delivery
             double earliestTime = tmpPDDActionPrev.getEndTime()
@@ -745,50 +684,33 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                     .getCommissionID()));
             double timeWindow1 = 0;
             double timeWindow2 = 0;
-            if (tmpPDDAction.getType().equals("PICKUP")) {
-
-                timeWindow1 = tmpCom.getPickupTime1();
-                timeWindow2 = tmpCom.getPickupTime2();
-
-            } else if (tmpPDDAction.getType().equals("DELIVERY")) {
-
-                timeWindow1 = tmpCom.getDeliveryTime1();
-                timeWindow2 = tmpCom.getDeliveryTime2();
-
-            } else {
-
-                System.out.println("AgentCalendar.elbowRight() -> sth wrong!");
+            switch (tmpPDDAction.getType()) {
+                case "PICKUP":
+                    timeWindow1 = tmpCom.getPickupTime1();
+                    timeWindow2 = tmpCom.getPickupTime2();
+                    break;
+                case "DELIVERY":
+                    timeWindow1 = tmpCom.getDeliveryTime1();
+                    timeWindow2 = tmpCom.getDeliveryTime2();
+                    break;
+                default:
+                    System.out.println("AgentCalendar.elbowRight() -> sth wrong!");
+                    break;
             }
 
             latestPossibleTime = Double.MIN_VALUE;
-
-            if (latestTime < earliestTime) {
-
+            if (latestTime < earliestTime || latestTime < timeWindow1) {
                 return;
-
-            } else if (latestTime < timeWindow1) {
-
-                return;
-
             } else if (latestTime <= timeWindow2) {
-
                 latestPossibleTime = latestTime;
-
             } else if (latestTime > timeWindow2) {
-
                 if (earliestTime <= timeWindow2) {
-
                     latestPossibleTime = timeWindow2;
-
                 } else {
-
                     return;
                 }
-
             } else {
-
                 System.out.println("AgentCalendar.elbowRight -> sth wrong!");
-                // return;
             }
 
             double extraTime = latestPossibleTime - tmpPDDAction.getStartTime();
@@ -838,7 +760,6 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         tmpAction = getPrevPDDAction(tmpAction);
 
         if (tmpAction.getType().equals("DEPOT")) {
-
             return;
         }
 
@@ -852,16 +773,12 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         CalendarActionWithoutGraph tmpAction = action;
 
         do {
-
             tmpAction = schedule.getPreviousAction(tmpAction);
-
             if (tmpAction == null) {
-
                 return null;
             }
 
             if (tmpAction.isPDD()) {
-
                 return tmpAction;
             }
 
@@ -879,16 +796,13 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         CalendarActionWithoutGraph tmpAction = action;
 
         do {
-
             tmpAction = schedule.getNextAction(tmpAction);
 
             if (tmpAction == null) {
-
                 return null;
             }
 
             if (tmpAction.isPDD()) {
-
                 return tmpAction;
             }
 
@@ -900,14 +814,11 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
     }
 
     private double calculateTime(Point2D source, Point2D destination) {
-
         final int speed = 1;
-
         return calculateDistance(source, destination) / speed;
     }
 
     private double calculateDistance(Point2D source, Point2D destination) {
-
         return Point.distance(source.getX(), source.getY(), destination.getX(),
                 destination.getY());
     }
@@ -923,8 +834,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
 
             tmpAction = schedule.get(i);
 
-            if (tmpAction.getType() == "DRIVE") {
-
+            if (tmpAction.getType().equals("DRIVE")) {
                 wholeDistance += calculateDistance(tmpAction.getSource(),
                         tmpAction.getDestination());
             }
@@ -935,17 +845,14 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
 
     @SuppressWarnings("unchecked")
     private void addComToHashtable(Commission com) {
-
         commissions.put(Integer.toString(com.getID()), com);
     }
 
     private Commission getComFromHashtable(String key) {
-
         return (Commission) commissions.get(key);
     }
 
     private void removeComFromHashtable(String key) {
-
         commissions.remove(key);
     }
 
@@ -983,130 +890,6 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         }
 
         return loadOK;
-    }
-
-    private void removeLoad(Commission com,
-                            CalendarActionWithoutGraph pickupAction,
-                            CalendarActionWithoutGraph deliveryAction) {
-
-        CalendarActionWithoutGraph tmpAction;
-        boolean isBetween;
-
-        isBetween = false;
-
-        for (int i = schedule.size() - 1; i >= 0; i--) {
-
-            tmpAction = schedule.get(i);
-
-            if (tmpAction.equals(pickupAction)) {
-
-                isBetween = true;
-
-            } else if (tmpAction.equals(deliveryAction)) {
-
-                isBetween = false;
-            }
-
-            if (isBetween) {
-
-                tmpAction.setCurrentLoad(tmpAction.getCurrentLoad()
-                        - com.getLoad());
-
-            }
-        }
-    }
-
-    private CalendarActionWithoutGraph getPickupAction(Commission com) {
-
-        CalendarActionWithoutGraph tmpAction;
-
-        for (int i = schedule.size() - 1; i >= 0; i--) {
-
-            tmpAction = schedule.get(i);
-            if (tmpAction.getType().equals("PICKUP")
-                    && tmpAction.getCommissionID() == com.getID()) {
-
-                return tmpAction;
-            }
-        }
-
-        return null;
-    }
-
-    private CalendarActionWithoutGraph getDeliveryAction(Commission com) {
-
-        CalendarActionWithoutGraph tmpAction;
-
-        for (int i = schedule.size() - 1; i >= 0; i--) {
-
-            tmpAction = schedule.get(i);
-            if (tmpAction.getType().equals("DELIVERY")
-                    && tmpAction.getCommissionID() == com.getID()) {
-
-                return tmpAction;
-            }
-        }
-
-        return null;
-    }
-
-    private boolean removeAction(CalendarActionWithoutGraph action) {
-
-        CalendarActionWithoutGraph tmpPrevPDDAction;
-        CalendarActionWithoutGraph tmpNextPDDAction;
-
-        CalendarActionWithoutGraph tmpPrevDriveAction;
-        CalendarActionWithoutGraph tmpPrevWaitAction;
-        CalendarActionWithoutGraph tmpNextDriveAction;
-        CalendarActionWithoutGraph tmpNextWaitAction;
-
-        CalendarActionWithoutGraph newDriveAction;
-        CalendarActionWithoutGraph newWaitAction;
-
-        double time;
-
-        if (!schedule.contains(action)) {
-
-            return false;
-        }
-
-        tmpPrevPDDAction = getPrevPDDAction(action);
-        tmpNextPDDAction = getNextPDDAction(action);
-
-        tmpPrevDriveAction = schedule.getNextAction(tmpPrevPDDAction);
-        tmpPrevWaitAction = schedule.getPreviousAction(action);
-        tmpNextDriveAction = schedule.getNextAction(action);
-        tmpNextWaitAction = schedule.getPreviousAction(tmpNextPDDAction);
-
-        schedule.remove(tmpPrevDriveAction);
-        schedule.remove(tmpPrevWaitAction);
-        schedule.remove(tmpNextDriveAction);
-        schedule.remove(tmpNextWaitAction);
-
-        schedule.remove(action);
-
-        time = calculateTime(tmpPrevPDDAction.getDestination(),
-                tmpNextPDDAction.getSource());
-
-        // add DRIVE action
-        newDriveAction = new CalendarActionWithoutGraph(-1, -1, "DRIVE",
-                tmpPrevPDDAction.getDestination(),
-                tmpNextPDDAction.getSource(), tmpPrevPDDAction.getEndTime(),
-                tmpPrevPDDAction.getEndTime() + time,
-                tmpPrevPDDAction.getCurrentLoad());
-
-        schedule.putActionAfter(newDriveAction, tmpPrevPDDAction);
-
-        // add WAIT action
-        newWaitAction = new CalendarActionWithoutGraph(-1, -1, "WAIT",
-                newDriveAction.getDestination(),
-                newDriveAction.getDestination(), newDriveAction.getEndTime(),
-                tmpNextPDDAction.getStartTime(),
-                newDriveAction.getCurrentLoad());
-
-        schedule.putActionAfter(newWaitAction, newDriveAction);
-
-        return true;
     }
 
     public double getMaxLoad() {

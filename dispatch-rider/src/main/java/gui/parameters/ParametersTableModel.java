@@ -9,11 +9,6 @@ import java.util.HashMap;
 
 public class ParametersTableModel extends AbstractTableModel implements Updateable {
 
-    /**
-     *
-     */
-
-
     ParametersUpdateable updateable = new ParametersUpdateable();
 
     @Override

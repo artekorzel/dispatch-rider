@@ -85,7 +85,6 @@ public class ExecutionUnitAgent extends BaseAgent {
     private boolean simulatedTrading;
 
     private boolean isSimmulatedTradingEnabled = true;
-    private int previousTimestamp = 0;
     private int maxSTDepth;
     private long reorganizationTime;
     private long organizationTime;
@@ -268,7 +267,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         /*for (int i = previousTimestamp + 1; i <= timestamp; i++)
             updateCurrentLocation(i);*/
-        previousTimestamp = timestamp;
+        int previousTimestamp = timestamp;
     }
 
     public int getProblemType() {

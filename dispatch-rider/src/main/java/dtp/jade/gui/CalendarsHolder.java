@@ -26,20 +26,4 @@ public class CalendarsHolder {
     public boolean gotAllCalendarStats() {
         return collectedCalendarsNumber == collectedCalendars.length;
     }
-
-    public String getAllStats() {
-        StringBuilder str = new StringBuilder();
-
-        str.append("****************************** CALENDARS ******************************\n");
-
-        for (int i = 0; i < collectedCalendars.length; i++) {
-
-            str.append("ExecutionUnit#").append(i).append(": \n");
-            str.append(collectedCalendars[i]).append("\n");
-        }
-
-        str.append("***********************************************************************\n");
-
-        return str.toString();
-    }
 }

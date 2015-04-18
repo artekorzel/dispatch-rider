@@ -56,9 +56,6 @@ public class TransportElementInitialDataTruck extends TransportElementInitialDat
         return fuelConsumption;
     }
 
-    /**
-     * @param fuelComsuption the fuelComsuption to set
-     */
     public void setFuelConsumption(int fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
     }

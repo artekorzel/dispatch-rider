@@ -27,9 +27,9 @@ public class HolonStatsUpdateable extends TimestampUpdateable {
         HashMap<Integer, HashMap<String, Object>> extracted
                 = (HashMap<Integer, HashMap<String, Object>>) newRecord.getData();
 
-        HashMap<String, Object> holonParams = (HashMap<String, Object>) extracted.get(data.getHolonId());
+        HashMap<String, Object> holonParams = extracted.get(data.getHolonId());
         if (holonParams == null) {
-            holonParams = new HashMap<String, Object>();
+            holonParams = new HashMap<>();
             extracted.put(data.getHolonId(), holonParams);
         }
 

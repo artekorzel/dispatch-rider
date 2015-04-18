@@ -6,21 +6,8 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-/**
- * Behaviour used by transport elements to receive commission information.
- *
- * @author Michal Golacki
- */
 public class GetConfirmationFromDistributorBehaviour extends CyclicBehaviour {
 
-    /**
-     * Serial version
-     */
-
-
-    /**
-     * Agent
-     */
     private TransportAgent agent;
 
     public GetConfirmationFromDistributorBehaviour(TransportAgent transportAgent) {

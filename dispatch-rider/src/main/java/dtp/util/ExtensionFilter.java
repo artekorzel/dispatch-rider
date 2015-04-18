@@ -1,4 +1,4 @@
-package dtp.gui;
+package dtp.util;
 
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
@@ -11,10 +11,6 @@ public class ExtensionFilter extends FileFilter {
         this.extensions = extensions;
     }
 
-    /**
-     * @param file
-     * @return the extension of given file
-     */
     private static String getExtension(File file) {
         String ext = null;
         String s = file.getName();
@@ -26,9 +22,6 @@ public class ExtensionFilter extends FileFilter {
         return ext;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public boolean accept(File file) {
         if (file.isDirectory())
             return true;
@@ -43,9 +36,6 @@ public class ExtensionFilter extends FileFilter {
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public String getDescription() {
         StringBuilder builder = new StringBuilder("Extensions: ");
         for (String ext : extensions) {

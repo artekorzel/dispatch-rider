@@ -8,10 +8,6 @@ import jade.lang.acl.MessageTemplate;
 
 public class EndOfSimulationBehaviour extends CyclicBehaviour {
 
-    /**
-     *
-     */
-
     private TransportAgent agent;
 
     public EndOfSimulationBehaviour(TransportAgent agent) {
@@ -24,13 +20,9 @@ public class EndOfSimulationBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
             agent.doDelete();
-
         } else {
             block();
         }
-
     }
-
 }

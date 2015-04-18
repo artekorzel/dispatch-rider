@@ -11,29 +11,13 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-/**
- * Behaviour for receiving initial data for transport element.
- *
- * @author Michal Golacki
- */
-public class GetInitialDataBahaviour extends CyclicBehaviour {
+public class GetInitialDataBehaviour extends CyclicBehaviour {
 
-    /**
-     *
-     */
+    private static Logger logger = Logger.getLogger(GetInitialDataBehaviour.class);
 
-
-    /**
-     * Logger
-     */
-    private static Logger logger = Logger.getLogger(GetInitialDataBahaviour.class);
-
-    /**
-     * Agent
-     */
     private TransportAgent agent;
 
-    public GetInitialDataBahaviour(TransportAgent agent) {
+    public GetInitialDataBehaviour(TransportAgent agent) {
         this.agent = agent;
     }
 
@@ -71,7 +55,7 @@ public class GetInitialDataBahaviour extends CyclicBehaviour {
                 logger.info(loggerMessage);
 
             } catch (UnreadableException e) {
-                logger.error("Unreadable message exception " + e.getStackTrace());
+                logger.error("Unreadable message exception ", e);
             }
         } else {
             block();

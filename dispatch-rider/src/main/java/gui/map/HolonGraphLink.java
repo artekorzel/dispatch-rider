@@ -7,13 +7,7 @@ import java.awt.*;
 
 public class HolonGraphLink extends GraphLink {
 
-
     private Color color;
-
-    public HolonGraphLink(Color color) {
-        super();
-        this.color = color;
-    }
 
     public HolonGraphLink(Color color, GraphPoint begin, GraphPoint end, double cost) {
         super(begin, end, cost);

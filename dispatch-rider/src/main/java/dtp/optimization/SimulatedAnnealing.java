@@ -48,38 +48,6 @@ public class SimulatedAnnealing implements TrackFinder {
         this.c = 0.5;
     }
 
-    public void setimax(int val) {
-        imax = val;
-    }
-
-    public void setkmax(int val) {
-        kmax = val;
-    }
-
-    public void setalfa(double val) {
-        alfa = val;
-    }
-
-    public void setc(double val) {
-        c = val;
-    }
-
-    public int getimax() {
-        return imax;
-    }
-
-    public int getkmax() {
-        return kmax;
-    }
-
-    public double getalfa() {
-        return alfa;
-    }
-
-    public double getc() {
-        return c;
-    }
-
     public GraphTrack permute(GraphTrack pi) {
         return new GraphTrack(pi.getFirst(), pi.getLast());
     }

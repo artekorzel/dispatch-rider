@@ -8,24 +8,11 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
-/**
- * Behaviour for receiving initial data for transport element.
- *
- * @author Michal Golacki
- */
-public class GetAgentsDataBahaviour extends CyclicBehaviour {
+public class GetAgentsDataBehaviour extends CyclicBehaviour {
 
-    /**
-     *
-     */
-
-
-    /**
-     * Agent
-     */
     private TransportAgent agent;
 
-    public GetAgentsDataBahaviour(TransportAgent agent) {
+    public GetAgentsDataBehaviour(TransportAgent agent) {
         this.agent = agent;
     }
 

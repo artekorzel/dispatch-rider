@@ -13,9 +13,7 @@ import dtp.commission.CommissionsHandler;
 import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.graph.GraphLink;
-import dtp.graph.GraphPoint;
 import dtp.graph.predictor.GraphLinkPredictor;
-import dtp.gui.ExtensionFilter;
 import dtp.gui.SimLogic;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.agentcalendar.CalendarAction;
@@ -30,6 +28,7 @@ import dtp.jade.transport.TransportElementInitialDataTruck;
 import dtp.jade.transport.TransportType;
 import dtp.optimization.TrackFinder;
 import dtp.simulation.SimInfo;
+import dtp.util.ExtensionFilter;
 import dtp.xml.ConfigurationParser;
 import dtp.xml.ParseException;
 import gui.main.SingletonGUI;
@@ -51,12 +50,10 @@ import xml.elements.XMLBuilder;
 
 import javax.swing.*;
 import javax.swing.Timer;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class GUIAgent extends Agent {
@@ -552,32 +549,6 @@ public class GUIAgent extends Agent {
         }
     }
 
-    public void sendGraphToEUnits(Graph graph) {
-        AID[] aids;
-        ACLMessage cfp;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "ExecutionUnitService");
-
-        logger.info(getLocalName() + " - sending graph to " + aids.length
-                + " EUnitAgents");
-
-        if (aids.length != 0) {
-            for (AID aid : aids) {
-
-                cfp = new ACLMessage(CommunicationHelper.GRAPH);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(graph);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-        }
-    }
-
     public void sendUpdatedGraphToEunits(Graph graph) {
         AID[] aids;
         ACLMessage cfp;
@@ -764,9 +735,6 @@ public class GUIAgent extends Agent {
             }
             send(cfp);
 
-            gui.displayMessage(getLocalName() + " - " + tempCommissions.length
-                    + " commission(s) sent to Distributor Agent");
-
             /**
              * @author Szyna
              * Dodane zeby kazdy eunit wrocil do depotu przed skonczeniem symulacji
@@ -785,9 +753,7 @@ public class GUIAgent extends Agent {
     }
 
     public void sendTimestamp(int time) {
-
         logger.info(getLocalName() + " - sending time stamp [" + time + "]");
-        gui.displayMessage(getLocalName() + " - sending time stamp [" + time + "]");
         SingletonGUI.getInstance().newTimestamp(time);
 
         AID[] aids;
@@ -867,92 +833,6 @@ public class GUIAgent extends Agent {
         }
     }
 
-    public void setTimerDelay(int timerDelay) {
-
-        this.timerDelay = timerDelay;
-        timer.setDelay(timerDelay);
-    }
-
-    public int getComsWaiting() {
-        return commissionsHandler.getComsSize();
-    }
-
-    public ArrayList<GraphPoint> getLocations() {
-
-        CommissionHandler[] coms;
-        ArrayList<GraphPoint> points;
-        double px, py;
-
-        coms = commissionsHandler.getCommissionHandlers();
-
-        if (coms.length == 0)
-            return null;
-
-        points = new ArrayList<>();
-
-        // POINTS
-        for (CommissionHandler com : coms) {
-
-            px = com.getCommission().getPickupX();
-            py = com.getCommission().getPickupY();
-
-            if (!containsPoint(points, px, py))
-                points.add(new GraphPoint(px, py, "pt_" + px + "_" + py));
-
-            px = com.getCommission().getDeliveryX();
-            py = com.getCommission().getDeliveryY();
-
-            if (!containsPoint(points, px, py))
-                points.add(new GraphPoint(px, py, "pt_" + px + "_" + py));
-        }
-
-        // BASE
-        Point depot = gui.getDepotLocation();
-        if (!containsPoint(points, (int) depot.getX(), (int) depot.getY()))
-            points.add(new GraphPoint((int) depot.getX(), (int) depot.getY(),
-                    "base_" + depot.getX() + "_" + depot.getY(), true, 0));
-
-        return points;
-    }
-
-    public void askForEUnitsCalendars() {
-        AID[] aids;
-        ACLMessage cfp;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "ExecutionUnitService");
-
-        if (calendarsHolder != null) {
-
-            gui.displayMessage(getLocalName()
-                    + " - can't ask for agent's clendars,"
-                    + " previous request in progress");
-            return;
-        }
-
-        if (aids.length > 0) {
-            for (AID aid : aids) {
-
-                cfp = new ACLMessage(CommunicationHelper.EUNIT_SHOW_CALENDAR);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-
-            calendarsHolder = new CalendarsHolder(aids.length);
-        } else {
-
-            logger.info(getLocalName()
-                    + " - There are no agents with ExecutionUnitService in the system");
-            gui.displayMessage("There are no agents with ExecutionUnitService in the system");
-        }
-    }
-
     public void addCalendar(String agent, String calendar) {
         if (calendarsHolder == null) {
             logger.error(getLocalName()
@@ -963,53 +843,7 @@ public class GUIAgent extends Agent {
         calendarsHolder.addCalendar(agent, calendar);
 
         if (calendarsHolder.gotAllCalendarStats()) {
-            displayCalendars();
             calendarsHolder = null;
-        }
-    }
-
-    public void displayCalendars() {
-
-        displayMessage(calendarsHolder.getAllStats());
-    }
-
-    public void askForEUnitsCalendarStats() {
-
-        AID[] aids;
-        ACLMessage cfp;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
-                "ExecutionUnitService");
-
-        if (calendarStatsHolder != null) {
-
-            gui.displayMessage(getLocalName()
-                    + " - can't ask for clendar stats,"
-                    + " previous request in progress");
-            return;
-        }
-
-        if (aids.length > 0) {
-            for (AID aid : aids) {
-
-                cfp = new ACLMessage(CommunicationHelper.EUNIT_SHOW_STATS);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-
-            calendarStatsHolder = new CalendarStatsHolder(aids.length);
-
-        } else {
-
-            logger.info(getLocalName()
-                    + " - There are no agents with ExecutionUnitService in the system");
-            gui.displayMessage("There are no agents with ExecutionUnitService in the system");
         }
     }
 
@@ -1026,10 +860,6 @@ public class GUIAgent extends Agent {
                 "ExecutionUnitService");
 
         if (calendarStatsHolderForFile != null) {
-
-            gui.displayMessage(getLocalName()
-                    + " - can't ask for clendar stats for file,"
-                    + " previous request in progress");
             return;
         }
 
@@ -1054,7 +884,6 @@ public class GUIAgent extends Agent {
         } else {
             logger.info(getLocalName()
                     + " - There are no agents with ExecutionUnitService in the system");
-            gui.displayMessage("There are no agents with ExecutionUnitService in the system");
         }
     }
 
@@ -1068,7 +897,6 @@ public class GUIAgent extends Agent {
         calendarStatsHolder.addCalendarStats(calendarStats);
 
         if (calendarStatsHolder.gotAllCalendarStats()) {
-            displayStats();
             calendarStatsHolder = null;
         }
     }
@@ -1305,14 +1133,6 @@ public class GUIAgent extends Agent {
         }
     }
 
-    private void displayStats() {
-        displayMessage(calendarStatsHolder.getAllStatsToString());
-    }
-
-    public synchronized void displayMessage(String msg) {
-        gui.displayMessage(msg);
-    }
-
     public void updateEUnitInfo(EUnitInfo eUnitInfo) {
         gui.updateEUnitsInfo(eUnitInfo);
     }
@@ -1341,28 +1161,9 @@ public class GUIAgent extends Agent {
             }
 
         } else {
-
             logger.info(getLocalName()
                     + " - none or more than one agent with CrisisManagementService in the system");
-            gui.displayMessage("None or more than one agent with CrisisManagementService in the system");
         }
-    }
-
-    private boolean containsPoint(ArrayList<GraphPoint> points, double px, double py) {
-
-        Iterator<GraphPoint> iter;
-        GraphPoint tmpPoint;
-
-        iter = points.iterator();
-
-        while (iter.hasNext()) {
-
-            tmpPoint = iter.next();
-            if (tmpPoint.getX() == px && tmpPoint.getY() == py)
-                return true;
-        }
-
-        return false;
     }
 
     private void createNewTransportElement(TransportElementInitialData data,

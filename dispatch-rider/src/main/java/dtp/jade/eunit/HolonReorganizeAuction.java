@@ -650,79 +650,10 @@ public class HolonReorganizeAuction {
                 System.err.println("SOMETHING WENT WRONG.......");
                 break;
         }
-        if (offersReceived < commissionsSent) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public boolean isFinished() {
-        System.err.println(commissionsSent + "==" + offersReceived);
-        return commissionsSent == offersReceived;
-
-    }
-
-    /**
-     * getter
-     *
-     * @return the driverBackup
-     */
-    public TransportOffer getDriverBackup() {
-        return driverBackup;
-    }
-
-    /**
-     * setter
-     *
-     * @param driverBackup the driverBackup to set
-     */
-    public void setDriverBackup(TransportOffer driverBackup) {
-        this.driverBackup = driverBackup;
-    }
-
-    /**
-     * getter
-     *
-     * @return the truckBackup
-     */
-    public TransportOffer getTruckBackup() {
-        return truckBackup;
-    }
-
-    /**
-     * setter
-     *
-     * @param truckBackup the truckBackup to set
-     */
-    public void setTruckBackup(TransportOffer truckBackup) {
-        this.truckBackup = truckBackup;
-    }
-
-    /**
-     * getter
-     *
-     * @return the trailerBackup
-     */
-    public TransportOffer getTrailerBackup() {
-        return trailerBackup;
-    }
-
-    /**
-     * setter
-     *
-     * @param trailerBackup the trailerBackup to set
-     */
-    public void setTrailerBackup(TransportOffer trailerBackup) {
-        this.trailerBackup = trailerBackup;
+        return offersReceived >= commissionsSent;
     }
 
     public int getLoadRequired() {
         return loadRequired;
     }
-
-    public void setLoadRequired(int loadRequired) {
-        this.loadRequired = loadRequired;
-    }
-
 }

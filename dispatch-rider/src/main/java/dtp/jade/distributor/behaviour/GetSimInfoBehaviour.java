@@ -10,7 +10,6 @@ import jade.lang.acl.UnreadableException;
 
 public class GetSimInfoBehaviour extends CyclicBehaviour {
 
-
     private final DistributorAgent agent;
 
     public GetSimInfoBehaviour(DistributorAgent agent) {

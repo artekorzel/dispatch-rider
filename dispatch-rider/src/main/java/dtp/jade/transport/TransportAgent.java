@@ -1100,12 +1100,12 @@ public abstract class TransportAgent extends BaseAgent {
         super.setup();
         addBehaviour(new GetTransportCommisionBehaviour(this));
         addBehaviour(new GetTransportFeedbackBahaviour(this));
-        addBehaviour(new GetInitialDataBahaviour(this));
+        addBehaviour(new GetInitialDataBehaviour(this));
         addBehaviour(new GetResetRequestBehaviour(this));
         addBehaviour(new GetTransportReorganizeBehaviour(this));
         addBehaviour(new dtp.jade.transport.behaviour.EndOfSimulationBehaviour(
                 this));
-        addBehaviour(new GetAgentsDataBahaviour(this));
+        addBehaviour(new GetAgentsDataBehaviour(this));
         addBehaviour(new GetCommisionBehaviour(this));
         addBehaviour(new GetTeamOfferBehaviour(this));
         addBehaviour(new GetStartNegotiationBehaviour(this));

@@ -4,12 +4,6 @@ public class TimestampRecord {
     int timestamp;
     private Object data;
 
-    TimestampRecord() {
-        timestamp = 0;
-        data = null;
-    }
-
-
     TimestampRecord(int ts, Object data) {
         timestamp = ts;
         this.data = data;

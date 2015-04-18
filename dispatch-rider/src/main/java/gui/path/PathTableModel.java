@@ -10,11 +10,6 @@ import java.util.TreeMap;
 
 public class PathTableModel extends AbstractTableModel implements Updateable {
 
-    /**
-     *
-     */
-
-
     PathUpdateable updateable = new PathUpdateable();
     int holonID = 0;
 

@@ -6,22 +6,10 @@ import dtp.commission.TxtFileReader;
 import dtp.jade.gui.GUIAgent;
 import dtp.simulation.SimInfo;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial
- * use. If Jigloo is being used commercially (ie, by a corporation, company or business for any purpose whatever) then
- * you should purchase a license for each developer using Jigloo. Please visit www.cloudgarden.com for details. Use of
- * Jigloo implies acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR THIS MACHINE, SO
- * JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
- */
-
-/**
- * @author kony.pl
- */
 public class CommissionsTab {
 
     private SimLogic gui;
@@ -48,22 +36,13 @@ public class CommissionsTab {
     public void addCommissionGroup(String filename, boolean dynamic) {
         Commission[] commissions = TxtFileReader.getCommissions(filename);
 
-        gui.displayMessage("GUI - commissions read from .txt file [" + filename + "]");
-
         int incomeTime[] = new int[commissions.length];
         if (dynamic) {
             incomeTime = TxtFileReader.getIncomeTimes(filename + ".income_times", commissions.length);
             if (incomeTime == null) {
-                gui.displayMessage("GUI - error reading commission's income times");
                 return;
             }
         }
-
-        double farthestPickupLocation = TxtFileReader.getFarthestPickupLocation(filename);
-        int farthestPickupLocation2int = (int) farthestPickupLocation;
-
-        gui.displayMessage("GUI - distance from depot to farthest pickup location = " + farthestPickupLocation + " ("
-                + farthestPickupLocation2int + ")");
 
         for (int i = 0; i < commissions.length; i++) {
             addCommissionHandler(new CommissionHandler(commissions[i], incomeTime[i]));
@@ -77,15 +56,11 @@ public class CommissionsTab {
         depotY = depot.getY();
         deadline = TxtFileReader.getDeadline(filename);
         maxLoad = TxtFileReader.getTruckCapacity(filename);
-
-        gui.displayMessage("GUI - simulation constrains " + "read form .txt file ["
-                + filename + "]");
     }
 
     public void addCommissionHandler(CommissionHandler commissionHandler) {
         listCommissions.add(commissionHandler);
         guiAgent.addCommissionHandler(commissionHandler);
-        gui.displayMessage("GUI - commission added " + commissionHandler.toString());
     }
 
     public void setSimConstrains(double depotX, double depotY, double deadline, double maxLoad, boolean testMode) {
@@ -105,8 +80,6 @@ public class CommissionsTab {
     }
 
     public void setConstraints() {
-        gui.displayMessage("GUI - constrains set: depot = (" + depotX + ", " + depotY + ") deadline = "
-                + deadline + " capacity = " + maxLoad);
     }
 
     public int getCommissionsCount() {
@@ -124,11 +97,6 @@ public class CommissionsTab {
     }
 
     public void refreshComsWaiting() {
-
         gui.refreshComsWaiting();
-    }
-
-    public Point getDepotLocation() {
-        return new Point((int) depotX, (int) depotY);
     }
 }

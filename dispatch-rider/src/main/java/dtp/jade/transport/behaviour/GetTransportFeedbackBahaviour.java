@@ -9,26 +9,10 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-/**
- * Behaviour for receiving feedback from execution unit.
- *
- * @author Michal Golacki
- */
 public class GetTransportFeedbackBahaviour extends CyclicBehaviour {
 
-    /**
-     * Serial version
-     */
-
-
-    /**
-     * Logger
-     */
     private static Logger logger = Logger.getLogger(GetTransportCommisionBehaviour.class);
 
-    /**
-     * Agent
-     */
     private TransportAgent agent;
 
     public GetTransportFeedbackBahaviour(TransportAgent agent) {

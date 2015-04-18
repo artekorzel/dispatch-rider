@@ -18,7 +18,6 @@ import java.util.Map;
  */
 public class SimInfo implements Serializable {
 
-
     private Point2D.Double depot;
 
     private double deadline;

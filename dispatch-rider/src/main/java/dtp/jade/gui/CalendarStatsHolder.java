@@ -47,32 +47,6 @@ public class CalendarStatsHolder {
         return result;
     }
 
-    public String getAllStatsToString() {
-
-        StringBuilder str;
-
-        str = new StringBuilder();
-
-        str.append("****************************** STATISTICS ******************************\n");
-
-        for (int i : collectedStats.keySet()) {
-
-            str.append(collectedStats.get(i).getAID().getLocalName()).append(": \n");
-            str.append("truck: ").append(collectedStats.get(i).getTruckAID().getLocalName()).append(" trailer: ").append(collectedStats.get(i).getTrailerAID().getLocalName()).append(" capacity: ").append(collectedStats.get(i).getCapacity()).append("\n");
-            str.append("\t distance = ").append(collectedStats.get(i).getDistance()).append("\n");
-            str.append("\t WAIT time = ").append(collectedStats.get(i).getWaitTime()).append("\n");
-            str.append("\t cost = ").append(collectedStats.get(i).getCost()).append("\n");
-        }
-
-        str.append("***********************************************************************\n");
-        str.append("Summary: \n");
-        str.append("\t total distance = ").append(calculateDistanceSum()).append("\n");
-        str.append("\t total WAIT time = ").append(calculateWaitTime());
-        str.append("\t total cost = ").append(calculateCost(null));
-
-        return str.toString();
-    }
-
     public double calculateDistanceSum() {
 
         double distanceSum;

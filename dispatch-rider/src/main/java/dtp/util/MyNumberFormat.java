@@ -2,9 +2,6 @@ package dtp.util;
 
 import java.text.NumberFormat;
 
-/**
- * @author kony.pl
- */
 public class MyNumberFormat {
 
     public static String formatDouble(double d, int intDigits, int fractDigits) {

@@ -234,9 +234,6 @@ public class CalendarStats implements Serializable {
         return truck_fuelConsumption;
     }
 
-    /**
-     * @param fuelComsuption the fuelComsuption to set
-     */
     public void setFuelConsumption(int fuelConsumption) {
         this.truck_fuelConsumption = fuelConsumption;
     }

@@ -1,7 +1,5 @@
 package dtp.xml;
 
-// import java.io.File;
-
 import dtp.graph.Graph;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -16,17 +14,6 @@ import java.io.IOException;
  */
 public class GraphParser {
 
-    /*
-     * private static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-     * 
-     * private static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
-     * 
-     * private static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
-     * 
-     * private static final String SCHEMA_SOURCE = "xml/schemes/graph.xsd";
-     */
-    private SAXParserFactory factory;
-
     private SAXParser parser;
 
     /**
@@ -37,7 +24,7 @@ public class GraphParser {
     public GraphParser() throws ParseException {
 
         try {
-            factory = SAXParserFactory.newInstance();
+            SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(false); // factory.setNamespaceAware(true);
             factory.setValidating(false); // factory.setValidating(true);
             parser = factory.newSAXParser();

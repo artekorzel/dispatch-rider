@@ -10,10 +10,6 @@ import jade.lang.acl.UnreadableException;
 
 public class GetInitialDataBehaviour extends CyclicBehaviour {
 
-    /**
-     *
-     */
-
     private ExecutionUnitAgent eUnit;
 
     public GetInitialDataBehaviour(ExecutionUnitAgent eUnit) {

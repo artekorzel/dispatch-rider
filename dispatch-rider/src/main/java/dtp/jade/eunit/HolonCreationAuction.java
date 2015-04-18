@@ -530,7 +530,7 @@ public class HolonCreationAuction {
                      * System.out.println("t1[j] = "+t1[j]+"\nt2[k] = "+t2[k]);
                      */
                     // System.out.println("t1[j].doubleValue() = "+t1[j].doubleValue()+"\nt2[k].doubleValue() = "+t2[k].doubleValue());
-                    if (t1[j].doubleValue() < t2[k].doubleValue()) {
+                    if (t1[j] < t2[k]) {
                         arrayCost[i] = t1[j++];
                     } else {
                         arrayCost[i] = t2[k++];
@@ -613,17 +613,15 @@ public class HolonCreationAuction {
     private void initialiseCostNumber(List<Double> CostNumber,
                                       List<Double> ArrayDouble) {
         CostNumber.clear();
-        for (int i = 0; i < ArrayDouble.size(); i++) {
-            CostNumber.add(ArrayDouble.get(i));
+        for (Double aArrayDouble : ArrayDouble) {
+            CostNumber.add(aArrayDouble);
         }
     }
 
     private void initialiseCostNumber(List<Double> CostNumber,
                                       Double[] arrayDouble) {
         CostNumber.clear();
-        for (int i = 0; i < arrayDouble.length; i++) {
-            CostNumber.add(arrayDouble[i]);
-        }
+        Collections.addAll(CostNumber, arrayDouble);
     }
 
     private void normalized(double sum, List<Double> ArrayDouble,
@@ -941,56 +939,37 @@ public class HolonCreationAuction {
 
     }
 
-    // END OF MODIFICATIONS
-
-    public synchronized void addOfffer(TransportOffer offer) {
-        switch (offer.getOfferType()) {
-            case DRIVER:
-                drivers.add(offer);
-                break;
-            case TRUCK:
-                trucks.add(offer);
-                break;
-            case TRAILER:
-                trailers.add(offer);
-                break;
-            default:
-                System.err.println("SOMETHING WENT WRONG.......");
-                break;
-        }
-    }
-
     public synchronized boolean addOffer(TransportOffer offer) {
         offersReceived++;
         if (offer.getRatio() != -1) {
             switch (offer.getOfferType()) {
                 case DRIVER:
                     driverNum++;
-                    List<TransportOffer> list = driversMap.get(new Integer(offer
-                            .getDepot()));
+                    List<TransportOffer> list = driversMap.get(offer
+                            .getDepot());
                     if (list == null) {
-                        list = new ArrayList<TransportOffer>();
-                        driversMap.put(new Integer(offer.getDepot()), list);
+                        list = new ArrayList<>();
+                        driversMap.put(offer.getDepot(), list);
                     }
                     list.add(offer);
                     break;
                 case TRUCK:
                     truckNum++;
-                    List<TransportOffer> list2 = trucksMap.get(new Integer(offer
-                            .getDepot()));
+                    List<TransportOffer> list2 = trucksMap.get(offer
+                            .getDepot());
                     if (list2 == null) {
-                        list2 = new ArrayList<TransportOffer>();
-                        trucksMap.put(new Integer(offer.getDepot()), list2);
+                        list2 = new ArrayList<>();
+                        trucksMap.put(offer.getDepot(), list2);
                     }
                     list2.add(offer);
                     break;
                 case TRAILER:
                     trailerNum++;
-                    List<TransportOffer> list3 = trailersMap.get(new Integer(offer
-                            .getDepot()));
+                    List<TransportOffer> list3 = trailersMap.get(offer
+                            .getDepot());
                     if (list3 == null) {
-                        list3 = new ArrayList<TransportOffer>();
-                        trailersMap.put(new Integer(offer.getDepot()), list3);
+                        list3 = new ArrayList<>();
+                        trailersMap.put(offer.getDepot(), list3);
                     }
                     list3.add(offer);
                     break;
@@ -1007,11 +986,6 @@ public class HolonCreationAuction {
             logger.info("TRAILER KEYSET: " + trailersMap.keySet());
             return true;
         }
-    }
-
-    public boolean isFinished() {
-        return commissionsSent == offersReceived;
-
     }
 
     private class NegotiationResult implements Comparable<NegotiationResult> {

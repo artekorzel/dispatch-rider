@@ -40,18 +40,6 @@ public class PointsHandler extends DefaultHandler {
         this.graph = new Graph();
     }
 
-    public PointsHandler(Graph graph) {
-        pointTag = false;
-        idTag = false;
-        nameTag = false;
-        positionTag = false;
-        XTag = false;
-        YTag = false;
-        baseTag = false;
-
-        this.graph = graph;
-    }
-
     public Graph getGraph() {
         return this.graph;
     }

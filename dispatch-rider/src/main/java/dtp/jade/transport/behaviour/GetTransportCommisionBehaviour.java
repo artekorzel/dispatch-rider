@@ -9,24 +9,10 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-/**
- * Behaviour used by transport elements to receive commission information.
- *
- * @author Michal Golacki
- */
 public class GetTransportCommisionBehaviour extends CyclicBehaviour {
 
-    /**
-     * Serial version
-     */
-
-    /**
-     * Logger
-     */
     private static Logger logger = Logger.getLogger(GetTransportCommisionBehaviour.class);
-    /**
-     * Agent
-     */
+
     private TransportAgent agent;
 
     public GetTransportCommisionBehaviour(TransportAgent transportAgent) {

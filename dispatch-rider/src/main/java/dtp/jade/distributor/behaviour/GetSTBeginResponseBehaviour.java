@@ -8,8 +8,6 @@ import jade.lang.acl.MessageTemplate;
 
 public class GetSTBeginResponseBehaviour extends CyclicBehaviour {
 
-
-
     private final DistributorAgent agent;
 
     public GetSTBeginResponseBehaviour(DistributorAgent agent) {

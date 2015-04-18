@@ -6,11 +6,6 @@ import dtp.jade.transport.*;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * Driver, transport team element
- *
- * @author Michal Golacki
- */
 public class DriverAgent extends TransportAgent {
 
     @Override

@@ -6,9 +6,6 @@ import xml.elements.SimulationData;
 import java.util.HashMap;
 import java.util.HashSet;
 
-/*
- * przyk�ad jak si� poslugiwa� TimestampUpdatable
- */
 public class HolonUpdateable extends TimestampUpdateable {
     private HashSet<Integer> holonIds = new HashSet<Integer>();
     private String[] columnNames = {

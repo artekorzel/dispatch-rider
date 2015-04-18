@@ -18,14 +18,9 @@ public class TruckAgent extends TransportAgent {
         return TransportType.TRUCK;
     }
 
-    /**
-     * {@inherit-doc}
-     */
     @Override
     public double getRatio() {
         return 1.0;
-        // return 1.0 / 3 + (2.0 * getCapacity()) / (3.0 *
-        // getDefaultCapacity());
     }
 
     @Override
@@ -35,7 +30,7 @@ public class TruckAgent extends TransportAgent {
                 + (commission.getPickupY() - commission.getDeliveryY())
                 * (commission.getPickupY() - commission.getDeliveryY());
         double cost;
-        holonPartsCostList = new LinkedList<HolonPartsCost>();
+        holonPartsCostList = new LinkedList<>();
         TransportElementInitialDataTrailer trailerData;
         for (TransportAgentData agent : trailers) {
             trailerData = (TransportElementInitialDataTrailer) agent.getData();
@@ -60,7 +55,7 @@ public class TruckAgent extends TransportAgent {
 
     @Override
     protected synchronized void makeHolonPartsListFromAllAgents() {
-        holonPartsCostList = new LinkedList<HolonPartsCost>();
+        holonPartsCostList = new LinkedList<>();
         TransportElementInitialDataTrailer trailerData;
         for (TransportAgentData agent : trailers) {
             trailerData = (TransportElementInitialDataTrailer) agent.getData();
@@ -94,23 +89,15 @@ public class TruckAgent extends TransportAgent {
         TransportElementInitialDataTrailer trailerData;
         trailerData = (TransportElementInitialDataTrailer) part.getAgents()[0]
                 .getData();
-        if (trailerData.getCapacity() >= calculateLoad(com,
-                part.getCommissions()))
-            return true;
-        return false;
+        return trailerData.getCapacity() >= calculateLoad(com,
+                part.getCommissions());
     }
 
-    /**
-     * {@inherit-doc}
-     */
     @Override
     public TransportType getTransportType() {
         return TransportType.TRUCK;
     }
 
-    /**
-     * @return the reliability
-     */
     public int getReliability() {
         return ((TransportElementInitialDataTruck) (this.initialData))
                 .getReliability();
@@ -121,20 +108,9 @@ public class TruckAgent extends TransportAgent {
                 .getConnectorType();
     }
 
-    /**
-     * @return the comfort
-     */
     public int getComfort() {
         return ((TransportElementInitialDataTruck) (this.initialData))
                 .getComfort();
-    }
-
-    /**
-     * @return the fuelComsuption
-     */
-    public int getFuelComsuption() {
-        return ((TransportElementInitialDataTruck) (this.initialData))
-                .getFuelConsumption();
     }
 
     public int getPower() {

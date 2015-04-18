@@ -7,21 +7,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 
-/**
- * Behaviour used by transport elements to receive commission information.
- *
- * @author Michal Golacki
- */
 public class GetTeamResponseBehaviour extends CyclicBehaviour {
 
-    /**
-     * Serial version
-     */
-
-
-    /**
-     * Agent
-     */
     private final TransportAgent agent;
 
     public GetTeamResponseBehaviour(TransportAgent transportAgent) {

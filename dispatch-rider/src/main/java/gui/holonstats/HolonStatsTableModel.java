@@ -9,10 +9,6 @@ import java.util.HashMap;
 
 public class HolonStatsTableModel extends AbstractTableModel implements Updateable {
 
-    /**
-     *
-     */
-
     HolonStatsUpdateable updateable = new HolonStatsUpdateable();
 
     @SuppressWarnings("unchecked")

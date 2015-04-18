@@ -6,31 +6,16 @@ import dtp.jade.transport.*;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * Trailer, transport team element
- *
- * @author Michal Golacki
- */
 public class TrailerAgent extends TransportAgent {
-
-    /**
-     * serial version
-     */
-
 
     @Override
     protected TransportType getType() {
         return TransportType.TRAILER;
     }
 
-    /**
-     * {@inherit-doc}
-     */
     @Override
     public double getRatio() {
         return 1.0;
-        // return 1.0 / 3 + (2.0 * getCapacity()) / (3.0 *
-        // getDefaultCapacity());
     }
 
     @Override
@@ -40,7 +25,7 @@ public class TrailerAgent extends TransportAgent {
                 + (commission.getPickupY() - commission.getDeliveryY())
                 * (commission.getPickupY() - commission.getDeliveryY());
         double cost;
-        holonPartsCostList = new LinkedList<HolonPartsCost>();
+        holonPartsCostList = new LinkedList<>();
         TransportElementInitialDataTruck truckData;
         for (TransportAgentData agent : trucks) {
             truckData = (TransportElementInitialDataTruck) agent.getData();
@@ -66,7 +51,7 @@ public class TrailerAgent extends TransportAgent {
 
     @Override
     protected synchronized void makeHolonPartsListFromAllAgents() {
-        holonPartsCostList = new LinkedList<HolonPartsCost>();
+        holonPartsCostList = new LinkedList<>();
         TransportElementInitialDataTruck truckData;
         for (TransportAgentData agent : trucks) {
             truckData = (TransportElementInitialDataTruck) agent.getData();
@@ -88,10 +73,8 @@ public class TrailerAgent extends TransportAgent {
                                                       HolonPartsCost part) {
         TransportElementInitialDataTrailer trailerData;
         trailerData = (TransportElementInitialDataTrailer) initialData;
-        if (trailerData.getCapacity() >= calculateLoad(com,
-                part.getCommissions()))
-            return true;
-        return false;
+        return trailerData.getCapacity() >= calculateLoad(com,
+                part.getCommissions());
     }
 
     @Override
@@ -105,9 +88,6 @@ public class TrailerAgent extends TransportAgent {
                 (TransportElementInitialDataTrailer) initialData, com, null);
     }
 
-    /**
-     * {@inherit-doc}
-     */
     @Override
     public TransportType getTransportType() {
         return TransportType.TRAILER;

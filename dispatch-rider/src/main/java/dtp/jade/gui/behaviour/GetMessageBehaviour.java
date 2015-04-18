@@ -39,8 +39,6 @@ public class GetMessageBehaviour extends CyclicBehaviour {
                     // zaraz potem timer trzeba zatrzymac
                 }
 
-                guiAgent.displayMessage(message);
-
             } catch (UnreadableException e) {
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }

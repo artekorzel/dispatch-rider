@@ -4,13 +4,13 @@ import dtp.simulation.SimInfo;
 import xml.elements.SimulationData;
 
 public interface Updateable {
-    public void newTimestampUpdate(int val);
+    void newTimestampUpdate(int val);
 
-    public int getDrawnTimestamp();
+    int getDrawnTimestamp();
 
-    public void setDrawnTimestamp(int val);
+    void setDrawnTimestamp(int val);
 
-    public void update(SimulationData data);
+    void update(SimulationData data);
 
-    public void setSimInfo(SimInfo simInfo);
+    void setSimInfo(SimInfo simInfo);
 }

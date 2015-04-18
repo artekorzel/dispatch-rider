@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 
 public class GetResetRequestBehaviour extends CyclicBehaviour {
 
-
     private static Logger logger = Logger.getLogger(GetResetRequestBehaviour.class);
 
     private final DistributorAgent distributorAgent;
