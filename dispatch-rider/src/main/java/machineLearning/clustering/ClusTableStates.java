@@ -20,17 +20,16 @@ public abstract class ClusTableStates implements Serializable {
 	/**
 	 * State name -> measurment name -> value(center)
 	 */
-	protected final Map<String, Map<String, Double>> values = new HashMap<String, Map<String, Double>>();
-	protected Map<String, List<ClusTableCell>> rows = new HashMap<String, List<ClusTableCell>>();
+	protected final Map<String, Map<String, Double>> values = new HashMap<>();
+	protected Map<String, List<ClusTableCell>> rows = new HashMap<>();
 	protected final AggregatorsManager aggregatorManager = new AggregatorsManager();
 	protected ClusTableMeasures clusTableMeasures;
 
-	protected List<Map<String, Double>> measurmentsHistory = new LinkedList<Map<String, Double>>();
+	protected List<Map<String, Double>> measurementsHistory = new LinkedList<>();
 
 	private final Random rand = new Random(Calendar.getInstance()
 			.getTimeInMillis());
 
-	private boolean isLearning;
 	private boolean useTrees;
 
 	/**
@@ -64,7 +63,7 @@ public abstract class ClusTableStates implements Serializable {
 		List<ClusTableCell> currentActions = rows.get(stateName);
 
 		if (currentActions == null) {
-			currentActions = new LinkedList<ClusTableCell>();
+			currentActions = new LinkedList<>();
 			rows.put(stateName, currentActions);
 		}
 
@@ -106,18 +105,6 @@ public abstract class ClusTableStates implements Serializable {
 
 	public Map<String, List<ClusTableCell>> getRows() {
 		return rows;
-	}
-
-	public boolean isLearning() {
-		return isLearning;
-	}
-
-	public void setLearning(boolean isLearning) {
-		this.isLearning = isLearning;
-	}
-
-	public boolean isUseTrees() {
-		return useTrees;
 	}
 
 	public void setUseTrees(boolean useTrees) {
@@ -212,14 +199,14 @@ public abstract class ClusTableStates implements Serializable {
 	public abstract String getCurrentState(Map<String, Measure> measures,
 			AID aid);
 
-	public List<Map<String, Double>> getMeasurmentsHistory() {
-		return measurmentsHistory;
+	public List<Map<String, Double>> getMeasurementsHistory() {
+		return measurementsHistory;
 	}
 
-	public String predictCurrentStateByR(Map<String, Double> measures, AID aid) {
+	public String predictCurrentStateByR(Map<String, Double> measures) {
 		double[] point = new double[measures.size()];
 
-		String[] mNames = measures.keySet().toArray(new String[] {});
+		String[] mNames = measures.keySet().toArray(new String[]{});
 		String[] cNames = values.keySet().toArray(new String[] {});
 
 		int pointIndex = 0;
@@ -241,12 +228,12 @@ public abstract class ClusTableStates implements Serializable {
 		if (ClusTableGlobalStates.class.getCanonicalName().equals(
 				this.getClass().getCanonicalName())) {
 			logger.info("Predict current global state by centres");
-			return rutils.predictStateByCentres(point, measureName,
+			return rutils.predictStateByCentres(point,
 					clusterNames, RUtils.GLOBAL_CENTRES_NAME);
 		} else if (ClusTableHolonStates.class.getCanonicalName().equals(
 				this.getClass().getCanonicalName())) {
 			logger.info("Predict current holon state by centres");
-			return rutils.predictStateByCentres(point, measureName,
+			return rutils.predictStateByCentres(point,
 					clusterNames, RUtils.HOLON_CENTRES_NAME);
 		}
 		return null;

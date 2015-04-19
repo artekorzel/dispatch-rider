@@ -13,8 +13,6 @@ import java.util.Map;
 
 public class MaxLatency extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -27,11 +25,6 @@ public class MaxLatency extends MeasureCalculator {
         for (AID aid : schedules.keySet())
             result.put(aid, calculateMaxLatency(schedules.get(aid)));
         return result;
-    }
-
-    @Override
-    public String getName() {
-        return "MaxLatency";
     }
 
     private double calculateMaxLatency(Schedule schedule) {

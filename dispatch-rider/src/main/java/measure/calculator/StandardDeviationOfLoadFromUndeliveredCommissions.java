@@ -11,8 +11,6 @@ import java.util.Map;
 public class StandardDeviationOfLoadFromUndeliveredCommissions extends
         MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -32,10 +30,4 @@ public class StandardDeviationOfLoadFromUndeliveredCommissions extends
 
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "StandardDeviationOfLoadFromUndeliveredCommissions";
-    }
-
 }

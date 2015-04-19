@@ -17,7 +17,7 @@ public class Helper {
         else
             schedules = oldSchedule;
 
-        Map<String, Double> params = new HashMap<String, Double>();
+        Map<String, Double> params = new HashMap<>();
         params.put("holonsCount", (double) schedules.size());
         Double dist = 0.0;
         Double commissions = 0.0;
@@ -47,13 +47,13 @@ public class Helper {
             schedules = newSchedule;
         else
             schedules = oldSchedule;
-        Map<AID, Map<String, Double>> holonParams = new HashMap<AID, Map<String, Double>>();
+        Map<AID, Map<String, Double>> holonParams = new HashMap<>();
         Map<String, Double> globalParams = getParameters(oldSchedule,
                 newSchedule, info, timestamp);
         Map<String, Double> params;
         Schedule schedule;
         for (AID aid : schedules.keySet()) {
-            params = new HashMap<String, Double>(globalParams);
+            params = new HashMap<>(globalParams);
             schedule = schedules.get(aid);
             params.put("holonDist", schedule.getDistance(info.getDepot()));
             params.put("holonCommissions", (double) schedule.size());

@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class StandardDeviationAllComsFromHolon extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -28,10 +26,4 @@ public class StandardDeviationAllComsFromHolon extends MeasureCalculator {
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "StandardDeviationAllComsFromHolon";
-    }
-
 }

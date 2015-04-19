@@ -9,13 +9,7 @@ public class ClusTableObservation implements Serializable {
 	
 	private String stateName;
 	// maesure name -> value, e.g. M1 -> 17.37
-	private Map<String, Double> measure = new TreeMap<String, Double>();
-
-	public ClusTableObservation(String stateName, Map<String, Double> measure) {
-		super();
-		this.stateName = stateName;
-		this.measure = measure;
-	}
+	private Map<String, Double> measure = new TreeMap<>();
 
 	public ClusTableObservation(String stateName) {
 		super();

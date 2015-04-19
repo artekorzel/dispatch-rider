@@ -1,6 +1,5 @@
 package pattern;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Pdp100Chooser extends Chooser {
@@ -15,18 +14,16 @@ public class Pdp100Chooser extends Chooser {
         if (pattern > 50 && pattern <= 75) return true;
         if (pattern >= 121) return false;
         double pattern2 = patternCalculator.pattern14();
-        if (pattern2 < 105) return true;
-        if (pattern2 >= 105 && pattern2 <= 131) return true;
-        return false;
+        return pattern2 < 105 || pattern2 >= 105 && pattern2 <= 131;
     }
 
     public Map<String, Object> getConfiguration() {
-        if (getTimeWindowsType() == false) return pdp_100_1();
+        if (!getTimeWindowsType()) return pdp_100_1();
         else return pdp_100_2();
     }
 
     private Map<String, Object> pdp_100_1() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern6();
         if (pattern <= 3.5) {
             result = pdp_100_1_lc();
@@ -39,7 +36,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_1_lc() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
         if ((pattern > 176 && pattern <= 178) || (pattern > 182 && pattern <= 183)) {
             result = initResultMap(brut2_dist);
@@ -54,7 +51,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_1_lr() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
         if (pattern <= 139) {
             result = initResultMap(brut1);
@@ -67,7 +64,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_1_lrc() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
         if (pattern <= 161 || (pattern > 165 && pattern <= 172)) {
             result = initResultMap(brut1_dist);
@@ -82,7 +79,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_2() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern6();
         if (pattern <= 4.1) {
             result = pdp_100_2_lc();
@@ -95,7 +92,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_2_lc() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
         if (pattern <= 177 || (pattern > 180 && pattern <= 195)) {
             result = initResultMap(brut1_dist);
@@ -108,7 +105,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_2_lrc() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
         if (pattern <= 178 || pattern > 220) {
             result = initResultMap(brut1);
@@ -119,7 +116,7 @@ public class Pdp100Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_100_2_lr() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
 
         if ((pattern > 150 && pattern <= 165) || (pattern > 170.75 && pattern <= 174)) {

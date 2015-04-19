@@ -11,8 +11,6 @@ import java.util.Map;
 public class StandardDeviationOfDistanceFromCurLocationToBaseFromAllCommissions
         extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -31,10 +29,4 @@ public class StandardDeviationOfDistanceFromCurLocationToBaseFromAllCommissions
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "StandardDeviationOfDistanceFromCurLocationToBaseFromAllCommissions";
-    }
-
 }

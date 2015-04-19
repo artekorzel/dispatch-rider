@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 import java.util.TreeSet;
 
-//VS4E -- DO NOT REMOVE THIS LINE!
 public class MeasureVisualizationControl extends JPanel {
 
 

@@ -8,10 +8,7 @@ import measure.MeasureHelper;
 
 import java.util.Map;
 
-public class AverageDistanceFromCurLocationToBaseForUndeliveredCommissions
-        extends MeasureCalculator {
-
-
+public class AverageDistanceFromCurLocationToBaseForUndeliveredCommissions extends MeasureCalculator {
 
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
@@ -32,10 +29,4 @@ public class AverageDistanceFromCurLocationToBaseForUndeliveredCommissions
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "AverageDistanceFromCurLocationToBaseForUndeliveredCommissions";
-    }
-
 }

@@ -11,7 +11,7 @@ public class PathUpdateable extends TimestampUpdateable {
             "timestamp",
             "status",
             "holon location",
-            "commision ID",
+            "commission ID",
             "pickup location",
             "delivery location",
             "pickup time 1",

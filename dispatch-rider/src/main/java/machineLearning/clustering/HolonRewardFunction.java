@@ -19,7 +19,7 @@ public class HolonRewardFunction extends RewardFunction {
 		for (String name : measures.keySet()) {
 
 			try {
-				fun = fun.replace(name, measures.get(name).getValues().get(aid)
+				fun = fun.replace(name, measures.get(name).getValues().get(aid.getLocalName())
 						.toString());
 			} catch (NullPointerException e) {
 				fun = fun.replace(name, "0");

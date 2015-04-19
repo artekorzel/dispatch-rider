@@ -15,11 +15,11 @@ public class ClusTableGlobalStates extends ClusTableStates {
     public String getCurrentState(Map<String, Measure> measures, AID aid) {
         Map<String, Double> currentMeasures = clusTableMeasures
                 .getCurrentMeasuresVector(measures);
-        String currentState = predictCurrentStateByR(currentMeasures, aid);
+        String currentState = predictCurrentStateByR(currentMeasures);
 
         logger.info("Current global state: " + currentState);
 
-        measurmentsHistory.add(currentMeasures);
+        measurementsHistory.add(currentMeasures);
 
         return currentState;
     }

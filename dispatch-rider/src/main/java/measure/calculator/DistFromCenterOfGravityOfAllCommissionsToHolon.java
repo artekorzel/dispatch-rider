@@ -11,8 +11,6 @@ import java.util.Map;
 public class DistFromCenterOfGravityOfAllCommissionsToHolon extends
         MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -29,10 +27,4 @@ public class DistFromCenterOfGravityOfAllCommissionsToHolon extends
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "DistFromCenterOfGravityOfAllCommissionsToHolon";
-    }
-
 }

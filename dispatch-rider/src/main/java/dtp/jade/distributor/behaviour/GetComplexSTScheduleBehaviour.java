@@ -6,7 +6,6 @@ import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
 
 public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
 
@@ -30,7 +29,7 @@ public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
             		agent.putEUnitSchedule(msg.getSender(), schedule);
             	else
             		agent.addComplexSTSchedule(schedule, msg.getSender());
-            } catch (UnreadableException e) {
+            } catch (Exception e) {
                 e.printStackTrace();//FIXME
             }
         } else {

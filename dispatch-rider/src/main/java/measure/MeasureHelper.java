@@ -124,7 +124,7 @@ public class MeasureHelper {
     private static List<Double> getLoadListFromCommissions(
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : commissionsFromSchedule) {
             values.add((double) com.getLoad());
         }
@@ -154,10 +154,10 @@ public class MeasureHelper {
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions, Point2D.Double depot,
             Point2D.Double curLocation) {
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         double dist;
         for (Commission com : coms) {
             dist = 0.0;
@@ -193,10 +193,10 @@ public class MeasureHelper {
     private static List<Double> getTimeWindowsSize(
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : coms) {
             values.add(com.getPickupTime2() - com.getPickupTime1());
             values.add(com.getDeliveryTime2() - com.getDeliveryTime1());
@@ -208,13 +208,6 @@ public class MeasureHelper {
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
         return average(getTimeWindowsSize(commissionsFromSchedule, commissions));
-    }
-
-    public static double standardDeviationFromTimeWindowSize(
-            List<Commission> commissionsFromSchedule,
-            List<Commission> commissions) {
-        return standardDeviation(getTimeWindowsSize(commissionsFromSchedule,
-                commissions));
     }
 
     private static Point2D.Double getNearestLocation(
@@ -245,10 +238,10 @@ public class MeasureHelper {
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
 
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         Point2D.Double location;
         for (Commission com : coms) {
             location = new Point2D.Double(com.getPickupX(), com.getPickupY());
@@ -279,12 +272,12 @@ public class MeasureHelper {
     public static double distCenterOfGravityFromHolon(
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions, Point2D.Double curLocation) {
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
 
-        List<Double> x = new LinkedList<Double>();
-        List<Double> y = new LinkedList<Double>();
+        List<Double> x = new LinkedList<>();
+        List<Double> y = new LinkedList<>();
         for (Commission com : coms) {
             x.add(com.getPickupX());
             x.add(com.getDeliveryX());
@@ -317,11 +310,11 @@ public class MeasureHelper {
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
 
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
 
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : coms) {
             values.add(getCommissionsBetweenTimeWindow(coms,
                     com.getPickupTime1(), com.getPickupTime2(),
@@ -336,10 +329,10 @@ public class MeasureHelper {
     public static double averageMinTimeWindowsSize(
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : coms) {
             values.add(com.getDeliveryTime1() - com.getPickupTime2());
         }
@@ -349,10 +342,10 @@ public class MeasureHelper {
     public static double averageMaxTimeWindowsSize(
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions) {
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : coms) {
             values.add(com.getDeliveryTime2() - com.getPickupTime1());
         }
@@ -363,10 +356,10 @@ public class MeasureHelper {
             List<Commission> commissionsFromSchedule,
             List<Commission> commissions, Point2D.Double curLocation) {
 
-        List<Commission> coms = new LinkedList<Commission>(
+        List<Commission> coms = new LinkedList<>(
                 commissionsFromSchedule);
         coms.addAll(commissions);
-        List<Double> values = new LinkedList<Double>();
+        List<Double> values = new LinkedList<>();
         for (Commission com : coms) {
             values.add(Helper.calculateDistance(curLocation,
                     new Point2D.Double(com.getPickupX(), com.getPickupY())));

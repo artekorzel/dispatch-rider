@@ -15,9 +15,9 @@ public class ClusTableHolonMeasures extends ClusTableMeasures {
     public Map<String, Double> getCurrentMeasuresVector(
             Map<String, Measure> measures, AID aid) {
         aggregatorManager.setMeasures(measures);
-        Map<String, Double> result = new TreeMap<String, Double>();
+        Map<String, Double> result = new TreeMap<>();
 
-        String sValue = null;
+        String sValue;
         for (String measure : this.values.keySet()) {
             sValue = aggregatorManager.insertAggregateValues(this.values
                     .get(measure));
@@ -45,7 +45,7 @@ public class ClusTableHolonMeasures extends ClusTableMeasures {
     public static void main(String[] args) {
         ClusTableHolonMeasures mes = new ClusTableHolonMeasures();
         mes.addMeasure("M1", "WaitTime");
-        Map<String, Measure> measures = new HashMap<String, Measure>();
+        Map<String, Measure> measures = new HashMap<>();
 
         Measure m1 = new Measure();
         m1.put("a1", 12.0);

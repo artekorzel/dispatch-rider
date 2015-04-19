@@ -20,7 +20,7 @@ public abstract class MLTableStates implements Serializable {
     protected final AggregatorsManager aggregatorManager = new AggregatorsManager();
     private final Random rand = new Random(Calendar.getInstance()
             .getTimeInMillis());
-    protected Map<String, List<MLTableCell>> rows = new HashMap<String, List<MLTableCell>>();
+    protected Map<String, List<MLTableCell>> rows = new HashMap<>();
     /**
      * Constant in formula to calculate probability of choosing action, its
      * value is assigned in ml table xml file - look at documentation to see it

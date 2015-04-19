@@ -13,8 +13,6 @@ import java.util.Map;
 
 public class PercentageOfDelayComs extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -27,11 +25,6 @@ public class PercentageOfDelayComs extends MeasureCalculator {
         for (AID aid : schedules.keySet())
             result.put(aid, calculatePercentageOfDelayComs(schedules.get(aid)));
         return result;
-    }
-
-    @Override
-    public String getName() {
-        return "PercentageOfDelayComs";
     }
 
     private double calculatePercentageOfDelayComs(Schedule schedule) {

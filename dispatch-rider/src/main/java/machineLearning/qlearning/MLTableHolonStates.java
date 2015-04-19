@@ -29,9 +29,9 @@ public class MLTableHolonStates extends MLTableStates {
                                        Map<String, Measure> measures, AID aid) {
 
         for (String measure : measures.keySet()) {
-            if (measures.get(measure).getValues().get(aid) != null)
+            if (measures.get(measure).getValues().get(aid.getLocalName()) != null)
                 fun = fun.replace(measure, measures.get(measure).getValues()
-                        .get(aid).toString());
+                        .get(aid.getLocalName()).toString());
         }
 
         return fun;

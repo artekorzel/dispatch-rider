@@ -15,11 +15,11 @@ public class ClusTableHolonStates extends ClusTableStates {
         Map<String, Double> currentMeasures = clusTableMeasures
                 .getCurrentMeasuresVector(measures, aid);
 
-        String currentState = predictCurrentStateByR(currentMeasures, aid);
+        String currentState = predictCurrentStateByR(currentMeasures);
 
         logger.info("Current holon state: " + currentState);
 
-        measurmentsHistory.add(currentMeasures);
+        measurementsHistory.add(currentMeasures);
 
         return currentState;
     }

@@ -518,7 +518,7 @@ public class Clustering extends MLAlgorithm {
         // GLOBAL STATES
         if (globalStates != null) {
             List<Map<String, Double>> globalHistory = globalStates
-                    .getMeasurmentsHistory();
+                    .getMeasurementsHistory();
             rNames = new LinkedList<>();
             cNames = new LinkedList<>();
 
@@ -577,7 +577,7 @@ public class Clustering extends MLAlgorithm {
         // HOLON STATES
         if (holonStates != null) {
             List<Map<String, Double>> holonHistory = holonStates
-                    .getMeasurmentsHistory();
+                    .getMeasurementsHistory();
 
             rNames = new LinkedList<>();
             cNames = new LinkedList<>();

@@ -10,16 +10,14 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-//VS4E -- DO NOT REMOVE THIS LINE!
 public class MeasureVisualizationPanel extends JPanel {
 
     public static final String avgSeriesName = "Avg value";
-    private final Map<String, XYSeries> holonSeries = new TreeMap<String, XYSeries>();
+    private final Map<String, XYSeries> holonSeries = new TreeMap<>();
     private final XYSeriesCollection dataset = new XYSeriesCollection();
     private String name = "None";
     private JFreeChart freeChart;
@@ -80,13 +78,11 @@ public class MeasureVisualizationPanel extends JPanel {
         freeChart.fireChartChanged();
     }
 
-    @SuppressWarnings("unchecked")
     public synchronized void hide(String holon) {
-        String name = holon;
-        List<Object> seriesList = new LinkedList<Object>(dataset.getSeries());
+        List<?> seriesList = dataset.getSeries();
         int index = 0;
         for (Object series : seriesList) {
-            if (((XYSeries) series).getKey().equals(name))
+            if (((XYSeries) series).getKey().equals(holon))
                 dataset.removeSeries(index);
             index++;
         }
@@ -94,9 +90,8 @@ public class MeasureVisualizationPanel extends JPanel {
         freeChart.fireChartChanged();
     }
 
-    @SuppressWarnings("unchecked")
     public synchronized void show(String holon) {
-        List<Object> seriesList = new LinkedList<Object>(dataset.getSeries());
+        List<?> seriesList = dataset.getSeries();
         dataset.removeAllSeries();
         int refNr = getHolonNr(holon);
         boolean added = false;
@@ -106,17 +101,17 @@ public class MeasureVisualizationPanel extends JPanel {
             if (getHolonNr((String) xySeries.getKey()) < refNr) {
                 dataset.addSeries(xySeries);
             } else {
-                if (added == false) {
+                if (added) {
+                    dataset.addSeries(xySeries);
+                } else {
                     dataset.addSeries(holonSeries.get(holon));
                     dataset.addSeries(xySeries);
                     added = true;
-                } else {
-                    dataset.addSeries(xySeries);
                 }
             }
         }
 
-        if (added == false) {
+        if (!added) {
             dataset.addSeries(holonSeries.get(holon));
         }
 

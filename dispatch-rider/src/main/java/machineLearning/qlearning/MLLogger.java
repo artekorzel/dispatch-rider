@@ -1,6 +1,5 @@
 package machineLearning.qlearning;
 
-import jade.core.AID;
 import measure.Measure;
 
 import java.io.FileWriter;
@@ -15,13 +14,11 @@ public class MLLogger implements Serializable {
     private List<String> logs;
 
     public void init() {
-        logs = new LinkedList<String>();
+        logs = new LinkedList<>();
     }
 
-    public void log(MLTableStates states, RewardFunction function,
-                    Map<String, Double> parameters, Map<String, Double> prevParameters,
-                    Map<String, Measure> measures, AID aid, double factor,
-                    String currentState, MLTableCell previousCell, Double value) {
+    public void log(Map<String, Double> parameters, Map<String, Double> prevParameters,
+                    Map<String, Measure> measures, Double value) {
 
         if (parameters.get("holonsCount") > prevParameters.get("holonsCount"))
             logs.add("Dodanie nowego pojazdu - " + value.toString());

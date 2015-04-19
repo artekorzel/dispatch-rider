@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class AverageDistPerCommissionAfterChange extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -19,10 +17,4 @@ public class AverageDistPerCommissionAfterChange extends MeasureCalculator {
         return MeasureHelper
                 .averageDistToCarryOneCommission(newSchedules, info);
     }
-
-    @Override
-    public String getName() {
-        return "AverageDistPerCommissionBeforeChange";
-    }
-
 }

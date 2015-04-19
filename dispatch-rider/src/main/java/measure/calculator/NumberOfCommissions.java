@@ -9,8 +9,6 @@ import java.util.Map;
 
 public class NumberOfCommissions extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -22,13 +20,7 @@ public class NumberOfCommissions extends MeasureCalculator {
         else
             schedules = oldSchedules;
         for (AID aid : schedules.keySet())
-            result.put(aid, new Double(schedules.get(aid).size() / 2));
+            result.put(aid, (double) (schedules.get(aid).size() / 2));
         return result;
     }
-
-    @Override
-    public String getName() {
-        return "NumberOfCommissions";
-    }
-
 }

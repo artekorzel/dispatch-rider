@@ -40,7 +40,7 @@ public class MeasuresVisualizationRunner {
         }
     }
 
-    public synchronized void update(Measure measure, String name) {
+    public void update(Measure measure, String name) {
         MeasureVisualizationPanel panel = panels.get(name);
         if (panel != null) {
             panel.updateChart(measure);

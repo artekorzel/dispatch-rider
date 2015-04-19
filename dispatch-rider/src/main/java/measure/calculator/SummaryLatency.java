@@ -14,8 +14,6 @@ import java.util.Map;
 
 public class SummaryLatency extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -29,11 +27,6 @@ public class SummaryLatency extends MeasureCalculator {
             result.put(aid, calculateLatency(schedules.get(aid), info));
         }
         return result;
-    }
-
-    @Override
-    public String getName() {
-        return "SummaryDelay";
     }
 
     private double calculateLatency(Schedule schedule, SimInfo info) {

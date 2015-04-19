@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class AverageLoadFromUndeliveredCommissions extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -30,10 +28,4 @@ public class AverageLoadFromUndeliveredCommissions extends MeasureCalculator {
 
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "AverageLoadFromUndeliveredCommissions";
-    }
-
 }

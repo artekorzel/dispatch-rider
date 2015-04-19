@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class ReceivedCommissionsNumber extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -36,17 +34,11 @@ public class ReceivedCommissionsNumber extends MeasureCalculator {
                         break;
                     }
                 }
-                if (found == false)
+                if (!found)
                     numberOfReceivedCommissions++;
             }
             result.put(aid, 1.0 * numberOfReceivedCommissions);
         }
         return result;
     }
-
-    @Override
-    public String getName() {
-        return "ReceivedCommissionsNumber";
-    }
-
 }

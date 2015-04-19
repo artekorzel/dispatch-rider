@@ -7,7 +7,7 @@ import java.util.Map;
 public class MLTableActions<T extends Serializable> implements Serializable {
 
 
-    protected final Map<String, T> actions = new HashMap<String, T>();
+    protected final Map<String, T> actions = new HashMap<>();
 
     public void addAction(String name, T conf) {
         actions.put(name, conf);

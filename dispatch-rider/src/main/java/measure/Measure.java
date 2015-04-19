@@ -11,9 +11,7 @@ import java.util.Map;
  */
 public class Measure implements Serializable {
 
-
-    // private final Map<AID, Double> values = new HashMap<AID, Double>();
-    private final Map<String, Double> values = new HashMap<String, Double>();
+    private final Map<String, Double> values = new HashMap<>();
 
     private int timestamp;
     private int comId;

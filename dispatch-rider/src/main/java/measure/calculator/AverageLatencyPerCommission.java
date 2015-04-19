@@ -13,8 +13,6 @@ import java.util.Map;
 
 public class AverageLatencyPerCommission extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -27,11 +25,6 @@ public class AverageLatencyPerCommission extends MeasureCalculator {
         for (AID aid : schedules.keySet())
             result.put(aid, calculateAverageLatency(schedules.get(aid)));
         return result;
-    }
-
-    @Override
-    public String getName() {
-        return "AverageLatencyPerCommission";
     }
 
     private double calculateAverageLatency(Schedule schedule) {

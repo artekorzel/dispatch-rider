@@ -39,7 +39,7 @@ public class RUtils {
                 logger.error("** Version mismatch - Java files don't match library version.");
                 System.exit(1);
             }
-            rengine = new Rengine(new String[]{}, false, new TextConsole());
+            rengine = new Rengine(new String[]{"--vanilla"}, false, new TextConsole());
 
             if (!rengine.waitForR()) {
                 logger.error("Cannot load R");
@@ -83,7 +83,7 @@ public class RUtils {
                 + "))";
         logger.info("Creating matrix command: " + matrixCmd);
 
-        REXP result = rengine.eval(matrixCmd);
+        rengine.eval(matrixCmd);
 
         String kmeansCmd = "km <- pamk(x," + ((int) minClusCount) + ":"
                 + ((int) maxClusCount) + ",usepam="
@@ -114,12 +114,11 @@ public class RUtils {
 
         logger.info("all centres:\n" + Arrays.toString(values));
 
-        int measuresCount = cnames.length;
         int clustersCount = values.length / cnames.length;
         logger.info("Created clusters count: " + clustersCount);
 
         for (int i = 0; i < clustersCount; i++) {
-            Map<String, Double> c = new HashMap<String, Double>();
+            Map<String, Double> c = new HashMap<>();
             int measureNumber = i;
             for (String cname : cnames) {
                 c.put(cname, values[measureNumber]);
@@ -177,11 +176,11 @@ public class RUtils {
 
             List<List<Double>> actualList = assignment.get(whichState);
             if (actualList == null) {
-                actualList = new ArrayList<List<Double>>();
+                actualList = new ArrayList<>();
                 assignment.put(whichState, actualList);
             }
 
-            List<Double> nextP = new ArrayList<Double>();
+            List<Double> nextP = new ArrayList<>();
             // poor
             for (double p : nextPoint) {
                 nextP.add(p);
@@ -201,7 +200,7 @@ public class RUtils {
 
     private void buildCentres(Map<String, Map<String, Double>> centres,
                               String centresStructureName) {
-        String cmd = null;
+        String cmd;
 
         final String centresArrayName = "centresArray";
         final String centresMatrixName = "centresMatrix";
@@ -246,9 +245,8 @@ public class RUtils {
 
     }
 
-    public String predictStateByCentres(double[] point, String[] measureName,
-                                        String[] clusterNames, String centresStructureName) {
-        String cmd = "";
+    public String predictStateByCentres(double[] point, String[] clusterNames, String centresStructureName) {
+        String cmd;
         final String pointMatrixName = "pmatrix";
         final String newPointName = "newPoint";
 
@@ -312,10 +310,10 @@ public class RUtils {
                 + ", ncol=" + cols + ", byrow=TRUE, dimnames=list(1:" + rows
                 + "," + COLS_NAME + "))";
 
-        REXP result = rengine.eval(matrixCmd);
+        rengine.eval(matrixCmd);
 
         String dataFrameCmd = "obsDF <- data.frame(obs)";
-        REXP resultDF = rengine.eval(dataFrameCmd);
+        rengine.eval(dataFrameCmd);
 
         System.out.println("Data frame for " + treeName);
         rengine.eval("print(obsDF)");
@@ -328,9 +326,9 @@ public class RUtils {
         }
         formula.append(cNames[k]);
 
-        String deciSionTreeCommand = treeName + " <- rpart(" + formula
+        String decisionTreeCommand = treeName + " <- rpart(" + formula
                 + ",data=obsDF,minsplit=1, minbucket=1)";
-        REXP tree = rengine.eval(deciSionTreeCommand);
+        rengine.eval(decisionTreeCommand);
 
         rengine.eval("print(" + treeName + ")");
     }
@@ -338,7 +336,7 @@ public class RUtils {
     public String predictStateByTree(double[] point, String[] measureNames,
                                      String[] clusterNames, String treeStructureName) {
 
-        String cmd = null;
+        String cmd;
         final String testDataName = "testData";
         final String toPredict = "toPredict";
         final String toPredictDataFrame = "toPredictDataFrame";
@@ -415,7 +413,7 @@ public class RUtils {
             FileDialog fd = new FileDialog(new Frame(),
                     (newFile == 0) ? "Select a file" : "Select a new file",
                     (newFile == 0) ? FileDialog.LOAD : FileDialog.SAVE);
-            fd.show();
+            fd.setVisible(true);
             String res = null;
             if (fd.getDirectory() != null)
                 res = fd.getDirectory();
@@ -437,6 +435,7 @@ public class RUtils {
     public static void main(String[] args) throws ParseException {
 
         // FOR TEST PURPOSES
+        Rengine.DEBUG = 2;
         RUtils rUtils = new RUtils();
         rengine = rUtils.start();
 
@@ -445,32 +444,19 @@ public class RUtils {
         clustering.init("clustable.xml");
 
         String[] clusterNames = {"S0", "S1"};
-        String[] measureName = {"M1", "M2", "M3"};
+        String[] measureName = {"M1", "M2", "M3", "M4", "M5"};
         double[] point = new double[]{4.483691224846486, 211.48925374026493,
-                59.33064516129032};
+                59.33064516129032, 211.48925374026493, 59.33064516129032};
 
-        String result = null;
+        String result;
         // test predict
         if (clustering.isUseTrees()) {
-            // test predict by tree
-            result = rUtils.predictStateByTree(point, measureName,
-                    clusterNames, GLOBAL_TREE_NAME);
-
-            log(result);
-
+            result = rUtils.predictStateByTree(point, measureName, clusterNames, GLOBAL_TREE_NAME);
         } else {
-
-            // test predict by centres
-            result = rUtils.predictStateByCentres(point, measureName,
-                    clusterNames, GLOBAL_CENTRES_NAME);
-
-            log(result);
-
+            result = rUtils.predictStateByCentres(point, clusterNames, GLOBAL_CENTRES_NAME);
         }
-
-        while (true) {
-        }
-        // System.exit(0);
+        log(result);
+        System.exit(0);
     }
 
     private static void log(Object o) {

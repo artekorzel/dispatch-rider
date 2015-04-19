@@ -52,7 +52,7 @@ public class XMLPrinter implements MeasurePrinter {
         measuresEl.setAttribute("comId",
                 Integer.toString(measure.getComId()));
 
-        Set<String> aids = new TreeSet<String>();
+        Set<String> aids = new TreeSet<>();
 
         Element holonEl;
         aids.addAll(measure.getValues().keySet());

@@ -18,7 +18,7 @@ public abstract class MLAggregator implements Serializable {
 
 
     protected Map<String, Measure> measures;
-    protected Map<String, Double> values = new HashMap<String, Double>();
+    protected Map<String, Double> values = new HashMap<>();
 
     public void setMeasures(Map<String, Measure> measures) {
         this.measures = measures;
@@ -29,7 +29,7 @@ public abstract class MLAggregator implements Serializable {
     protected abstract String getName();
 
     public void aggregationFinished() {
-        values = new HashMap<String, Double>();
+        values = new HashMap<>();
     }
 
     private String getCheckedName() {

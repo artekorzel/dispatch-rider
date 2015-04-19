@@ -81,7 +81,6 @@ public class DistributorAgent extends BaseAgent {
     private Commission currentCommission;
     private CalendarStatsHolder calendarStatsHolder;
     private boolean simulatedTrading;
-    private CalendarStats bestStat;
     private int transportUnitsPrepare;
     private int transportUnitCount;
     private Set<NewHolonOffer> newHolonOffers;
@@ -219,7 +218,7 @@ public class DistributorAgent extends BaseAgent {
         }
     }
 
-    public synchronized void setSimInfo(SimInfo simInfo) {
+    public void setSimInfo(SimInfo simInfo) {
         this.simInfo = simInfo;
         this.calculatorsHolder = simInfo.getCalculatorsHolder();
 
@@ -342,8 +341,6 @@ public class DistributorAgent extends BaseAgent {
         commissions = new LinkedList<>();
         simulatedTrading = false;
         Collections.addAll(commissions, com);
-
-        // pattern=new PatternCalculator(commissions).pattern1();
 
         Collections.sort(commissions,
                 new CommissionsComparator(simInfo.getDepot()));
@@ -627,31 +624,6 @@ public class DistributorAgent extends BaseAgent {
         eUnitsCount--;
         if (eUnitsCount == 0) {
             checkSTStatus();
-        }
-    }
-
-    public synchronized void addWorstCommissionCost(CalendarStats stat) {
-        eUnitsCount--;
-        if (stat.getCost() > 0) {
-            if (bestStat == null)
-                bestStat = stat;
-            else {
-                if (bestStat.getCost() > stat.getCost())
-                    bestStat = stat;
-            }
-        }
-        if (eUnitsCount == 0) {
-            if (bestStat.getCost() >= 0) {
-                ACLMessage msg = new ACLMessage(
-                        CommunicationHelper.CHANGE_SCHEDULE);
-                msg.addReceiver(stat.getAID());
-                try {
-                    msg.setContentObject(stat.getSchedule2());
-                    send(msg);
-                } catch (IOException e) {
-                    e.printStackTrace();//FIXME
-                }
-            }
         }
     }
 
@@ -1221,8 +1193,7 @@ public class DistributorAgent extends BaseAgent {
                         msg.setContentObject(tmp.get(aid));
                         send(msg);
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        e.printStackTrace(); //FIXME
                     }
                 }
                 if (eUnitsCount == 0)

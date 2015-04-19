@@ -2,10 +2,7 @@ package dtp.commission;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -189,6 +186,7 @@ public class TxtFileReader {
         int counter = 0;
 
         try {
+            System.out.println(new File(fileName).getAbsolutePath());
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
             e.printStackTrace();//FIXME

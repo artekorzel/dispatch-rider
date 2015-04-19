@@ -10,8 +10,6 @@ import java.util.Map;
 
 public class AverageMinTimeWinSizeForAllCommissions extends MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -27,10 +25,4 @@ public class AverageMinTimeWinSizeForAllCommissions extends MeasureCalculator {
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "AverageMinTimeWinSizeForAllCommissions";
-    }
-
 }

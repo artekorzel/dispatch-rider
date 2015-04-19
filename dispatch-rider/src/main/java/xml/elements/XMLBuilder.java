@@ -55,37 +55,34 @@ public class XMLBuilder {
                     holonEl.setAttribute("id", simData.getHolonId().toString());
                     holonEl.setAttribute("creationTime", simData
                             .getHolonCreationTime().toString());
-                    holonEl.setAttribute("locationX", new Double(simData
-                            .getLocation().getX()).toString());
-                    holonEl.setAttribute("locationY", new Double(simData
-                            .getLocation().getY()).toString());
+                    holonEl.setAttribute("locationX", Double.toString(simData
+                            .getLocation().getX()));
+                    holonEl.setAttribute("locationY", Double.toString(simData
+                            .getLocation().getY()));
                     partsEl = dom.createElement("parts");
-                    partsEl.setAttribute("connector", new Integer(simData
-                            .getTruck().getConnectorType()).toString());
+                    partsEl.setAttribute("connector", Integer.toString(simData
+                            .getTruck().getConnectorType()));
                     transportEl = dom.createElement("truck");
-                    transportEl.setAttribute("power", new Integer(simData
-                            .getTruck().getPower()).toString());
+                    transportEl.setAttribute("power", Integer.toString(simData
+                            .getTruck().getPower()));
                     transportEl
-                            .setAttribute("fuelConsumption", new Integer(
-                                    simData.getTruck().getFuelConsumption())
-                                    .toString());
-                    transportEl.setAttribute("reliability", new Integer(simData
-                            .getTruck().getReliability()).toString());
-                    transportEl.setAttribute("comfort", new Integer(simData
-                            .getTruck().getComfort()).toString());
+                            .setAttribute("fuelConsumption", Integer.toString(simData.getTruck().getFuelConsumption()));
+                    transportEl.setAttribute("reliability", Integer.toString(simData
+                            .getTruck().getReliability()));
+                    transportEl.setAttribute("comfort", Integer.toString(simData
+                            .getTruck().getComfort()));
 
                     transportEl.setAttribute("id", simData.getTruck().getAID()
                             .getName().split("#")[1].split("@")[0]);
                     partsEl.appendChild(transportEl);
                     transportEl = dom.createElement("trailer");
-                    transportEl.setAttribute("capacity", new Integer(simData
-                            .getTrailer().getCapacity()).toString());
-                    transportEl.setAttribute("mass", new Integer(simData
-                            .getTrailer().getMass()).toString());
-                    transportEl.setAttribute("cargoType", new Integer(simData
-                            .getTrailer().getCargoType()).toString());
-                    transportEl.setAttribute("universality", new Integer(
-                            simData.getTrailer().getUniversality()).toString());
+                    transportEl.setAttribute("capacity", Integer.toString(simData
+                            .getTrailer().getCapacity()));
+                    transportEl.setAttribute("mass", Integer.toString(simData
+                            .getTrailer().getMass()));
+                    transportEl.setAttribute("cargoType", Integer.toString(simData
+                            .getTrailer().getCargoType()));
+                    transportEl.setAttribute("universality", Integer.toString(simData.getTrailer().getUniversality()));
                     transportEl.setAttribute("id", simData.getTrailer()
                             .getAID().getName().split("#")[1].split("@")[0]);
                     // TODO other trailer properties
@@ -153,14 +150,9 @@ public class XMLBuilder {
 
             xformer.transform(source, result);
 
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerFactoryConfigurationError e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();//FIXME
         }
-
     }
 
 }

@@ -25,7 +25,9 @@ public abstract class MeasureCalculator implements Serializable {
     public abstract Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                              Map<AID, Schedule> newSchedules);
 
-    public abstract String getName();
+    public String getName() {
+        return getClass().getSimpleName();
+    }
 
     public void setSimInfo(SimInfo info) {
         this.info = info;

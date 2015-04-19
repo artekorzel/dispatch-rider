@@ -1,6 +1,5 @@
 package pattern;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Pdp200Chooser extends Chooser {
@@ -15,25 +14,16 @@ public class Pdp200Chooser extends Chooser {
         if (pattern >= 150 && pattern <= 165) return true;
         if (pattern > 240) return true;
         double pattern2 = patternCalculator.pattern14();
-        if (pattern2 > 286) return false;
-        return true;
-        /*String fileName=patternCalculator.getFileName();
-        if(fileName.charAt(fileName.length()-6)!='_') {
-            if(fileName.charAt(fileName.length()-7)=='1') return false;
-            else return true;
-        } else {
-            if(fileName.charAt(fileName.length()-9)=='1') return false;
-            else return true;
-        }*/
+        return pattern2 <= 286;
     }
 
     public Map<String, Object> getConfiguration() {
-        if (getTimeWindowsType() == false) return pdp_200_1();
+        if (!getTimeWindowsType()) return pdp_200_1();
         else return pdp_200_2();
     }
 
     private Map<String, Object> pdp_200_1() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         double pattern = patternCalculator.pattern4();
         if (pattern <= 375) {
             result = initResultMap(brut1);
@@ -48,7 +38,7 @@ public class Pdp200Chooser extends Chooser {
     }
 
     private Map<String, Object> pdp_200_2() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result;
         result = initResultMap(brut1_dist);
         return result;
     }

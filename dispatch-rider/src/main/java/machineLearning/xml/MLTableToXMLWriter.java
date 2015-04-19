@@ -78,7 +78,7 @@ public class MLTableToXMLWriter {
     }
 
     private static void addStates(MLTableStates states, Element statesEl) {
-        statesEl.setAttribute("k", new Double(states.getK()).toString());
+        statesEl.setAttribute("k", Double.toString(states.getK()));
         Map<String, String> values = states.getValues();
         Element state;
         for (String name : values.keySet()) {
@@ -93,7 +93,7 @@ public class MLTableToXMLWriter {
         actionsEl.setAttribute("function", table.getGlobalActionsFunction()
                 .getRewardFunction());
         actionsEl.setAttribute("factor",
-                new Double(table.getGlobalFactor()).toString());
+                Double.toString(table.getGlobalFactor()));
 
         Map<String, GlobalConfiguration> actions = table.getGlobalActions()
                 .getActions();
@@ -124,7 +124,7 @@ public class MLTableToXMLWriter {
         actionsEl.setAttribute("function", table.getHolonActionsFunction()
                 .getRewardFunction());
         actionsEl.setAttribute("factor",
-                new Double(table.getHolonsFactor()).toString());
+                Double.toString(table.getHolonsFactor()));
 
         Map<String, HolonConfiguration> actions = table.getHolonActions()
                 .getActions();

@@ -18,7 +18,7 @@ public class SimulationData implements Serializable {
     private TransportElementInitialDataTrailer trailer;
     private TransportElementInitialDataTruck truck;
     private TransportElementInitialData driver;
-    private List<CommissionData> commissions = new LinkedList<CommissionData>();
+    private List<CommissionData> commissions = new LinkedList<>();
     private Point2D.Double location;
     private Schedule schedule;
 
@@ -78,12 +78,8 @@ public class SimulationData implements Serializable {
         this.commissions = commissions;
     }
 
-    public void addCommissionData(CommissionData data) {
-        commissions.add(data);
-    }
-
     public String toString() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append("HolonId: ").append(holonId).append("\n");
         buf.append("\tCreationTime: ").append(holonCreationTime).append("\n");
         buf.append("\ttruck: ").append(truck.getPower()).append("\n");

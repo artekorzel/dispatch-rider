@@ -26,15 +26,11 @@ public class GetSimInfoBehaviour extends CyclicBehaviour {
         if (msg != null) {
 
             try {
-
                 simConstrains = (SimInfo) msg.getContentObject();
-
                 agent.setSimInfo(simConstrains);
-
             } catch (UnreadableException e1) {
                 e1.printStackTrace();
             }
-
         } else {
             block();
         }

@@ -12,21 +12,21 @@ import java.io.IOException;
 import java.util.*;
 
 public class PatternCalculator {
-    private final String benchmarksPath = "benchmarks";
-    private final String pdp_100[] = {"lc101.txt", "lc102.txt", "lc103.txt",
+    private static final String benchmarksPath = "benchmarks";
+    private static final String pdp_100[] = {"lc101.txt", "lc102.txt", "lc103.txt",
             "lc104.txt", "lc105.txt", "lr101.txt", "lr102.txt", "lr103.txt",
             "lr104.txt", "lr105.txt", "lrc101.txt", "lrc102.txt", "lrc103.txt",
             "lrc104.txt", "lrc105.txt"};
-    private final String pdp_100_2[] = {"lc201.txt", "lc202.txt", "lc203.txt",
+    private static final String pdp_100_2[] = {"lc201.txt", "lc202.txt", "lc203.txt",
             "lc204.txt", "lc205.txt", "lr201.txt", "lr202.txt", "lr203.txt",
             "lr204.txt", "lr205.txt", "lrc201.txt", "lrc202.txt", "lrc203.txt",
             "lrc204.txt", "lrc205.txt"};
-    private final String pdp_200[] = {"LC1_2_1.txt", "LC1_2_2.txt",
+    private static final String pdp_200[] = {"LC1_2_1.txt", "LC1_2_2.txt",
             "LC1_2_3.txt", "LC1_2_4.txt", "LC1_2_5.txt", "LR1_2_1.txt",
             "LR1_2_2.txt", "LR1_2_3.txt", "LR1_2_4.txt", "LR1_2_5.txt",
             "LRC1_2_1.txt", "LRC1_2_2.txt", "LRC1_2_3.txt", "LRC1_2_4.txt",
             "LRC1_2_5.txt"};
-    private final String pdp_200_2[] = {"LC2_2_1.txt", "LC2_2_2.txt",
+    private static final String pdp_200_2[] = {"LC2_2_1.txt", "LC2_2_2.txt",
             "LC2_2_3.txt", "LC2_2_4.txt", "LC2_2_5.txt", "LR2_2_1.txt",
             "LR2_2_2.txt", "LR2_2_3.txt", "LR2_2_4.txt", "LR2_2_5.txt",
             "LRC2_2_1.txt", "LRC2_2_2.txt", "LRC2_2_3.txt", "LRC2_2_4.txt",
@@ -59,10 +59,6 @@ public class PatternCalculator {
     public PatternCalculator(String fileName) {
         initNextTest(fileName);
         this.fileName = fileName;
-    }
-
-    public PatternCalculator(List<Commission> commissions) {
-        this.commissions = commissions;
     }
 
     public static void main(String args[]) {

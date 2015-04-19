@@ -96,7 +96,6 @@ public class ClusTableStructureParser {
             mlStates.addState(state.getAttribute("name"), measures);
         }
         mlStates.setMeasures(table.getGlobalMeasures());
-        mlStates.setLearning(table.isLearning());
         mlStates.setUseTrees(table.isUseTrees());
         table.setGlobalStates(mlStates);
     }
@@ -123,7 +122,6 @@ public class ClusTableStructureParser {
             mlStates.addState(state.getAttribute("name"), measures);
         }
         mlStates.setMeasures(table.getHolonMeasures());
-        mlStates.setLearning(table.isLearning());
         mlStates.setUseTrees(table.isUseTrees());
         table.setHolonStates(mlStates);
     }
@@ -318,7 +316,7 @@ public class ClusTableStructureParser {
     }
 
     private static Map<String, List<ClusTableCell>> readContent(Element content) {
-        Map<String, List<ClusTableCell>> rows = new HashMap<String, List<ClusTableCell>>();
+        Map<String, List<ClusTableCell>> rows = new HashMap<>();
         NodeList nodes = content.getElementsByTagName("state");
         NodeList cells;
         Element state;

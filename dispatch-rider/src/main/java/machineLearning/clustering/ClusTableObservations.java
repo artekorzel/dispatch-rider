@@ -14,18 +14,14 @@ public class ClusTableObservations implements Serializable {
         List<ClusTableObservation> observationsList = observations
                 .get(observation.getStateName());
         if (observationsList == null) {
-            observationsList = new LinkedList<ClusTableObservation>();
+            observationsList = new LinkedList<>();
             observations.put(observation.getStateName(), observationsList);
         }
         observationsList.add(observation);
     }
 
-    public Map<String, List<ClusTableObservation>> getObservationsAsMap() {
-        return observations;
-    }
-
     public List<ClusTableObservation> getObservationsAsList() {
-        LinkedList<ClusTableObservation> obsers = new LinkedList<ClusTableObservation>();
+        LinkedList<ClusTableObservation> obsers = new LinkedList<>();
         for (List<ClusTableObservation> obs : observations.values()) {
             obsers.addAll(obs);
         }

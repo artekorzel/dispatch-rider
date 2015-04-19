@@ -176,8 +176,8 @@ public class QLearning extends MLAlgorithm implements Serializable {
         double reward = function.getValue(parameters, prevParameters, measures,
                 aid);
 
-        logger.log(states, function, parameters, prevParameters, measures, aid,
-                factor, currentState, previousCell, reward);
+        logger.log(parameters, prevParameters, measures,
+                reward);
 
         if (deterministic)
             value = reward + factor * states.getMaxActionValue(currentState);

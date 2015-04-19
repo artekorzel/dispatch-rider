@@ -8,10 +8,7 @@ import measure.MeasureHelper;
 
 import java.util.Map;
 
-public class AverageMaxTimeWinSizeForUndeliveredCommissions extends
-        MeasureCalculator {
-
-
+public class AverageMaxTimeWinSizeForUndeliveredCommissions extends MeasureCalculator {
 
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
@@ -29,10 +26,4 @@ public class AverageMaxTimeWinSizeForUndeliveredCommissions extends
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "AverageMaxTimeWinSizeForUndeliveredCommissions";
-    }
-
 }

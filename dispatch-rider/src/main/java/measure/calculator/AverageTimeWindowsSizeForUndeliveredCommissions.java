@@ -11,8 +11,6 @@ import java.util.Map;
 public class AverageTimeWindowsSizeForUndeliveredCommissions extends
         MeasureCalculator {
 
-
-
     @Override
     public Measure calculateMeasure(Map<AID, Schedule> oldSchedules,
                                     Map<AID, Schedule> newSchedules) {
@@ -29,10 +27,4 @@ public class AverageTimeWindowsSizeForUndeliveredCommissions extends
         }
         return measure;
     }
-
-    @Override
-    public String getName() {
-        return "AverageTimeWindowsSizeForUndeliveredCommissions";
-    }
-
 }

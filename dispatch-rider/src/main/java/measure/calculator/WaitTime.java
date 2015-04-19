@@ -23,10 +23,4 @@ public class WaitTime extends MeasureCalculator {
                     schedules.get(aid).calculateWaitTime(info.getDepot()));
         return result;
     }
-
-    @Override
-    public String getName() {
-        return "WaitTime";
-    }
-
 }
