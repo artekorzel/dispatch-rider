@@ -1,4 +1,4 @@
-package dtp.gui;
+package dtp.logic;
 
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;

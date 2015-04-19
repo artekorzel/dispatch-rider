@@ -1,4 +1,4 @@
-package dtp.gui;
+package dtp.logic;
 
 import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
