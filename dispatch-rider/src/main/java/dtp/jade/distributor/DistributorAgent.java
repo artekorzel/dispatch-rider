@@ -218,7 +218,7 @@ public class DistributorAgent extends BaseAgent {
         }
     }
 
-    public void setSimInfo(SimInfo simInfo) {
+    public synchronized void setSimInfo(SimInfo simInfo) {
         this.simInfo = simInfo;
         this.calculatorsHolder = simInfo.getCalculatorsHolder();
 
