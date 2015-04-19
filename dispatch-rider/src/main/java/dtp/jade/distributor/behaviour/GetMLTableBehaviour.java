@@ -12,7 +12,6 @@ import java.io.IOException;
 public class GetMLTableBehaviour extends CyclicBehaviour {
 
 
-
     private final DistributorAgent agent;
 
     public GetMLTableBehaviour(DistributorAgent agent) {

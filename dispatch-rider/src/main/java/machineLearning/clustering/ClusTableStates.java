@@ -13,248 +13,243 @@ import java.util.*;
  */
 public abstract class ClusTableStates implements Serializable {
 
-	private static Logger logger = Logger.getLogger(ClusTableStates.class);
-	/**
-	 * states definitions
-	 */
-	/**
-	 * State name -> measurment name -> value(center)
-	 */
-	protected final Map<String, Map<String, Double>> values = new HashMap<>();
-	protected Map<String, List<ClusTableCell>> rows = new HashMap<>();
-	protected final AggregatorsManager aggregatorManager = new AggregatorsManager();
-	protected ClusTableMeasures clusTableMeasures;
+    protected static RUtils rutils;
+    /**
+     * states definitions
+     */
+    private static Logger logger = Logger.getLogger(ClusTableStates.class);
+    /**
+     * State name -> measurment name -> value(center)
+     */
+    protected final Map<String, Map<String, Double>> values = new HashMap<>();
+    protected final AggregatorsManager aggregatorManager = new AggregatorsManager();
+    private final Random rand = new Random(Calendar.getInstance()
+            .getTimeInMillis());
+    protected Map<String, List<ClusTableCell>> rows = new HashMap<>();
+    protected ClusTableMeasures clusTableMeasures;
+    protected List<Map<String, Double>> measurementsHistory = new LinkedList<>();
+    private boolean useTrees;
+    /**
+     * Constant in formula to calculate probability of choosing action, its
+     * value is assigned in ml table xml file - look at documentation to see it
+     * meaning
+     */
+    private double k;
 
-	protected List<Map<String, Double>> measurementsHistory = new LinkedList<>();
+    public ClusTableStates() {
+        rutils = new RUtils();
+        rutils.start();
+    }
 
-	private final Random rand = new Random(Calendar.getInstance()
-			.getTimeInMillis());
+    public void addState(String name, Map<String, Double> value) {
+        values.put(name, value);
+    }
 
-	private boolean useTrees;
+    public void removeStates() {
+        values.clear();
+    }
 
-	/**
-	 * Constant in formula to calculate probability of choosing action, its
-	 * value is assigned in ml table xml file - look at documentation to see it
-	 * meaning
-	 */
-	private double k;
+    public void addActionCell(String stateName, String actionName,
+                              int useCount, double value) {
+        List<ClusTableCell> currentActions = rows.get(stateName);
 
-	protected static RUtils rutils;
+        if (currentActions == null) {
+            currentActions = new LinkedList<>();
+            rows.put(stateName, currentActions);
+        }
 
-	public ClusTableStates() {
-		rutils = new RUtils();
-		rutils.start();
-	}
+        currentActions.add(new ClusTableCell(stateName, actionName, useCount,
+                value));
+    }
 
-	public void setRows(Map<String, List<ClusTableCell>> rows) {
-		this.rows = rows;
-	}
+    public void addDefaultActionCell(String stateName, String actionName) {
+        this.addActionCell(stateName, actionName, 0, 0.0);
+    }
 
-	public void addState(String name, Map<String, Double> value) {
-		values.put(name, value);
-	}
+    public void addDefaultActionCellForEachState(Set<String> actionNames) {
+        for (String state : values.keySet()) {
+            for (String action : actionNames) {
+                this.addDefaultActionCell(state, action);
+            }
+        }
+    }
 
-	public void removeStates() {
-		values.clear();
-	}
+    public void removeActions() {
+        rows.clear();
+    }
 
-	public void addActionCell(String stateName, String actionName,
-			int useCount, double value) {
-		List<ClusTableCell> currentActions = rows.get(stateName);
+    public int size() {
+        return values.size();
+    }
 
-		if (currentActions == null) {
-			currentActions = new LinkedList<>();
-			rows.put(stateName, currentActions);
-		}
+    public double getK() {
+        return k;
+    }
 
-		currentActions.add(new ClusTableCell(stateName, actionName, useCount,
-				value));
-	}
+    public void setK(double k) {
+        this.k = k;
+    }
 
-	public void addDefaultActionCell(String stateName, String actionName) {
-		this.addActionCell(stateName, actionName, 0, 0.0);
-	}
+    public Map<String, Map<String, Double>> getValues() {
+        return values;
+    }
 
-	public void addDefaultActionCellForEachState(Set<String> actionNames) {
-		for (String state : values.keySet()) {
-			for (String action : actionNames) {
-				this.addDefaultActionCell(state, action);
-			}
-		}
-	}
+    public Map<String, List<ClusTableCell>> getRows() {
+        return rows;
+    }
 
-	public void removeActions() {
-		rows.clear();
-	}
+    public void setRows(Map<String, List<ClusTableCell>> rows) {
+        this.rows = rows;
+    }
 
-	public int size() {
-		return values.size();
-	}
+    public void setUseTrees(boolean useTrees) {
+        this.useTrees = useTrees;
+    }
 
-	public double getK() {
-		return k;
-	}
+    private void recalculateProbabilities(String state) {
+        System.out.println(state);
+        List<ClusTableCell> cells = rows.get(state);
+        double sum = 0.0;
+        for (ClusTableCell cell : cells) {
+            sum += Math.pow(k, cell.getValue());
+        }
+        for (ClusTableCell cell : cells) {
+            cell.setProbability(Math.pow(k, cell.getValue()) / sum);
+        }
+    }
 
-	public void setK(double k) {
-		this.k = k;
-	}
+    public String getActionWithMaxValue(String state) {
+        List<ClusTableCell> cells = rows.get(state);
+        double max = 0.0;
+        String action = null;
+        for (ClusTableCell cell : cells)
+            if (max < cell.getValue()) {
+                max = cell.getValue();
+                action = cell.getAction();
+            }
+        return action;
+    }
 
-	public Map<String, Map<String, Double>> getValues() {
-		return values;
-	}
+    public double getMaxActionValue(String state) {
+        List<ClusTableCell> cells = rows.get(state);
+        double max = 0.0;
+        for (ClusTableCell cell : cells)
+            if (max < cell.getValue())
+                max = cell.getValue();
+        return max;
+    }
 
-	public Map<String, List<ClusTableCell>> getRows() {
-		return rows;
-	}
+    public String getAction(String state) {
+        recalculateProbabilities(state);
+        double val = rand.nextDouble();
+        double sum = 0.0;
+        for (ClusTableCell cell : rows.get(state)) {
+            sum += cell.getProbability();
+            if (sum >= val)
+                return cell.getAction();
+        }
+        throw new IllegalStateException("No action found");
+    }
 
-	public void setUseTrees(boolean useTrees) {
-		this.useTrees = useTrees;
-	}
+    public ClusTableCell getCell(String state, String action) {
+        for (ClusTableCell cell : rows.get(state)) {
+            if (cell.getAction().equals(action))
+                return cell;
+        }
+        throw new IllegalStateException("No cell found");
+    }
 
-	private void recalculateProbabilities(String state) {
-		System.out.println(state);
-		List<ClusTableCell> cells = rows.get(state);
-		double sum = 0.0;
-		for (ClusTableCell cell : cells) {
-			sum += Math.pow(k, cell.getValue());
-		}
-		for (ClusTableCell cell : cells) {
-			cell.setProbability(Math.pow(k, cell.getValue()) / sum);
-		}
-	}
+    public void updateCellValue(String state, String action, Double value) {
+        for (ClusTableCell cell : rows.get(state)) {
+            if (cell.getAction().equals(action)) {
+                cell.setValue(value);
+                return;
+            }
+        }
+        throw new IllegalStateException("No cell found");
+    }
 
-	public String getActionWithMaxValue(String state) {
-		List<ClusTableCell> cells = rows.get(state);
-		double max = 0.0;
-		String action = null;
-		for (ClusTableCell cell : cells)
-			if (max < cell.getValue()) {
-				max = cell.getValue();
-				action = cell.getAction();
-			}
-		return action;
-	}
+    public void updateCellUseCount(String state, String action, int value) {
+        for (ClusTableCell cell : rows.get(state)) {
+            if (cell.getAction().equals(action)) {
+                cell.setUseCount(value);
+                return;
+            }
+        }
+        throw new IllegalStateException("No cell found");
+    }
 
-	public double getMaxActionValue(String state) {
-		List<ClusTableCell> cells = rows.get(state);
-		double max = 0.0;
-		for (ClusTableCell cell : cells)
-			if (max < cell.getValue())
-				max = cell.getValue();
-		return max;
-	}
+    public ClusTableMeasures getMeasures() {
+        return clusTableMeasures;
+    }
 
-	public String getAction(String state) {
-		recalculateProbabilities(state);
-		double val = rand.nextDouble();
-		double sum = 0.0;
-		for (ClusTableCell cell : rows.get(state)) {
-			sum += cell.getProbability();
-			if (sum >= val)
-				return cell.getAction();
-		}
-		throw new IllegalStateException("No action found");
-	}
+    public void setMeasures(ClusTableMeasures measures) {
+        this.clusTableMeasures = measures;
+    }
 
-	public ClusTableCell getCell(String state, String action) {
-		for (ClusTableCell cell : rows.get(state)) {
-			if (cell.getAction().equals(action))
-				return cell;
-		}
-		throw new IllegalStateException("No cell found");
-	}
+    public String getCurrentState(Map<String, Measure> measures) {
+        return getCurrentState(measures, null);
+    }
 
-	public void updateCellValue(String state, String action, Double value) {
-		for (ClusTableCell cell : rows.get(state)) {
-			if (cell.getAction().equals(action)) {
-				cell.setValue(value);
-				return;
-			}
-		}
-		throw new IllegalStateException("No cell found");
-	}
+    public abstract String getCurrentState(Map<String, Measure> measures,
+                                           AID aid);
 
-	public void updateCellUseCount(String state, String action, int value) {
-		for (ClusTableCell cell : rows.get(state)) {
-			if (cell.getAction().equals(action)) {
-				cell.setUseCount(value);
-				return;
-			}
-		}
-		throw new IllegalStateException("No cell found");
-	}
+    public List<Map<String, Double>> getMeasurementsHistory() {
+        return measurementsHistory;
+    }
 
-	public ClusTableMeasures getMeasures() {
-		return clusTableMeasures;
-	}
+    public String predictCurrentStateByR(Map<String, Double> measures) {
+        double[] point = new double[measures.size()];
 
-	public void setMeasures(ClusTableMeasures measures) {
-		this.clusTableMeasures = measures;
-	}
+        String[] mNames = measures.keySet().toArray(new String[]{});
+        String[] cNames = values.keySet().toArray(new String[]{});
 
-	public String getCurrentState(Map<String, Measure> measures) {
-		return getCurrentState(measures, null);
-	}
+        int pointIndex = 0;
 
-	public abstract String getCurrentState(Map<String, Measure> measures,
-			AID aid);
+        for (String measure : mNames) {
+            point[pointIndex] = measures.get(measure);
+            pointIndex++;
+        }
 
-	public List<Map<String, Double>> getMeasurementsHistory() {
-		return measurementsHistory;
-	}
+        logger.info("New point: " + Arrays.toString(point));
 
-	public String predictCurrentStateByR(Map<String, Double> measures) {
-		double[] point = new double[measures.size()];
+        return useTrees ? predictCurrentStateByRTrees(point, mNames, cNames)
+                : predictCurrentStateByRCentres(point, mNames, cNames);
+    }
 
-		String[] mNames = measures.keySet().toArray(new String[]{});
-		String[] cNames = values.keySet().toArray(new String[] {});
+    public String predictCurrentStateByRCentres(double[] point,
+                                                String[] measureName, String[] clusterNames) {
 
-		int pointIndex = 0;
+        if (ClusTableGlobalStates.class.getCanonicalName().equals(
+                this.getClass().getCanonicalName())) {
+            logger.info("Predict current global state by centres");
+            return rutils.predictStateByCentres(point,
+                    clusterNames, RUtils.GLOBAL_CENTRES_NAME);
+        } else if (ClusTableHolonStates.class.getCanonicalName().equals(
+                this.getClass().getCanonicalName())) {
+            logger.info("Predict current holon state by centres");
+            return rutils.predictStateByCentres(point,
+                    clusterNames, RUtils.HOLON_CENTRES_NAME);
+        }
+        return null;
+    }
 
-		for (String measure : mNames) {
-			point[pointIndex] = measures.get(measure);
-			pointIndex++;
-		}
+    public String predictCurrentStateByRTrees(double[] point,
+                                              String[] measureName, String[] clusterNames) {
 
-		logger.info("New point: " + Arrays.toString(point));
+        if (ClusTableGlobalStates.class.getCanonicalName().equals(
+                this.getClass().getCanonicalName())) {
+            logger.info("Predict current global state by tree");
+            return rutils.predictStateByTree(point, measureName, clusterNames,
+                    RUtils.GLOBAL_TREE_NAME);
+        } else if (ClusTableHolonStates.class.getCanonicalName().equals(
+                this.getClass().getCanonicalName())) {
+            logger.info("Predict current holon state by tree");
+            return rutils.predictStateByTree(point, measureName, clusterNames,
+                    RUtils.HOLON_TREE_NAME);
+        }
 
-		return useTrees ? predictCurrentStateByRTrees(point, mNames, cNames)
-				: predictCurrentStateByRCentres(point, mNames, cNames);
-	}
-
-	public String predictCurrentStateByRCentres(double[] point,
-			String[] measureName, String[] clusterNames) {
-
-		if (ClusTableGlobalStates.class.getCanonicalName().equals(
-				this.getClass().getCanonicalName())) {
-			logger.info("Predict current global state by centres");
-			return rutils.predictStateByCentres(point,
-					clusterNames, RUtils.GLOBAL_CENTRES_NAME);
-		} else if (ClusTableHolonStates.class.getCanonicalName().equals(
-				this.getClass().getCanonicalName())) {
-			logger.info("Predict current holon state by centres");
-			return rutils.predictStateByCentres(point,
-					clusterNames, RUtils.HOLON_CENTRES_NAME);
-		}
-		return null;
-	}
-
-	public String predictCurrentStateByRTrees(double[] point,
-			String[] measureName, String[] clusterNames) {
-
-		if (ClusTableGlobalStates.class.getCanonicalName().equals(
-				this.getClass().getCanonicalName())) {
-			logger.info("Predict current global state by tree");
-			return rutils.predictStateByTree(point, measureName, clusterNames,
-					RUtils.GLOBAL_TREE_NAME);
-		} else if (ClusTableHolonStates.class.getCanonicalName().equals(
-				this.getClass().getCanonicalName())) {
-			logger.info("Predict current holon state by tree");
-			return rutils.predictStateByTree(point, measureName, clusterNames,
-					RUtils.HOLON_TREE_NAME);
-		}
-
-		return null;
-	}
+        return null;
+    }
 
 }

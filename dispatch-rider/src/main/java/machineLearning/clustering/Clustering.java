@@ -18,24 +18,25 @@ import java.util.Map.Entry;
 
 public class Clustering extends MLAlgorithm {
 
+    private static final Logger log = Logger.getLogger(Clustering.class);
+    private final ClusTableActions<GlobalConfiguration> globalActions = new ClusTableGlobalActions();
+    private final ClusTableActions<HolonConfiguration> holonActions = new ClusTableHolonActions();
+    private final ClusLogger logger = new ClusLogger();
+    private final Map<AID, ClusTableCell> previousCells = new HashMap<>();
+    private final Map<AID, Map<String, Double>> previousHolonParameters = new HashMap<>();
     private boolean learning;
     private boolean useTrees;
     private boolean overwriteConf;
     private String minClusCount;
     private String maxClusCount;
     private boolean usePam;
-
     private String schema;
     private ClusTableGlobalMeasures globalMeasures;
     private ClusTableHolonMeasures holonMeasures;
     private ClusTableStates globalStates;
     private ClusTableStates holonStates;
-    private final ClusTableActions<GlobalConfiguration> globalActions = new ClusTableGlobalActions();
-    private final ClusTableActions<HolonConfiguration> holonActions = new ClusTableHolonActions();
-
     private ClusTableObservations globalObservations = new ClusTableObservations();
     private ClusTableObservations holonObservations = new ClusTableObservations();
-
     private RewardFunction globalRewardFunction;
     private double globalFactor;
     private RewardFunction holonRewardFunction;
@@ -43,9 +44,8 @@ public class Clustering extends MLAlgorithm {
     private boolean globalDeterministic = true;
     private boolean holonDeterministic = true;
     private Map<String, Double> defaultParams;
-
-    private static final Logger log = Logger.getLogger(Clustering.class);
-    private final ClusLogger logger = new ClusLogger();
+    private ClusTableCell previousCell;
+    private Map<String, Double> previousParameters;
 
     public Clustering() {
         log.info("Clustering initialization");
@@ -106,14 +106,6 @@ public class Clustering extends MLAlgorithm {
         this.defaultParams = defaultParams;
     }
 
-    public void setGlobalDeterministic(boolean globalDeterministic) {
-        this.globalDeterministic = globalDeterministic;
-    }
-
-    public void setHolonDeterministic(boolean holonDeterministic) {
-        this.holonDeterministic = holonDeterministic;
-    }
-
     public String getSchema() {
         return schema;
     }
@@ -142,33 +134,16 @@ public class Clustering extends MLAlgorithm {
         return globalMeasures;
     }
 
-    public ClusTableHolonMeasures getHolonMeasures() {
-        return holonMeasures;
-    }
-
     public void setGlobalMeasures(ClusTableGlobalMeasures globalMeasures) {
         this.globalMeasures = globalMeasures;
     }
 
+    public ClusTableHolonMeasures getHolonMeasures() {
+        return holonMeasures;
+    }
+
     public void setHolonMeasures(ClusTableHolonMeasures holonMeasures) {
         this.holonMeasures = holonMeasures;
-    }
-
-    public void setGlobalStates(ClusTableStates globalStates) {
-        this.globalStates = globalStates;
-    }
-
-    public void setHolonStates(ClusTableStates holonStates) {
-        this.holonStates = holonStates;
-    }
-
-    public void setGlobalActionsFunction(String globalActionsFunction) {
-        this.globalRewardFunction = new GlobalRewardFunction(
-                globalActionsFunction);
-    }
-
-    public void setHolonActionsFunction(String holonActionsFunction) {
-        this.holonRewardFunction = new HolonRewardFunction(holonActionsFunction);
     }
 
     public void addGlobalAction(String name, GlobalConfiguration value) {
@@ -183,8 +158,16 @@ public class Clustering extends MLAlgorithm {
         return globalStates;
     }
 
+    public void setGlobalStates(ClusTableStates globalStates) {
+        this.globalStates = globalStates;
+    }
+
     public ClusTableStates getHolonStates() {
         return holonStates;
+    }
+
+    public void setHolonStates(ClusTableStates holonStates) {
+        this.holonStates = holonStates;
     }
 
     public ClusTableActions<GlobalConfiguration> getGlobalActions() {
@@ -195,28 +178,37 @@ public class Clustering extends MLAlgorithm {
         return holonActions;
     }
 
-    public void setGlobalObservations(ClusTableObservations globalObservations) {
-        this.globalObservations = globalObservations;
-    }
-
-    public void setHolonObservations(ClusTableObservations holonObservations) {
-        this.holonObservations = holonObservations;
-    }
-
     public ClusTableObservations getGlobalObservations() {
         return globalObservations;
+    }
+
+    public void setGlobalObservations(ClusTableObservations globalObservations) {
+        this.globalObservations = globalObservations;
     }
 
     public ClusTableObservations getHolonObservations() {
         return holonObservations;
     }
 
+    public void setHolonObservations(ClusTableObservations holonObservations) {
+        this.holonObservations = holonObservations;
+    }
+
     public RewardFunction getGlobalActionsFunction() {
         return globalRewardFunction;
     }
 
+    public void setGlobalActionsFunction(String globalActionsFunction) {
+        this.globalRewardFunction = new GlobalRewardFunction(
+                globalActionsFunction);
+    }
+
     public RewardFunction getHolonActionsFunction() {
         return holonRewardFunction;
+    }
+
+    public void setHolonActionsFunction(String holonActionsFunction) {
+        this.holonRewardFunction = new HolonRewardFunction(holonActionsFunction);
     }
 
     public ClusLogger getLogger() {
@@ -227,8 +219,16 @@ public class Clustering extends MLAlgorithm {
         return globalDeterministic;
     }
 
+    public void setGlobalDeterministic(boolean globalDeterministic) {
+        this.globalDeterministic = globalDeterministic;
+    }
+
     public boolean isHolonDeterministic() {
         return holonDeterministic;
+    }
+
+    public void setHolonDeterministic(boolean holonDeterministic) {
+        this.holonDeterministic = holonDeterministic;
     }
 
     public void init(ClusTableStates states, ClusTableActions<?> actions) {
@@ -269,9 +269,6 @@ public class Clustering extends MLAlgorithm {
         }
     }
 
-    private ClusTableCell previousCell;
-    private Map<String, Double> previousParameters;
-
     private GlobalConfiguration getGlobalConfiguration(
             Map<AID, Schedule> oldSchedules, Map<AID, Schedule> newSchedules,
             SimInfo info) {
@@ -308,9 +305,6 @@ public class Clustering extends MLAlgorithm {
 
         return globalActions.getActions().get(action);
     }
-
-    private final Map<AID, ClusTableCell> previousCells = new HashMap<>();
-    private final Map<AID, Map<String, Double>> previousHolonParameters = new HashMap<>();
 
     @Override
     public Map<AID, HolonConfiguration> getHolonsConfiguration(

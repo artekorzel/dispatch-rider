@@ -171,7 +171,7 @@ public class MapHolder extends TimestampUpdateable {
 
     private void setEdgeShape() {
         /*AbstractEdgeShapeTransformer<GraphPoint, GraphLink> edgeShape = new AbstractEdgeShapeTransformer <GraphPoint, GraphLink>(){
-			@Override
+            @Override
 			public Shape transform(
 					Context<edu.uci.ics.jung.graph.Graph<GraphPoint, GraphLink>, GraphLink> arg0) {
 				if (arg0.element.getClass()==HolonGraphLink.class)
@@ -444,6 +444,7 @@ public class MapHolder extends TimestampUpdateable {
     class LocationRecord {
         Integer timestamp;
         Point2D.Double point;
+
         public LocationRecord(Integer timestamp, Double point) {
             super();
             this.timestamp = timestamp;

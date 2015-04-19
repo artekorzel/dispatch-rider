@@ -44,18 +44,6 @@ public class ActionQueueWithoutGraph extends LinkedList<CalendarActionWithoutGra
         remove(actionToRemove);
     }
 
-    public void print() {
-
-        Iterator iter = iterator();
-        CalendarActionWithoutGraph action;
-
-        while (iter.hasNext()) {
-
-            action = (CalendarActionWithoutGraph) iter.next();
-            action.print();
-        }
-    }
-
     public ActionQueueWithoutGraph backup() {
 
         ActionQueueWithoutGraph tmpActionQueue;

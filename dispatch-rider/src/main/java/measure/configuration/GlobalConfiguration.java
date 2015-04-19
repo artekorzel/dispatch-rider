@@ -12,7 +12,6 @@ import java.io.Serializable;
 public class GlobalConfiguration implements Serializable {
 
 
-
     /**
      * Commissions sending type. If this parameter is true, commissions are
      * sending in packages (very time consuming), if it's false they are sending

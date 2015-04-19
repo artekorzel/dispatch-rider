@@ -63,7 +63,7 @@ public class GUIAgent extends Agent {
     // do systemu), w odpowiednim czasie wysyla zlecenie do dystrybutora
     protected CommissionsHandler commissionsHandler;
 
-    protected SimLogic gui;
+    protected SimLogic simLogic;
     protected Timer timer;
     protected int timerDelay;
     protected CalendarsHolder calendarsHolder;
@@ -114,7 +114,6 @@ public class GUIAgent extends Agent {
     protected Brute2Sorter brute2Sorter;
     protected int backToDepotTimestamp = -1;
 
-    private boolean otherBenchmarks = false;
     private Iterator<TestConfiguration> configurationIterator = null;
     private TestConfiguration configuration;
     private int transportAgentsCreated;
@@ -130,7 +129,13 @@ public class GUIAgent extends Agent {
         logger.info(this.getLocalName() + " - Hello World!");
 
         try {
-            Thread.sleep(3000);
+            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
+        } catch (Exception e) {
+            logger.warn(e);
+        }
+
+        try {
+            Thread.sleep(1000);
         } catch (InterruptedException ignored) {
         }
 
@@ -157,13 +162,7 @@ public class GUIAgent extends Agent {
         this.addBehaviour(new GetAskForGraphChangesBehaviour(this));
         this.addBehaviour(new GetGraphLinkChangedBehaviour(this));
 
-        System.out.println("TestAgent - end of initialization");
-
-        try {
-            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
-        } catch (Exception e) {
-            e.printStackTrace();  //FIXME
-        }
+        logger.info("GuiAgent - end of initialization");
 
         Object[] args = getArguments();
         String configurationFile;
@@ -196,26 +195,19 @@ public class GUIAgent extends Agent {
     }
 
     public void nextTest() {
-        /* If there's no more test then exit */
         if (!configurationIterator.hasNext()) {
             logger.info("End of simulation: "
                     + Calendar.getInstance().getTime());
-            System.out.println(Calendar.getInstance().getTime());
-            //System.exit(0);
         } else {
-
             configuration = configurationIterator.next();
 
 		/* -------- INTERFACE CREATION SECTION ------- */
-            gui = new SimLogic(this);
-		/* -------- TIME TASK PERFORMER SECTION ------- */
+            simLogic = new SimLogic(this);
+        /* -------- TIME TASK PERFORMER SECTION ------- */
             ActionListener timerTaskPerformer = new ActionListener() {
 
                 public void actionPerformed(ActionEvent evt) {
-                    gui.nextSimStep();
-
-                    // w simGOD timer startowany jest zeby zapisac statystyki, zaraz
-                    // potem trzeba go zatrzynamc
+                    simLogic.nextSimStep();
                 }
             };
 
@@ -225,17 +217,6 @@ public class GUIAgent extends Agent {
 		/* -------- COMMISSIONS HANDLER SECTION ------- */
             commissionsHandler = new CommissionsHandler();
 
-            // eUnitsCount=configuration.getEunits();
-		/* -------- EUNITS CREATION SECTION ------- */
-		/*
-		 * for (int i = 0; i < configuration.getEunits(); i++) {
-		 * EUnitInitialData data = new EUnitInitialData(
-		 * configuration.getReorganization(),
-		 * configuration.getReorganizationParam(),
-		 * configuration.getOrganization(),
-		 * configuration.getOrganizationParam()); data.setDepot(0);
-		 * createNewEUnit(data); }
-		 */
             try {
                 transportAgentsCreated = 0;
                 level = 1;
@@ -358,7 +339,7 @@ public class GUIAgent extends Agent {
             trucksProperties.add(initial);
         }
 
-        gui.setTrucksProperties(trucksProperties);
+        simLogic.setTrucksProperties(trucksProperties);
         return trucksCount;
     }
 
@@ -403,7 +384,7 @@ public class GUIAgent extends Agent {
 
             trailersProperties.add(initial);
         }
-        gui.setTrailersProperties(trailersProperties);
+        simLogic.setTrailersProperties(trailersProperties);
         br.close();
         fr.close();
         return trailersCount;
@@ -484,7 +465,7 @@ public class GUIAgent extends Agent {
 
         try {
 
-            SimInfo info = gui.getSimInfo();
+            SimInfo info = simLogic.getSimInfo();
             info.setPunishmentFunction(punishmentFunction);
             info.setDefaultPunishmentFunValues(punishmentFunctionDefaults);
             info.setDelayLimit(delayLimit);
@@ -573,12 +554,12 @@ public class GUIAgent extends Agent {
     }
 
     public void updateGraph(Graph graph) {
-        gui.updateGraph(graph);
+        simLogic.updateGraph(graph);
         sendUpdatedGraphToEunits(graph);
     }
 
     public void simulationStart() {
-        SingletonGUI.getInstance().update(gui.getSimInfo());
+        SingletonGUI.getInstance().update(simLogic.getSimInfo());
     }
 
     public void addCommissionHandler(CommissionHandler commissionHandler) {
@@ -646,13 +627,15 @@ public class GUIAgent extends Agent {
     }
 
     public int getNextTimestamp(int timestamp) {
-        int i = timestamp + 1;
+        ++timestamp;
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this, "ExecutionUnitService");
-        sendUpdateCurrentLocationRequest(aids, i);
+        sendUpdateCurrentLocationRequest(aids, timestamp);
 
-        while (i <= gui.getSimInfo().getDeadline() && commissionsHandler.getCommissionsBeforeTime(i).length == 0 && !commissionsHandler.isAnyEUnitAtNode(false)) {
-            if (i == backToDepotTimestamp) {
+        while (timestamp <= simLogic.getSimInfo().getDeadline()
+                && commissionsHandler.getCommissionsBeforeTime(timestamp).length == 0
+                && !commissionsHandler.isAnyEUnitAtNode(false)) {
+            if (timestamp == backToDepotTimestamp) {
                 ACLMessage cfp;
                 for (AID aid : aids) {
                     cfp = new ACLMessage(CommunicationHelper.BACK_TO_DEPOT);
@@ -662,11 +645,11 @@ public class GUIAgent extends Agent {
                 }
             }
 
-            i++;
-            sendUpdateCurrentLocationRequest(aids, i);
+            timestamp++;
+            sendUpdateCurrentLocationRequest(aids, timestamp);
         }
 
-        return i;
+        return timestamp;
     }
 
     /**
@@ -683,7 +666,7 @@ public class GUIAgent extends Agent {
         }
 
         //czekamy az kazdy z eunitow potwierdzi otrzymanie komunikatu
-        for (AID aid : aids) {
+        for (AID ignored : aids) {
             blockingReceive(MessageTemplate.MatchPerformative(CommunicationHelper.UPDATE_CURRENT_LOCATION));
         }
 
@@ -694,7 +677,7 @@ public class GUIAgent extends Agent {
                 .getCommissionsBeforeTime(simTime);
 
         if (tempCommissionsHandler.length == 0) {
-            gui.nextAutoSimStep();
+            simLogic.nextAutoSimStep();
             return;
         }
 
@@ -746,7 +729,7 @@ public class GUIAgent extends Agent {
     }
 
     public void sendTimestamp(int time) {
-        logger.info(getLocalName() + " - sending time stamp [" + time + "]");
+        logger.info(getLocalName() + " - sending timestamp [" + time + "]");
         SingletonGUI.getInstance().newTimestamp(time);
 
         AID[] aids;
@@ -771,7 +754,6 @@ public class GUIAgent extends Agent {
             send(cfp);
 
         } else {
-
             logger.info(getLocalName()
                     + " - there are no EUnit Agents in the system");
         }
@@ -820,9 +802,8 @@ public class GUIAgent extends Agent {
     }
 
     public synchronized void stampConfirmed() {
-        stamps--;
-        if (stamps == 0) {
-            gui.nextSimStep3();
+        if (--stamps == 0) {
+            simLogic.nextSimStep3();
         }
     }
 
@@ -967,7 +948,7 @@ public class GUIAgent extends Agent {
                     wr.write(Double.toString(calendarStatsHolderForFile
                             .calculatePunishment()) + "\t");
                     wr.write(Long.toString(simTime) + "\t");
-                    wr.write(gui.getCommissionsTab().getCommissionsCount()
+                    wr.write(simLogic.getCommissionsLogic().getCommissionsCount()
                             + "\t");
                     wr.write(delivery.toString());
                     wr.flush();
@@ -987,10 +968,10 @@ public class GUIAgent extends Agent {
                 calendarStatsHolderForFile = null;
 
                 if (recording)
-                    new XMLBuilder(simulationData, gui.getSimInfo().getDepot())
+                    new XMLBuilder(simulationData, simLogic.getSimInfo().getDepot())
                             .save(file.getAbsolutePath() + ".xml");
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             saveMeasures();
             saveMLTable();
@@ -998,7 +979,6 @@ public class GUIAgent extends Agent {
         }
     }
 
-    // TODO algorithm
     private int printStats(CalendarStatsHolder holder, BufferedWriter wr,
                            BufferedWriter wr_road) throws IOException {
         wr.write("Name\tCapacity\tCost\tDistance\tWait time\tDrive time\tPunishment\tTrailer mass\tTruck power\tTruck reliability\tTruck comfort\tTruck fuel consumption\tMaxSTDepth");
@@ -1062,7 +1042,7 @@ public class GUIAgent extends Agent {
         wr.write(Double.toString(holder.calculateDriveTime()) + "\t");
         wr.write(Double.toString(holder.calculatePunishment()) + "\t");
         wr.write(Long.toString(simTime) + "\t");
-        wr.write(gui.getCommissionsTab().getCommissionsCount() + "\t");
+        wr.write(simLogic.getCommissionsLogic().getCommissionsCount() + "\t");
         wr.write(delivery.toString());
         wr.flush();
         return delivery;
@@ -1094,8 +1074,7 @@ public class GUIAgent extends Agent {
         try {
             printersHolder.print(saveFileName, data, calculatorsHolder);
         } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error(e);
         }
         if (mlAlgorithm == null)
             simEnd();
@@ -1110,7 +1089,7 @@ public class GUIAgent extends Agent {
             try {
                 msg.setContentObject("");
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             this.send(msg);
         }
@@ -1119,15 +1098,14 @@ public class GUIAgent extends Agent {
     public void saveMLAlgorithm(MLAlgorithm table) {
         try {
             table.save(mlTableFileName, saveFileName);
-            simEnd();
         } catch (Exception e) {
-            e.printStackTrace();
-            simEnd();
+            logger.error(e);
         }
+        simEnd();
     }
 
     public void updateEUnitInfo(EUnitInfo eUnitInfo) {
-        gui.updateEUnitsInfo(eUnitInfo);
+        simLogic.updateEUnitsInfo(eUnitInfo);
     }
 
     public void sendCrisisEvent(CrisisEvent event) {
@@ -1188,17 +1166,11 @@ public class GUIAgent extends Agent {
     }
 
     public void nextAutoSimStep() {
-        gui.nextAutoSimStep();
+        simLogic.nextAutoSimStep();
     }
 
     public void simEnd() {
         logger.info("Test end");
-        sendEndOfSimInfo("ExecutionUnitService");
-        sendEndOfSimInfo("TransportUnitService");
-        sendEndOfSimInfo("InfoAgentService");
-        sendEndOfSimInfo("CommissionService");
-        sendEndOfSimInfo("CrisisManagementService");
-
         resetGUIAgent();
         nextTest();
     }
@@ -1216,12 +1188,12 @@ public class GUIAgent extends Agent {
         try {
             msg.setContentObject("");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         send(msg);
 
         if (eUnitsCount == 0)
-            gui.nextSimStep2();
+            simLogic.nextSimStep2();
 
     }
 
@@ -1232,7 +1204,7 @@ public class GUIAgent extends Agent {
         SingletonGUI.getInstance().update(data);
         if (eUnitsCount == 0) {
             simulationData.put(timeStamp, this.data);
-            gui.nextSimStep2();
+            simLogic.nextSimStep2();
         }
     }
 
@@ -1260,7 +1232,7 @@ public class GUIAgent extends Agent {
                 updateAfterArrival = true;
             }
         }
-        System.out.println("graph changed");
+        logger.info("graph changed");
         SingletonGUI.getInstance().update(graph);
         ACLMessage msg = new ACLMessage(CommunicationHelper.GRAPH_CHANGED);
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
@@ -1272,7 +1244,7 @@ public class GUIAgent extends Agent {
         try {
             msg.setContentObject(new Object[]{graph, updateAfterArrival});
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         this.send(msg);
     }
@@ -1288,17 +1260,17 @@ public class GUIAgent extends Agent {
                 try {
                     msg.setContentObject(graph);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e);
                 }
                 this.send(msg);
             }
         } else
-            gui.nextSimStep4();
+            simLogic.nextSimStep4();
     }
 
     public synchronized void askForGraphChanges() {
         if (!graphChangeTime.equals("afterChangeNotice")) {
-            gui.nextSimStep5();
+            simLogic.nextSimStep5();
             return;
         }
         changedGraphLinks = new LinkedList<>();
@@ -1312,7 +1284,7 @@ public class GUIAgent extends Agent {
         try {
             msg.setContentObject("");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         this.send(msg);
     }
@@ -1332,7 +1304,7 @@ public class GUIAgent extends Agent {
             try {
                 msg.setContentObject(changedGraphLinks);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             this.send(msg);
         }
@@ -1341,7 +1313,7 @@ public class GUIAgent extends Agent {
     public synchronized void linkChanged() {
         eUnitsCount--;
         if (eUnitsCount == 0) {
-            gui.nextSimStep5();
+            simLogic.nextSimStep5();
         }
     }
 
@@ -1371,27 +1343,24 @@ public class GUIAgent extends Agent {
     }
 
     private void next2() {
-
-        System.out.println("End of initialization");
+        logger.info("End of initialization");
         Adapter adapter = configuration.getAdapter();
         if (adapter == null) {
-            gui.getCommissionsTab().addCommissionGroup(
+            simLogic.getCommissionsLogic().addCommissionGroup(
                     configuration.getCommissions(), configuration.isDynamic());
-            otherBenchmarks = false;
         } else {
-            otherBenchmarks = true;
             try {
                 for (CommissionHandler com : adapter.readCommissions()) {
-                    gui.getCommissionsTab().addCommissionHandler(com);
+                    simLogic.getCommissionsLogic().addCommissionHandler(com);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         GraphChangesConfiguration graphConfChanges = configuration
                 .getGraphChangesConf();
         if (graphConfChanges != null) {
-            gui.setGraphConfChanges(graphConfChanges);
+            simLogic.setGraphConfChanges(graphConfChanges);
             graphChangeTime = configuration.getGraphChangeTime();
             graphChangeFreq = configuration.getGraphChangeFreq();
             this.setSTAfterChange(configuration.isSTAfterGraphChange());
@@ -1420,10 +1389,8 @@ public class GUIAgent extends Agent {
         setDelayLimit(configuration.getDelayLimit());
         setFirstComplexSTResultOnly(configuration.isFirstComplexSTResultOnly());
         if (configuration.getMlTableFileName() != null) {
-
             MLAlgorithm table = configuration.getMlAlgorithm();
             setMLAlgorithm(table);
-
         }
         setExploration(configuration.isExploration());
         setMlTableFileName(configuration.getMlTableFileName());
@@ -1447,17 +1414,16 @@ public class GUIAgent extends Agent {
             setDist(configuration.isDist());
         }
 
-        if (adapter == null)
-            gui.getCommissionsTab().setConstraintsTestMode();
-        else
-            gui.setSimInfo(adapter.getSimInfo());
+        if (adapter == null) {
+            simLogic.getCommissionsLogic().setConstraintsTestMode();
+        } else {
+            simLogic.setSimInfo(adapter.getSimInfo());
+        }
     }
 
     public void simInfoReceived() {
         simInfoReceived--;
         if (simInfoReceived == 0) {
-            if (!otherBenchmarks)
-                gui.getCommissionsTab().setConstraints();
             next3();
         }
     }
@@ -1467,33 +1433,8 @@ public class GUIAgent extends Agent {
             sendCrisisEvent(event);
         }
 
-        gui.simStart();
+        simLogic.simStart();
         logger.info("Starting test: " + configuration.getResults());
-        gui.autoSimulation(configuration.getResults());
-    }
-
-    private void sendEndOfSimInfo(String serviceName) {
-//		AID[] aids;
-//		ACLMessage cfp;
-//
-//		aids = CommunicationHelper.findAgentByServiceName(this, serviceName);
-//
-//		logger.info(getLocalName() + " - sending SimEndInfo to " + aids.length
-//				+ " " + serviceName);
-//
-//		if (aids.length != 0) {
-//            for (AID aid : aids) {
-//
-//                cfp = new ACLMessage(CommunicationHelper.SIM_END);
-//                cfp.addReceiver(aid);
-//                try {
-//                    cfp.setContentObject("");
-//                } catch (IOException e) {
-//                    logger.error(getLocalName() + " - IOException "
-//                            + e.getMessage());
-//                }
-//                send(cfp);
-//            }
-//		}
+        simLogic.autoSimulation(configuration.getResults());
     }
 }

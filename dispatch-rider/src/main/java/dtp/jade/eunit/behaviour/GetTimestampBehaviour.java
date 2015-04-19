@@ -14,7 +14,6 @@ import java.io.IOException;
 public class GetTimestampBehaviour extends CyclicBehaviour {
 
 
-
     private static Logger logger = Logger
             .getLogger(GetTimestampBehaviour.class);
 

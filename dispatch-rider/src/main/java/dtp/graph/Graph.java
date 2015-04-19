@@ -10,14 +10,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class Graph implements Serializable {
+    private static final double costMul = 0.5, costPow = 1, costSum = 0, freeSum = 0;
     private static Logger logger = Logger.getLogger(Graph.class);
-
     private final ArrayList<GraphPoint> points;
     private final HashMap<Integer, GraphPoint> map;
     private final ArrayList<GraphLink> links;
     private final boolean complete;
-
-    private static final double costMul = 0.5, costPow = 1, costSum = 0, freeSum = 0;
 
     public Graph() {
 

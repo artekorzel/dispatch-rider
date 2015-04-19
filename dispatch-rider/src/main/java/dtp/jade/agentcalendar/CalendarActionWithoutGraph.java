@@ -41,21 +41,11 @@ public class CalendarActionWithoutGraph implements Serializable, CalendarAction 
     }
 
     public int getCommissionID() {
-
         return commissionID;
-    }
-
-    public void setCommissionID(int commissionID) {
-
-        this.commissionID = commissionID;
     }
 
     public int getSourceCommissionID() {
         return sourceCommissionID;
-    }
-
-    public void setSourceCommissionID(int sourceCommissionID) {
-        this.sourceCommissionID = sourceCommissionID;
     }
 
     public String getType() {
@@ -83,19 +73,9 @@ public class CalendarActionWithoutGraph implements Serializable, CalendarAction 
         return source;
     }
 
-    public void setSource(Point2D.Double source) {
-
-        this.source = source;
-    }
-
     public Point2D.Double getDestination() {
 
         return destination;
-    }
-
-    public void setDestination(Point2D.Double destination) {
-
-        this.destination = destination;
     }
 
     public double getStartTime() {
@@ -122,141 +102,55 @@ public class CalendarActionWithoutGraph implements Serializable, CalendarAction 
         return "PICKUP".equals(getType()) || "DELIVERY".equals(getType()) || "DEPOT".equals(getType());
     }
 
-    @Override
-    public void print() {
-
-        if (type.equals("DEPOT")) {
-
-            System.out.println("------------------  DEPOT   -----------------");
-            System.out.println("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2));
-            System.out.println("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]");
-            System.out.println("load = " + getCurrentLoad());
-            System.out.println("---------------------------------------------");
-
-        } else if (type.equals("DRIVE")) {
-
-            System.out.println("------------------  DRIVE   -----------------");
-            System.out.println("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2));
-            System.out.println("track = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "] --> ["
-                    + MyNumberFormat.formatDouble(getDestination().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getDestination().getY(), 3, 2) + "]");
-            System.out.println("load = " + getCurrentLoad());
-            System.out.println("---------------------------------------------");
-
-        } else if (type.equals("WAIT")) {
-
-            System.out.println("------------------   WAIT   -----------------");
-            System.out.println("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2));
-            System.out.println("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]");
-            System.out.println("load = " + getCurrentLoad());
-            System.out.println("---------------------------------------------");
-
-        } else if (type.equals("PICKUP")) {
-
-            System.out.println("------------------  PICKUP  -----------------");
-            System.out.println("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2));
-            System.out.println("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]");
-            System.out.println("load = " + getCurrentLoad() + "\t\t\t comID = " + getCommissionID());
-            System.out.println("---------------------------------------------");
-
-        } else if (type.equals("DELIVERY")) {
-
-            System.out.println("------------------ DELIVERY -----------------");
-            System.out.println("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2));
-            System.out.println("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]");
-            System.out.println("load = " + getCurrentLoad() + "\t\t\t comID = " + getCommissionID());
-            System.out.println("---------------------------------------------");
-
-        } else {
-
-            System.out.println("CalendarAction -> print -> sth wrong!");
-        }
-    }
-
-    public void printAll() {
-
-        System.out.println("type = " + getType() + " com ID = " + getCommissionID());
-        System.out.println("source = [" + getSource().getX() + ", " + getSource().getY() + "]" + " destination = ["
-                + getDestination().getX() + ", " + getDestination().getY() + "]");
-        System.out.println("time = [" + getStartTime() + ", " + getEndTime() + "]" + " total = "
-                + (getEndTime() - getStartTime()));
-        System.out.println("current load = " + getCurrentLoad());
-    }
-
     public String toString() {
 
         StringBuilder str = new StringBuilder();
 
-        if (type.equals("DEPOT")) {
+        switch (type) {
+            case "DEPOT":
 
-            str.append("------------------  DEPOT   -----------------\n");
-            str.append("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2) + "\n");
-            str.append("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]\n");
-            str.append("load = " + getCurrentLoad() + "\n");
+                str.append("------------------  DEPOT   -----------------\n");
+                str.append("time = [").append(MyNumberFormat.formatDouble(getStartTime(), 4, 2)).append(", ").append(MyNumberFormat.formatDouble(getEndTime(), 4, 2)).append("] total = ").append(MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2)).append("\n");
+                str.append("location = [").append(MyNumberFormat.formatDouble(getSource().getX(), 3, 2)).append(", ").append(MyNumberFormat.formatDouble(getSource().getY(), 3, 2)).append("]\n");
+                str.append("load = ").append(getCurrentLoad()).append("\n");
 
-        } else if (type.equals("DRIVE")) {
+                break;
+            case "DRIVE":
 
-            str.append("------------------  DRIVE   -----------------\n");
-            str.append("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2) + "\n");
-            str.append("track = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "] --> ["
-                    + MyNumberFormat.formatDouble(getDestination().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getDestination().getY(), 3, 2) + "]\n");
-            str.append("load = " + getCurrentLoad() + "\n");
+                str.append("------------------  DRIVE   -----------------\n");
+                str.append("time = [").append(MyNumberFormat.formatDouble(getStartTime(), 4, 2)).append(", ").append(MyNumberFormat.formatDouble(getEndTime(), 4, 2)).append("] total = ").append(MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2)).append("\n");
+                str.append("track = [").append(MyNumberFormat.formatDouble(getSource().getX(), 3, 2)).append(", ").append(MyNumberFormat.formatDouble(getSource().getY(), 3, 2)).append("] --> [").append(MyNumberFormat.formatDouble(getDestination().getX(), 3, 2)).append(", ").append(MyNumberFormat.formatDouble(getDestination().getY(), 3, 2)).append("]\n");
+                str.append("load = ").append(getCurrentLoad()).append("\n");
 
-        } else if (type.equals("WAIT")) {
+                break;
+            case "WAIT":
 
-            str.append("------------------   WAIT   -----------------\n");
-            str.append("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2) + "\n");
-            str.append("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]\n");
-            str.append("load = " + getCurrentLoad() + "\n");
+                str.append("------------------   WAIT   -----------------\n");
+                str.append("time = [").append(MyNumberFormat.formatDouble(getStartTime(), 4, 2)).append(", ").append(MyNumberFormat.formatDouble(getEndTime(), 4, 2)).append("] total = ").append(MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2)).append("\n");
+                str.append("location = [").append(MyNumberFormat.formatDouble(getSource().getX(), 3, 2)).append(", ").append(MyNumberFormat.formatDouble(getSource().getY(), 3, 2)).append("]\n");
+                str.append("load = ").append(getCurrentLoad()).append("\n");
 
-        } else if (type.equals("PICKUP")) {
+                break;
+            case "PICKUP":
 
-            str.append("------------------  PICKUP  -----------------\n");
-            str.append("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2) + "\n");
-            str.append("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]\n");
-            str.append("load = " + getCurrentLoad() + "\t\t comID = " + getCommissionID() + "\n");
+                str.append("------------------  PICKUP  -----------------\n");
+                str.append("time = [").append(MyNumberFormat.formatDouble(getStartTime(), 4, 2)).append(", ").append(MyNumberFormat.formatDouble(getEndTime(), 4, 2)).append("] total = ").append(MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2)).append("\n");
+                str.append("location = [").append(MyNumberFormat.formatDouble(getSource().getX(), 3, 2)).append(", ").append(MyNumberFormat.formatDouble(getSource().getY(), 3, 2)).append("]\n");
+                str.append("load = ").append(getCurrentLoad()).append("\t\t comID = ").append(getCommissionID()).append("\n");
 
-        } else if (type.equals("DELIVERY")) {
+                break;
+            case "DELIVERY":
 
-            str.append("------------------ DELIVERY -----------------\n");
-            str.append("time = [" + MyNumberFormat.formatDouble(getStartTime(), 4, 2) + ", "
-                    + MyNumberFormat.formatDouble(getEndTime(), 4, 2) + "] total = "
-                    + MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2) + "\n");
-            str.append("location = [" + MyNumberFormat.formatDouble(getSource().getX(), 3, 2) + ", "
-                    + MyNumberFormat.formatDouble(getSource().getY(), 3, 2) + "]\n");
-            str.append("load = " + getCurrentLoad() + "\t\t comID = " + getCommissionID() + "\n");
+                str.append("------------------ DELIVERY -----------------\n");
+                str.append("time = [").append(MyNumberFormat.formatDouble(getStartTime(), 4, 2)).append(", ").append(MyNumberFormat.formatDouble(getEndTime(), 4, 2)).append("] total = ").append(MyNumberFormat.formatDouble(getEndTime() - getStartTime(), 3, 2)).append("\n");
+                str.append("location = [").append(MyNumberFormat.formatDouble(getSource().getX(), 3, 2)).append(", ").append(MyNumberFormat.formatDouble(getSource().getY(), 3, 2)).append("]\n");
+                str.append("load = ").append(getCurrentLoad()).append("\t\t comID = ").append(getCommissionID()).append("\n");
 
-        } else {
+                break;
+            default:
 
-            str.append("CalendarAction -> toString -> sth wrong!\n");
+                str.append("CalendarAction -> toString -> sth wrong!\n");
+                break;
         }
 
         return str.toString();

@@ -9,6 +9,7 @@ import dtp.graph.predictor.GraphLinkPredictor;
 import dtp.optimization.TrackFinder;
 import dtp.simulation.SimInfo;
 import jade.core.AID;
+import org.apache.log4j.Logger;
 
 import java.awt.geom.Point2D;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GraphSchedule extends Schedule {
+    private static Logger logger = Logger.getLogger(GraphSchedule.class);
 
     private final TrackFinder trackFinder;
     private final GraphLinkPredictor linkPredictor;
@@ -171,24 +173,24 @@ public class GraphSchedule extends Schedule {
             }
             // if (point1.getX() == 85.0 && point1.getY() == 35.0
             // && point2.getX() == 88.0 && point2.getY() == 35.0) {
-            // System.out.println("PREVIOUS is null");
-            // System.out.println("cur drive time :" + currentDriveTime);
-            // System.out.println("previousGraphChangeTimestamp "
+            // logger.info("PREVIOUS is null");
+            // logger.info("cur drive time :" + currentDriveTime);
+            // logger.info("previousGraphChangeTimestamp "
             // + previousGraphChangeTimestamp);
-            // System.out.println("changePointTimestamp "
+            // logger.info("changePointTimestamp "
             // + changePointTimestamp);
             // System.out
             // .println("add "
             // + (previousGraphChangeTimestamp - changePointTimestamp));
-            // System.out.println("add "
+            // logger.info("add "
             // + getLink(trackFinder.getGraph(), currentLink)
             // .getCost() * (dist - partDistance) / dist);
-            // System.out.println(getLink(trackFinder.getGraph(), currentLink)
+            // logger.info(getLink(trackFinder.getGraph(), currentLink)
             // .getCost());
-            // System.out.println(dist);
-            // System.out.println(partDistance);
-            // System.out.println("track cost " + track.getCost());
-            // System.out.println("result " + time);
+            // logger.info(dist);
+            // logger.info(partDistance);
+            // logger.info("track cost " + track.getCost());
+            // logger.info("result " + time);
             // }
 
             return time;
@@ -198,11 +200,11 @@ public class GraphSchedule extends Schedule {
         if (values != null && values.size() > 0) {
             // if (point1.getX() == 85.0 && point1.getY() == 35.0
             // && point2.getX() == 88.0 && point2.getY() == 35.0) {
-            // System.out.println("FROM VALUES");
-            // System.out.println("result " + values.get(0));
+            // logger.info("FROM VALUES");
+            // logger.info("result " + values.get(0));
             // }
             if (values.get(0) < 0) {
-                System.out.println("VALUES is NULL");
+                logger.error("VALUES is NULL");
                 System.exit(0);
             }
             return values.remove(0);
@@ -393,7 +395,7 @@ public class GraphSchedule extends Schedule {
             GraphPoint gp2 = trackFinder.getGraph().getPointByCoordinates(
                     new Point2D.Double(currentCommission.getPickupX(),
                             currentCommission.getPickupY()));
-            // System.out.println(gp1 + " " + gp2);
+            // logger.info(gp1 + " " + gp2);
             currentTrack = trackFinder.findTrack(gp1, gp2);
             currentLink = currentTrack.get(0).getLinkTo(currentTrack.get(1));
             previousGraphChangeTimestamp = 0;
@@ -600,13 +602,13 @@ public class GraphSchedule extends Schedule {
                 driveTime = calculateTime(currentLocation, nextLocation, depot,
                         false);
                 if (driveTime < 0) {
-                    System.out.println(currentLocation + " -> " + nextLocation
+                    logger.info(currentLocation + " -> " + nextLocation
                             + " = " + driveTime);
 
-                    System.out.println(currentDriveTime);
-                    System.out.println(previousGraphChangeTimestamp);
-                    System.out.println(changePointTimestamp);
-                    System.out.println("dist " + getLastLinkDist(depot));
+                    logger.info(currentDriveTime);
+                    logger.info(previousGraphChangeTimestamp);
+                    logger.info(changePointTimestamp);
+                    logger.info("dist " + getLastLinkDist(depot));
 
                     GraphPoint gp = trackFinder.getGraph()
                             .getPointByCoordinates(currentLocation);
@@ -614,13 +616,13 @@ public class GraphSchedule extends Schedule {
                             .getPointByCoordinates(nextLocation);
                     GraphTrack track = trackFinder.findTrack(gp, gp2);
 
-                    System.out.println(checkIfCurrentLink(track));
-                    System.out.println("part " + partDistance);
+                    logger.info(checkIfCurrentLink(track));
+                    logger.info("part " + partDistance);
 
                     GraphLink link = getLink(trackFinder.getGraph(),
                             currentLink);
 
-                    System.out.println(link.getCost());
+                    logger.info(link.getCost());
 
                     System.exit(0);
 
@@ -638,13 +640,13 @@ public class GraphSchedule extends Schedule {
                         false);
 
                 if (driveTime < 0) {
-                    System.out.println(currentLocation + " -> " + nextLocation
+                    logger.info(currentLocation + " -> " + nextLocation
                             + " = " + driveTime);
 
-                    System.out.println(currentDriveTime);
-                    System.out.println(previousGraphChangeTimestamp);
-                    System.out.println(changePointTimestamp);
-                    System.out.println("dist " + getLastLinkDist(depot));
+                    logger.info(currentDriveTime);
+                    logger.info(previousGraphChangeTimestamp);
+                    logger.info(changePointTimestamp);
+                    logger.info("dist " + getLastLinkDist(depot));
 
                     GraphPoint gp = trackFinder.getGraph()
                             .getPointByCoordinates(currentLocation);
@@ -652,13 +654,13 @@ public class GraphSchedule extends Schedule {
                             .getPointByCoordinates(nextLocation);
                     GraphTrack track = trackFinder.findTrack(gp, gp2);
 
-                    System.out.println(checkIfCurrentLink(track));
-                    System.out.println("part " + partDistance);
+                    logger.info(checkIfCurrentLink(track));
+                    logger.info("part " + partDistance);
 
                     GraphLink link = getLink(trackFinder.getGraph(),
                             currentLink);
 
-                    System.out.println(link.getCost());
+                    logger.info(link.getCost());
 
                     System.exit(0);
                 }

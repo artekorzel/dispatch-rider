@@ -11,7 +11,6 @@ import jade.lang.acl.UnreadableException;
 public class GetWorstCommissionRequestBehaviour extends CyclicBehaviour {
 
 
-
     private ExecutionUnitAgent eunitAgent;
 
     public GetWorstCommissionRequestBehaviour(ExecutionUnitAgent agent) {

@@ -21,14 +21,14 @@ public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
         MessageTemplate template = MessageTemplate
                 .MatchPerformative(CommunicationHelper.HOLONS_CALENDAR);
         ACLMessage msg = myAgent.receive(template);
-        
+
         if (msg != null) {
             try {
                 Schedule schedule = (Schedule) msg.getContentObject();
-            	if(schedule.getRefreshCurrentLocation())
-            		agent.putEUnitSchedule(msg.getSender(), schedule);
-            	else
-            		agent.addComplexSTSchedule(schedule, msg.getSender());
+                if (schedule.getRefreshCurrentLocation())
+                    agent.putEUnitSchedule(msg.getSender(), schedule);
+                else
+                    agent.addComplexSTSchedule(schedule, msg.getSender());
             } catch (Exception e) {
                 e.printStackTrace();//FIXME
             }

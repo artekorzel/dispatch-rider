@@ -14,7 +14,6 @@ import java.io.IOException;
 public class GetSTBeginBehaviour extends CyclicBehaviour {
 
 
-
     private final ExecutionUnitAgent executionUnitAgent;
 
     public GetSTBeginBehaviour(ExecutionUnitAgent agent) {

@@ -3,12 +3,14 @@ package dtp.commission;
 import algorithm.Schedule;
 import dtp.jade.distributor.DistributorAgent;
 import jade.core.AID;
+import org.apache.log4j.Logger;
 
 import java.awt.geom.Point2D;
 import java.util.*;
 
 public class CommissionsHandler {
 
+    private static Logger logger = Logger.getLogger(CommissionsHandler.class);
     private static Map<AID, Point2D.Double> eunitsPosition = new HashMap<>();
     HashSet<CommissionHandler> commissions;
     int id;
@@ -27,8 +29,8 @@ public class CommissionsHandler {
         commissions.add(commissionHandler);
         id++;
 
-        System.out.println("com added: incomingTime = " + commissionHandler.getIncomeTime());
-        commissionHandler.getCommission().printCommision();
+        logger.info("com added: incomingTime = " + commissionHandler.getIncomeTime());
+        logger.info(commissionHandler.getCommission().toString());
     }
 
     public void removeCommissionHandler(CommissionHandler comHandler) {
@@ -91,7 +93,7 @@ public class CommissionsHandler {
 
                 if (commissionsPositions.contains(currentLocation) && hasEUnitMoved(aid, currentLocation, change)) {
                     /*if(aid.getName().contains("EUnitAgent#0"))
-	    				System.err.println(timestamp + " " + change + " " + currentLocation);*/
+                        System.err.println(timestamp + " " + change + " " + currentLocation);*/
                     result = true;
                 }
                 commissionsPositions = new LinkedList<>();
@@ -100,17 +102,7 @@ public class CommissionsHandler {
         return result;
     }
 
-    public CommissionHandler[] getCommissionHandlers() {
-
-        CommissionHandler[] coms;
-
-        coms = new CommissionHandler[commissions.size()];
-
-        return commissions.toArray(coms);
-    }
-
     public int getComsSize() {
-
         return commissions.size();
     }
 }

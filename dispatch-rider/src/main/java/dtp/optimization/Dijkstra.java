@@ -19,7 +19,6 @@ import java.util.Iterator;
 public class Dijkstra implements TrackFinder {
 
 
-
     private static Logger logger = Logger.getLogger(Dijkstra.class);
 
     private Graph graph;

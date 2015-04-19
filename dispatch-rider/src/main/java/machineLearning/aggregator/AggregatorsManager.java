@@ -2,14 +2,10 @@ package machineLearning.aggregator;
 
 import measure.Measure;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URL;
-import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class AggregatorsManager implements Serializable {
 

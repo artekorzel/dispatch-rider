@@ -10,12 +10,10 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommissionsTab {
+public class CommissionsLogic {
 
-    private SimLogic gui;
-
+    private SimLogic simLogic;
     private GUIAgent guiAgent;
-
     private List<CommissionHandler> listCommissions;
 
     private double depotX;
@@ -23,14 +21,14 @@ public class CommissionsTab {
     private double deadline = 1500;
     private double maxLoad = 200;
 
-    public CommissionsTab(SimLogic gui, GUIAgent guiAgent) {
-        this.gui = gui;
+    public CommissionsLogic(SimLogic simLogic, GUIAgent guiAgent) {
+        this.simLogic = simLogic;
         this.guiAgent = guiAgent;
         listCommissions = new ArrayList<>();
     }
 
     public void setConstraintsTestMode() {
-        setSimConstrains(depotX, depotY, deadline, maxLoad, true);
+        setSimConstrains(depotX, depotY, deadline, maxLoad);
     }
 
     public void addCommissionGroup(String filename, boolean dynamic) {
@@ -48,7 +46,7 @@ public class CommissionsTab {
             addCommissionHandler(new CommissionHandler(commissions[i], incomeTime[i]));
         }
 
-        gui.refreshComsWaiting();
+        simLogic.refreshComsWaiting();
 
         // set sim constraints read from .txt file
         Point2D.Double depot = TxtFileReader.getDepot(filename);
@@ -63,23 +61,13 @@ public class CommissionsTab {
         guiAgent.addCommissionHandler(commissionHandler);
     }
 
-    public void setSimConstrains(double depotX, double depotY, double deadline, double maxLoad, boolean testMode) {
-
-        SimInfo simConstrains;
-
-        simConstrains = new SimInfo(new Point2D.Double(depotX, depotY), deadline, maxLoad);
-        gui.setSimInfo(simConstrains);
+    public void setSimConstrains(double depotX, double depotY, double deadline, double maxLoad) {
+        SimInfo simConstrains = new SimInfo(new Point2D.Double(depotX, depotY), deadline, maxLoad);
+        simLogic.setSimInfo(simConstrains);
         this.depotX = depotX;
         this.depotY = depotY;
         this.deadline = deadline;
         this.maxLoad = maxLoad;
-
-        if (!testMode) {
-            setConstraints();
-        }
-    }
-
-    public void setConstraints() {
     }
 
     public int getCommissionsCount() {
@@ -90,13 +78,9 @@ public class CommissionsTab {
         int newCommissions = 0;
 
         for (CommissionHandler commission : listCommissions) {
-            if (commission.getIncomeTime() == gui.getTimestamp())
+            if (commission.getIncomeTime() == simLogic.getTimestamp())
                 newCommissions++;
         }
         return newCommissions;
-    }
-
-    public void refreshComsWaiting() {
-        gui.refreshComsWaiting();
     }
 }

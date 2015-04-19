@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 public class GetCommissionFromDistributorAgentBehaviour extends CyclicBehaviour {
 
 
-
     private static Logger logger = Logger.getLogger(GetCommissionFromDistributorAgentBehaviour.class);
 
     private final ExecutionUnitAgent executionUnitAgent;

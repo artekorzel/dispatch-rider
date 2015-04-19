@@ -24,14 +24,42 @@ public class RUtils {
 
     public static final String GLOBAL_TREE_NAME = "dtreeGlobal";
     public static final String HOLON_TREE_NAME = "dtreeHolon";
-
-    private static final String STATE = "State";
-
     public static final String[] REQUIRED_PACKAGES = {"fpc", "clue", "rpart"};
-
+    private static final String STATE = "State";
     private static final Logger logger = Logger.getLogger(RUtils.class);
 
     private static Rengine rengine = null;
+
+    public static void main(String[] args) throws ParseException {
+
+        // FOR TEST PURPOSES
+        Rengine.DEBUG = 2;
+        RUtils rUtils = new RUtils();
+        rengine = rUtils.start();
+
+        // init clustering
+        Clustering clustering = new Clustering();
+        clustering.init("clustable.xml");
+
+        String[] clusterNames = {"S0", "S1"};
+        String[] measureName = {"M1", "M2", "M3", "M4", "M5"};
+        double[] point = new double[]{4.483691224846486, 211.48925374026493,
+                59.33064516129032, 211.48925374026493, 59.33064516129032};
+
+        String result;
+        // test predict
+        if (clustering.isUseTrees()) {
+            result = rUtils.predictStateByTree(point, measureName, clusterNames, GLOBAL_TREE_NAME);
+        } else {
+            result = rUtils.predictStateByCentres(point, clusterNames, GLOBAL_CENTRES_NAME);
+        }
+        log(result);
+        System.exit(0);
+    }
+
+    private static void log(Object o) {
+        System.out.println(o.toString());
+    }
 
     public synchronized Rengine start() {
         if (rengine == null) {
@@ -430,37 +458,6 @@ public class RUtils {
 
         public void rSaveHistory(Rengine re, String filename) {
         }
-    }
-
-    public static void main(String[] args) throws ParseException {
-
-        // FOR TEST PURPOSES
-        Rengine.DEBUG = 2;
-        RUtils rUtils = new RUtils();
-        rengine = rUtils.start();
-
-        // init clustering
-        Clustering clustering = new Clustering();
-        clustering.init("clustable.xml");
-
-        String[] clusterNames = {"S0", "S1"};
-        String[] measureName = {"M1", "M2", "M3", "M4", "M5"};
-        double[] point = new double[]{4.483691224846486, 211.48925374026493,
-                59.33064516129032, 211.48925374026493, 59.33064516129032};
-
-        String result;
-        // test predict
-        if (clustering.isUseTrees()) {
-            result = rUtils.predictStateByTree(point, measureName, clusterNames, GLOBAL_TREE_NAME);
-        } else {
-            result = rUtils.predictStateByCentres(point, clusterNames, GLOBAL_CENTRES_NAME);
-        }
-        log(result);
-        System.exit(0);
-    }
-
-    private static void log(Object o) {
-        System.out.println(o.toString());
     }
 
 }

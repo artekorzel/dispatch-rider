@@ -9,7 +9,6 @@ import jade.lang.acl.MessageTemplate;
 public class GetConfigurationChangeBehaviour extends CyclicBehaviour {
 
 
-
     private final DistributorAgent distributorAgent;
 
     public GetConfigurationChangeBehaviour(DistributorAgent agent) {

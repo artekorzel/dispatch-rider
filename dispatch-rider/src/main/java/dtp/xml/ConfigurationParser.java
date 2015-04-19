@@ -443,7 +443,7 @@ public class ConfigurationParser {
         }
 
         MLAlgorithm alg = MLAlgorithmFactory.createAlgorithm(algName);
-        if(alg == null) {
+        if (alg == null) {
             throw new ParseException("MLAlgorithm " + algName + "not found");
         }
         alg.init(path);

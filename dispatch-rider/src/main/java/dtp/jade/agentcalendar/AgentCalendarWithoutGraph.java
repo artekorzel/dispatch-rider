@@ -1,6 +1,7 @@
 package dtp.jade.agentcalendar;
 
 import dtp.commission.Commission;
+import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -10,6 +11,8 @@ import java.util.List;
 // TODO nie jest do konca uwzgledniany aspekt "NOW" (timestamp)
 
 public class AgentCalendarWithoutGraph implements AgentCalendar {
+
+    private static Logger logger = Logger.getLogger(AgentCalendarWithoutGraph.class);
 
     private Hashtable commissions;
     private ActionQueueWithoutGraph schedule;
@@ -174,19 +177,6 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         return calculateWholeDistance();
     }
 
-    public void print() {
-
-        CalendarActionWithoutGraph tmpAction;
-
-        for (int i = schedule.size() - 1; i >= 0; i--) {
-
-            tmpAction = schedule.get(i);
-            System.out.println("index = " + i);
-            tmpAction.print();
-        }
-        System.out.println("distance = " + getDistance());
-    }
-
     @Override
     public String toString() {
 
@@ -204,7 +194,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
         }
 
         str.append("-----------------------------------------------\n");
-        str.append("distance = " + getDistance() + "\n");
+        str.append("distance = ").append(getDistance()).append("\n");
         str.append("-----------------------------------------------\n");
 
         return str.toString();
@@ -570,7 +560,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                     timeWindow2 = tmpCom.getDeliveryTime2();
                     break;
                 default:
-                    System.out.println("AgentCalendar.elbowLeft() -> sth wrong!");
+                    logger.warn("AgentCalendar.elbowLeft() -> sth wrong!");
                     break;
             }
 
@@ -587,7 +577,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                     return;
                 }
             } else {
-                System.out.println("AgentCalendar.elbowLeft -> sth wrong!");
+                logger.warn("AgentCalendar.elbowLeft -> sth wrong!");
             }
 
             double extraTime = tmpPDDAction.getStartTime()
@@ -694,7 +684,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                     timeWindow2 = tmpCom.getDeliveryTime2();
                     break;
                 default:
-                    System.out.println("AgentCalendar.elbowRight() -> sth wrong!");
+                    logger.warn("AgentCalendar.elbowRight() -> sth wrong!");
                     break;
             }
 
@@ -710,7 +700,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                     return;
                 }
             } else {
-                System.out.println("AgentCalendar.elbowRight -> sth wrong!");
+                logger.warn("AgentCalendar.elbowRight -> sth wrong!");
             }
 
             double extraTime = latestPossibleTime - tmpPDDAction.getStartTime();

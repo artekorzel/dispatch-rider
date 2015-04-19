@@ -3,7 +3,6 @@ package dtp.jade.transport;
 public class TransportElementInitialDataTruck extends TransportElementInitialData {
 
 
-
     private int power;
     private int reliability;
     private int comfort;

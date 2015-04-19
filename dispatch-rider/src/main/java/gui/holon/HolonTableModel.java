@@ -42,7 +42,6 @@ public class HolonTableModel extends AbstractTableModel implements Updateable {
 
     /**
      * Do aktualizowania danych w tabelach
-     *
      */
     public void update(SimulationData data) {
         updateable.update(data);
@@ -50,7 +49,6 @@ public class HolonTableModel extends AbstractTableModel implements Updateable {
 
     /**
      * Wskazuje ze update'y przychodza juz na nowy timestamp
-     *
      */
     public void newTimestampUpdate(int val) {
         updateable.newTimestampUpdate(val);

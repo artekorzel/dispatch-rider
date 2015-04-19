@@ -39,16 +39,16 @@ public class HolonConfiguration implements Serializable {
         return algorithm;
     }
 
+    public void setAlgorithm(Algorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
     public void setAlgorithm(String algorithmName) {
         try {
             this.algorithm = AlgorithmType.valueOf(algorithmName).typeClass().newInstance();
         } catch (Exception e) {
             e.printStackTrace();//FIXME
         }
-    }
-
-    public void setAlgorithm(Algorithm algorithm) {
-        this.algorithm = algorithm;
     }
 
     public Boolean isDist() {

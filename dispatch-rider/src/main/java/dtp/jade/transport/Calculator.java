@@ -19,7 +19,7 @@ public class Calculator {
     private static String calculateValue(String expr) {
 
         // Set up library
-        Class[] staticLib = new Class[] { Math.class };
+        Class[] staticLib = new Class[]{Math.class};
         Library lib = new Library(staticLib, null, null, null, null);
         try {
             lib.markStateDependent("random", null);

@@ -179,7 +179,7 @@ public class BruteForceAlgorithm2 implements Algorithm {
         List<Commission> commissions = new LinkedList<>();
 
 		/*
-		 * Lists containing ids, from current schedule, of pickups and deliveries
+         * Lists containing ids, from current schedule, of pickups and deliveries
 		 * So we can see if there are deliveries without pickups
 		 * And a map ID -> Commission so that its more efficient
 		 */

@@ -11,6 +11,22 @@ import java.util.TreeMap;
 public class ClusTableHolonMeasures extends ClusTableMeasures {
     private AggregatorsManager aggregatorManager = new AggregatorsManager();
 
+    public static void main(String[] args) {
+        ClusTableHolonMeasures mes = new ClusTableHolonMeasures();
+        mes.addMeasure("M1", "WaitTime");
+        Map<String, Measure> measures = new HashMap<>();
+
+        Measure m1 = new Measure();
+        m1.put("a1", 12.0);
+        m1.put("a2", 8.0);
+
+        measures.put("WaitTime", m1);
+
+        System.out.println(mes.getCurrentMeasuresVector(measures, new AID("a2",
+                true)));
+
+    }
+
     @Override
     public Map<String, Double> getCurrentMeasuresVector(
             Map<String, Measure> measures, AID aid) {
@@ -40,22 +56,6 @@ public class ClusTableHolonMeasures extends ClusTableMeasures {
         }
 
         return fun;
-    }
-
-    public static void main(String[] args) {
-        ClusTableHolonMeasures mes = new ClusTableHolonMeasures();
-        mes.addMeasure("M1", "WaitTime");
-        Map<String, Measure> measures = new HashMap<>();
-
-        Measure m1 = new Measure();
-        m1.put("a1", 12.0);
-        m1.put("a2", 8.0);
-
-        measures.put("WaitTime", m1);
-
-        System.out.println(mes.getCurrentMeasuresVector(measures, new AID("a2",
-                true)));
-
     }
 
 }

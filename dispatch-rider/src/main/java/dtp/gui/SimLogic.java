@@ -1,6 +1,5 @@
 package dtp.gui;
 
-import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.jade.ProblemType;
@@ -10,12 +9,15 @@ import dtp.jade.transport.TransportElementInitialDataTrailer;
 import dtp.jade.transport.TransportElementInitialDataTruck;
 import dtp.simulation.SimInfo;
 import dtp.visualisation.VisGUI;
+import org.apache.log4j.Logger;
 
 import java.util.Calendar;
 import java.util.List;
 
 
 public class SimLogic {
+
+    private static Logger logger = Logger.getLogger(SimLogic.class);
 
     protected GUIAgent guiAgent;
     protected Graph networkGraph;
@@ -26,40 +28,33 @@ public class SimLogic {
     protected List<TransportElementInitialDataTruck> trucksProperties;
     protected List<TransportElementInitialDataTrailer> trailersProperties;
 
-    protected CommissionsTab commissionsTab;
-    protected boolean isAutoSimulation = false;
-    protected boolean comsReady = true;
+    protected CommissionsLogic commissionsLogic;
+    protected volatile boolean isAutoSimulation = false;
+    protected volatile boolean comsReady = true;
     private GraphChangesConfiguration graphConfChanges;
-    private boolean sthChanged;
+    private volatile boolean sthChanged;
     private Object[] params;
-
-    {
-        try {
-            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public SimLogic(GUIAgent agent) {
         super();
         guiAgent = agent;
         timestamp = -1;
         problemType = ProblemType.WITHOUT_GRAPH;
-        commissionsTab = new CommissionsTab(this, guiAgent);
+        commissionsLogic = new CommissionsLogic(this, guiAgent);
     }
 
     public void setGraphConfChanges(GraphChangesConfiguration graphConfChanges) {
         this.graphConfChanges = graphConfChanges;
     }
 
-    public CommissionsTab getCommissionsTab() {
-        return commissionsTab;
+    public CommissionsLogic getCommissionsLogic() {
+        return commissionsLogic;
     }
 
     public void simStart() {
         guiAgent.simulationStart();
     }
+
     public int getTimestamp() {
         return timestamp;
     }
@@ -98,14 +93,16 @@ public class SimLogic {
                     comsReady = false;
                     sthChanged = false;
 
-                    int coms = commissionsTab.newCommissions();
+                    int coms = commissionsLogic.newCommissions();
 
-                    if (coms > 0 || (guiAgent.getCommissionHandler() != null && guiAgent.getCommissionHandler().isAnyEUnitAtNode(true))) {
+                    if (coms > 0
+                            || (guiAgent.getCommissionHandler() != null
+                            && guiAgent.getCommissionHandler().isAnyEUnitAtNode(true))) {
                         comsReady = false;
                         sthChanged = true;
                     }
                     nextSimStep();
-                    System.out.println("simauto (timestamp : " + timestamp + ") guiAgent queueSize = " + guiAgent.getCurQueueSize());
+                    logger.info("simauto (timestamp : " + timestamp + ") guiAgent queueSize = " + guiAgent.getCurQueueSize());
 
                     // int waitCount=0;
                     while (!comsReady) {
@@ -137,21 +134,15 @@ public class SimLogic {
     }
 
     public void nextSimStep2() {
-        timestamp = guiAgent.getNextTimestamp(timestamp);// timestamp++;
+        timestamp = guiAgent.getNextTimestamp(timestamp);
 
-        params = null;
-        if (graphConfChanges == null) {
-            guiAgent.sendTimestamp(timestamp);
-        } else {
+        if (graphConfChanges != null) {
             params = graphConfChanges.changeGraph(timestamp);
-            if (params == null) {
-                guiAgent.sendTimestamp(timestamp);
-                return;
+            if (params != null) {
+                timestamp = (Integer) params[1];
             }
-            timestamp = (Integer) params[1];
-            guiAgent.sendTimestamp(timestamp);
         }
-
+        guiAgent.sendTimestamp(timestamp);
     }
 
     public void nextSimStep3() {
@@ -161,7 +152,6 @@ public class SimLogic {
         } else {
             nextSimStep5();
         }
-
     }
 
     public void nextSimStep4() {

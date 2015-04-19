@@ -10,6 +10,7 @@ import gui.map.MapHolder;
 import gui.parameters.DRParams;
 import gui.parameters.ParametersTableModel;
 import gui.path.PathTableModel;
+import org.apache.log4j.Logger;
 import xml.elements.SimulationData;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +34,9 @@ import java.util.Vector;
  *         obslugujaca slider czasowy
  */
 public class WindowGUI implements ChangeListener, ActionListener {
+
+    private static Logger logger = Logger.getLogger(WindowGUI.class);
+
     JComboBox holonList;
     private JFrame frame;
     private JTabbedPane tabbedPane;
@@ -191,7 +196,6 @@ public class WindowGUI implements ChangeListener, ActionListener {
 
     /**
      * Aktualizacja gui o przychodzace dane
-     *
      */
     public void update(SimulationData data) {
         if (data == null) {
@@ -220,49 +224,45 @@ public class WindowGUI implements ChangeListener, ActionListener {
     /**
      * Metoda wywolywana z kazdym nowym timestamp symulacji,
      * informuje o nadejsciu nowego kroku czasowego
-     *
      */
-    public void newTimestamp(int val) {
-        HolonTableModel model = (HolonTableModel) holonTable.getModel();
-        model.newTimestampUpdate(val);
-        mapHolder.newTimestampUpdate(val);
+    public void newTimestamp(final int val) {
+        try {
+            SwingUtilities.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    HolonTableModel model = (HolonTableModel) holonTable.getModel();
+                    model.newTimestampUpdate(val);
+                    mapHolder.newTimestampUpdate(val);
 
-        timestamps.add(val);
-        timestampSlider.setValue(model.getDrawnTimestamp());
-        mapHolder.repaint();
-        holonTable.repaint();
+                    timestamps.add(val);
+                    timestampSlider.setValue(model.getDrawnTimestamp());
 
-        ((CommissionTableModel) commissionTable.getModel()).newTimestampUpdate(val);
-        commissionTable.repaint();
+                    ((CommissionTableModel) commissionTable.getModel()).newTimestampUpdate(val);
+                    ((HolonStatsTableModel) holonStatsTable.getModel()).newTimestampUpdate(val);
+                    ((PathTableModel) pathTable.getModel()).newTimestampUpdate(val);
 
-        ((HolonStatsTableModel) holonStatsTable.getModel()).newTimestampUpdate(val);
-        holonStatsTable.repaint();
+                    regenerateSlider();
+                    resetList();
 
-        ((PathTableModel) pathTable.getModel()).newTimestampUpdate(val);
-        pathTable.repaint();
-
-        regenerateSlider();
-        resetList();
-
-
-        for (JPanel panel : measurePanels) {
-            panel.repaint();
+                    tabbedPane.repaint();
+                }
+            });
+        } catch (InterruptedException | InvocationTargetException e) {
+            e.printStackTrace();
         }
     }
 
     /**
      * Metoda wywolywana w celu przekazaniu do GUI grafu do wyswietlenia
-     *
      */
     public void update(Graph graph) {
         if (graph == null) {
-            System.out.println("null w grafie");
+            logger.warn("null w grafie");
         }
     }
 
     /**
      * Metoda sluzaca do przekazania do gui informacji o parametrach algorytmu
-     *
      */
     public void update(DRParams params) {
         ParametersTableModel model = (ParametersTableModel) paramsTable.getModel();
@@ -271,7 +271,6 @@ public class WindowGUI implements ChangeListener, ActionListener {
 
     /**
      * Metoda wywolywana tylko raz, majaca na celu przekazanie do gui danych z poczatku symulacji
-     *
      */
     public void update(SimInfo info) {
         if (info == null) {

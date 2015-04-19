@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 public class GetGraphUpdateBehaviour extends CyclicBehaviour {
 
 
-
     private static Logger logger = Logger.getLogger(GetGraphBehaviour.class);
 
     private final ExecutionUnitAgent eunitAgent;

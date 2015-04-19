@@ -14,7 +14,6 @@ import jade.lang.acl.MessageTemplate;
 public class GetHolonFeedbackOfferBehaviour extends CyclicBehaviour {
 
 
-
     private final DistributorAgent distributorAgent;
 
     /**

@@ -48,6 +48,7 @@ import java.util.*;
 public class DistributorAgent extends BaseAgent {
 
     private static Logger logger = Logger.getLogger(DistributorAgent.class);
+    private static Map<AID, Schedule> holons;
     Map<TransportType, List<TransportAgentData>> agents;
     // kolejka zlecen do obsluzenia
     private LinkedList<Commission> commissionsQueue;
@@ -92,9 +93,7 @@ public class DistributorAgent extends BaseAgent {
     private int transportAgentsCount;
     private NewTeamData newTeamData;
     private boolean defaultEUnitCreation;
-
     private Commission complexSTCommission;
-    private static Map<AID, Schedule> holons;
     private int maxFullSTDepth = 8;
     private boolean fullSimulatedTrading = false;
     private Algorithm algorithm;
@@ -103,12 +102,8 @@ public class DistributorAgent extends BaseAgent {
     private Map<AID, Schedule> newSchedule;
     private boolean graphChanged = false;
 
-    public static Map<AID, Schedule> getEUnits(){
+    public static Map<AID, Schedule> getEUnits() {
         return holons;
-    }
-
-    public void putEUnitSchedule(AID sender, Schedule schedule){
-        holons.put(sender, schedule);
     }
 
     public static double calculateCost(
@@ -126,6 +121,10 @@ public class DistributorAgent extends BaseAgent {
                 driver.getCostFunction(), distance, driver, truckData,
                 trailerData, commission, null);
         return truckValue + trailerValue + driverValue;
+    }
+
+    public void putEUnitSchedule(AID sender, Schedule schedule) {
+        holons.put(sender, schedule);
     }
 
     @Override
@@ -304,7 +303,6 @@ public class DistributorAgent extends BaseAgent {
 
     /**
      * Wolana po przeslaniu zlecen przez dystrybutora
-     *
      */
     public synchronized void setCommissions(Commission[] com,
                                             CommissionsHolder holder) {
@@ -462,7 +460,7 @@ public class DistributorAgent extends BaseAgent {
             }
         } else {
             eUnitsCount--;
-            if (offer.getValue() > 0){
+            if (offer.getValue() > 0) {
                 eUnitOffers.add(offer);
             }
             if (eUnitsCount == 0) {
@@ -1203,7 +1201,6 @@ public class DistributorAgent extends BaseAgent {
             }
         }
     }
-
 
 
     public synchronized void scheduleChanged() {

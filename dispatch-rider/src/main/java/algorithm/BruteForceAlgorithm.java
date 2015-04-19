@@ -2,6 +2,7 @@ package algorithm;
 
 import dtp.commission.Commission;
 import dtp.simulation.SimInfo;
+import org.apache.log4j.Logger;
 
 import java.awt.geom.Point2D;
 
@@ -11,6 +12,9 @@ import java.awt.geom.Point2D;
  * schedule, then the best combination is chosen.
  */
 public class BruteForceAlgorithm implements Algorithm {
+
+    private static Logger logger = Logger.getLogger(BruteForceAlgorithm.class);
+
     private double maxLoad;
     private Point2D.Double depot;
     // private int deadline;
@@ -104,7 +108,7 @@ public class BruteForceAlgorithm implements Algorithm {
         int begin = currentSchedule.getNextLocationId(depot, timestamp);
 
         if (begin != 0 && timestamp == 0) {
-            System.out.println("[BruteForceAlgorithm] begin " + begin);
+            logger.info("[BruteForceAlgorithm] begin " + begin);
             System.exit(0);
         }
 

@@ -287,17 +287,6 @@ public class Commission implements Serializable, Comparable<Commission> {
         this.load = load;
     }
 
-    public void printCommision() {
-
-        System.out.println("ID = " + id + "\tLoad = " + load);
-        System.out.println("Pickup:   location = [" + pickupX + "," + pickupY
-                + "] " + "\ttime = [" + pickupTime1 + "," + pickupTime2
-                + "], service time = " + pickUpServiceTime);
-        System.out.println("Delivery: location = [" + deliveryX + ","
-                + deliveryY + "] " + "\ttime = [" + deliveryTime1 + ","
-                + deliveryTime2 + "], service time = " + deliveryServiceTime);
-    }
-
     @Override
     public String toString() {
 

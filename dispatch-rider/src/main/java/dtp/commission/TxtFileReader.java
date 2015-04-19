@@ -1,15 +1,19 @@
 package dtp.commission;
 
-import java.awt.*;
+import org.apache.log4j.Logger;
+
 import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * @author KONY
  */
 public class TxtFileReader {
+
+    private static Logger logger = Logger.getLogger(TxtFileReader.class);
 
     /**
      * Zwraca tablice zlecen przeczytanych z pliku zgodnego z konwencja
@@ -40,7 +44,7 @@ public class TxtFileReader {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("TxtFileReader.read() -> no such file: "
+            logger.info("TxtFileReader.read() -> no such file: "
                     + fileName);
             return -1;
         }
@@ -50,7 +54,7 @@ public class TxtFileReader {
 
         } catch (IOException e) {
 
-            System.out.println("TxtFileReader.read() -> IOException occured");
+            logger.info("TxtFileReader.read() -> IOException occured");
         }
 
         lineParts = line.split("\t");
@@ -75,7 +79,7 @@ public class TxtFileReader {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("TxtFileReader.read() -> no such file: "
+            logger.info("TxtFileReader.read() -> no such file: "
                     + fileName);
             return null;
         }
@@ -86,7 +90,7 @@ public class TxtFileReader {
 
         } catch (IOException e) {
 
-            System.out.println("TxtFileReader.read() -> IOException occured");
+            logger.info("TxtFileReader.read() -> IOException occured");
         }
 
         lineParts = line.split("\t");
@@ -113,7 +117,7 @@ public class TxtFileReader {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("TxtFileReader.read() -> no such file: "
+            logger.info("TxtFileReader.read() -> no such file: "
                     + fileName);
             return -1;
         }
@@ -124,46 +128,12 @@ public class TxtFileReader {
 
         } catch (IOException e) {
 
-            System.out.println("TxtFileReader.read() -> IOException occured");
+            logger.info("TxtFileReader.read() -> IOException occured");
         }
 
         lineParts = line.split("\t");
 
         return new Integer(lineParts[5]);
-    }
-
-    /**
-     * @param filename nazwa pliku z definicja problemu
-     * @return odleglosc najdalszego punktu zaladunku od bazy
-     */
-    public static double getFarthestPickupLocation(String filename) {
-
-        Commission[] commissions;
-        Point2D.Double depot;
-
-        double tempDistance;
-        double farthestPickupLocVal = Double.MIN_VALUE;
-
-        commissions = getCommissions(filename);
-        depot = getDepot(filename);
-
-        for (Commission commission : commissions) {
-            tempDistance = Point.distance(depot.getX(), depot.getY(),
-                    commission.getPickupX(), commission.getPickupY());
-
-            if (tempDistance > farthestPickupLocVal) {
-
-                farthestPickupLocVal = tempDistance;
-            }
-        }
-
-        if (farthestPickupLocVal != Double.MAX_VALUE)
-            return farthestPickupLocVal;
-        else {
-            System.out.println("TxtFileReader.getFarthestPickupLocation -> "
-                    + "no farthest pickup location :(");
-            return -1;
-        }
     }
 
     /**
@@ -186,7 +156,7 @@ public class TxtFileReader {
         int counter = 0;
 
         try {
-            System.out.println(new File(fileName).getAbsolutePath());
+            logger.info(new File(fileName).getAbsolutePath());
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
             e.printStackTrace();//FIXME
@@ -205,7 +175,7 @@ public class TxtFileReader {
         try {
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-            System.out.println("TxtFileReader.read() -> no such file: "
+            logger.info("TxtFileReader.read() -> no such file: "
                     + fileName);
             return null;
         }
@@ -223,7 +193,7 @@ public class TxtFileReader {
                 // ladownosci
                 if (counter > 1) {
                     if (lineParts.length < 9 || lineParts.length > 10) {
-                        System.out.println("TxtFileReader -> wrong file format");
+                        logger.info("TxtFileReader -> wrong file format");
                     } else {
                         comParts[counter - 1] = new CommissionPart(
                                 Integer.parseInt(lineParts[0]),
@@ -351,7 +321,7 @@ public class TxtFileReader {
         try {
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e1) {
-            System.out.println("TxtFileReader.read() -> no such file: "
+            logger.info("TxtFileReader.read() -> no such file: "
                     + fileName);
             return null;
         }
@@ -366,7 +336,7 @@ public class TxtFileReader {
             return null;
 
         } catch (IOException e) {
-            System.out.println("TxtFileReader.read() -> IOException occured");
+            logger.info("TxtFileReader.read() -> IOException occured");
             return null;
         }
 

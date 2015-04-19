@@ -194,7 +194,7 @@ public class GraphTrack implements Serializable {
     /**
      * Adds a new point to current track at concrete position
      *
-     * @param point    new point to be added
+     * @param point new point to be added
      */
     public void addPointAtPosition(int position, GraphPoint point) {
 
@@ -218,7 +218,7 @@ public class GraphTrack implements Serializable {
 
         if (timestamp < startTime || timestamp > endTime) {
 
-            System.out.println("GraphTrack.getCurrentLocation() -> "
+            logger.warn("GraphTrack.getCurrentLocation() -> "
                     + "timestamp < startTime || timestamp > endTime");
             return null;
         }
@@ -256,49 +256,6 @@ public class GraphTrack implements Serializable {
             tmpCost1 = tmpCost2;
             iter++;
         }
-    }
-
-    public void print() {
-
-        boolean isFirst = true;
-
-        if (getFirst() == null)
-            System.out.println("Track beginning is null!");
-        if (getLast() == null)
-            System.out.println("Track end is null!");
-        if (!isPossible())
-            System.out.println("There is no connection from "
-                    + getFirst().getName() + " to " + getLast().getName());
-        else
-            try {
-
-                // drukuj jednoelementowa trase
-                if (points.size() == 1) {
-
-                    System.out.print(getFirst().toString());
-                    System.out.print(" <=> ");
-                    System.out.print(getFirst().toString());
-                    System.out.println();
-
-                    return;
-                }
-
-                for (GraphPoint point : this.points) {
-
-                    if (isFirst) {
-                        isFirst = false;
-                    } else {
-                        System.out.print(" -> ");
-                    }
-
-                    System.out.print(point.toString());
-                }
-
-                System.out.println();
-
-            } catch (Exception ex) {
-                logger.error(ex);
-            }
     }
 
     @Override

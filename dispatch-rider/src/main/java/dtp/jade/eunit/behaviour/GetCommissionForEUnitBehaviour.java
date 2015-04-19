@@ -15,7 +15,6 @@ import java.io.IOException;
 public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
 
 
-
     private static Logger logger = Logger.getLogger(GetCommissionForEUnitBehaviour.class);
 
     private final ExecutionUnitAgent executionUnitAgent;

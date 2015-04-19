@@ -771,7 +771,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             System.err.println("Mamy nulla " + getAID().getLocalName() + " " + timestamp);
             updateCurrentLocation(timestamp);
             /*schedule.setCurrentLocation(depot);
-        	schedule.setCurrentCommission(schedule.getCommission(0), null);*/
+            schedule.setCurrentCommission(schedule.getCommission(0), null);*/
         }
 
         data.setLocation(schedule.getCurrentLocation());

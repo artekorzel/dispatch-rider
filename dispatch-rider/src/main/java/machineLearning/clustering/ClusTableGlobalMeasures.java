@@ -12,6 +12,21 @@ public class ClusTableGlobalMeasures extends ClusTableMeasures {
 
     private AggregatorsManager aggregatorManager = new AggregatorsManager();
 
+    public static void main(String[] args) {
+        ClusTableGlobalMeasures mes = new ClusTableGlobalMeasures();
+        mes.addMeasure("M1", "avg(WaitTime)");
+        Map<String, Measure> measures = new HashMap<String, Measure>();
+
+        Measure m1 = new Measure();
+        m1.put("a1", 12.0);
+        m1.put("a2", 8.0);
+
+        measures.put("WaitTime", m1);
+
+        System.out.println(mes.getCurrentMeasuresVector(measures));
+
+
+    }
 
     @Override
     public Map<String, Double> getCurrentMeasuresVector(
@@ -27,22 +42,6 @@ public class ClusTableGlobalMeasures extends ClusTableMeasures {
         aggregatorManager.aggregationFinished();
 
         return result;
-    }
-
-    public static void main(String[] args) {
-        ClusTableGlobalMeasures mes = new ClusTableGlobalMeasures();
-        mes.addMeasure("M1", "avg(WaitTime)");
-        Map<String, Measure> measures = new HashMap<String, Measure>();
-
-        Measure m1 = new Measure();
-        m1.put("a1", 12.0);
-        m1.put("a2", 8.0);
-
-        measures.put("WaitTime", m1);
-
-        System.out.println(mes.getCurrentMeasuresVector(measures));
-
-
     }
 
 }

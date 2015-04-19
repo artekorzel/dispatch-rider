@@ -6,6 +6,4 @@ public interface CalendarAction {
     int getCommissionID();
 
     int getSourceCommissionID();
-
-    void print();
 }

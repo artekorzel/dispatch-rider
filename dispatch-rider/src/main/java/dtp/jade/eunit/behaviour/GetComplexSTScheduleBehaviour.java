@@ -9,7 +9,6 @@ import jade.lang.acl.MessageTemplate;
 public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
 
 
-
     private ExecutionUnitAgent agent;
 
     public GetComplexSTScheduleBehaviour(ExecutionUnitAgent agent) {

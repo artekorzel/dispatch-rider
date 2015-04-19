@@ -20,7 +20,6 @@ import java.io.IOException;
 public class EUnitCreationBehaviour extends CyclicBehaviour {
 
 
-
     private static Logger logger = Logger.getLogger(EUnitCreationBehaviour.class);
 
     private InfoAgent infoAgent;
