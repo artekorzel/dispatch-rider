@@ -95,7 +95,6 @@ public class ExecutionUnitAgent extends BaseAgent {
         this.addBehaviour(new GetCalendarRequestBehaviour(this));
         this.addBehaviour(new GetCalendarStatsRequestBehaviour(this));
         this.addBehaviour(new GetWorstCommissionRequestBehaviour(this));
-        this.addBehaviour(new GetInfoRequestBehaviour(this));
         this.addBehaviour(new GetResetRequestBehaviour(this));
         this.addBehaviour(new GetCrisisEventBehaviour(this));
         this.addBehaviour(new GetTransportOfferBehaviour(this));
