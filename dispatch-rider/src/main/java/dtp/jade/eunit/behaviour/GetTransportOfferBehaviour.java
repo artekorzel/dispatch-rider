@@ -41,7 +41,6 @@ public class GetTransportOfferBehaviour extends CyclicBehaviour {
                     logger.fatal("AUCTION IS NULL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 }
 
-                // logger.info("got offer " + offer.getRatio());
                 if (end) {
 
                     doTheMonkeyBussines();

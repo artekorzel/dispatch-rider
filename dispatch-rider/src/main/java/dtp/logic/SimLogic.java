@@ -3,12 +3,10 @@ package dtp.logic;
 import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.jade.ProblemType;
-import dtp.jade.eunit.EUnitInfo;
 import dtp.jade.gui.GUIAgent;
 import dtp.jade.transport.TransportElementInitialDataTrailer;
 import dtp.jade.transport.TransportElementInitialDataTruck;
 import dtp.simulation.SimInfo;
-import dtp.visualisation.VisGUI;
 import org.apache.log4j.Logger;
 
 import java.util.Calendar;
@@ -20,8 +18,6 @@ public class SimLogic {
     private static Logger logger = Logger.getLogger(SimLogic.class);
 
     protected GUIAgent guiAgent;
-    protected Graph networkGraph;
-    protected VisGUI visGui;
     protected int timestamp;
     protected SimInfo simInfo;
     protected int problemType;
@@ -161,20 +157,6 @@ public class SimLogic {
     public void nextSimStep5() {
         guiAgent.sendCommissions(timestamp);
         refreshComsWaiting();
-    }
-
-    public void updateEUnitsInfo(EUnitInfo eUnitInfo) {
-        if (this.visGui == null) {
-            return;
-        }
-        this.visGui.updateEUnitsInfo(eUnitInfo);
-    }
-
-    public void updateGraph(Graph graph) {
-        networkGraph = graph;
-        if (visGui != null) {
-            visGui.updateGraph(graph);
-        }
     }
 
     public void setTrucksProperties(List<TransportElementInitialDataTruck> trucksProperties) {

@@ -19,7 +19,6 @@ import dtp.jade.agentcalendar.CalendarAction;
 import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.crisismanager.crisisevents.CrisisEvent;
 import dtp.jade.distributor.NewTeamData;
-import dtp.jade.eunit.EUnitInfo;
 import dtp.jade.gui.behaviour.*;
 import dtp.jade.transport.TransportElementInitialData;
 import dtp.jade.transport.TransportElementInitialDataTrailer;
@@ -147,7 +146,6 @@ public class GUIAgent extends Agent {
         this.addBehaviour(new GetMessageBehaviour(this));
         this.addBehaviour(new GetCalendarBehaviour(this));
         this.addBehaviour(new GetCalendarStatsBehaviour(this));
-        this.addBehaviour(new GetEUnitInfoBehaviour(this));
         this.addBehaviour(new GetGraphUpdateBehaviour(this));
         this.addBehaviour(new GetCalenderStatsToFileBehaviour(this));
         this.addBehaviour(new GetTransportAgentCreatedBehaviour(this));
@@ -554,7 +552,6 @@ public class GUIAgent extends Agent {
     }
 
     public void updateGraph(Graph graph) {
-        simLogic.updateGraph(graph);
         sendUpdatedGraphToEunits(graph);
     }
 
@@ -934,7 +931,7 @@ public class GUIAgent extends Agent {
                     wr.newLine();
                     wr.append("SUMMARY");
                     wr.newLine();
-                    wr.write("Total cost\tTotal distance\tTotal WAIT time\tTotal drive time\tTotal punishment\tSim Time\tCommisions Count\tDelivered");
+                    wr.write("Total cost\tTotal distance\tTotal WAIT time\tTotal drive time\tTotal punishment\tSim Time\tCommissions Count\tDelivered");
                     wr.newLine();
                     wr.flush();
                     wr.write(Double.toString(calendarStatsHolderForFile
@@ -1102,10 +1099,6 @@ public class GUIAgent extends Agent {
             logger.error(e);
         }
         simEnd();
-    }
-
-    public void updateEUnitInfo(EUnitInfo eUnitInfo) {
-        simLogic.updateEUnitsInfo(eUnitInfo);
     }
 
     public void sendCrisisEvent(CrisisEvent event) {
