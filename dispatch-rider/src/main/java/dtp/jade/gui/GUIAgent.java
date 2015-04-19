@@ -39,6 +39,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import machineLearning.MLAlgorithm;
 import measure.MeasureCalculatorsHolder;
 import measure.printer.MeasureData;
@@ -54,11 +55,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 public class GUIAgent extends Agent {
-
-    public static Semaphore updateCurrentLocationSemaphore;//FIXME
 
     protected static Logger logger = Logger.getLogger(GUIAgent.class);
     // trzyma obiekty CommissionHandler (zlecenie wraz z czasem naplyniecia
@@ -158,7 +156,6 @@ public class GUIAgent extends Agent {
         this.addBehaviour(new GetGraphChangedBehaviour(this));
         this.addBehaviour(new GetAskForGraphChangesBehaviour(this));
         this.addBehaviour(new GetGraphLinkChangedBehaviour(this));
-        this.addBehaviour(new GetConfirmUpdateCurrentLocation(this));
 
         System.out.println("TestAgent - end of initialization");
 
@@ -678,8 +675,6 @@ public class GUIAgent extends Agent {
     private void sendUpdateCurrentLocationRequest(AID[] aids, int timestamp) {
         ACLMessage cfp;
 
-        updateCurrentLocationSemaphore = new Semaphore(0);
-
         for (AID aid : aids) {
             cfp = new ACLMessage(CommunicationHelper.UPDATE_CURRENT_LOCATION);
             cfp.addReceiver(aid);
@@ -688,10 +683,8 @@ public class GUIAgent extends Agent {
         }
 
         //czekamy az kazdy z eunitow potwierdzi otrzymanie komunikatu
-        try {
-            updateCurrentLocationSemaphore.acquire(aids.length);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (AID aid : aids) {
+            blockingReceive(MessageTemplate.MatchPerformative(CommunicationHelper.UPDATE_CURRENT_LOCATION));
         }
 
     }

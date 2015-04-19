@@ -12,13 +12,13 @@ import org.apache.log4j.Logger;
 
 import java.util.Map;
 
-public class GetTransportOfferBahaviour extends CyclicBehaviour {
+public class GetTransportOfferBehaviour extends CyclicBehaviour {
 
-    private static Logger logger = Logger.getLogger(GetTransportOfferBahaviour.class);
+    private static Logger logger = Logger.getLogger(GetTransportOfferBehaviour.class);
 
     private ExecutionUnitAgent agent;
 
-    public GetTransportOfferBahaviour(ExecutionUnitAgent agent) {
+    public GetTransportOfferBehaviour(ExecutionUnitAgent agent) {
         this.agent = agent;
     }
 
@@ -27,7 +27,7 @@ public class GetTransportOfferBahaviour extends CyclicBehaviour {
         MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_OFFER);
         ACLMessage msg = agent.receive(template);
 
-        TransportOffer offer = null;
+        TransportOffer offer;
 
         if (msg != null) {
 

@@ -28,6 +28,7 @@ import xml.elements.SimulationData;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,11 +44,9 @@ public class ExecutionUnitAgent extends BaseAgent {
     private int problemType;
 
     private SimInfo simInfo;
-
     private Graph graph;
 
     private Schedule schedule;
-    private Schedule scheduleBackup = null;
     private Algorithm algorithm;
     private Point2D.Double depot;
     private boolean dist = true;
@@ -71,28 +70,19 @@ public class ExecutionUnitAgent extends BaseAgent {
     private TransportElementInitialDataTruck truckData;
     private TransportElementInitialDataTrailer trailerData;
 
-    private TransportOffer[] backupTeam = null;
-
     private HolonCreationAuction auction;
     private HolonReorganizeAuction reauction;
-    // przetrzymywane na czas aukcji Sim Trading
-    // jezeli EUnit wygral zlecenie, ktore oddal, wraca do poprzedniego
-    // kalendarza
-    private Commission worstCommissionST;
 
     private EUnitInitialData initialData;
 
-    private boolean simulatedTrading;
-
-    private boolean isSimmulatedTradingEnabled = true;
+    private boolean isSimulatedTradingEnabled = true;
     private int maxSTDepth;
     private long reorganizationTime;
-    private long organizationTime;
 
     @Override
     protected void setup() {
 
-        logg("Hello World!");
+        logger.info("Hello World!");
 
         /* -------- SERVICES SECTION ------- */
         registerServices();
@@ -108,12 +98,12 @@ public class ExecutionUnitAgent extends BaseAgent {
         this.addBehaviour(new GetInfoRequestBehaviour(this));
         this.addBehaviour(new GetResetRequestBehaviour(this));
         this.addBehaviour(new GetCrisisEventBehaviour(this));
-        this.addBehaviour(new GetTransportOfferBahaviour(this));
+        this.addBehaviour(new GetTransportOfferBehaviour(this));
         this.addBehaviour(new GetTransportReorganizeOfferBahaviour(this));
         this.addBehaviour(new GetInitialDataBehaviour(this));
         this.addBehaviour(new GetCalendarRequestToFileWriteBehaviour(this));
         this.addBehaviour(new EndOfSimulationBehaviour(this));
-        addBehaviour(new GetCommissionForEUnitBehaviour(this));
+        this.addBehaviour(new GetCommissionForEUnitBehaviour(this));
         this.addBehaviour(new GetSTBeginBehaviour(this));
 
         this.addBehaviour(new GetComplexSTScheduleBehaviour(this));
@@ -127,9 +117,6 @@ public class ExecutionUnitAgent extends BaseAgent {
         this.addBehaviour(new GetAskForGraphChangesBehavoiur(this));
         this.addBehaviour(new GetGraphLinkChangedBehaviour(this));
 
-        /**
-         * @author Szyna
-         */
         this.addBehaviour(new GetUpdateCurrentLocationBehaviour(this));
         this.addBehaviour(new GetBackToDepotBehaviour(this));
 
@@ -141,13 +128,6 @@ public class ExecutionUnitAgent extends BaseAgent {
         maxSTDepth = 0;
         /* -------- AID SECTION ------- */
         sendAidToInfoAgent();
-    }
-
-    public synchronized boolean isTransportTeamPresent() {
-        if (driver != null) {
-            return true;
-        }
-        return false;
     }
 
     public EUnitInitialData getInitialData() {
@@ -163,7 +143,6 @@ public class ExecutionUnitAgent extends BaseAgent {
                 "CommissionService");
         ACLMessage cfp = new ACLMessage(
                 CommunicationHelper.EXECUTION_UNIT_CREATION);
-        ;
 
         cfp.addReceiver(aids[0]);
         try {
@@ -190,7 +169,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         sd.setName("ExecutionUnitService");
         dfd.addServices(sd);
 
-        logg("ExecutionUnitService registration");
+        logger.info("ExecutionUnitService registration");
 
         /* -------- REGISTRATION ------- */
         try {
@@ -224,27 +203,23 @@ public class ExecutionUnitAgent extends BaseAgent {
             send(cfp);
 
         } else {
-
             logger.error("None or more than one Distributor Agent in the system");
         }
     }
 
     public void initCalendar() {
-
         schedule = simInfo.createSchedule(algorithm);
         schedule.setCreationTime(creationTime);
         this.depot = simInfo.getDepot();
 
-        logg("AgentCalendar initiated [WITHOUT GRAPH]");
+        logger.info("AgentCalendar initiated [" + problemType + "]");
     }
 
     public Graph getGraph() {
-
         return this.graph;
     }
 
     public synchronized void setGraph(Graph graph) {
-
         this.graph = graph;
 
         if (graph != null)
@@ -262,17 +237,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     public synchronized void setCurrentTimestamp(int timestamp) {
-
         this.timestamp = timestamp;
-
-        /*for (int i = previousTimestamp + 1; i <= timestamp; i++)
-            updateCurrentLocation(i);*/
-        int previousTimestamp = timestamp;
-    }
-
-    public int getProblemType() {
-
-        return problemType;
     }
 
     public SimInfo getSimInfo() {
@@ -294,76 +259,28 @@ public class ExecutionUnitAgent extends BaseAgent {
         sendInfo();
     }
 
-    public Commission getWorstCommissionST() {
-
-        if (simulatedTrading == false)
-            return null;
-
-        return worstCommissionST;
-    }
-
-    public synchronized void setWorstCommissionSTNull() {
-
-        worstCommissionST = null;
-    }
-
-    public void STterminated(boolean ok) {
-        if (ok == false) {
-            schedule = scheduleBackup;
-        }
-
-        scheduleBackup = null;
-    }
-
-    /**
-     * @return the driver
-     */
     public synchronized TransportOffer getDriver() {
         return driver;
     }
 
-    /**
-     * @param driver the driver to set
-     */
     public synchronized void setDriver(TransportOffer driver) {
         this.driver = driver;
     }
 
-    /**
-     * @return the truck
-     */
     public synchronized TransportOffer getTruck() {
         return truck;
     }
 
-    /**
-     * @param truck the truck to set
-     */
     public synchronized void setTruck(TransportOffer truck) {
         this.truck = truck;
     }
 
-    /**
-     * @return the trailer
-     */
     public synchronized TransportOffer getTrailer() {
         return trailer;
     }
 
-    /**
-     * @param trailer the trailer to set
-     */
     public synchronized void setTrailer(TransportOffer trailer) {
         this.trailer = trailer;
-    }
-
-    // TODO algorithm
-    public synchronized void setBackupedCalendar() {
-
-        schedule = Schedule.copy(scheduleBackup);
-
-        worstCommissionST = null;
-        simulatedTrading = false;
     }
 
     public void sendOfferToDistributor(EUnitOffer offer) {
@@ -376,23 +293,19 @@ public class ExecutionUnitAgent extends BaseAgent {
             ACLMessage cfp = new ACLMessage(
                     CommunicationHelper.COMMISSION_OFFER);
 
-            for (int i = 0; i < aids.length; i++)
-                cfp.addReceiver(aids[i]);
+            for (AID aid : aids) {
+                cfp.addReceiver(aid);
+            }
 
             try {
-
                 cfp.setContentObject(offer);
-
             } catch (IOException e) {
                 logger.error(getLocalName() + " - IOException "
                         + e.getMessage());
             }
-
             send(cfp);
-
         } else {
-
-            logg("none or more than one EUnit agent in the system");
+            logger.warn("none or more than one EUnit agent in the system");
         }
     }
 
@@ -401,9 +314,6 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     public synchronized boolean addCommissionToCalendar(Commission commission) {
-
-        simulatedTrading = true;
-
         schedule.setCreationTime(creationTime);
         Schedule tmpSchedule = algorithm.makeSchedule(commission, null,
                 schedule, timestamp);
@@ -412,11 +322,6 @@ public class ExecutionUnitAgent extends BaseAgent {
             schedule = tmpSchedule;
             commissionsCount++;
             if (currentCommission != null && currentCommission.getID() == -1) {
-                /*if (getAID().getLocalName().contains("EUnitAgent#0")) {
-                    System.out
-                            .println("ZONK?????????????????????????????????????");
-                    System.exit(0);
-                }*/
                 schedule.setCurrentCommission(commission, simInfo.getDepot());
             }
             return true;
@@ -428,22 +333,20 @@ public class ExecutionUnitAgent extends BaseAgent {
         }
     }
 
-    // TODO implement. Now not used (method used only in GUI)
     public synchronized void sendCalendar() {
-
         String calendarToSend = "";
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
 
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.EUNIT_MY_CALENDAR);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(calendarToSend);
                 } catch (IOException e) {
@@ -460,9 +363,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     public synchronized void sendCalendarStats(AID sender) {
 
-        CalendarStats calendarStatsToSend = null;
-
-        calendarStatsToSend = new CalendarStats(getAID());
+        CalendarStats calendarStatsToSend = new CalendarStats(getAID());
         calendarStatsToSend.setDistance(schedule.getDistance(depot));
         calendarStatsToSend.setWaitTime(schedule.calculateWaitTime(depot));
         calendarStatsToSend.setCost(getSummaryCost());
@@ -489,9 +390,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         } else
             calendarStatsToSend.setTruckAID(new AID("no truck", false));
 
-        ACLMessage cfp = null;
-
-        cfp = new ACLMessage(CommunicationHelper.EUNIT_MY_STATS);
+        ACLMessage cfp = new ACLMessage(CommunicationHelper.EUNIT_MY_STATS);
         cfp.addReceiver(sender);
         try {
             cfp.setContentObject(calendarStatsToSend);
@@ -504,7 +403,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     public synchronized void sendCalendarStatsToFile() {
 
-        CalendarStats calendarStatsToSend = null;
+        CalendarStats calendarStatsToSend;
 
         calendarStatsToSend = new CalendarStats(getAID());
         calendarStatsToSend.setDistance(schedule.getDistance(depot));
@@ -515,7 +414,7 @@ public class ExecutionUnitAgent extends BaseAgent {
                 simInfo, true));
         calendarStatsToSend.setSchedule(schedule);
         calendarStatsToSend.setReorganizationTime(reorganizationTime);
-        calendarStatsToSend.setOrganizationTime(organizationTime);
+        calendarStatsToSend.setOrganizationTime(0);
         calendarStatsToSend.setMaxSTDepth(maxSTDepth);
 
         if (driver != null)
@@ -542,17 +441,17 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         calendarStatsToSend.setDefault(isDefault);
 
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
 
-            for (int i = 0; i < aids.length; i++) {
+            for (AID aid : aids) {
 
                 cfp = new ACLMessage(CommunicationHelper.EUNIT_MY_FILE_STATS);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
                 try {
                     cfp.setContentObject(calendarStatsToSend);
                 } catch (IOException e) {
@@ -566,10 +465,6 @@ public class ExecutionUnitAgent extends BaseAgent {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
         }
-    }
-
-    public synchronized void makeCalendarSTBackup() {
-        scheduleBackup = Schedule.copy(schedule);
     }
 
     public synchronized void sendWorstCommissionCost(
@@ -592,8 +487,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             msg.setContentObject(stat);
             send(msg);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace(); //FIXME
         }
     }
 
@@ -605,26 +499,22 @@ public class ExecutionUnitAgent extends BaseAgent {
             msg.setContentObject("");
             send(msg);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace();         //FIXME
         }
     }
 
     // Info wysylane jest zawsze po otrzymaniu timestamp
     // jak rowniez po zakonczeniu aukcji
     public synchronized void sendInfo() {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
+        AID[] aids;
+        ACLMessage cfp;
 
         aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
-
+            for (AID aid : aids) {
                 cfp = new ACLMessage(CommunicationHelper.EUNIT_INFO);
-                cfp.addReceiver(aids[i]);
+                cfp.addReceiver(aid);
 
                 try {
                     cfp.setContentObject(getInfo());
@@ -642,35 +532,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     // TODO implement. Not used
     private EUnitInfo getInfo() {
-
         return null;
-    }
-
-    public void sendGraphUpdate(Graph graph) {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
-
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(CommunicationHelper.GRAPH_UPDATE);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject(graph);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
     }
 
     public synchronized void resetAgent() {
@@ -679,65 +541,22 @@ public class ExecutionUnitAgent extends BaseAgent {
         simInfo = null;
         graph = null;
         schedule = null;
-        scheduleBackup = null;
         algorithm = null;
         timestamp = -1;
-        worstCommissionST = null;
         trailer = null;
         truck = null;
         driver = null;
-        isSimmulatedTradingEnabled = true;
-    }
-
-    public void logg(String message) {
-
-        logger.info(getLocalName() + " - " + message);
+        isSimulatedTradingEnabled = true;
     }
 
     public synchronized HolonCreationAuction getAuction() {
         return auction;
     }
 
-    public synchronized void setAuction(HolonCreationAuction auction) {
-        this.auction = auction;
-    }
-
-    public synchronized void sendGUIMessage(String messageText) {
-
-        AID[] aids = null;
-        ACLMessage cfp = null;
-
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-
-            for (int i = 0; i < aids.length; i++) {
-
-                cfp = new ACLMessage(CommunicationHelper.GUI_MESSAGE);
-                cfp.addReceiver(aids[i]);
-                try {
-                    cfp.setContentObject(getDriver().getDepot() + " "
-                            + getLocalName() + " - " + messageText);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
-    }
-
-    // MODIFICATION BY LP
-
     private double calculatePunishment(Schedule tmpSchedule) {
         return tmpSchedule.calculateSummaryPunishment(simInfo)
                 - schedule.calculateSummaryPunishment(simInfo);
     }
-
-    // END OF MODIFICATION
 
     private double calculateDefaultEUnitCost(
             TransportElementInitialDataTrailer trailerData,
@@ -784,15 +603,11 @@ public class ExecutionUnitAgent extends BaseAgent {
                 return calculateCost(truckData, trailerData,
                         driver.getTransportElementData(), distance, commission,
                         tmpSchedule);
+            }
+            if (trailerData == null) {
+                System.out.println("trailerData is null\n");
             } else {
-                if (trailerData == null) {
-                    System.out.println("trailerData is null\n");
-                    return -1;
-                }
-                if (truckData == null) {
-                    System.out.println("truckData is null\n");
-                    return -1;
-                }
+                System.out.println("truckData is null\n");
             }
         }
         return -1;
@@ -812,69 +627,24 @@ public class ExecutionUnitAgent extends BaseAgent {
         return 0;
     }
 
-    /**
-     * getter
-     *
-     * @return the backupTeam
-     */
-    public TransportOffer[] getBackupTeam() {
-        return backupTeam;
-    }
-
-    /**
-     * setter
-     *
-     * @param backupTeam the backupTeam to set
-     */
     public void setBackupTeam(TransportOffer[] backupTeam) {
-        logger.info("Backup Team Set to: " + backupTeam);
-        this.backupTeam = backupTeam;
+        logger.info("Backup Team Set to: " + Arrays.toString(backupTeam));
     }
 
-    /**
-     * getter
-     *
-     * @return the reauction
-     */
     public HolonReorganizeAuction getReauction() {
         return reauction;
-    }
-
-    /**
-     * setter
-     *
-     * @param reauction the reauction to set
-     */
-    public void setReauction(HolonReorganizeAuction reauction) {
-        this.reauction = reauction;
-    }
-
-    public HolonCreationAuction getCreationAuction() {
-        return auction;
-    }
-
-    public void simEnd() {
-        resetAgent();
     }
 
     @Override
     protected void takeDown() {
         try {
             DFService.deregister(this);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     public void addReorganizationTime(long time) {
         reorganizationTime += time;
-    }
-
-    public long getReorganizationTime() {
-        return reorganizationTime;
-    }
-
-    public long getOrganizationTime() {
-        return organizationTime;
     }
 
     // sprawdza, czy zlecenie ktore naplynelo od dystrybutora moze zostac
@@ -883,16 +653,16 @@ public class ExecutionUnitAgent extends BaseAgent {
         Schedule tmpSchedule = algorithm.makeSchedule(
                 Commission.copy(commission), null, schedule, timestamp);
         if (tmpSchedule != null) {
-            if (dist == false) {
-                double extraTime = tmpSchedule.calculateTime(depot)
-                        - schedule.calculateTime(depot);
-                sendOfferToDistributor(new EUnitOffer(getAID(), extraTime,
-                        commissionsCount));
-            } else {
+            if (dist) {
                 double extraDistance = tmpSchedule.getDistance(depot)
                         - schedule.getDistance(depot);
                 sendOfferToDistributor(new EUnitOffer(getAID(), getRatio(
                         extraDistance, commission, tmpSchedule),
+                        commissionsCount));
+            } else {
+                double extraTime = tmpSchedule.calculateTime(depot)
+                        - schedule.calculateTime(depot);
+                sendOfferToDistributor(new EUnitOffer(getAID(), extraTime,
                         commissionsCount));
             }
         } else
@@ -936,7 +706,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         if (data.getDriverAID() == null)
             isDefault = true;
         if (data.getCommission() != null) {
-            if (addCommissionToCalendar(data.getCommission()) == false) {
+            if (!addCommissionToCalendar(data.getCommission())) {
                 System.err.println("Tu jest blad!!!");
                 System.exit(0);
             }
@@ -951,7 +721,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         ACLMessage msg = new ACLMessage(CommunicationHelper.HOLONS_CALENDAR);
         msg.addReceiver(sender);
         try {
-            if (isSimmulatedTradingEnabled) {
+            if (isSimulatedTradingEnabled) {
                 schedule.setRefreshCurrentLocation(refreshCurrentLocation);
                 schedule.setAlgorithm(algorithm);
                 msg.setContentObject(Schedule.copy(schedule));
@@ -960,8 +730,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             }
             send(msg);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace(); //FIXME
         }
     }
 
@@ -1018,7 +787,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     private List<CommissionData> getCommissionsData() {
-        List<CommissionData> result = new LinkedList<CommissionData>();
+        List<CommissionData> result = new LinkedList<>();
         CommissionData data;
         Commission com;
         for (int i = 0; i < schedule.size(); i++) {
@@ -1044,7 +813,6 @@ public class ExecutionUnitAgent extends BaseAgent {
                     data.departTime = arrivalTime
                             + com.getDeliveryServiceTime();
             }
-            // data.departTime=schedule.getDepartureTime(data.comId, depot);
             result.add(data);
         }
 
@@ -1056,22 +824,9 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this, "CommissionService");
         sendSchedule(aids[0], true);
-
-
-        // if (getAID().getLocalName().contains("EUnitAgent#0")) {
-        // System.out
-        // .println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        // GraphSchedule gs = (GraphSchedule) schedule;
-        // System.out.println("link: "
-        // + ((GraphSchedule) schedule).getCurLink());
-        // System.out.println("after " + timestamp + ": "
-        // + schedule.getCurrentLocation());
-        // }
     }
 
-    public synchronized void configurationChanged(HolonConfiguration conf,
-                                                  AID sender) {
-
+    public synchronized void configurationChanged(HolonConfiguration conf, AID sender) {
         if (conf != null) {
             if (conf.isDist() != null)
                 this.dist = conf.isDist();
@@ -1084,7 +839,7 @@ public class ExecutionUnitAgent extends BaseAgent {
                 }
             }
             if (conf.getSimulatedTrading() != null)
-                isSimmulatedTradingEnabled = conf.getSimulatedTrading();
+                isSimulatedTradingEnabled = conf.getSimulatedTrading();
 
         }
         ACLMessage msg = new ACLMessage(
@@ -1145,11 +900,9 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     public void confirmUpdateCurrentLocationRequest(AID sender) {
-        ACLMessage cfp;
-        cfp = new ACLMessage(CommunicationHelper.UPDATE_CURRENT_LOCATION);
+        ACLMessage cfp = new ACLMessage(CommunicationHelper.UPDATE_CURRENT_LOCATION);
         cfp.addReceiver(sender);
         cfp.setContent("");
         send(cfp);
     }
-
 }

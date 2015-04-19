@@ -28,15 +28,12 @@ public class GetSTBeginBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
 
-            executionUnitAgent.makeCalendarSTBackup();
-
             ACLMessage message = new ACLMessage(CommunicationHelper.ST_BEGIN);
             message.addReceiver(msg.getSender());
             try {
                 message.setContentObject("");
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                e.printStackTrace(); //FIXME
             }
             executionUnitAgent.send(message);
 
