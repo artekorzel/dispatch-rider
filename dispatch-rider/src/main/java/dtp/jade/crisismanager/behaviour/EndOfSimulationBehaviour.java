@@ -1,6 +1,7 @@
-package dtp.jade.crisismanager;
+package dtp.jade.crisismanager.behaviour;
 
 import dtp.jade.CommunicationHelper;
+import dtp.jade.crisismanager.CrisisManagerAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;

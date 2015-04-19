@@ -1,37 +1,39 @@
-package dtp.jade.crisismanager;
+package dtp.jade.crisismanager.behaviour;
 
 import dtp.jade.CommunicationHelper;
+import dtp.jade.crisismanager.CrisisManagerAgent;
+import dtp.jade.crisismanager.crisisevents.CrisisEvent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-public class GetCrisisEventFinalFeedbackBehaviour extends CyclicBehaviour {
+public class GetCrisisEventBehaviour extends CyclicBehaviour {
 
-    private static Logger logger = Logger.getLogger(GetCrisisEventFinalFeedbackBehaviour.class);
+    private static Logger logger = Logger.getLogger(GetCrisisEventBehaviour.class);
 
     private CrisisManagerAgent crisisManagerAgent;
 
-    public GetCrisisEventFinalFeedbackBehaviour(CrisisManagerAgent agent) {
+    public GetCrisisEventBehaviour(CrisisManagerAgent agent) {
 
         this.crisisManagerAgent = agent;
     }
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.CRISIS_EVENT_FINAL_FEEDBACK);
+        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.CRISIS_EVENT);
         ACLMessage msg = myAgent.receive(template);
 
-        CrisisEventFinalFeedback crisisEventFinalFeedback;
+        CrisisEvent crisisEvent;
 
         if (msg != null) {
 
             try {
 
-                crisisEventFinalFeedback = (CrisisEventFinalFeedback) msg.getContentObject();
+                crisisEvent = (CrisisEvent) msg.getContentObject();
 
-                crisisManagerAgent.addCrisisEventFinalFeedback(crisisEventFinalFeedback);
+                crisisManagerAgent.addCrisisEvent(crisisEvent);
 
             } catch (UnreadableException e) {
 
