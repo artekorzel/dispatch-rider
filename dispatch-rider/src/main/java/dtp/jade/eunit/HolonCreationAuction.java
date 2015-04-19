@@ -46,9 +46,9 @@ public class HolonCreationAuction {
     // end of modification
 
     private static Logger logger = Logger.getLogger(HolonCreationAuction.class);
-    private final Map<Integer, List<TransportOffer>> driversMap = new HashMap<Integer, List<TransportOffer>>();
-    private final Map<Integer, List<TransportOffer>> trucksMap = new HashMap<Integer, List<TransportOffer>>();
-    private final Map<Integer, List<TransportOffer>> trailersMap = new HashMap<Integer, List<TransportOffer>>();
+    private final Map<Integer, List<TransportOffer>> driversMap = new HashMap<>();
+    private final Map<Integer, List<TransportOffer>> trucksMap = new HashMap<>();
+    private final Map<Integer, List<TransportOffer>> trailersMap = new HashMap<>();
     private final int organizationType;
     private final int organizationTypeParam;
     private Commission commission;
@@ -57,22 +57,9 @@ public class HolonCreationAuction {
     private int driverNum = 0;
     private int trailerNum = 0;
     private int truckNum = 0;
-    private List<TransportOffer> drivers = new ArrayList<TransportOffer>();
-
-    // MODIFICATION BY LP
-    /*
-     * private List<TransportOffer> copyOfDrivers = new
-     * ArrayList<TransportOffer>();
-     *
-     * private List<TransportOffer> copyOfTrucks= new
-     * ArrayList<TransportOffer>();
-     *
-     * private List<TransportOffer> copyOfTrailers = new
-     * ArrayList<TransportOffer>();
-     */
-    // END OF MODIFICATION
-    private List<TransportOffer> trucks = new ArrayList<TransportOffer>();
-    private List<TransportOffer> trailers = new ArrayList<TransportOffer>();
+    private List<TransportOffer> drivers = new ArrayList<>();
+    private List<TransportOffer> trucks = new ArrayList<>();
+    private List<TransportOffer> trailers = new ArrayList<>();
 
     public HolonCreationAuction(int commissions, int type, int param) {
         organizationType = type;
@@ -98,7 +85,7 @@ public class HolonCreationAuction {
         Collections.sort(drivers);
         Collections.sort(trailers);
         Collections.sort(trucks);
-        TransportOffer[] result = null;
+        TransportOffer[] result;
         switch (organizationType) {
             case FULL: {
                 result = full();
@@ -112,16 +99,10 @@ public class HolonCreationAuction {
                 result = bestRep();
                 return result;
             }
-            // MODIFICATION BY LP
-        /*
-         * case K_REPRESENTATIVES: { result=K_representatives(); return result;
-         * }
-         */
             case GENETIC: {
                 result = genetic();
                 return result;
             }
-            // end of modification
             case NEGOTIATION: {
                 result = negotiation();
                 return result;
@@ -139,8 +120,8 @@ public class HolonCreationAuction {
         }
 
         Random rand = new Random();
-        int i = 0;
-        List<TransportOffer> negotiationTrailers = new LinkedList<TransportOffer>();
+        int i;
+        List<TransportOffer> negotiationTrailers = new LinkedList<>();
         for (TransportOffer offer : trailers)
             negotiationTrailers.add(offer);
 
@@ -149,15 +130,15 @@ public class HolonCreationAuction {
         if (organizationTypeParam > trucks.size())
             maxMessageCount = trucks.size();
         TransportOffer trailer = null;
-        double cost = 0;
+        double cost;
         double dist = (commission.getPickupX() - commission.getDeliveryX())
                 * (commission.getPickupX() - commission.getDeliveryX())
                 + (commission.getPickupY() - commission.getDeliveryY())
                 * (commission.getPickupY() - commission.getDeliveryY());
-        double minimalCost = Double.MAX_VALUE;
+        double minimalCost;
         TransportElementInitialDataTruck truckData;
         TransportElementInitialDataTrailer trailerData;
-        List<NegotiationResult> results = new LinkedList<NegotiationResult>();
+        List<NegotiationResult> results = new LinkedList<>();
 
         for (TransportOffer truck : trucks) {
             truckData = (TransportElementInitialDataTruck) truck
@@ -215,9 +196,6 @@ public class HolonCreationAuction {
         if (team[2].getTransportElementData() == null)
             return null;
 
-        if (team[1] == null) {
-            return null;
-        }
         return team;
     }
 
@@ -375,15 +353,15 @@ public class HolonCreationAuction {
             return null;
         }
 
-        HashMap<Integer, LinkedList<OfferWithCost>> truckOffers = new HashMap<Integer, LinkedList<OfferWithCost>>();
-        HashMap<Integer, LinkedList<OfferWithCost>> trailerOffers = new HashMap<Integer, LinkedList<OfferWithCost>>();
-        double cost = 0;
+        HashMap<Integer, LinkedList<OfferWithCost>> truckOffers = new HashMap<>();
+        HashMap<Integer, LinkedList<OfferWithCost>> trailerOffers = new HashMap<>();
+        double cost;
         double dist = (commission.getPickupX() - commission.getDeliveryX())
                 * (commission.getPickupX() - commission.getDeliveryX())
                 + (commission.getPickupY() - commission.getDeliveryY())
                 * (commission.getPickupY() - commission.getDeliveryY());
 
-        TreeSet<Integer> truckConnectorTypes = new TreeSet<Integer>();
+        TreeSet<Integer> truckConnectorTypes = new TreeSet<>();
         for (TransportOffer truck : trucks) {
             if (truck.getTransportElementData() == null)
                 continue;
@@ -394,7 +372,7 @@ public class HolonCreationAuction {
             truckConnectorTypes.add(truckData.getConnectorType());
         }
 
-        TreeSet<Integer> trailersConnectorTypes = new TreeSet<Integer>();
+        TreeSet<Integer> trailersConnectorTypes = new TreeSet<>();
         for (TransportOffer trailer : trailers) {
             if (trailer.getTransportElementData() == null)
                 continue;
@@ -405,7 +383,7 @@ public class HolonCreationAuction {
             trailersConnectorTypes.add(trailerData.getConnectorType());
         }
 
-        TreeSet<Integer> bothConnectorTypes = new TreeSet<Integer>();
+        TreeSet<Integer> bothConnectorTypes = new TreeSet<>();
         for (Integer el : truckConnectorTypes) {
             if (trailersConnectorTypes.contains(el))
                 bothConnectorTypes.add(el);
@@ -645,39 +623,24 @@ public class HolonCreationAuction {
     }
 
     private TransportOffer[] genetic() {
-        List<TransportOffer> copyOfDrivers = new ArrayList<TransportOffer>();
-        List<TransportOffer> copyOfTrucks = new ArrayList<TransportOffer>();
-        List<TransportOffer> copyOfTrailers = new ArrayList<TransportOffer>();
-
-        List<TransportOffer[]> tabooList = new ArrayList<TransportOffer[]>();
+        List<TransportOffer[]> tabooList = new ArrayList<>();
 
         if (drivers.size() <= 0 || trailers.size() <= 0 || trucks.size() <= 0) {
             return null;
-        } else {
-
-            for (TransportOffer it : drivers) {
-                copyOfDrivers.add(it);
-            }
-            for (TransportOffer it : trucks) {
-                copyOfTrucks.add(it);
-            }
-            for (TransportOffer it : trailers) {
-                copyOfTrailers.add(it);
-            }
         }
 
         TransportElementInitialDataTruck truckData;
         TransportElementInitialDataTrailer trailerData;
 
         /* INITIALISATION STEP */
-        List<TransportOffer[]> ArrayHolon = new ArrayList<TransportOffer[]>();
-        List<Double> ArrayDouble = new ArrayList<Double>();
+        List<TransportOffer[]> ArrayHolon = new ArrayList<>();
+        List<Double> ArrayDouble = new ArrayList<>();
         // HashMap <Double, Integer> CostNumber = new HashMap<Double,Integer>();
 
-        List<Double> CostNumber = new ArrayList<Double>();
-        List<Double> TransitArray = new ArrayList<Double>();
+        List<Double> CostNumber = new ArrayList<>();
+        List<Double> TransitArray = new ArrayList<>();
 
-        List<TransportOffer[]> ArrayHolonSave = new ArrayList<TransportOffer[]>();
+        List<TransportOffer[]> ArrayHolonSave = new ArrayList<>();
 
         /* initialize the array */
         double sum = 0;
@@ -818,7 +781,7 @@ public class HolonCreationAuction {
         /* rate of mutation defined bellow 0.1% */
         if (mutation < 0.001) {
             /* select a random number in the size of LinkedList */
-            int i = 0;
+            int i;
             TransportOffer[] temp = new TransportOffer[3];
             do {
                 do {
@@ -830,9 +793,7 @@ public class HolonCreationAuction {
                 temp[2] = team[2];
             } while (tabooList.contains(temp));
             team[1] = trucks.get(i);
-
         }
-
     }
 
     /*
@@ -845,7 +806,7 @@ public class HolonCreationAuction {
         /* rate of mutation defined bellow 0.1% */
         if (mutation <= 0.001) {
             /* select a random number in the size of LinkedList */
-            int i = 0;
+            int i;
             TransportOffer[] temp = new TransportOffer[3];
             do {
                 do {
@@ -931,8 +892,6 @@ public class HolonCreationAuction {
             logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
                     + depot);
             TransportOffer[] bestTeam = getBestTeam();
-            // TODO
-            // System.out.println(depot+" "+bestTeam[0].getAid()+" "+bestTeam[1].getAid()+" "+bestTeam[2].getAid());
             result.put(depot, bestTeam);
         }
         return result;
