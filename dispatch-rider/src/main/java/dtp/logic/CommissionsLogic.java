@@ -28,7 +28,7 @@ public class CommissionsLogic {
     }
 
     public void setConstraintsTestMode() {
-        setSimConstrains(depotX, depotY, deadline, maxLoad);
+        setSimConstraints(depotX, depotY, deadline, maxLoad);
     }
 
     public void addCommissionGroup(String filename, boolean dynamic) {
@@ -61,7 +61,7 @@ public class CommissionsLogic {
         guiAgent.addCommissionHandler(commissionHandler);
     }
 
-    public void setSimConstrains(double depotX, double depotY, double deadline, double maxLoad) {
+    public void setSimConstraints(double depotX, double depotY, double deadline, double maxLoad) {
         SimInfo simConstrains = new SimInfo(new Point2D.Double(depotX, depotY), deadline, maxLoad);
         simLogic.setSimInfo(simConstrains);
         this.depotX = depotX;
