@@ -78,7 +78,7 @@ public class PatternCalculator {
     }
 
     private void initNextTest(String fileName) {
-        Commission[] commissions = TxtFileReader.getCommissions(fileName);
+        Commission[] commissions = TxtFileReader.getCommissions(fileName.trim());
         this.commissions = new LinkedList<>();
         Collections.addAll(this.commissions, commissions);
 

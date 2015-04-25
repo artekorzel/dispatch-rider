@@ -32,7 +32,7 @@ public class CommissionsLogic {
     }
 
     public void addCommissionGroup(String filename, boolean dynamic) {
-        Commission[] commissions = TxtFileReader.getCommissions(filename);
+        Commission[] commissions = TxtFileReader.getCommissions(filename.trim());
 
         int incomeTime[] = new int[commissions.length];
         if (dynamic) {

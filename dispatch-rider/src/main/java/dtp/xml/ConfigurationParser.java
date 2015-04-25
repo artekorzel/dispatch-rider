@@ -43,7 +43,7 @@ public class ConfigurationParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        return Integer.valueOf(attr.getTextContent());
+        return Integer.valueOf(attr.getTextContent().trim());
     }
 
     private static double attributeToDobule(Node node, String attribute)
@@ -51,7 +51,7 @@ public class ConfigurationParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        return Double.valueOf(attr.getTextContent());
+        return Double.valueOf(attr.getTextContent().trim());
     }
 
     private static TestConfiguration parseTest(Element element)
@@ -84,7 +84,7 @@ public class ConfigurationParser {
                 "mlAlgorithm").item(0);
 
         if (graph != null) {
-            String graphFile = graph.getTextContent();
+            String graphFile = graph.getTextContent().trim();
             Graph graphObj = new GraphParser().parse(graphFile.trim());
             String trackFinder = graph.getAttribute("trackFinder");
             String predictor = graph.getAttribute("predictor");
@@ -127,7 +127,7 @@ public class ConfigurationParser {
 
         configuration.setBrute2Sorter(commissions
                 .getAttribute("BruteForceAlgorithm2Sorter"));
-        configuration.setCommissions(commissions.getTextContent());
+        configuration.setCommissions(commissions.getTextContent().trim());
         configuration.setConfChange(stringToBoolean(commissions
                 .getAttribute("confChange")));
         configuration.setAutoConfigure(stringToBoolean(commissions
@@ -171,8 +171,8 @@ public class ConfigurationParser {
         configuration.setFirstComplexSTResultOnly(stringToBoolean(commissions
                 .getAttribute("firstComplexSTResultOnly")));
         configuration.setDefaultAgentsData(parseAgents(agents));
-        configuration.setConfigurationDirectory(configDir.getTextContent());
-        configuration.setResults(results.getTextContent());
+        configuration.setConfigurationDirectory(configDir.getTextContent().trim());
+        configuration.setResults(results.getTextContent().trim());
         configuration.setEvents(parseEvents(events));
 
         configuration = parseExchangeAlgorithms(configuration, element);
@@ -356,11 +356,11 @@ public class ConfigurationParser {
         boolean visualize;
         for (int i = 0; i < measureList.getLength(); i++) {
             measure = (Element) measureList.item(i);
-            calculatorsHolder.addCalculator(MeasureCalculatorType.valueOf(measure.getTextContent()));
+            calculatorsHolder.addCalculator(MeasureCalculatorType.valueOf(measure.getTextContent().trim()));
             visualize = stringToBoolean(measure.getAttribute("visualize"));
             if (visualize) {
                 calculatorsHolder.addVisualizationMeasuresNames(measure
-                        .getTextContent());
+                        .getTextContent().trim());
             }
         }
 
@@ -401,7 +401,7 @@ public class ConfigurationParser {
             TestConfiguration conf, Element ml) throws ParseException {
         boolean exploration = stringToBoolean(ml.getAttribute("exploration"));
 
-        String path = ml.getTextContent();
+        String path = ml.getTextContent().trim();
         conf.setMlTableFileName(path);
         String params = ml.getAttribute("params");
 

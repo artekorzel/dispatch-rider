@@ -27,15 +27,15 @@ public class GraphChangesParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        return Integer.valueOf(attr.getTextContent());
+        return Integer.valueOf(attr.getTextContent().trim());
     }
 
-    private static double attributeToDobule(Node node, String attribute)
+    private static double attributeToDouble(Node node, String attribute)
             throws ParseException {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        return Double.valueOf(attr.getTextContent());
+        return Double.valueOf(attr.getTextContent().trim());
     }
 
     private static boolean attributeToBool(Node node, String attribute)
@@ -43,7 +43,7 @@ public class GraphChangesParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        return stringToBoolean(attr.getTextContent());
+        return stringToBoolean(attr.getTextContent().trim());
     }
 
     public static GraphChangesConfiguration parse(String filename)
@@ -81,7 +81,7 @@ public class GraphChangesParser {
                     link = (Element) links.item(j);
                     conf.addChange(attributeToInt(link, "sPoint"),
                             attributeToInt(link, "ePoint"),
-                            attributeToDobule(link, "cost"),
+                            attributeToDouble(link, "cost"),
                             attributeToBool(link, "both"), timestamp);
                 }
             }

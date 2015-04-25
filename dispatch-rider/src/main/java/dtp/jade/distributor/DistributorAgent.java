@@ -570,7 +570,7 @@ public class DistributorAgent extends BaseAgent {
 
         System.out.println("fullSimulatedTrading");
         fullSimulatedTrading = true;
-        complexSimmulatedTrading(null);
+        complexSimulatedTrading(null);
 
     }
 
@@ -997,7 +997,7 @@ public class DistributorAgent extends BaseAgent {
     protected void createNewEUnit(NewTeamData data) {
         newTeamData = data;
         if (checkSTCondition()) {
-            complexSimmulatedTrading(Commission.copy(data.getCommission()));
+            complexSimulatedTrading(Commission.copy(data.getCommission()));
         } else {
             createNewEUnit();
         }
@@ -1117,7 +1117,7 @@ public class DistributorAgent extends BaseAgent {
         createNewEUnit(data);
     }
 
-    public synchronized void complexSimmulatedTrading(Commission com) {
+    public synchronized void complexSimulatedTrading(Commission com) {
         holons = new HashMap<>();
         AID aids[] = getEUnitsAids();
         eUnitsCount = aids.length;
@@ -1172,7 +1172,7 @@ public class DistributorAgent extends BaseAgent {
                             timestamp);
 
             // Map<AID, Schedule> tmp = SimmulatedTrading
-            // .complexSimmulatedTrading(holons.keySet(),
+            // .complexSimulatedTrading(holons.keySet(),
             // Helper.copyAID(holons),
             // Commission.copy(complexSTCommission),
             // maxFullSTDepth, new TreeSet<Integer>(), timestamp,
@@ -1217,7 +1217,7 @@ public class DistributorAgent extends BaseAgent {
 
     private void getCalendarsForMesure() {
         calendarsForMeasures = true;
-        complexSimmulatedTrading(null);
+        complexSimulatedTrading(null);
     }
 
     private void calculateMeasure(Map<AID, Schedule> oldSchedule,

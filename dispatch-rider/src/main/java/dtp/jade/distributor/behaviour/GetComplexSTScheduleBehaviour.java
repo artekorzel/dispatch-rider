@@ -25,10 +25,11 @@ public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
         if (msg != null) {
             try {
                 Schedule schedule = (Schedule) msg.getContentObject();
-                if (schedule.getRefreshCurrentLocation())
+                if (schedule != null && schedule.getRefreshCurrentLocation()) {
                     agent.putEUnitSchedule(msg.getSender(), schedule);
-                else
+                } else {
                     agent.addComplexSTSchedule(schedule, msg.getSender());
+                }
             } catch (Exception e) {
                 e.printStackTrace();//FIXME
             }

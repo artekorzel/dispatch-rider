@@ -34,7 +34,7 @@ public class GlobalConfiguration implements Serializable {
     private Integer simulatedTrading;
 
     /**
-     * It is connected with complexSimmulatedTrading algorithm. It determines
+     * It is connected with complexSimulatedTrading algorithm. It determines
      * maximum number of commissions, which can be exchange between holons
      * (number of declaration like: 'If you carry my commission, I can accept
      * new commission').

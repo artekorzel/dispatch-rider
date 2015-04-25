@@ -44,9 +44,9 @@ public class MLTableStructureParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        if (attr.getTextContent().equals("null"))
+        if (attr.getTextContent().trim().equals("null"))
             return null;
-        return stringToBoolean(attr.getTextContent());
+        return stringToBoolean(attr.getTextContent().trim());
     }
 
     private static Integer attributeToInt(Node node, String attribute)
@@ -54,9 +54,9 @@ public class MLTableStructureParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        if (attr.getTextContent().equals("-1"))
+        if (attr.getTextContent().trim().equals("-1"))
             return null;
-        return Integer.valueOf(attr.getTextContent());
+        return Integer.valueOf(attr.getTextContent().trim());
     }
 
     private static Double attributeToDouble(Node node, String attribute)
@@ -64,7 +64,7 @@ public class MLTableStructureParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        return Double.valueOf(attr.getTextContent());
+        return Double.valueOf(attr.getTextContent().trim());
     }
 
     private static String attributeToString(Node node, String attribute)
@@ -72,9 +72,9 @@ public class MLTableStructureParser {
         Node attr = node.getAttributes().getNamedItem(attribute);
         if (attr == null)
             throw new ParseException("No such attribute " + attribute);
-        if (attr.getTextContent().equals("null"))
+        if (attr.getTextContent().trim().equals("null"))
             return null;
-        return attr.getTextContent();
+        return attr.getTextContent().trim();
     }
 
     private static void parseGlobalStates(QLearning table,

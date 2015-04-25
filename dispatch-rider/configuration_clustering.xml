@@ -3,7 +3,7 @@
        xsi:noNamespaceSchemaLocation="xml/schemes/configuration.xsd">
 
     <test>
-        <commissions dynamic="true" packageSending="false" choosingByCost="true" STDepth="8"
+        <commissions recording="true" dynamic="true" packageSending="false" choosingByCost="true" STDepth="8"
                      worstCommissionByGlobalTime="false" algorithm="BruteForceAlgorithm" autoConfig="false"
                      firstComplexSTResultOnly="false">simulationConfig/25_200/LC1_2_1.txt
         </commissions>
