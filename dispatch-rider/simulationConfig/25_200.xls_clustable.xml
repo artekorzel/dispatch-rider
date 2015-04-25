@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ClusTable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" learning="false" maxClustCount="sqrt(N)" minClustCount="2" overwriteConf="true" useTrees="true" usepam="true" xsi:noNamespaceSchemaLocation="xml/schemes/clustable.xsd">
+    <structure>
+        <globalMeasures>
+            <measure name="M1" value="avg(AverageMinTimeWinSizeForAllCommissions)"/>
+            <measure name="M2" value="avg(AverageMinDistBetweenAllCommissions)"/>
+            <measure name="M3" value="avg(PercentageOfDelayComs)"/>
+            <measure name="M4" value="avg(WaitTime)"/>
+            <measure name="M5" value="avg(AverageLoadFromAllCommissions)"/>
+        </globalMeasures>
+        <globalStates k="0.5">
+            <state name="S0">
+                <measure name="M5" value="16.263157894736842"/>
+                <measure name="M4" value="260.8160056700452"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M2" value="5.876047408519577"/>
+                <measure name="M1" value="-307.7368421052632"/>
+            </state>
+            <state name="S1">
+                <measure name="M5" value="31.0"/>
+                <measure name="M4" value="357.1050882754913"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M2" value="31.953090617340916"/>
+                <measure name="M1" value="-88.0"/>
+            </state>
+        </globalStates>
+        <globalActions factor="0.9" function="2*_holonsCount/holonsCount+bestDist/dist+_costOfCommission/costOfCommission">
+            <action STDepth="0" choosingByCost="false" name="A2" simulatedTrading="0"/>
+            <action STDepth="0" choosingByCost="true" name="A1" simulatedTrading="0"/>
+            <action STDepth="0" choosingByCost="false" name="A4" simulatedTrading="1"/>
+            <action STDepth="0" choosingByCost="true" name="A3" simulatedTrading="1"/>
+            <action STDepth="3" choosingByCost="false" name="A6" simulatedTrading="0"/>
+            <action STDepth="3" choosingByCost="true" name="A5" simulatedTrading="0"/>
+            <action STDepth="3" choosingByCost="false" name="A8" simulatedTrading="1"/>
+            <action STDepth="3" choosingByCost="true" name="A7" simulatedTrading="1"/>
+            <action STDepth="8" choosingByCost="true" name="A11" simulatedTrading="1"/>
+            <action STDepth="8" choosingByCost="false" name="A10" simulatedTrading="0"/>
+            <action STDepth="8" choosingByCost="true" name="A9" simulatedTrading="0"/>
+            <action STDepth="8" choosingByCost="false" name="A12" simulatedTrading="1"/>
+        </globalActions>
+        <holonMeasures>
+            <measure name="M1" value="AverageMinTimeWinSizeForAllCommissions"/>
+            <measure name="M2" value="AverageMinDistBetweenAllCommissions"/>
+            <measure name="M3" value="PercentageOfDelayComs"/>
+            <measure name="M4" value="WaitTime"/>
+            <measure name="M5" value="AverageLoadFromAllCommissions"/>
+        </holonMeasures>
+        <holonStates k="0.5">
+            <state name="S0">
+                <measure name="M5" value="16.263157894736842"/>
+                <measure name="M4" value="260.8160056700452"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M2" value="5.876047408519577"/>
+                <measure name="M1" value="-307.7368421052632"/>
+            </state>
+            <state name="S1">
+                <measure name="M5" value="31.0"/>
+                <measure name="M4" value="357.1050882754913"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M2" value="31.953090617340916"/>
+                <measure name="M1" value="-88.0"/>
+            </state>
+        </holonStates>
+        <holonActions factor="0.9" function="2*_holonCommissions/holonCommissions+_costOfCommission/costOfCommission">
+            <action algorithm="BruteForceAlgorithm" name="A2" simulatedTrading="true"/>
+            <action algorithm="BruteForceAlgorithm" name="A1" simulatedTrading="false"/>
+            <action algorithm="BruteForceAlgorithm2" name="A4" simulatedTrading="true"/>
+            <action algorithm="BruteForceAlgorithm2" name="A3" simulatedTrading="false"/>
+        </holonActions>
+    </structure>
+    <content>
+        <globalTableContent>
+            <state name="S0">
+                <action name="A2" useCount="24" value="140.77080748773668"/>
+                <action name="A1" useCount="13" value="141.97725284948015"/>
+                <action name="A4" useCount="25" value="136.49946404848887"/>
+                <action name="A3" useCount="19" value="136.4785090467691"/>
+                <action name="A6" useCount="16" value="136.49946404848887"/>
+                <action name="A5" useCount="5" value="147.22809505828056"/>
+                <action name="A8" useCount="4" value="146.80735379986402"/>
+                <action name="A7" useCount="15" value="140.77080748773668"/>
+                <action name="A11" useCount="15" value="136.6240597627953"/>
+                <action name="A9" useCount="19" value="136.538092836516"/>
+                <action name="A10" useCount="24" value="136.6240597627953"/>
+                <action name="A12" useCount="8" value="142.6910264071745"/>
+            </state>
+            <state name="S1">
+                <action name="A2" useCount="25" value="168.39383409589675"/>
+                <action name="A1" useCount="14" value="167.5665262743499"/>
+                <action name="A4" useCount="11" value="167.96911384550725"/>
+                <action name="A3" useCount="24" value="170.90051354827065"/>
+                <action name="A6" useCount="22" value="165.69009026606295"/>
+                <action name="A5" useCount="30" value="165.90252212984757"/>
+                <action name="A8" useCount="22" value="175.16135173334607"/>
+                <action name="A7" useCount="32" value="169.4465778345038"/>
+                <action name="A11" useCount="11" value="170.29846287557933"/>
+                <action name="A9" useCount="35" value="165.69009026606295"/>
+                <action name="A10" useCount="18" value="171.15140121800601"/>
+                <action name="A12" useCount="32" value="167.45679187785566"/>
+            </state>
+        </globalTableContent>
+        <holonTableContent>
+            <state name="S0">
+                <action name="A2" useCount="147" value="29.99999999999999"/>
+                <action name="A1" useCount="158" value="29.99999999999999"/>
+                <action name="A4" useCount="162" value="29.99999999999999"/>
+                <action name="A3" useCount="178" value="29.99999999999999"/>
+            </state>
+            <state name="S1">
+                <action name="A2" useCount="110" value="29.999999999999233"/>
+                <action name="A1" useCount="113" value="29.999999967740838"/>
+                <action name="A4" useCount="122" value="29.999999999998828"/>
+                <action name="A3" useCount="109" value="29.999999989876738"/>
+            </state>
+        </holonTableContent>
+    </content>
+    <observations>
+        <globalObservations>
+            <observation state="S0">
+                <measure name="M1" value="-307.7368421052632"/>
+                <measure name="M2" value="5.876047408519577"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="260.8160056700452"/>
+                <measure name="M5" value="16.263157894736842"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-305.8333333333333"/>
+                <measure name="M2" value="10.090366844802377"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="341.83152651466486"/>
+                <measure name="M5" value="12.333333333333334"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-226.0"/>
+                <measure name="M2" value="34.20526275297414"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="246.50097183824886"/>
+                <measure name="M5" value="5.0"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-540.0"/>
+                <measure name="M2" value="39.6232255123179"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="236.95840542120771"/>
+                <measure name="M5" value="10.0"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-293.0"/>
+                <measure name="M2" value="0.0"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="233.7900536509144"/>
+                <measure name="M5" value="13.0"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-523.0"/>
+                <measure name="M2" value="0.0"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="349.92113447068044"/>
+                <measure name="M5" value="20.0"/>
+            </observation>
+            <observation state="S1">
+                <measure name="M1" value="-125.0"/>
+                <measure name="M2" value="30.0"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="297.9912287450431"/>
+                <measure name="M5" value="16.0"/>
+            </observation>
+            <observation state="S1">
+                <measure name="M1" value="-88.0"/>
+                <measure name="M2" value="31.953090617340916"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="357.1050882754913"/>
+                <measure name="M5" value="31.0"/>
+            </observation>
+        </globalObservations>
+        <holonObservations>
+            <observation state="S0">
+                <measure name="M1" value="-307.7368421052632"/>
+                <measure name="M2" value="5.876047408519577"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="260.8160056700452"/>
+                <measure name="M5" value="16.263157894736842"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-305.8333333333333"/>
+                <measure name="M2" value="10.090366844802377"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="341.83152651466486"/>
+                <measure name="M5" value="12.333333333333334"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-226.0"/>
+                <measure name="M2" value="34.20526275297414"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="246.50097183824886"/>
+                <measure name="M5" value="5.0"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-540.0"/>
+                <measure name="M2" value="39.6232255123179"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="236.95840542120771"/>
+                <measure name="M5" value="10.0"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-293.0"/>
+                <measure name="M2" value="0.0"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="233.7900536509144"/>
+                <measure name="M5" value="13.0"/>
+            </observation>
+            <observation state="S0">
+                <measure name="M1" value="-523.0"/>
+                <measure name="M2" value="0.0"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="349.92113447068044"/>
+                <measure name="M5" value="20.0"/>
+            </observation>
+            <observation state="S1">
+                <measure name="M1" value="-125.0"/>
+                <measure name="M2" value="30.0"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="297.9912287450431"/>
+                <measure name="M5" value="16.0"/>
+            </observation>
+            <observation state="S1">
+                <measure name="M1" value="-88.0"/>
+                <measure name="M2" value="31.953090617340916"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="357.1050882754913"/>
+                <measure name="M5" value="31.0"/>
+            </observation>
+        </holonObservations>
+    </observations>
+</ClusTable>
