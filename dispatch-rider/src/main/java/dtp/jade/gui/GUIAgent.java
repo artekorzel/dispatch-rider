@@ -40,6 +40,7 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import machineLearning.MLAlgorithm;
+import machineLearning.clustering.Clustering;
 import measure.MeasureCalculatorsHolder;
 import measure.printer.MeasureData;
 import measure.printer.PrintersHolder;
@@ -1093,6 +1094,15 @@ public class GUIAgent extends Agent {
     }
 
     public void saveMLAlgorithm(MLAlgorithm table) {
+        if (table instanceof Clustering) {
+            logger.info("saveMLAlgorithm in case of Clustering");
+            Clustering clust = (Clustering) table;
+
+            if (clust.isLearning()) {
+                clust.clustering();
+            }
+        }
+
         try {
             table.save(mlTableFileName, saveFileName);
         } catch (Exception e) {

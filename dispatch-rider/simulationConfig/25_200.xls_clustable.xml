@@ -34,8 +34,8 @@
             <action STDepth="3" choosingByCost="false" name="A8" simulatedTrading="1"/>
             <action STDepth="3" choosingByCost="true" name="A7" simulatedTrading="1"/>
             <action STDepth="8" choosingByCost="true" name="A11" simulatedTrading="1"/>
-            <action STDepth="8" choosingByCost="false" name="A10" simulatedTrading="0"/>
             <action STDepth="8" choosingByCost="true" name="A9" simulatedTrading="0"/>
+            <action STDepth="8" choosingByCost="false" name="A10" simulatedTrading="0"/>
             <action STDepth="8" choosingByCost="false" name="A12" simulatedTrading="1"/>
         </globalActions>
         <holonMeasures>
@@ -85,18 +85,18 @@
                 <action name="A12" useCount="8" value="142.6910264071745"/>
             </state>
             <state name="S1">
-                <action name="A2" useCount="25" value="168.39383409589675"/>
-                <action name="A1" useCount="14" value="167.5665262743499"/>
-                <action name="A4" useCount="11" value="167.96911384550725"/>
-                <action name="A3" useCount="24" value="170.90051354827065"/>
-                <action name="A6" useCount="22" value="165.69009026606295"/>
-                <action name="A5" useCount="30" value="165.90252212984757"/>
+                <action name="A2" useCount="27" value="171.53561687290596"/>
+                <action name="A1" useCount="16" value="177.05441781716925"/>
+                <action name="A4" useCount="14" value="175.1256512348466"/>
+                <action name="A3" useCount="27" value="172.97920774125046"/>
+                <action name="A6" useCount="23" value="180.10965170202002"/>
+                <action name="A5" useCount="31" value="182.62711388165638"/>
                 <action name="A8" useCount="22" value="175.16135173334607"/>
-                <action name="A7" useCount="32" value="169.4465778345038"/>
-                <action name="A11" useCount="11" value="170.29846287557933"/>
-                <action name="A9" useCount="35" value="165.69009026606295"/>
-                <action name="A10" useCount="18" value="171.15140121800601"/>
-                <action name="A12" useCount="32" value="167.45679187785566"/>
+                <action name="A7" useCount="39" value="175.1256512348466"/>
+                <action name="A11" useCount="14" value="173.59439316403623"/>
+                <action name="A9" useCount="36" value="175.65858764123857"/>
+                <action name="A10" useCount="23" value="175.1256512348466"/>
+                <action name="A12" useCount="33" value="177.8705871514853"/>
             </state>
         </globalTableContent>
         <holonTableContent>
@@ -107,10 +107,10 @@
                 <action name="A3" useCount="178" value="29.99999999999999"/>
             </state>
             <state name="S1">
-                <action name="A2" useCount="110" value="29.999999999999233"/>
-                <action name="A1" useCount="113" value="29.999999967740838"/>
-                <action name="A4" useCount="122" value="29.999999999998828"/>
-                <action name="A3" useCount="109" value="29.999999989876738"/>
+                <action name="A2" useCount="134" value="29.999999999999964"/>
+                <action name="A1" useCount="116" value="29.999999967740838"/>
+                <action name="A4" useCount="140" value="29.99999999999996"/>
+                <action name="A3" useCount="115" value="29.999999989876738"/>
             </state>
         </holonTableContent>
     </content>
