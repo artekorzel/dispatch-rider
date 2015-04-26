@@ -3,20 +3,14 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'gradle-one-jar'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 version = '1.0.0'
 
 idea {
     module {
-        [".gradle", "benchmarks", "bin", "doc", "KrakSim", "tmp_tests"].each {
-            excludeDirs += file("$it")
-        }
-        //if you love browsing Javadoc
         downloadJavadoc = true
-
-        //and hate reading sources :)
         downloadSources = true
     }
 }

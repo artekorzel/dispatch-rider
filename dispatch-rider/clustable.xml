@@ -10,33 +10,33 @@
         </globalMeasures>
         <globalStates k="0.5">
             <state name="S0">
-                <measure name="M5" value="16.263157894736842"/>
-                <measure name="M4" value="260.8160056700452"/>
-                <measure name="M3" value="0.0"/>
-                <measure name="M2" value="5.876047408519577"/>
                 <measure name="M1" value="-307.7368421052632"/>
+                <measure name="M2" value="5.876047408519577"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="260.8160056700452"/>
+                <measure name="M5" value="16.263157894736842"/>
             </state>
             <state name="S1">
-                <measure name="M5" value="31.0"/>
-                <measure name="M4" value="357.1050882754913"/>
-                <measure name="M3" value="0.0"/>
-                <measure name="M2" value="31.953090617340916"/>
                 <measure name="M1" value="-88.0"/>
+                <measure name="M2" value="31.953090617340916"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="357.1050882754913"/>
+                <measure name="M5" value="31.0"/>
             </state>
         </globalStates>
         <globalActions factor="0.9" function="2*_holonsCount/holonsCount+bestDist/dist+_costOfCommission/costOfCommission">
-            <action STDepth="0" choosingByCost="false" name="A2" simulatedTrading="0"/>
-            <action STDepth="0" choosingByCost="true" name="A1" simulatedTrading="0"/>
-            <action STDepth="0" choosingByCost="false" name="A4" simulatedTrading="1"/>
-            <action STDepth="0" choosingByCost="true" name="A3" simulatedTrading="1"/>
-            <action STDepth="3" choosingByCost="false" name="A6" simulatedTrading="0"/>
-            <action STDepth="3" choosingByCost="true" name="A5" simulatedTrading="0"/>
-            <action STDepth="3" choosingByCost="false" name="A8" simulatedTrading="1"/>
-            <action STDepth="3" choosingByCost="true" name="A7" simulatedTrading="1"/>
-            <action STDepth="8" choosingByCost="true" name="A11" simulatedTrading="1"/>
-            <action STDepth="8" choosingByCost="true" name="A9" simulatedTrading="0"/>
             <action STDepth="8" choosingByCost="false" name="A10" simulatedTrading="0"/>
+            <action STDepth="8" choosingByCost="true" name="A11" simulatedTrading="1"/>
             <action STDepth="8" choosingByCost="false" name="A12" simulatedTrading="1"/>
+            <action STDepth="0" choosingByCost="true" name="A1" simulatedTrading="0"/>
+            <action STDepth="0" choosingByCost="false" name="A2" simulatedTrading="0"/>
+            <action STDepth="0" choosingByCost="true" name="A3" simulatedTrading="1"/>
+            <action STDepth="0" choosingByCost="false" name="A4" simulatedTrading="1"/>
+            <action STDepth="3" choosingByCost="true" name="A5" simulatedTrading="0"/>
+            <action STDepth="3" choosingByCost="false" name="A6" simulatedTrading="0"/>
+            <action STDepth="3" choosingByCost="true" name="A7" simulatedTrading="1"/>
+            <action STDepth="3" choosingByCost="false" name="A8" simulatedTrading="1"/>
+            <action STDepth="8" choosingByCost="true" name="A9" simulatedTrading="0"/>
         </globalActions>
         <holonMeasures>
             <measure name="M1" value="AverageMinTimeWinSizeForAllCommissions"/>
@@ -47,25 +47,25 @@
         </holonMeasures>
         <holonStates k="0.5">
             <state name="S0">
-                <measure name="M5" value="16.263157894736842"/>
-                <measure name="M4" value="260.8160056700452"/>
-                <measure name="M3" value="0.0"/>
-                <measure name="M2" value="5.876047408519577"/>
                 <measure name="M1" value="-307.7368421052632"/>
+                <measure name="M2" value="5.876047408519577"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="260.8160056700452"/>
+                <measure name="M5" value="16.263157894736842"/>
             </state>
             <state name="S1">
-                <measure name="M5" value="31.0"/>
-                <measure name="M4" value="357.1050882754913"/>
-                <measure name="M3" value="0.0"/>
-                <measure name="M2" value="31.953090617340916"/>
                 <measure name="M1" value="-88.0"/>
+                <measure name="M2" value="31.953090617340916"/>
+                <measure name="M3" value="0.0"/>
+                <measure name="M4" value="357.1050882754913"/>
+                <measure name="M5" value="31.0"/>
             </state>
         </holonStates>
         <holonActions factor="0.9" function="2*_holonCommissions/holonCommissions+_costOfCommission/costOfCommission">
-            <action algorithm="BruteForceAlgorithm" name="A2" simulatedTrading="true"/>
             <action algorithm="BruteForceAlgorithm" name="A1" simulatedTrading="false"/>
-            <action algorithm="BruteForceAlgorithm2" name="A4" simulatedTrading="true"/>
+            <action algorithm="BruteForceAlgorithm" name="A2" simulatedTrading="true"/>
             <action algorithm="BruteForceAlgorithm2" name="A3" simulatedTrading="false"/>
+            <action algorithm="BruteForceAlgorithm2" name="A4" simulatedTrading="true"/>
         </holonActions>
     </structure>
     <content>
@@ -85,18 +85,18 @@
                 <action name="A12" useCount="8" value="142.6910264071745"/>
             </state>
             <state name="S1">
-                <action name="A2" useCount="27" value="171.53561687290596"/>
-                <action name="A1" useCount="16" value="177.05441781716925"/>
-                <action name="A4" useCount="14" value="175.1256512348466"/>
-                <action name="A3" useCount="27" value="172.97920774125046"/>
+                <action name="A2" useCount="28" value="181.10112824735677"/>
+                <action name="A1" useCount="17" value="188.6743812217877"/>
+                <action name="A4" useCount="16" value="181.2497057420942"/>
+                <action name="A3" useCount="28" value="186.8288376354993"/>
                 <action name="A6" useCount="23" value="180.10965170202002"/>
                 <action name="A5" useCount="31" value="182.62711388165638"/>
-                <action name="A8" useCount="22" value="175.16135173334607"/>
-                <action name="A7" useCount="39" value="175.1256512348466"/>
-                <action name="A11" useCount="14" value="173.59439316403623"/>
-                <action name="A9" useCount="36" value="175.65858764123857"/>
-                <action name="A10" useCount="23" value="175.1256512348466"/>
-                <action name="A12" useCount="33" value="177.8705871514853"/>
+                <action name="A8" useCount="31" value="177.1785996905536"/>
+                <action name="A7" useCount="40" value="182.4542642696734"/>
+                <action name="A11" useCount="16" value="182.5865068748871"/>
+                <action name="A9" useCount="37" value="183.3131277576035"/>
+                <action name="A10" useCount="24" value="182.49695842328745"/>
+                <action name="A12" useCount="38" value="180.5681918409648"/>
             </state>
         </globalTableContent>
         <holonTableContent>
@@ -107,10 +107,10 @@
                 <action name="A3" useCount="178" value="29.99999999999999"/>
             </state>
             <state name="S1">
-                <action name="A2" useCount="134" value="29.999999999999964"/>
-                <action name="A1" useCount="116" value="29.999999967740838"/>
-                <action name="A4" useCount="140" value="29.99999999999996"/>
-                <action name="A3" useCount="115" value="29.999999989876738"/>
+                <action name="A2" useCount="152" value="29.99999999999999"/>
+                <action name="A1" useCount="123" value="29.999999967740838"/>
+                <action name="A4" useCount="153" value="29.99999999999999"/>
+                <action name="A3" useCount="116" value="29.999999989876738"/>
             </state>
         </holonTableContent>
     </content>
