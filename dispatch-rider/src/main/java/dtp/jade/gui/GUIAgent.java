@@ -606,7 +606,7 @@ public class GUIAgent extends BaseAgent {
      * Trzeba to robic ze wzgledu na to ze sprawdzamy czy eunit w danym momencie dojechal do commissiona (do tego potrzeba zupdatowac ich current location)
      */
     private void sendUpdateCurrentLocationRequest(AID[] aids, int timestamp) {
-        send(aids, Integer.toString(timestamp), CommunicationHelper.UPDATE_CURRENT_LOCATION);
+        sendString(aids, Integer.toString(timestamp), CommunicationHelper.UPDATE_CURRENT_LOCATION);
 
         //czekamy az kazdy z eunitow potwierdzi otrzymanie komunikatu
         for (AID ignored : aids) {

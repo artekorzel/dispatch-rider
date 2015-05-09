@@ -40,4 +40,17 @@ public class BaseAgent extends Agent {
         }
     }
 
+    public synchronized void sendString(AID aid, String content, int messageCode) {
+        send(new AID[]{aid}, content, messageCode);
+    }
+
+    public synchronized void sendString(AID[] aids, String content, int messageCode) {
+        ACLMessage message = new ACLMessage(messageCode);
+        for (AID aid : aids) {
+            message.addReceiver(aid);
+        }
+        message.setContent(content);
+        send(message);
+    }
+
 }
