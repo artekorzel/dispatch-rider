@@ -19,7 +19,7 @@ public class GetMLTableBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.MLTable);
+                .MatchConversationId(CommunicationHelper.MLTable.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

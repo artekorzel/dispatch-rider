@@ -177,9 +177,9 @@ public class CrisisManagerAgent extends BaseAgent {
         return eventsOnTime;
     }
 
-    public void sentCrisisEvent(AID aid, int perf, CrisisEvent crisisEvent) {
+    public void sentCrisisEvent(AID aid, CommunicationHelper messageCode, CrisisEvent crisisEvent) {
         logger.info("sending crisis event to " + aid.getLocalName() + " (event ID = " + crisisEvent.getEventID() + ")");
-        send(aid, crisisEvent, perf);
+        send(aid, crisisEvent, messageCode);
     }
 
     private void sendGUIMessage(String messageText) {

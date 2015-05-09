@@ -15,7 +15,7 @@ public class GetUpdateCurrentLocationBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.UPDATE_CURRENT_LOCATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.UPDATE_CURRENT_LOCATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

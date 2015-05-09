@@ -22,7 +22,7 @@ public class GetGraphUpdateBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.GRAPH_UPDATE);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.GRAPH_UPDATE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

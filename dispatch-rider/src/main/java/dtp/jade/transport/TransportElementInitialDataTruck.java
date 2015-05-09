@@ -9,6 +9,9 @@ public class TransportElementInitialDataTruck extends TransportElementInitialDat
     private int fuelConsumption;
     private int connectorType;
 
+    public TransportElementInitialDataTruck() {
+    }
+
     public TransportElementInitialDataTruck(String costFunction, int capacity, int defaultCapacity,
                                             int depot, int power, int reliability,
                                             int comfort, int fuelConsumption, int connectorType) {

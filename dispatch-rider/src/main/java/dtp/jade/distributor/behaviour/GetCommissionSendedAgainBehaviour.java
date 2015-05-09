@@ -36,7 +36,7 @@ public class GetCommissionSendedAgainBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.COMMISSION_SEND_AGAIN);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION_SEND_AGAIN.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

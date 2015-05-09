@@ -16,7 +16,7 @@ public class EndOfSimulationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.SIM_END);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.SIM_END.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {

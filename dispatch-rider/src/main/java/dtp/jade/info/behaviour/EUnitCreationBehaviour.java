@@ -38,7 +38,7 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
     public void action() {
 
         /* -------- RECIEVING REQUESTS FOR EUNIT CREATION ------- */
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EXECUTION_UNIT_CREATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EXECUTION_UNIT_CREATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -63,7 +63,7 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
             }
 
             /* -------- WAITING FOR AID FROM NEW EUNIT AGENT ------- */
-            MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.EXECUTION_UNIT_AID);
+            MessageTemplate template2 = MessageTemplate.MatchConversationId(CommunicationHelper.EXECUTION_UNIT_AID.name());
             // TODO czekanie okreslona ilosc czasu
             ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
             AID aid = null;

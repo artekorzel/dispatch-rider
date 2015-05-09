@@ -22,7 +22,7 @@ public class GetAskForGraphChangesBehaviour extends CyclicBehaviour {
     @Override
     public void action() {
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
+                .MatchConversationId(CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

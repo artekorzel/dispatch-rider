@@ -31,7 +31,7 @@ public class GetHolonFeedbackOfferBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.HOLON_FEEDBACK);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.HOLON_FEEDBACK.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

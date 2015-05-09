@@ -16,7 +16,7 @@ public class GetCalendarRequestToFileWriteBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_SHOW_STATS_TO_WRITE);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_SHOW_STATS_TO_WRITE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

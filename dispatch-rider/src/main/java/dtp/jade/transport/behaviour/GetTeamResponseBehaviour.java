@@ -21,7 +21,7 @@ public class GetTeamResponseBehaviour extends CyclicBehaviour {
     @Override
     public void action() {
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.TEAM_OFFER_RESPONSE);
+                .MatchConversationId(CommunicationHelper.TEAM_OFFER_RESPONSE.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

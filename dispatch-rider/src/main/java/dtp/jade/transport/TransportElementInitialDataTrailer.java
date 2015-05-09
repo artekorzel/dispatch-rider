@@ -8,6 +8,9 @@ public class TransportElementInitialDataTrailer extends TransportElementInitialD
     private int universality;
     private int connectorType;
 
+    public TransportElementInitialDataTrailer() {
+    }
+
     public TransportElementInitialDataTrailer(String costFunction, int capacity,
                                               int defaultCapacity, int depot) {
         super(costFunction, capacity, defaultCapacity, depot);

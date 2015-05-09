@@ -19,7 +19,7 @@ public class GetSTBeginBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.ST_BEGIN);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.ST_BEGIN.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

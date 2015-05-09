@@ -20,7 +20,7 @@ public class GetResetRequestBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.RESET);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.RESET.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

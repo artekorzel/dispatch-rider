@@ -21,7 +21,7 @@ public class GetSimInfoBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.SIM_INFO);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.SIM_INFO.name());
         ACLMessage msg = myAgent.receive(template);
 
         SimInfo simConstrains;

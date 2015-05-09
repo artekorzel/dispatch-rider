@@ -21,7 +21,7 @@ public class GetNooneRequestBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.DISTRIBUTOR_SHOW_NOONE_LIST);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.DISTRIBUTOR_SHOW_NOONE_LIST.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

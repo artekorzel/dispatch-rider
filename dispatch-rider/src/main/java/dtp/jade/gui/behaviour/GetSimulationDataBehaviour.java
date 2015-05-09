@@ -24,7 +24,7 @@ public class GetSimulationDataBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.SIMULATION_DATA);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.SIMULATION_DATA.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

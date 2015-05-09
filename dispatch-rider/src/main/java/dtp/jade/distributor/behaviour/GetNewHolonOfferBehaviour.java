@@ -36,7 +36,7 @@ public class GetNewHolonOfferBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.NEW_HOLON_OFFER);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.NEW_HOLON_OFFER.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

@@ -23,6 +23,9 @@ public class TransportElementInitialData implements Serializable {
     private int depot = 0;
     private String costFunction;
 
+    public TransportElementInitialData() {
+    }
+
     public TransportElementInitialData(String costFunction, int capacity, int defaultCapacity, int depot) {
         this.capacity = capacity;
         this.defaultCapacity = defaultCapacity;

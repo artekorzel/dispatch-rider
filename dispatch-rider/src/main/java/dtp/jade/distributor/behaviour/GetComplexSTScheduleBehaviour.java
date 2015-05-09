@@ -22,7 +22,7 @@ public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.HOLONS_CALENDAR);
+                .MatchConversationId(CommunicationHelper.HOLONS_CALENDAR.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

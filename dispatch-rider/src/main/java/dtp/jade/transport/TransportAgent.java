@@ -1059,7 +1059,7 @@ public abstract class TransportAgent extends BaseAgent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-            int messageCode;
+            CommunicationHelper messageCode;
             if (getTransportType().equals(TransportType.DRIVER)) {
                 messageCode = CommunicationHelper.TRANSPORT_DRIVER_AID;
             } else if (getTransportType().equals(TransportType.TRAILER)) {

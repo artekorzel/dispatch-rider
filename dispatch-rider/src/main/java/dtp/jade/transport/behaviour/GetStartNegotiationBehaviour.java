@@ -16,7 +16,7 @@ public class GetStartNegotiationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.START_NEGOTIATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.START_NEGOTIATION.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

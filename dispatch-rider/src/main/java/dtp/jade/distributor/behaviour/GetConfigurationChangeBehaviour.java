@@ -20,7 +20,7 @@ public class GetConfigurationChangeBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.CONFIGURATION_CHANGE);
+                .MatchConversationId(CommunicationHelper.CONFIGURATION_CHANGE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

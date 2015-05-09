@@ -22,7 +22,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.UNDELIVERIED_COMMISSION);
+                .MatchConversationId(CommunicationHelper.UNDELIVERIED_COMMISSION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

@@ -16,7 +16,7 @@ public class GetTransportAgentConfirmationBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

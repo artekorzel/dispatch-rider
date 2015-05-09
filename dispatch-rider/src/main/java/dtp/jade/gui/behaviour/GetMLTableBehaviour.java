@@ -24,7 +24,7 @@ public class GetMLTableBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.MLTable);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.MLTable.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

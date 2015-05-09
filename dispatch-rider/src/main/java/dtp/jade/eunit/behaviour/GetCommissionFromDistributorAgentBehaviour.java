@@ -25,7 +25,7 @@ public class GetCommissionFromDistributorAgentBehaviour extends CyclicBehaviour 
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.COMMISSION_OFFER_REQUEST);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION_OFFER_REQUEST.name());
         ACLMessage msg = myAgent.receive(template);
 
         Commission commission = null;

@@ -22,7 +22,7 @@ public class GetCalenderStatsToFileBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_MY_FILE_STATS);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_MY_FILE_STATS.name());
         ACLMessage msg = myAgent.receive(template);
 
         CalendarStats calendarStats;

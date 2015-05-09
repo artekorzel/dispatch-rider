@@ -27,7 +27,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
         /*-------- RECIEVING CURRENT TIME STAMP -------*/
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.TIME_CHANGED);
+                .MatchConversationId(CommunicationHelper.TIME_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

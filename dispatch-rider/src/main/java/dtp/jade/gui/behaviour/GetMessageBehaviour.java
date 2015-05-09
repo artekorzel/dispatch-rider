@@ -21,7 +21,7 @@ public class GetMessageBehaviour extends CyclicBehaviour {
     public void action() {
 
         /*-------- RECIEVING REQUESTS FOR DISPLAYING MESSAGE IN GUI -------*/
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.GUI_MESSAGE);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.GUI_MESSAGE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

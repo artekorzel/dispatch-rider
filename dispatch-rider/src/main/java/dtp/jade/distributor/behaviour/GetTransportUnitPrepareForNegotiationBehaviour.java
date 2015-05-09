@@ -30,7 +30,7 @@ public class GetTransportUnitPrepareForNegotiationBehaviour extends CyclicBehavi
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

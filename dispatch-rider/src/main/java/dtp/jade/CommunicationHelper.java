@@ -9,183 +9,171 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import org.apache.log4j.Logger;
 
-public class CommunicationHelper {
-
-    private static Logger logger = Logger.getLogger(CommunicationHelper.class);
+public enum CommunicationHelper {
 
     // ----------------------------------------------------------//
     // ---------- Komunikaty wysylane przez GUIAgent'a ----------//
 
     // graf sieci transportowej
-    public static final int GRAPH = 1011;
+    GRAPH,
 
     // graf sieci transportowej - aktualizacja
-    public static final int GRAPH_UPDATE = 1012;
+    GRAPH_UPDATE,
 
     // info dotyczace symulacji
-    public static final int SIM_INFO = 102;
+    SIM_INFO,
 
     // kolejny timestamp
-    public static final int TIME_CHANGED = 103;
+    TIME_CHANGED,
 
     // zlecenie transportowe
-    public static final int COMMISSION = 104;
+    COMMISSION,
 
     // prosba o kalendarz EUnit'a
-    public static final int EUNIT_SHOW_CALENDAR = 105;
+    EUNIT_SHOW_CALENDAR,
 
     // prosba o statystyki EUnit'a
-    public static final int EUNIT_SHOW_STATS = 106;
+    EUNIT_SHOW_STATS,
 
     // prosba o statystyki EUnit'a do pozniejszego zapisu do pliku
-    public static final int EUNIT_SHOW_STATS_TO_WRITE = 113;
+    EUNIT_SHOW_STATS_TO_WRITE,
 
     // prosba o reset EUnit'a i DistributorAgent'a
-    public static final int RESET = 107;
+    RESET,
 
     // prosba o wyslanie listy niezrealizowachy zlecen
-    public static final int DISTRIBUTOR_SHOW_NOONE_LIST = 108;
+    DISTRIBUTOR_SHOW_NOONE_LIST,
 
     // sytuacja kryzysowa
-    public static final int CRISIS_EVENT = 109;
+    CRISIS_EVENT,
 
-    public static final int DRIVER_CREATION = 110;
+    DRIVER_CREATION,
 
-    public static final int TRUCK_CREATION = 111;
+    TRUCK_CREATION,
 
-    public static final int TRAILER_CREATION = 112;
+    TRAILER_CREATION,
 
-    public static final int SIM_END = 114;
+    SIM_END,
 
     //prosba o zaktualizowanie przez wszystkie holony obecnej lokacji na podstawie timestampu
-    public static final int UPDATE_CURRENT_LOCATION = 115;
+    UPDATE_CURRENT_LOCATION,
 
     //wiadomosc wysylana do wszystkich eunitow z informacja aby wracali do depotu
-    public static final int BACK_TO_DEPOT = 116;
+    BACK_TO_DEPOT,
 
     // ------------------------------------------------------------------ //
     // ---------- Komunikaty wysylane przez DistributorAgent'a ---------- //
 
-    // AID DistributorAgent'a
-    public static final int DISTRIBUTOR_AID = 201;
-
     // prosba o utworzenie nowego EUnit'a
-    public static final int EXECUTION_UNIT_CREATION = 202;
+    EXECUTION_UNIT_CREATION,
 
-    public static final int GUI_MESSAGE = 203;
+    GUI_MESSAGE,
 
     // prosba o oferte EUnit'a
-    public static final int COMMISSION_OFFER_REQUEST = 204;
+    COMMISSION_OFFER_REQUEST,
 
     // odpowiedz na oferte - info czy EUnit wygral aukcje zlecen
-    public static final int FEEDBACK = 205;
-
-    // prosba o najgorsze zlecenie EUnit'a (Simmulated Trading)
-    public static final int EUNIT_SEND_WORST_COMMISSION = 206;
-
-    // prosba o info na temat EUnit'a
-    public static final int EUNIT_SEND_INFO = 207;
+    FEEDBACK,
 
     // liczba zlecen na liscie niezrealizowanych
-    public static final int NOONE_LIST = 208;
+    NOONE_LIST,
 
     // ----------------------------------------------------------- //
     // ---------- Komunikaty wysylane przez EUnitAgent'a ----------//
 
     // AID EUnit'a
-    public static final int EXECUTION_UNIT_AID = 301;
+    EXECUTION_UNIT_AID,
 
     // kalendarz EUnit'a
-    public static final int EUNIT_MY_CALENDAR = 302;
+    EUNIT_MY_CALENDAR,
 
     // statystyki EUnit'a
-    public static final int EUNIT_MY_STATS = 303;
+    EUNIT_MY_STATS,
 
     // statystyki EUnit'a zapisywane do pliku
-    public static final int EUNIT_MY_FILE_STATS = 307;
+    EUNIT_MY_FILE_STATS,
 
     // oferta dla DistributorAgent'a
-    public static final int COMMISSION_OFFER = 304;
+    COMMISSION_OFFER,
 
     // info o EUnitAgent
-    public static final int EUNIT_INFO = 306;
+    EUNIT_INFO,
 
-    // ostateczny feedback na temat sytuacji kryzysowej
-    public static final int CRISIS_EVENT_FINAL_FEEDBACK = 330;
 
     // ----------------------------------------------------------- //
     // ------ Komunikaty wysylane przez TransportAgent'�w ------//
 
     // oferta elementu transportowego
-    public static final int TRANSPORT_OFFER = 501;
+    TRANSPORT_OFFER,
 
-    public static final int TRANSPORT_COMMISSION = 502;
+    TRANSPORT_COMMISSION,
 
-    public static final int TRANSPORT_FEEDBACK = 503;
+    TRANSPORT_FEEDBACK,
 
-    public static final int TRANSPORT_DRIVER_AID = 504;
+    TRANSPORT_DRIVER_AID,
 
-    public static final int TRANSPORT_INITIAL_DATA = 505;
+    TRANSPORT_INITIAL_DATA,
 
-    public static final int TRANSPORT_TRUCK_AID = 506;
+    TRANSPORT_TRUCK_AID,
 
-    public static final int TRANSPORT_TRAILER_AID = 507;
+    TRANSPORT_TRAILER_AID,
 
-    public static final int TRANSPORT_REORGANIZE = 508;
+    TRANSPORT_REORGANIZE,
 
-    public static final int TRANSPORT_REORGANIZE_OFFER = 509;
+    TRANSPORT_REORGANIZE_OFFER,
 
-    public static final int TRANSPORT_AGENT_CREATED = 800;
-    public static final int SIM_INFO_RECEIVED = 801;
-    public static final int TIME_STAMP_CONFIRM = 802;
+    TRANSPORT_AGENT_CREATED,
+    SIM_INFO_RECEIVED,
+    TIME_STAMP_CONFIRM,
 
     // ----------------------------------------------------------- //
     // ----------------------------------------------------------- //
 
     /* WYSYLANE PRZEZ INFO AGENTA */
-    public static final int EUNIT_INITIAL_DATA = 601;
+    EUNIT_INITIAL_DATA,
 
     // ----------------------------------------------------------- //
     /* Czesc odpowiedzialna za nowa koncepcje */
-    public static final int AGENTS_DATA = 1;
-    public static final int AGENTS_DATA_FOR_TRANSPORTUNITS = 2;
-    public static final int TRANSPORT_AGENT_CONFIRMATION = 3;
-    public static final int TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION = 4;
-    public static final int START_NEGOTIATION = 5;
-    public static final int TEAM_OFFER = 6;
-    public static final int TEAM_OFFER_RESPONSE = 7;
-    public static final int NEW_HOLON_OFFER = 8;
-    public static final int NEW_HOLON_TEAM = 9;
-    public static final int HOLON_FEEDBACK = 10;
-    public static final int COMMISSION_FOR_EUNIT = 11;
-    public static final int CONFIRMATIO_FROM_DISTRIBUTOR = 12;
+    AGENTS_DATA,
+    AGENTS_DATA_FOR_TRANSPORTUNITS,
+    TRANSPORT_AGENT_CONFIRMATION,
+    TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION,
+    START_NEGOTIATION,
+    TEAM_OFFER,
+    TEAM_OFFER_RESPONSE,
+    NEW_HOLON_OFFER,
+    HOLON_FEEDBACK,
+    COMMISSION_FOR_EUNIT,
+    CONFIRMATIO_FROM_DISTRIBUTOR,
 
-    public static final int COMMISSION_SEND_AGAIN = 15;
-    public static final int ST_BEGIN = 17;
+    COMMISSION_SEND_AGAIN,
+    ST_BEGIN,
 
     /* ComplexST */
 
-    public static final int HOLONS_CALENDAR = 21;
-    public static final int HOLONS_NEW_CALENDAR = 22;
+    HOLONS_CALENDAR,
+    HOLONS_NEW_CALENDAR,
 
-    public static final int WORST_COMMISSION_COST = 23;
-    public static final int CHANGE_SCHEDULE = 24;
+    WORST_COMMISSION_COST,
+    CHANGE_SCHEDULE,
 
-    public static final int SIMULATION_DATA = 25;
+    SIMULATION_DATA,
 
-    public static final int UNDELIVERIED_COMMISSION = 26;
+    UNDELIVERIED_COMMISSION,
 
-    public static final int MEASURE_DATA = 27;
+    MEASURE_DATA,
 
-    public static final int CONFIGURATION_CHANGE = 28;
+    CONFIGURATION_CHANGE,
 
-    public static final int MLTable = 29;
+    MLTable,
 
-    public static final int GRAPH_CHANGED = 30;
+    GRAPH_CHANGED,
 
-    public static final int ASK_IF_GRAPH_LINK_CHANGED = 31;
+    ASK_IF_GRAPH_LINK_CHANGED,
 
-    public static final int GRAPH_LINK_CHANGED = 32;
+    GRAPH_LINK_CHANGED;
+
+    private static Logger logger = Logger.getLogger(CommunicationHelper.class);
 
     public static AID[] findAgentByServiceName(Agent agent, String serviceName) {
 

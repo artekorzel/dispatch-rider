@@ -16,7 +16,7 @@ public class SimInfoReceivedBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.SIM_INFO_RECEIVED);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.SIM_INFO_RECEIVED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

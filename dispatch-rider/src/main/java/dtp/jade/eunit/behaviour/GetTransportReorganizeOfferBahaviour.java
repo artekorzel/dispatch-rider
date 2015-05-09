@@ -22,7 +22,7 @@ public class GetTransportReorganizeOfferBahaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_REORGANIZE_OFFER);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_REORGANIZE_OFFER.name());
         ACLMessage msg = agent.receive(template);
 
         TransportOffer offer = null;

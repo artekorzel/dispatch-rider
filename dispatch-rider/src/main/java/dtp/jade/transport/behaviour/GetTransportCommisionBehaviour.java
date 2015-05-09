@@ -21,7 +21,7 @@ public class GetTransportCommisionBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_COMMISSION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_COMMISSION.name());
         ACLMessage message = myAgent.receive(template);
 
         TransportCommission transportCommision = null;

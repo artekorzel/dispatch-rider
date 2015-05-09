@@ -23,12 +23,13 @@ public class BaseAgent extends Agent {
      * @param object      serializable object to be send
      * @param messageCode message code
      */
-    public synchronized void send(AID aid, Serializable object, int messageCode) {
+    public synchronized void send(AID aid, Serializable object, CommunicationHelper messageCode) {
         send(new AID[]{aid}, object, messageCode);
     }
 
-    public synchronized void send(AID[] aids, Serializable object, int messageCode) {
-        ACLMessage message = new ACLMessage(messageCode);
+    public synchronized void send(AID[] aids, Serializable object, CommunicationHelper messageCode) {
+        ACLMessage message = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+        message.setConversationId(messageCode.name());
         for (AID aid : aids) {
             message.addReceiver(aid);
         }
@@ -40,12 +41,13 @@ public class BaseAgent extends Agent {
         }
     }
 
-    public synchronized void sendString(AID aid, String content, int messageCode) {
-        send(new AID[]{aid}, content, messageCode);
+    public synchronized void sendString(AID aid, String content, CommunicationHelper messageCode) {
+        sendString(new AID[]{aid}, content, messageCode);
     }
 
-    public synchronized void sendString(AID[] aids, String content, int messageCode) {
-        ACLMessage message = new ACLMessage(messageCode);
+    public synchronized void sendString(AID[] aids, String content, CommunicationHelper messageCode) {
+        ACLMessage message = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+        message.setConversationId(messageCode.name());
         for (AID aid : aids) {
             message.addReceiver(aid);
         }

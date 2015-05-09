@@ -21,7 +21,7 @@ public class GetInitialDataBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_INITIAL_DATA);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_INITIAL_DATA.name());
         ACLMessage msg = eUnit.receive(template);
         if (msg != null) {
             try {

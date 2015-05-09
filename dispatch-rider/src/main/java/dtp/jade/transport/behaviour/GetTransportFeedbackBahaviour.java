@@ -21,7 +21,7 @@ public class GetTransportFeedbackBahaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_FEEDBACK);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_FEEDBACK.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

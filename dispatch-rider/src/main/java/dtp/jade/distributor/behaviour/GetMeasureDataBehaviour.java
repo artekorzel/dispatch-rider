@@ -19,7 +19,7 @@ public class GetMeasureDataBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchPerformative(CommunicationHelper.MEASURE_DATA);
+                .MatchConversationId(CommunicationHelper.MEASURE_DATA.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

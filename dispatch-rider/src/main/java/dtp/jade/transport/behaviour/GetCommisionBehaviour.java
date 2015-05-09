@@ -35,7 +35,7 @@ public class GetCommisionBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.COMMISSION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

@@ -610,7 +610,7 @@ public class GUIAgent extends BaseAgent {
 
         //czekamy az kazdy z eunitow potwierdzi otrzymanie komunikatu
         for (AID ignored : aids) {
-            blockingReceive(MessageTemplate.MatchPerformative(CommunicationHelper.UPDATE_CURRENT_LOCATION));
+            blockingReceive(MessageTemplate.MatchConversationId(CommunicationHelper.UPDATE_CURRENT_LOCATION.name()));
         }
 
     }
@@ -1012,7 +1012,7 @@ public class GUIAgent extends BaseAgent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-            int msgType;
+            CommunicationHelper msgType;
             if (type == TransportType.DRIVER) {
                 msgType = CommunicationHelper.DRIVER_CREATION;
             } else if (type == TransportType.TRAILER) {
@@ -1087,7 +1087,6 @@ public class GUIAgent extends BaseAgent {
         }
         logger.info("graph changed");
         SingletonGUI.getInstance().update(graph);
-        ACLMessage msg = new ACLMessage(CommunicationHelper.GRAPH_CHANGED);
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;

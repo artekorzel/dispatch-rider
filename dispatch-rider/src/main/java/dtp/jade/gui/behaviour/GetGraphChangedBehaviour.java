@@ -20,7 +20,7 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.GRAPH_CHANGED);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.GRAPH_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

@@ -22,7 +22,7 @@ public class GetWorstCommissionRequestBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.WORST_COMMISSION_COST);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.WORST_COMMISSION_COST.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

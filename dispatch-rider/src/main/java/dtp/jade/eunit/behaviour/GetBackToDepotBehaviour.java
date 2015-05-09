@@ -25,7 +25,7 @@ public class GetBackToDepotBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.BACK_TO_DEPOT);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.BACK_TO_DEPOT.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

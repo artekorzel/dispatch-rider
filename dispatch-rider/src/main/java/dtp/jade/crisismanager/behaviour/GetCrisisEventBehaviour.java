@@ -22,7 +22,7 @@ public class GetCrisisEventBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.CRISIS_EVENT);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.CRISIS_EVENT.name());
         ACLMessage msg = myAgent.receive(template);
 
         CrisisEvent crisisEvent;

@@ -29,12 +29,12 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRUCK_CREATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRUCK_CREATION.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {
             AgentContainer container = agent.getContainerController();
-            AgentController controller = null;
+            AgentController controller;
             AgentInfoPOJO agentInfo = new AgentInfoPOJO();
 
             agentInfo.setName("Truck #" + agent.getTruckAgentsNo());
@@ -45,9 +45,9 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
 
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
 
-                MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_TRUCK_AID);
+                MessageTemplate template2 = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_TRUCK_AID.name());
                 ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
-                AID aid = null;
+                AID aid;
                 try {
                     aid = (AID) msg2.getContentObject();
                     agentInfo.setAID(aid);
@@ -65,8 +65,7 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
                 logger.error(e);
             }
 
-            AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");
-            agent.send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
+            agent.send(message.getSender(), "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
         } else {
             block();
         }

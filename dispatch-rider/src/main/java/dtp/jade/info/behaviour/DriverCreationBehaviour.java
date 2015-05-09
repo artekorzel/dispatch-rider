@@ -29,7 +29,7 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.DRIVER_CREATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.DRIVER_CREATION.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {
@@ -45,8 +45,8 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
 
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
 
-                MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_DRIVER_AID);
-                ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);    //FIXME osobny behaviour
+                MessageTemplate template2 = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_DRIVER_AID.name());
+                ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
                 AID aid = (AID) msg2.getContentObject();
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " - got AID: " + aid);
                 agentInfo.setAID(aid);
@@ -59,8 +59,7 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
                 logger.error(e);
             }
 
-            AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");
-            agent.send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
+            agent.sendString(message.getSender(), "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
             logger.info("Agent creation confirmed");
         } else {
             block();

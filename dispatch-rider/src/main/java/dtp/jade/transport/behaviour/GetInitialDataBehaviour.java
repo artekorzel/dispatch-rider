@@ -23,7 +23,7 @@ public class GetInitialDataBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_INITIAL_DATA);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_INITIAL_DATA.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {

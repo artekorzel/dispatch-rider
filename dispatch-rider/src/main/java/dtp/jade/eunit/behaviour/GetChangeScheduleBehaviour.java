@@ -22,7 +22,7 @@ public class GetChangeScheduleBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.CHANGE_SCHEDULE);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.CHANGE_SCHEDULE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

@@ -17,7 +17,7 @@ public class GetConfirmOfTimeStampBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TIME_STAMP_CONFIRM);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TIME_STAMP_CONFIRM.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

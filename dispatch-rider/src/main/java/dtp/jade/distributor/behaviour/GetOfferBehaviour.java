@@ -36,7 +36,7 @@ public class GetOfferBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.COMMISSION_OFFER);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION_OFFER.name());
         ACLMessage msg = myAgent.receive(template);
 
         EUnitOffer offer;

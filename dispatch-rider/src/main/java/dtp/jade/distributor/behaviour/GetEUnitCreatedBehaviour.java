@@ -17,7 +17,7 @@ public class GetEUnitCreatedBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EXECUTION_UNIT_CREATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EXECUTION_UNIT_CREATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

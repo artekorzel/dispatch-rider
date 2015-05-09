@@ -20,7 +20,7 @@ public class GetCalendarStatsRequestBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_SHOW_STATS);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_SHOW_STATS.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

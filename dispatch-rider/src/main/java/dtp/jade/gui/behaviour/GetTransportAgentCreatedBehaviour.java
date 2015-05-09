@@ -19,7 +19,7 @@ public class GetTransportAgentCreatedBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_AGENT_CREATED);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_AGENT_CREATED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

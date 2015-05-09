@@ -16,7 +16,7 @@ public class GetCalendarRequestBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.EUNIT_SHOW_CALENDAR);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_SHOW_CALENDAR.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

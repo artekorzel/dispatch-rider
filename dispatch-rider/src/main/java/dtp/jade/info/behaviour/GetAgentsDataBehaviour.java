@@ -16,7 +16,7 @@ public class GetAgentsDataBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.AGENTS_DATA);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.AGENTS_DATA.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {

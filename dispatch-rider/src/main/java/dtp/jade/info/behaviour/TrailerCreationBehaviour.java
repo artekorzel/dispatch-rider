@@ -29,7 +29,7 @@ public class TrailerCreationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchPerformative(CommunicationHelper.TRAILER_CREATION);
+        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRAILER_CREATION.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {
@@ -46,7 +46,7 @@ public class TrailerCreationBehaviour extends CyclicBehaviour {
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
 
                 MessageTemplate template2 = MessageTemplate
-                        .MatchPerformative(CommunicationHelper.TRANSPORT_TRAILER_AID);
+                        .MatchConversationId(CommunicationHelper.TRANSPORT_TRAILER_AID.name());
                 ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
                 AID aid;
                 try {
@@ -66,8 +66,7 @@ public class TrailerCreationBehaviour extends CyclicBehaviour {
                 logger.error(e);
             }
 
-            AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");
-            agent.send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
+            agent.send(message.getSender(), "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
         } else {
             block();
         }
