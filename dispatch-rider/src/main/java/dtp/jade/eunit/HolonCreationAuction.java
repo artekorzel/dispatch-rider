@@ -617,8 +617,7 @@ public class HolonCreationAuction {
             }
             TransitArray.clear();
         } else {
-            System.out
-                    .println("The parameter sum is equal to 0. Impossible division.");
+            logger.warn("The parameter sum is equal to 0. Impossible division.");
         }
     }
 
@@ -716,8 +715,7 @@ public class HolonCreationAuction {
                             + arrayCost[i];
                     if (accumulatedNormalizedValue > R) {
                         if (arrayCost[i] == null) {
-                            System.out
-                                    .println("arrayCost[i]==null !!!!!!!!!!!!!!");
+                            logger.error("arrayCost[i]==null !!!!!!!!!!!!!!");
                         }
                         if (CostNumber.contains(arrayCost[i])) {
                             int temp = CostNumber.indexOf(arrayCost[i]);
@@ -726,7 +724,7 @@ public class HolonCreationAuction {
                             CostNumber.remove(temp);
                             break;
                         } else {
-                            System.out.println("CostNumber doesn't contain "
+                            logger.error("CostNumber doesn't contain "
                                     + arrayCost[i] + "\n");
                             break;
                         }
@@ -763,7 +761,7 @@ public class HolonCreationAuction {
         }
         if ((ArrayHolon.get(0))[0] == null || (ArrayHolon.get(0))[1] == null
                 || (ArrayHolon.get(0))[2] == null) {
-            System.out.println("Problem Creation\n");
+            logger.error("Problem Creation\n");
             return null;
         } else {
             return ArrayHolon.get(0);

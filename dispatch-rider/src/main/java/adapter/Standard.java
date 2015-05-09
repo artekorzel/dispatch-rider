@@ -4,6 +4,7 @@ import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
 import dtp.commission.TxtFileReader;
 import dtp.simulation.SimInfo;
+import org.apache.log4j.Logger;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class Standard implements Adapter {
 
+    private static Logger logger = Logger.getLogger(Standard.class);
     private List<CommissionHandler> commissions = new LinkedList<>();
     private SimInfo simInfo;
 
@@ -18,7 +20,7 @@ public class Standard implements Adapter {
         Commission[] commissions = TxtFileReader.getCommissions(fileName);
         int incomeTime[] = TxtFileReader.getIncomeTimes(fileName + ".income_times", commissions.length);
         if (incomeTime == null) {
-            System.err.println("Brak pliku .income_times");
+            logger.error("Brak pliku .income_times");
             return;
         }
 

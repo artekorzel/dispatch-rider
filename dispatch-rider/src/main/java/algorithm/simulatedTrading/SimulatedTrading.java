@@ -6,6 +6,7 @@ import algorithm.Schedule;
 import dtp.commission.Commission;
 import dtp.simulation.SimInfo;
 import jade.core.AID;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -18,6 +19,8 @@ import java.util.*;
  * used in system.
  */
 public class SimulatedTrading {
+
+    private static Logger logger = Logger.getLogger(SimulatedTrading.class);
 
     /*
      * This is implementation of simple simulated trading algorithm. It is based
@@ -254,7 +257,7 @@ public class SimulatedTrading {
                 schedule = algorithm.makeSchedule(Commission.copy(com), null,
                         schedule, timestamp);
                 if (schedule == null) {
-                    System.err.println("complexST err");
+                    logger.error("complexST err");
                     System.exit(0);
                 }
                 holons.put(i, schedule);

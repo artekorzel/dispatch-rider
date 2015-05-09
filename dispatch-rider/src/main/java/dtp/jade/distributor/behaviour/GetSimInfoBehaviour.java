@@ -7,8 +7,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 public class GetSimInfoBehaviour extends CyclicBehaviour {
+
+    private static Logger logger = Logger.getLogger(GetSimInfoBehaviour.class);
 
     private final DistributorAgent agent;
 
@@ -29,7 +32,7 @@ public class GetSimInfoBehaviour extends CyclicBehaviour {
                 simConstrains = (SimInfo) msg.getContentObject();
                 agent.setSimInfo(simConstrains);
             } catch (UnreadableException e1) {
-                e1.printStackTrace();
+                logger.error(e1);
             }
         } else {
             block();

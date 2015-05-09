@@ -174,7 +174,7 @@ public class DistributorAgent extends BaseAgent {
         nextSTTimestamp = 0;
         nextMeasureTimestamp = 0;
         measureData = new MeasureData();
-        System.out.println("DistributorAgent - end of initialization");
+        logger.info("DistributorAgent - end of initialization");
     }
 
     public void simEnd() {
@@ -568,7 +568,7 @@ public class DistributorAgent extends BaseAgent {
 
     private void simulatedTrading() {
 
-        System.out.println("fullSimulatedTrading");
+        logger.info("fullSimulatedTrading");
         fullSimulatedTrading = true;
         complexSimulatedTrading(null);
 
@@ -607,7 +607,7 @@ public class DistributorAgent extends BaseAgent {
                 msg.setContentObject(holons.get(aid));
                 send(msg);
             } catch (IOException e) {
-                e.printStackTrace(); //FIXME
+                logger.error(e);
             }
         }
 
@@ -741,7 +741,7 @@ public class DistributorAgent extends BaseAgent {
         if (transportUnitsPrepare == transportUnitCount) {
             transportUnitsPrepare = 0;
 
-            System.out.println("START");
+            logger.info("START");
             AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                     "TransportUnitService");
 
@@ -816,10 +816,10 @@ public class DistributorAgent extends BaseAgent {
             bestCost = calculateCost(bestOffer.getTruckData(),
                     bestOffer.getTrailerData(), bestOffer.getDriverData(),
                     dist, currentCommission);
-            System.out.println(newHolonOffers.size());
-            System.out.println("Best offer with cost = " + bestCost
+            logger.info(newHolonOffers.size());
+            logger.info("Best offer with cost = " + bestCost
                     + " consist of following holons : ");
-            System.out.println(bestOffer.getDriver() + " "
+            logger.info(bestOffer.getDriver() + " "
                     + bestOffer.getTruck() + " " + bestOffer.getTrailer());
         } else {
             bestCost = Double.MAX_VALUE;
@@ -865,7 +865,7 @@ public class DistributorAgent extends BaseAgent {
         handledCommissionsCount++;
         simulatedTrading = false;
         if (commissions.size() == 0) {
-            System.out.println("Zlecenia przyznane");
+            logger.info("Zlecenia przyznane");
             sendGUIMessage("NEXT_SIMSTEP");
             return;
         }
@@ -913,7 +913,7 @@ public class DistributorAgent extends BaseAgent {
             return;
         }
 
-        System.out.println("Send Team");
+        logger.info("Send Team");
         if (bestOffer == null) {
             createDefaultHolon(currentCommission);
             return;
@@ -935,7 +935,7 @@ public class DistributorAgent extends BaseAgent {
      *
      */
     private void sendCommissionToEUnit() {
-        System.out.println("SendCommission to "
+        logger.info("SendCommission to "
                 + eUnitOffers.get(0).getAgent().getLocalName() + ", cost = "
                 + eUnitOffers.get(0).getValue());
         sentCommissionToEUnit();
@@ -1016,7 +1016,7 @@ public class DistributorAgent extends BaseAgent {
             try {
                 message.setContentObject(data);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             send(message);
 
@@ -1065,8 +1065,7 @@ public class DistributorAgent extends BaseAgent {
         if (data.getCommission() != null
                 && data.getTrailer().getCapacity() < data.getCommission()
                 .getLoad()) {
-            System.err
-                    .println("Ustawiono za mala pojemnosc domyslnej przyczepy (zlecenie id="
+            logger.error("Ustawiono za mala pojemnosc domyslnej przyczepy (zlecenie id="
                             + data.getCommission().getID()
                             + " nie moze byc zrealizowane)");
             System.exit(0);
@@ -1136,7 +1135,7 @@ public class DistributorAgent extends BaseAgent {
             msg.setContentObject("");
             send(msg);
         } catch (IOException e) {
-            e.printStackTrace(); //fixme
+            logger.error(e);
         }
     }
 
@@ -1191,7 +1190,7 @@ public class DistributorAgent extends BaseAgent {
                         msg.setContentObject(tmp.get(aid));
                         send(msg);
                     } catch (IOException e) {
-                        e.printStackTrace(); //FIXME
+                        logger.error(e);
                     }
                 }
                 if (eUnitsCount == 0)
@@ -1320,7 +1319,7 @@ public class DistributorAgent extends BaseAgent {
                                 try {
                                     response.setContentObject(false);
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    logger.error(e);
                                 }
                                 this.send(response);
                             } else
@@ -1349,7 +1348,7 @@ public class DistributorAgent extends BaseAgent {
                                 try {
                                     response.setContentObject(false);
                                 } catch (IOException e) {
-                                    e.printStackTrace();
+                                    logger.error(e);
                                 }
                                 this.send(response);
                             } else
@@ -1418,8 +1417,7 @@ public class DistributorAgent extends BaseAgent {
                 try {
                     msg.setContentObject(conf.get(aid));
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    logger.error(e.getMessage());
+                    logger.error(e);
                 }
                 this.send(msg);
             }
@@ -1456,7 +1454,7 @@ public class DistributorAgent extends BaseAgent {
             try {
                 response.setContentObject(false);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             this.send(response);
         }

@@ -12,6 +12,7 @@ import machineLearning.qlearning.QLearning;
 import measure.MeasureCalculatorType;
 import measure.MeasureCalculatorsHolder;
 import measure.printer.PrintersHolder;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigurationParser {
+
+    private static Logger logger = Logger.getLogger(ConfigurationParser.class);
 
     /**
      * Converts XML boolean attribute to Java boolean type
@@ -164,7 +167,7 @@ public class ConfigurationParser {
                 .getAttribute("simulatedTrading")));
         int STDepth = Integer.parseInt(commissions.getAttribute("STDepth"));
         if (STDepth == 0) {
-            System.err.println("STDepth nie moze byc rowne 0");
+            logger.error("STDepth nie moze byc rowne 0");
             System.exit(0);
         }
         configuration.setSTDepth(STDepth);
@@ -392,7 +395,7 @@ public class ConfigurationParser {
             conf.setPunishmentFunction(fun);
             conf.setDefaultPunishmentFunValues(defaults);
         } catch (Exception e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
         }
         return conf;
     }

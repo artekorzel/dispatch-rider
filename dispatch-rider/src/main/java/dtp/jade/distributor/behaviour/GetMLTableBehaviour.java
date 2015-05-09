@@ -6,11 +6,13 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import machineLearning.MLAlgorithm;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
 public class GetMLTableBehaviour extends CyclicBehaviour {
 
+    private static Logger logger = Logger.getLogger(GetMLTableBehaviour.class);
 
     private final DistributorAgent agent;
 
@@ -32,7 +34,7 @@ public class GetMLTableBehaviour extends CyclicBehaviour {
             try {
                 resp.setContentObject(table);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
             agent.send(resp);
 

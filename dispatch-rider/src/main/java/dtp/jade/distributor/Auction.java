@@ -2,6 +2,7 @@ package dtp.jade.distributor;
 
 import dtp.commission.Commission;
 import dtp.jade.eunit.EUnitOffer;
+import org.apache.log4j.Logger;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -9,6 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Auction {
+
+    private static Logger logger = Logger.getLogger(Auction.class);
 
     private Commission commission;
 
@@ -42,8 +45,7 @@ public class Auction {
     public void addOffer(EUnitOffer offer) {
         for (EUnitOffer off : offers) {
             if (off.getAgent().equals(offer.getAgent())) {
-                System.err
-                        .println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ SAME AGENT ADDED TWICE");
+                logger.error("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ SAME AGENT ADDED TWICE");
             }
         }
         if (!offers.contains(offer)) offers.add(offer);

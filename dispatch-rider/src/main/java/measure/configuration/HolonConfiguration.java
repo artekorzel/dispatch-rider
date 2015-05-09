@@ -2,6 +2,7 @@ package measure.configuration;
 
 import algorithm.Algorithm;
 import algorithm.AlgorithmType;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 
@@ -9,6 +10,8 @@ import java.io.Serializable;
  * This class contains parameters, which can be changed in specified holon.
  */
 public class HolonConfiguration implements Serializable {
+
+    private static Logger logger = Logger.getLogger(HolonConfiguration.class);
 
     private Boolean simulatedTrading;
 
@@ -47,7 +50,7 @@ public class HolonConfiguration implements Serializable {
         try {
             this.algorithm = AlgorithmType.valueOf(algorithmName).typeClass().newInstance();
         } catch (Exception e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
         }
     }
 

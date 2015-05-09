@@ -134,8 +134,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                             }
                         } else {
                             loadDifference = loadOk;
-                            System.out
-                                    .println("AgentCalendar -> LOAD NOT OK >> "
+                            logger.warn("AgentCalendar -> LOAD NOT OK >> "
                                             + loadDifference);
                         }
 
@@ -229,14 +228,12 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
 
         if (!prevPDDAction.isPDD()) {
 
-            System.out
-                    .println("AgentCalendar.comFits -> !prevActionPDD.isPDD()");
+            logger.warn("AgentCalendar.comFits -> !prevActionPDD.isPDD()");
         }
 
         if (!nextPDDAction.isPDD()) {
 
-            System.out
-                    .println("AgentCalendar.comFits -> !nextActionPDD.isPDD()");
+            logger.warn("AgentCalendar.comFits -> !nextActionPDD.isPDD()");
         }
 
         // dla PICKUP, DELIVERY i DEPOT source location = destination location
@@ -774,8 +771,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
 
         } while (schedule.indexOf(tmpAction) < schedule.size());
 
-        System.out
-                .println("AgentCalendar.getPrevPDDAction() -> first DEPOT action not found");
+        logger.warn("AgentCalendar.getPrevPDDAction() -> first DEPOT action not found");
         return null;
     }
 
@@ -798,8 +794,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
 
         } while (schedule.indexOf(tmpAction) > 0);
 
-        System.out
-                .println("AgentCalendar.getPrevPDDAction -> sth wrong! last DEPOT action not found");
+        logger.warn("AgentCalendar.getPrevPDDAction -> sth wrong! last DEPOT action not found");
         return null;
     }
 

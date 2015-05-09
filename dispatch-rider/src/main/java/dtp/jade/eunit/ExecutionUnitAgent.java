@@ -486,7 +486,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             msg.setContentObject(stat);
             send(msg);
         } catch (IOException e) {
-            e.printStackTrace(); //FIXME
+            logger.error(e);
         }
     }
 
@@ -498,7 +498,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             msg.setContentObject("");
             send(msg);
         } catch (IOException e) {
-            e.printStackTrace();         //FIXME
+            logger.error(e);
         }
     }
 
@@ -518,7 +518,7 @@ public class ExecutionUnitAgent extends BaseAgent {
                 try {
                     cfp.setContentObject(getInfo());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e);
                 }
 
                 send(cfp);
@@ -588,7 +588,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     public double getRatio(double distance, Commission commission,
                            Schedule tmpSchedule) {
         if (commission == null) {
-            System.out.println("Commission null\n");
+            logger.warn("Commission null\n");
         }
 
         if (getDriver() != null && getTrailer() != null && getTruck() != null
@@ -604,9 +604,9 @@ public class ExecutionUnitAgent extends BaseAgent {
                         tmpSchedule);
             }
             if (trailerData == null) {
-                System.out.println("trailerData is null\n");
+                logger.warn("trailerData is null\n");
             } else {
-                System.out.println("truckData is null\n");
+                logger.warn("truckData is null\n");
             }
         }
         return -1;
@@ -696,8 +696,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         if (data.getCommission() != null
                 && data.getTrailer().getCapacity() < data.getCommission()
                 .getLoad()) {
-            System.err
-                    .println("Ustawiono za mala pojemnosc domyslnej przyczepy (zlecenie id="
+            logger.warn("Ustawiono za mala pojemnosc domyslnej przyczepy (zlecenie id="
                             + data.getCommission().getID()
                             + " nie moze byc zrealizowane)");
             System.exit(0);
@@ -706,7 +705,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             isDefault = true;
         if (data.getCommission() != null) {
             if (!addCommissionToCalendar(data.getCommission())) {
-                System.err.println("Tu jest blad!!!");
+                logger.error("Tu jest blad!!!");
                 System.exit(0);
             }
             schedule.setCurrentCommission(null, depot);
@@ -729,7 +728,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             }
             send(msg);
         } catch (IOException e) {
-            e.printStackTrace(); //FIXME
+            logger.error(e);
         }
     }
 
@@ -745,8 +744,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             msg.setContentObject("");
             send(msg);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -767,7 +765,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         data.setCommissions(getCommissionsData());
 
         if (schedule.getCurrentLocation() == null) {
-            System.err.println("Mamy nulla " + getAID().getLocalName() + " " + timestamp);
+            logger.warn("Mamy nulla " + getAID().getLocalName() + " " + timestamp);
             updateCurrentLocation(timestamp);
             /*schedule.setCurrentLocation(depot);
             schedule.setCurrentCommission(schedule.getCommission(0), null);*/
@@ -780,7 +778,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         try {
             msg.setContentObject(data);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         send(msg);
     }
@@ -847,8 +845,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         try {
             msg.setContentObject("");
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error(e);
         }
         this.send(msg);
     }
@@ -865,7 +862,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         try {
             response.setContentObject(true);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
         this.send(response);
     }
@@ -878,8 +875,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         try {
             msg.setContentObject(link);
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error(e);
         }
         this.send(msg);
     }
@@ -892,8 +888,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         try {
             msg.setContentObject("");
         } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error(e);
         }
         this.send(msg);
     }

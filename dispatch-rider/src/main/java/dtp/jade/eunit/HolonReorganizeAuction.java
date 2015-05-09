@@ -110,7 +110,7 @@ public class HolonReorganizeAuction {
 
         TransportOffer[] team = new TransportOffer[3];
 
-        System.out.println("Old team: " + driverBackup.getAid().getLocalName() + " " + truckBackup.getAid().getLocalName() + " " + trailerBackup.getAid().getLocalName());
+        logger.info("Old team: " + driverBackup.getAid().getLocalName() + " " + truckBackup.getAid().getLocalName() + " " + trailerBackup.getAid().getLocalName());
 
         double minimalCost = Double.MAX_VALUE;
         if (!trucks.contains(truckBackup)) {
@@ -159,7 +159,7 @@ public class HolonReorganizeAuction {
             team[2] = trailerBackup;
         }
 
-        System.out.println("New team: " + team[0].getAid().getLocalName() + " " + team[1].getAid().getLocalName() + " " + team[2].getAid().getLocalName());
+        logger.info("New team: " + team[0].getAid().getLocalName() + " " + team[1].getAid().getLocalName() + " " + team[2].getAid().getLocalName());
         
 /*        TransportOffer trailer = trailers.get(0);
         for (TransportOffer item : trailers) {
@@ -209,7 +209,7 @@ public class HolonReorganizeAuction {
     private TransportOffer[] bestRep() {
         TransportOffer[] team = new TransportOffer[3];
 
-        System.out.println("Old team: " + driverBackup.getAid().getLocalName() + " " + truckBackup.getAid().getLocalName() + " " + trailerBackup.getAid().getLocalName());
+        logger.info("Old team: " + driverBackup.getAid().getLocalName() + " " + truckBackup.getAid().getLocalName() + " " + trailerBackup.getAid().getLocalName());
 
         if (!trucks.contains(truckBackup)) {
             trucks.add(truckBackup);
@@ -265,7 +265,7 @@ public class HolonReorganizeAuction {
             }
         }
 
-        System.out.println("New team: " + team[0].getAid().getLocalName() + " " + team[1].getAid().getLocalName() + " " + team[2].getAid().getLocalName());
+        logger.info("New team: " + team[0].getAid().getLocalName() + " " + team[1].getAid().getLocalName() + " " + team[2].getAid().getLocalName());
 
         return team;
     }
@@ -275,7 +275,7 @@ public class HolonReorganizeAuction {
 
         TransportOffer[] team = new TransportOffer[3];
 
-        System.out.println("Old team: " + driverBackup.getAid().getLocalName() + " " + truckBackup.getAid().getLocalName() + " " + trailerBackup.getAid().getLocalName());
+        logger.info("Old team: " + driverBackup.getAid().getLocalName() + " " + truckBackup.getAid().getLocalName() + " " + trailerBackup.getAid().getLocalName());
 
         if (drivers.size() <= 0 || trailers.size() <= 0 || trucks.size() <= 0) {
             return null;
@@ -374,7 +374,7 @@ public class HolonReorganizeAuction {
             return null;
         }
 
-        System.out.println("New team: " + team[0].getAid().getLocalName() + " " + team[1].getAid().getLocalName() + " " + team[2].getAid().getLocalName());
+        logger.info("New team: " + team[0].getAid().getLocalName() + " " + team[1].getAid().getLocalName() + " " + team[2].getAid().getLocalName());
 
         return team;
     }
@@ -417,21 +417,21 @@ public class HolonReorganizeAuction {
         if (copyOfDrivers.contains(team[0])) {
             copyOfDrivers.remove(team[0]);
         } else {
-            System.out.println("driver remove problem\n");
+            logger.warn("driver remove problem\n");
         }
         if (copyOfTrucks.contains(team[1])) {
             copyOfTrucks.remove(team[1]);
         } else {
-            System.out.println("truck remove problem\n");
+            logger.warn("truck remove problem\n");
         }
         if (copyOfTrailers.contains(team[2])) {
             copyOfTrailers.remove(team[2]);
         } else {
-            System.out.println("trailer remove problem\n");
+            logger.warn("trailer remove problem\n");
         }
 
         if (team[0] == null || team[1] == null || team[2] == null) {
-            System.out.println("Null problem\n");
+            logger.error("Null problem\n");
             return null;
         }
 
@@ -530,7 +530,7 @@ public class HolonReorganizeAuction {
             }
         }
         if ((Array.get(0))[0] == null || (Array.get(0))[1] == null || (Array.get(0))[2] == null) {
-            System.out.println("Problem Creation\n");
+            logger.error("Problem Creation\n");
             return null;
         } else {
             return Array.get(0);
@@ -647,7 +647,7 @@ public class HolonReorganizeAuction {
                 trailers.add(offer);
                 break;
             default:
-                System.err.println("SOMETHING WENT WRONG.......");
+                logger.error("SOMETHING WENT WRONG.......");
                 break;
         }
         return offersReceived >= commissionsSent;

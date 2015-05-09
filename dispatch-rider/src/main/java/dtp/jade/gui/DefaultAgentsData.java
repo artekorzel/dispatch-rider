@@ -1,9 +1,12 @@
 package dtp.jade.gui;
 
+import org.apache.log4j.Logger;
+
 import java.io.Serializable;
 
 public class DefaultAgentsData implements Serializable {
 
+    private static Logger logger = Logger.getLogger(DefaultAgentsData.class);
 
     private int power;
     private int reliability;
@@ -27,7 +30,7 @@ public class DefaultAgentsData implements Serializable {
         this.cargoType = cargoType;
         this.universality = universality;
         if (power < mass + capacity) {
-            System.err.println("Domysly EUnit nie moze zostac utworzony\n" +
+            logger.error("Domysly EUnit nie moze zostac utworzony\n" +
                     "powod: power<mass+capacity");
             System.exit(0);
         }

@@ -36,7 +36,6 @@ public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
 
                 Commission commission = (Commission) msg.getContentObject();
                 if (executionUnitAgent.addCommissionToCalendar(commission) == false) {
-                    System.err.println("Fatal error: GetCommissionForEUnitBehaviour");
                     logger.error("Fatal error: GetCommissionForEUnitBehaviour com=" + commission.getID());
 
                     ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION_SEND_AGAIN);

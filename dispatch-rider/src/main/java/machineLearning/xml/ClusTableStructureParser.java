@@ -5,6 +5,7 @@ import dtp.xml.ValidatorErrorHandler;
 import machineLearning.clustering.*;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ClusTableStructureParser {
+
+    private static Logger logger = Logger.getLogger(ClusTableStructureParser.class);
 
     /**
      * Converts XML boolean attribute to Java boolean type
@@ -406,13 +409,13 @@ public class ClusTableStructureParser {
             Clustering table = new Clustering();
             table.init("clustable.xml");
 
-            System.out.println(table.isLearning());
-            System.out.println("UseTrees: " + table.isUseTrees());
-            System.out.println(table.getGlobalObservations()
+            logger.info(table.isLearning());
+            logger.info("UseTrees: " + table.isUseTrees());
+            logger.info(table.getGlobalObservations()
                     .getObservationsAsList().get(0).getMeasure());
             ClusTableToXMLWriter.writeToXML("proba.xml", table);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 }

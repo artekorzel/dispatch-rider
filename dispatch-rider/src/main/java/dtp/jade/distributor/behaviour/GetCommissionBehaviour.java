@@ -47,7 +47,7 @@ public class GetCommissionBehaviour extends CyclicBehaviour {
 
                 CommissionsHolder holder = (CommissionsHolder) msg.getContentObject();
                 commissions = holder.getCommissions();
-                System.out.println("Commissions received ********************************");
+                logger.info("Commissions received ********************************");
                 distributorAgent.setCommissions(commissions, holder);
                 logger.info(this.distributorAgent.getLocalName() + " - got " + commissions.length
                         + " new commission(s)");

@@ -7,8 +7,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 public class GetAgentsDataBehaviour extends CyclicBehaviour {
+
+    private static Logger logger = Logger.getLogger(GetAgentsDataBehaviour.class);
 
     private TransportAgent agent;
 
@@ -26,7 +29,7 @@ public class GetAgentsDataBehaviour extends CyclicBehaviour {
                 TransportAgentsMessage agents = (TransportAgentsMessage) message.getContentObject();
                 agent.setAgentsData(agents.getAgents());
             } catch (UnreadableException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
 
         } else {

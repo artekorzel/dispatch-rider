@@ -4,8 +4,11 @@ import gnu.jel.CompilationException;
 import gnu.jel.CompiledExpression;
 import gnu.jel.Evaluator;
 import gnu.jel.Library;
+import org.apache.log4j.Logger;
 
 public class Calculator {
+
+    private static Logger logger = Logger.getLogger(Calculator.class);
 
     public static double calculate(String expr) {
         return Double.parseDouble(calculateValue(expr));
@@ -32,16 +35,12 @@ public class Calculator {
         try {
             expr_c = Evaluator.compile(expr, lib);
         } catch (CompilationException ce) {
-            System.err.print("--- COMPILATION ERROR :");
-            System.err.println(ce.getMessage());
-            System.err.print("                       ");
-            System.err.println(expr);
+            logger.error("--- COMPILATION ERROR :" + ce.getMessage() + "                       " + expr);
             int column = ce.getColumn(); // Column, where error was found
             for (int i = 0; i < column + 23 - 1; i++)
-                System.err.print(' ');
-            System.err.println('^');
+                logger.error(' ');
+            logger.error('^');
         }
-        ;
 
         Object result = null;
         if (expr_c != null) {
@@ -50,11 +49,9 @@ public class Calculator {
             try {
                 result = expr_c.evaluate(null);
             } catch (Throwable e) {
-                System.err.println("Exception emerged from JEL compiled"
-                        + " code (IT'S OK) :");
-                System.err.print(e);           //fixme
+                logger.error("Exception emerged from JEL compiled"
+                        + " code (IT'S OK) :", e);
             }
-            ;
 
             // Print result
         }
@@ -66,6 +63,6 @@ public class Calculator {
         int param = 2;
         String expr = "k/4";
         expr = expr.replace("k", Double.toString(param));
-        System.out.println(Calculator.calculate(expr));
+        logger.info(Calculator.calculate(expr));
     }
 }

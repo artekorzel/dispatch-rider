@@ -1,14 +1,18 @@
 package pattern;
 
+import org.apache.log4j.Logger;
+
 import java.util.Map;
 
 public class ConfigurationChooser {
+
+    private static Logger logger = Logger.getLogger(ConfigurationChooser.class);
 
     private PatternCalculator patternCalculator;
 
     public static void main(String args[]) {
         ConfigurationChooser chooser = new ConfigurationChooser();
-        System.out.println(chooser.getConfiguration("benchmarks\\pdp_100\\lrc108.txt"));
+        logger.error(chooser.getConfiguration("benchmarks\\pdp_100\\lrc108.txt"));
     }
 
     private int getProblemSize() {
@@ -30,7 +34,7 @@ public class ConfigurationChooser {
                 result = new Pdp200Chooser(patternCalculator).getConfiguration();
                 break;
             default:
-                System.out.println("Brak wzorca dla tego problemu");
+                logger.error("Brak wzorca dla tego problemu");
                 System.exit(0);
         }
         return result;

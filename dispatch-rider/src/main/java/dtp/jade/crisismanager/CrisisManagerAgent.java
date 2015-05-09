@@ -56,7 +56,7 @@ public class CrisisManagerAgent extends Agent {
         roadTrafficExclusionEventSolvers = new ArrayList<>();
 
 
-        System.out.println("CrisisManagementAgent - end of initialization");
+        logger.info("CrisisManagementAgent - end of initialization");
     }
 
     public void simEnd() {

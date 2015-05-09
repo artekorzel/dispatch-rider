@@ -3,6 +3,7 @@ package dtp.jade;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 public class BaseAgent extends Agent {
 
+    private static Logger logger = Logger.getLogger(BaseAgent.class);
     /**
      * Method used to send objects between agents.
      *
@@ -29,7 +31,7 @@ public class BaseAgent extends Agent {
 
             send(message);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

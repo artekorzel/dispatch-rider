@@ -1,9 +1,13 @@
 package algorithm.STLike;
 
+import org.apache.log4j.Logger;
+
 import java.io.Serializable;
 import java.util.Map;
 
 public class ExchangeAlgorithmsFactory implements Serializable {
+
+    private static Logger logger = Logger.getLogger(ExchangeAlgorithmsFactory.class);
 
     private ExchangeAlgorithm algAfterComAdd;
     private ExchangeAlgorithm algWhenCantAdd;
@@ -15,7 +19,7 @@ public class ExchangeAlgorithmsFactory implements Serializable {
             alg.setParameters(params);
             return alg;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
             System.exit(1);
         }
         return null;

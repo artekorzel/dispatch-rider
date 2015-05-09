@@ -107,7 +107,7 @@ public abstract class ClusTableStates implements Serializable {
     }
 
     private void recalculateProbabilities(String state) {
-        System.out.println(state);
+        logger.info(state);
         List<ClusTableCell> cells = rows.get(state);
         double sum = 0.0;
         for (ClusTableCell cell : cells) {

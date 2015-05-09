@@ -49,8 +49,6 @@ public class Clustering extends MLAlgorithm {
 
     public Clustering() {
         log.info("Clustering initialization");
-        System.out
-                .println("---------------------------------Clustering initialization");
         logger.init();
     }
 
@@ -464,7 +462,7 @@ public class Clustering extends MLAlgorithm {
             }
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error(e);
             System.exit(0);
         }
 

@@ -7,9 +7,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 public class GetWorstCommissionRequestBehaviour extends CyclicBehaviour {
 
+    private static Logger logger = Logger.getLogger(GetWorstCommissionRequestBehaviour.class);
 
     private ExecutionUnitAgent eunitAgent;
 
@@ -27,8 +29,7 @@ public class GetWorstCommissionRequestBehaviour extends CyclicBehaviour {
             try {
                 eunitAgent.sendWorstCommissionCost((Commission) msg.getContentObject(), msg.getSender());
             } catch (UnreadableException e) {
-                e.printStackTrace();
-                System.exit(0);
+                logger.error(e);
             }
         } else {
             block();

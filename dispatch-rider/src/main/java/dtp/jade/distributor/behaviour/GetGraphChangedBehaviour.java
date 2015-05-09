@@ -50,9 +50,8 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
                         msg.getSender());
 
             } catch (UnreadableException e1) {
-                e1.printStackTrace();
                 logger.error(this.distributorAgent.getLocalName()
-                        + " - UnreadableException " + e1.getMessage());
+                        + " - UnreadableException", e1);
             }
 
         } else {

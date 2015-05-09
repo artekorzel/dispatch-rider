@@ -1,6 +1,7 @@
 package machineLearning.aggregator;
 
 import measure.Measure;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public class AggregatorsManager implements Serializable {
+
+    private static Logger logger = Logger.getLogger(AggregatorsManager.class);
 
     private final List<MLAggregator> aggregators = new LinkedList<>();
 
@@ -17,7 +20,7 @@ public class AggregatorsManager implements Serializable {
                 aggregators.add(aggregatorType.typeClass().newInstance());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

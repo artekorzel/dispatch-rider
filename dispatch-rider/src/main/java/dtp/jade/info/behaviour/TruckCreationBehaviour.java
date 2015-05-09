@@ -63,10 +63,8 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
                     logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
                 }
 
-            } catch (StaleProxyException e) {
-                e.printStackTrace();
-            } catch (UnreadableException e) {
-                e.printStackTrace();
+            } catch (StaleProxyException | UnreadableException e) {
+                logger.error(e);
             }
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");

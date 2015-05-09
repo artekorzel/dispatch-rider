@@ -6,8 +6,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 public class GetGraphChangedBehaviour extends CyclicBehaviour {
+
+    private static Logger logger = Logger.getLogger(GetGraphChangedBehaviour.class);
 
     private final GUIAgent guiAgent;
 
@@ -25,7 +28,7 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
             try {
                 guiAgent.graphChanged((Boolean) msg.getContentObject());
             } catch (UnreadableException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         } else {
 

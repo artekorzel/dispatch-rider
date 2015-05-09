@@ -3,6 +3,7 @@ package algorithm;
 import dtp.commission.Commission;
 import dtp.simulation.SimInfo;
 import jade.core.AID;
+import org.apache.log4j.Logger;
 import punishment.PunishmentFunction;
 
 import java.awt.geom.Point2D;
@@ -11,6 +12,9 @@ import java.util.*;
 
 //TODO uzupelnic o uwzglednianie currentLocation w time!!!
 public abstract class Schedule implements Serializable {
+
+    private static Logger logger = Logger.getLogger(Schedule.class);
+
     protected List<Commission> commissions;
     protected List<Commission> originalCommissions;
     protected List<Boolean> types;
@@ -235,7 +239,7 @@ public abstract class Schedule implements Serializable {
             if (!doneIDs.contains(commissions.get(i).getID()))
                 coms.add(commissions.get(i));
             else {
-                System.err.println(commissions.get(i).getID());
+                logger.warn(commissions.get(i).getID());
             }
 
         }

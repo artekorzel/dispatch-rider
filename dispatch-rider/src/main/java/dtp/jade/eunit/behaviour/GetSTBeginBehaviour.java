@@ -5,6 +5,7 @@ import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
  */
 public class GetSTBeginBehaviour extends CyclicBehaviour {
 
+    private static Logger logger = Logger.getLogger(GetSTBeginBehaviour.class);
 
     private final ExecutionUnitAgent executionUnitAgent;
 
@@ -32,7 +34,7 @@ public class GetSTBeginBehaviour extends CyclicBehaviour {
             try {
                 message.setContentObject("");
             } catch (IOException e) {
-                e.printStackTrace(); //FIXME
+                logger.error(e);
             }
             executionUnitAgent.send(message);
 

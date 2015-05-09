@@ -48,7 +48,7 @@ public class InfoAgent extends BaseAgent {
         addBehaviour(new EndOfSimulationBehaviour(this));
         addBehaviour(new GetAgentsDataBehaviour(this));
 
-        System.out.println("InfoAgent - end of initialization");
+        logger.info("InfoAgent - end of initialization");
     }
 
     void registerServices() {

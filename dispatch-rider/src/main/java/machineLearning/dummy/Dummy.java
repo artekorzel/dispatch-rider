@@ -6,11 +6,14 @@ import jade.core.AID;
 import machineLearning.MLAlgorithm;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 
 import java.util.Map;
 
 public class Dummy extends MLAlgorithm {
+
+    private static Logger logger = Logger.getLogger(Dummy.class);
 
     @Override
     public GlobalConfiguration getGlobalConfiguration(
@@ -28,7 +31,7 @@ public class Dummy extends MLAlgorithm {
 
     @Override
     public void setAlgorithmParameters(Map<String, String> parameters) {
-        System.out.println(parameters);
+        logger.info(parameters);
         throw new NotImplementedException("Implement me c(;");
     }
 

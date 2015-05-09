@@ -65,7 +65,7 @@ public class TrailerCreationBehaviour extends CyclicBehaviour {
                 }
 
             } catch (StaleProxyException | UnreadableException e) {
-                e.printStackTrace(); //FIXME
+                logger.error(e);
             }
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");

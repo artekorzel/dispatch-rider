@@ -248,7 +248,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
                 }
             });
         } catch (InterruptedException | InvocationTargetException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 
@@ -274,7 +274,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
      */
     public void update(SimInfo info) {
         if (info == null) {
-            System.out.println("null w siminfo");
+            logger.warn("null w siminfo");
             return;
         }
         try {
@@ -284,7 +284,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
             mapPanel.add(mapHolder.getMap(), BorderLayout.CENTER);
             ((HolonStatsTableModel) holonStatsTable.getModel()).setSimInfo(info);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

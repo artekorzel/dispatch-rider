@@ -2,6 +2,7 @@ package algorithm;
 
 import dtp.commission.Commission;
 import dtp.simulation.SimInfo;
+import org.apache.log4j.Logger;
 
 import java.awt.geom.Point2D;
 import java.util.*;
@@ -13,6 +14,9 @@ import java.util.*;
  * commission)
  */
 public class BruteForceAlgorithm2 implements Algorithm {
+
+    private static Logger logger = Logger.getLogger(BruteForceAlgorithm2.class);
+
     private double maxLoad;
     private Point2D.Double depot;
     // private int deadline;
@@ -173,7 +177,7 @@ public class BruteForceAlgorithm2 implements Algorithm {
                                  Schedule currentSchedule, int timestamp) {
 
         if (timestamp == 10)
-            System.err.println("$ " + currentSchedule.getCurrentLocation());
+            logger.info("$ " + currentSchedule.getCurrentLocation());
 
         Schedule schedule = simInfo.createSchedule(null);
         List<Commission> commissions = new LinkedList<>();
@@ -233,7 +237,7 @@ public class BruteForceAlgorithm2 implements Algorithm {
             for (Integer i : deliveryIDs) {
                 tmpSchedule = addDeliveryToSchedule(idToCommission.get(i), schedule, timestamp);
                 if (tmpSchedule == null) {
-                    System.err.println("EUnit did pickup the cargo but can't fit the delivery(" + i + ") in his schedule!");
+                    logger.error("EUnit did pickup the cargo but can't fit the delivery(" + i + ") in his schedule!");
                     return null;
                 }
                 schedule = tmpSchedule;

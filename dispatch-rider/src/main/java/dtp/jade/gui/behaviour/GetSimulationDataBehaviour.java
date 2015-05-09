@@ -6,12 +6,15 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 import xml.elements.SimulationData;
 
 /**
  * @author kony.pl
  */
 public class GetSimulationDataBehaviour extends CyclicBehaviour {
+
+    private static Logger logger = Logger.getLogger(GetSimulationDataBehaviour.class);
 
     private GUIAgent guiAgent;
 
@@ -28,7 +31,7 @@ public class GetSimulationDataBehaviour extends CyclicBehaviour {
             try {
                 guiAgent.addSimulationData((SimulationData) msg.getContentObject());
             } catch (UnreadableException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         } else {
 

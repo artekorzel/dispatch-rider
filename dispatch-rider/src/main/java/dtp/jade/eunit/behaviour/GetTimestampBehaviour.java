@@ -38,7 +38,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
             try {
 
                 time = (Integer) msg.getContentObject();
-                eunitAgent.setCurrentTimestamp(time.intValue());
+                eunitAgent.setCurrentTimestamp(time);
                 eunitAgent.nextSimStep();
 
             } catch (UnreadableException e) {
@@ -48,7 +48,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
             }
 
             logger.info(myAgent.getLocalName() + "\t- got time stamp ["
-                    + time.toString() + "]");
+                    + time + "]");
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(eunitAgent,
                     "GUIService");
@@ -60,9 +60,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
                 cfp.setContentObject("");
                 eunitAgent.send(cfp);
             } catch (IOException e) {
-                e.printStackTrace();
-                logger.error("GetTimestampBehaviour (EUnit) - IOException "
-                        + e.getMessage());
+                logger.error(e);
             }
         } else {
             block();

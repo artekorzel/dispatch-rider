@@ -1,6 +1,7 @@
 package xml.elements;
 
 import algorithm.Helper;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 
 public class XMLBuilder {
 
+    private static Logger logger = Logger.getLogger(XMLBuilder.class);
     private final Map<Integer, List<SimulationData>> data;
     private final Point2D.Double depot;
     private Document dom;
@@ -127,8 +129,7 @@ public class XMLBuilder {
             }
             rootEl.appendChild(baseRetEl);
         } catch (ParserConfigurationException pce) {
-            System.out
-                    .println("Error while trying to instantiate DocumentBuilder "
+            logger.error("Error while trying to instantiate DocumentBuilder "
                             + pce);
             System.exit(1);
         }
@@ -151,7 +152,7 @@ public class XMLBuilder {
             xformer.transform(source, result);
 
         } catch (Exception e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
         }
     }
 

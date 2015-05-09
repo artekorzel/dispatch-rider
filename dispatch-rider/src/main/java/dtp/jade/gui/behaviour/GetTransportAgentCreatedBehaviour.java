@@ -23,8 +23,8 @@ public class GetTransportAgentCreatedBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-            guiAgent.transportAgentCreated();
             logger.info("new TransportAgent was created ");
+            guiAgent.transportAgentCreated();
         } else {
             block();
         }

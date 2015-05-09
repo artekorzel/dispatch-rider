@@ -5,6 +5,7 @@ import machineLearning.qlearning.MLTableStates;
 import machineLearning.qlearning.QLearning;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MLTableToXMLWriter {
+
+    private static Logger logger = Logger.getLogger(MLTableToXMLWriter.class);
 
     private static Document dom;
 
@@ -191,8 +194,7 @@ public class MLTableToXMLWriter {
         try {
             MLTableToXMLWriter.writeToXML("proba.xml", null);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 }

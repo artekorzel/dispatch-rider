@@ -36,8 +36,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
                 response.setContentObject("");
                 guiAgent.send(response);
             } catch (Exception e) {
-                e.printStackTrace();
-                logger.error(e.getMessage());
+                logger.error(e);
             }
         } else {
             block();

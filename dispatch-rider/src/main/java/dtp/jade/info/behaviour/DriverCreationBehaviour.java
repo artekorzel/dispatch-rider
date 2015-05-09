@@ -49,24 +49,19 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
 
                 MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_DRIVER_AID);
                 ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
-                AID aid;
-                try {
-                    aid = (AID) msg2.getContentObject();
-                    agentInfo.setAID(aid);
-                    agent.addDriverAgentInfo();
+                AID aid = (AID) msg2.getContentObject();
+                logger.info(agent.getName() + " - " + agentInfo.getName() + " - got AID: " + aid);
+                agentInfo.setAID(aid);
+                agent.addDriverAgentInfo();
 
-                    //TODO sprawdzic, czy initial sie nie zmienia
-                    agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.DRIVER);
-                    agent.send(aid, initial, CommunicationHelper.TRANSPORT_INITIAL_DATA);
-
-                } catch (UnreadableException e) {
-                    logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
-                }
-
+                //TODO sprawdzic, czy initial sie nie zmienia
+                agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.DRIVER);
+                agent.send(aid, initial, CommunicationHelper.TRANSPORT_INITIAL_DATA);
             } catch (StaleProxyException | UnreadableException e) {
-                e.printStackTrace(); //FIXME
+                logger.error(e);
             }
 
+            logger.info("About to confirm agent creation...");
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");
             ACLMessage cfp = new ACLMessage(CommunicationHelper.TRANSPORT_AGENT_CREATED);
 
@@ -74,6 +69,7 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
             try {
                 cfp.setContentObject("");
                 agent.send(cfp);
+                logger.info("Agent creation confirmed");
             } catch (IOException e) {
                 logger.error("DriverCreationBehaviour - IOException " + e.getMessage());
             }

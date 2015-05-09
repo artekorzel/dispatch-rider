@@ -122,7 +122,6 @@ public abstract class TransportAgent extends BaseAgent {
      * Metoda wywolywana w trybie z przesylaniem zlecen paczkami Inicjuje
      * srodowisko dla pozniejszej negocjacji
      *
-     * @param commission
      */
     public synchronized void setCommissions(Commission[] commissions) {
         this.commissions = commissions;
@@ -1113,8 +1112,9 @@ public abstract class TransportAgent extends BaseAgent {
         addBehaviour(new GetConfirmationFromDistributorBehaviour(this));
         registerServices();
 
-        askingUnits = new TreeSet<AID>();
+        askingUnits = new TreeSet<>();
         sendAidToInfoAgent();
+        logger.info("Transport agent created: " + getAID());
     }
 
     /**

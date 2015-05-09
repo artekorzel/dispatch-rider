@@ -7,6 +7,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 
@@ -15,6 +16,7 @@ import java.util.LinkedList;
  */
 public class GetGraphLinkChangedBehaviour extends CyclicBehaviour {
 
+    private static Logger logger = Logger.getLogger(GetGraphLinkChangedBehaviour.class);
 
     private final ExecutionUnitAgent executionUnitAgent;
 
@@ -37,7 +39,7 @@ public class GetGraphLinkChangedBehaviour extends CyclicBehaviour {
                         (LinkedList<GraphLink>) msg.getContentObject(),
                         msg.getSender());
             } catch (UnreadableException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
 
         } else {

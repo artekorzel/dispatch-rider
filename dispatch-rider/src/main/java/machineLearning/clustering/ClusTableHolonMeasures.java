@@ -3,12 +3,16 @@ package machineLearning.clustering;
 import jade.core.AID;
 import machineLearning.aggregator.AggregatorsManager;
 import measure.Measure;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class ClusTableHolonMeasures extends ClusTableMeasures {
+
+    private static Logger logger = Logger.getLogger(ClusTableHolonMeasures.class);
+
     private AggregatorsManager aggregatorManager = new AggregatorsManager();
 
     public static void main(String[] args) {
@@ -22,7 +26,7 @@ public class ClusTableHolonMeasures extends ClusTableMeasures {
 
         measures.put("WaitTime", m1);
 
-        System.out.println(mes.getCurrentMeasuresVector(measures, new AID("a2",
+        logger.info(mes.getCurrentMeasuresVector(measures, new AID("a2",
                 true)));
 
     }

@@ -17,12 +17,14 @@ import dtp.xml.ParseException;
 import machineLearning.MLAlgorithm;
 import measure.MeasureCalculatorsHolder;
 import measure.printer.PrintersHolder;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
 
 public class TestConfiguration {
 
+    private static Logger logger = Logger.getLogger(TestConfiguration.class);
     private String adapterName;
     private Adapter adapter;
     private String commissions;
@@ -80,7 +82,7 @@ public class TestConfiguration {
                 bruteForceAlgorithm2Sorter = Brute2Sorter.NONE;
                 break;
             default:
-                System.err.println("Invalid brute2Sorter option, setting it to NONE (option)");//FIXME
+                logger.error("Invalid brute2Sorter option, setting it to NONE (option)");
                 bruteForceAlgorithm2Sorter = Brute2Sorter.NONE;
                 break;
         }
@@ -280,7 +282,7 @@ public class TestConfiguration {
         try {
             this.algorithm = AlgorithmType.valueOf(algorithmName).typeClass().newInstance();
         } catch (Exception e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
         }
     }
 
@@ -336,7 +338,7 @@ public class TestConfiguration {
                 this.adapter = AdapterType.valueOf(adapterName).typeClass()
                         .getConstructor(String.class).newInstance(getCommissions());
             } catch (Exception e) {
-                e.printStackTrace();//FIXME
+                logger.error(e);
             }
         }
         return adapter;

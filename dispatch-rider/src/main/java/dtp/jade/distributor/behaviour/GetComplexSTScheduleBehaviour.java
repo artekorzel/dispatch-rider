@@ -6,8 +6,11 @@ import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import org.apache.log4j.Logger;
 
 public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
+
+    private static Logger logger = Logger.getLogger(GetComplexSTScheduleBehaviour.class);
 
     private final DistributorAgent agent;
 
@@ -31,7 +34,7 @@ public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
                     agent.addComplexSTSchedule(schedule, msg.getSender());
                 }
             } catch (Exception e) {
-                e.printStackTrace();//FIXME
+                logger.error(e);
             }
         } else {
             block();

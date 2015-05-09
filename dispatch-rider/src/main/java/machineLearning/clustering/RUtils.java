@@ -58,7 +58,7 @@ public class RUtils {
     }
 
     private static void log(Object o) {
-        System.out.println(o.toString());
+        logger.info(o.toString());
     }
 
     public synchronized Rengine start() {
@@ -259,14 +259,14 @@ public class RUtils {
         cmd = centresMatrixName + " <- matrix(" + centresArrayName + ",nrow="
                 + centerVals.length / measuresCount + ",ncol=" + measuresCount
                 + ")";
-        System.out.println("Centers matrix cmd: " + cmd);
+        logger.info("Centers matrix cmd: " + cmd);
         rengine.eval(cmd);
         cmd = centresStructureName + " <- list(centers = " + centresMatrixName
                 + ")";
-        System.out.println("Centers list cmd: " + cmd);
+        logger.info("Centers list cmd: " + cmd);
         rengine.eval(cmd);
         cmd = "class(" + centresStructureName + ") <- \"kmeans\"";
-        System.out.println("Kmeans from list cmd: " + cmd);
+        logger.info("Kmeans from list cmd: " + cmd);
         rengine.eval(cmd);
 
         rengine.eval("print(" + centresStructureName + ")");
@@ -282,7 +282,7 @@ public class RUtils {
         rengine.assign(newPointName, point);
         cmd = pointMatrixName + " <- matrix(" + newPointName + ",nrow=1,ncol="
                 + point.length + ")";
-        System.out.println("Matrix from new point cmd: " + cmd);
+        logger.info("Matrix from new point cmd: " + cmd);
         rengine.eval(cmd);
 
         rengine.eval("print(pmatrix)");
@@ -290,10 +290,10 @@ public class RUtils {
         // predict cluster number
         cmd = "cl_predict(" + centresStructureName + "," + pointMatrixName
                 + ")";
-        System.out.println("Predict cmd: " + cmd);
+        logger.info("Predict cmd: " + cmd);
         REXP predict = rengine.eval(cmd);
 
-        System.out.println("Cluster index: " + predict.asInt());
+        logger.info("Cluster index: " + predict.asInt());
 
         return clusterNames[predict.asInt() - 1];
 
@@ -343,7 +343,7 @@ public class RUtils {
         String dataFrameCmd = "obsDF <- data.frame(obs)";
         rengine.eval(dataFrameCmd);
 
-        System.out.println("Data frame for " + treeName);
+        logger.info("Data frame for " + treeName);
         rengine.eval("print(obsDF)");
 
         StringBuilder formula = new StringBuilder();
@@ -380,7 +380,7 @@ public class RUtils {
                 + ", ncol=" + ncol + ", byrow=TRUE, dimnames=list(1:" + nrow
                 + "," + COLS_NAME + "))";
 
-        System.out.println("Test data matrix cmd: " + cmd);
+        logger.info("Test data matrix cmd: " + cmd);
         rengine.eval(cmd);
 
         cmd = toPredictDataFrame + " <- data.frame(" + toPredict + ")";
@@ -390,14 +390,14 @@ public class RUtils {
 
         cmd = treePredict + " <- predict(" + treeStructureName + ","
                 + toPredictDataFrame + ",type=\"vector\")";
-        System.out.print("Predict command: " + cmd);
+        logger.info("Predict command: " + cmd);
         REXP predictionResult = rengine.eval(cmd);
 
         rengine.eval("print(" + treePredict + ")");
 
         int predictedState = (int) (predictionResult.asDoubleArray()[0]);
 
-        System.out.println("Tree predict result: "
+        logger.info("Tree predict result: "
                 + clusterNames[predictedState]);
 
         return clusterNames[predictedState];
@@ -412,11 +412,11 @@ public class RUtils {
 
     class TextConsole implements RMainLoopCallbacks {
         public void rWriteConsole(Rengine re, String text, int oType) {
-            System.out.print(text);
+            logger.info(text);
         }
 
         public void rBusy(Rengine re, int which) {
-            System.out.println("rBusy(" + which + ")");
+            logger.info("rBusy(" + which + ")");
         }
 
         public String rReadConsole(Rengine re, String prompt, int addToHistory) {
@@ -427,14 +427,14 @@ public class RUtils {
                 String s = br.readLine();
                 return (s == null || s.length() == 0) ? s : s + "\n";
             } catch (Exception e) {
-                System.out.println("jriReadConsole exception: "
+                logger.info("jriReadConsole exception: "
                         + e.getMessage());
             }
             return null;
         }
 
         public void rShowMessage(Rengine re, String message) {
-            System.out.println("rShowMessage \"" + message + "\"");
+            logger.info("rShowMessage \"" + message + "\"");
         }
 
         public String rChooseFile(Rengine re, int newFile) {

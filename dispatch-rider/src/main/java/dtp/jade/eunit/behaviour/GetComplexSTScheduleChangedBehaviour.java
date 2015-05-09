@@ -7,9 +7,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 public class GetComplexSTScheduleChangedBehaviour extends CyclicBehaviour {
 
+    private static Logger logger = Logger.getLogger(GetComplexSTScheduleChangedBehaviour.class);
 
     private ExecutionUnitAgent agent;
 
@@ -23,15 +25,11 @@ public class GetComplexSTScheduleChangedBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
             try {
                 agent.setNewSchedule((Schedule) msg.getContentObject(), msg.getSender());
             } catch (UnreadableException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.error(e);
             }
-
-
         } else {
             block();
         }

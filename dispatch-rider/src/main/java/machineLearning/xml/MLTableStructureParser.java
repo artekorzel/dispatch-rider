@@ -8,6 +8,7 @@ import machineLearning.qlearning.MLTableHolonStates;
 import machineLearning.qlearning.QLearning;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MLTableStructureParser {
+
+    private static Logger logger = Logger.getLogger(MLTableStructureParser.class);
 
     /**
      * Converts XML boolean attribute to Java boolean type
@@ -280,8 +283,7 @@ public class MLTableStructureParser {
             table.init("table.xml");
             MLTableToXMLWriter.writeToXML("proba.xml", table);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 }

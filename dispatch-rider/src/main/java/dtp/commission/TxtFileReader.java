@@ -159,7 +159,7 @@ public class TxtFileReader {
             logger.info(new File(fileName).getAbsolutePath());
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
             return null;
         }
 
@@ -168,7 +168,7 @@ public class TxtFileReader {
                 partsNo++;
             }
         } catch (IOException e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
             return null;
         }
 
@@ -221,7 +221,7 @@ public class TxtFileReader {
                                         .setPunishmentFunParams(params);
                             }
                         } catch (Exception e) {
-                            e.printStackTrace();//FIXME
+                            logger.error(e);
                             System.exit(0);
                         }
                     }
@@ -229,7 +229,7 @@ public class TxtFileReader {
                 counter++;
             }
         } catch (Exception e) {
-            e.printStackTrace();//FIXME
+            logger.error(e);
             return null;
         }
 
@@ -331,12 +331,11 @@ public class TxtFileReader {
                 ret[counter++] = Integer.parseInt(line);
             }
         } catch (NumberFormatException e) {
-            System.out
-                    .println("TxtFileReader.read() -> NumberFormatException occured");
+            logger.error("TxtFileReader.read() -> NumberFormatException occured", e);
             return null;
 
         } catch (IOException e) {
-            logger.info("TxtFileReader.read() -> IOException occured");
+            logger.error("TxtFileReader.read() -> IOException occured", e);
             return null;
         }
 

@@ -40,8 +40,7 @@ public class GetMeasureDataBehaviour extends CyclicBehaviour {
 
                 distributorAgent.send(response);
             } catch (IOException e) {
-                e.printStackTrace();
-                logger.error(e.getMessage());
+                logger.error(e);
             }
 
         } else {

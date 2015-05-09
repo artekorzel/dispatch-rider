@@ -31,8 +31,7 @@ public class GetMeasureDataBehaviour extends CyclicBehaviour {
             try {
                 GUIAgent.printMeasures((MeasureData) msg.getContentObject());
             } catch (UnreadableException e) {
-                e.printStackTrace();
-                logger.error(e.getMessage());
+                logger.error(e);
             }
         } else {
 

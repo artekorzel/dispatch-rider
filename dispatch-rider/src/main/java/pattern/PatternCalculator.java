@@ -3,6 +3,7 @@ package pattern;
 import algorithm.Helper;
 import dtp.commission.Commission;
 import dtp.commission.TxtFileReader;
+import org.apache.log4j.Logger;
 
 import java.awt.geom.Point2D;
 import java.io.BufferedWriter;
@@ -12,6 +13,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class PatternCalculator {
+
+    private static Logger logger = Logger.getLogger(PatternCalculator.class);
+
     private static final String benchmarksPath = "benchmarks";
     private static final String pdp_100[] = {"lc101.txt", "lc102.txt", "lc103.txt",
             "lc104.txt", "lc105.txt", "lr101.txt", "lr102.txt", "lr103.txt",
@@ -65,7 +69,7 @@ public class PatternCalculator {
         try {
             new PatternCalculator().calculate("patterns.xls");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 

@@ -2,6 +2,7 @@ package punishment;
 
 import dtp.commission.Commission;
 import dtp.jade.transport.Calculator;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.Set;
  */
 public class PunishmentFunction implements Serializable {
 
+    private static Logger logger = Logger.getLogger(PunishmentFunction.class);
 
     private final Map<String, String> functions = new HashMap<>();
 
@@ -38,7 +40,7 @@ public class PunishmentFunction implements Serializable {
         Map<String, Double> def = new HashMap<>();
         def.put("x", -1.0);
         Commission com = new Commission();
-        System.out.println(function.getValue(def, com, 0, true));
+        logger.info(function.getValue(def, com, 0, true));
     }
 
     public double getValue(Map<String, Double> defaults, Commission com,

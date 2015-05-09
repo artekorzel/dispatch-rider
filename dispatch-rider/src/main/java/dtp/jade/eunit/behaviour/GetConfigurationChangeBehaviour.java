@@ -35,8 +35,7 @@ public class GetConfigurationChangeBehaviour extends CyclicBehaviour {
                         (HolonConfiguration) msg.getContentObject(),
                         msg.getSender());
             } catch (UnreadableException e) {
-                e.printStackTrace();
-                logger.error(e.getMessage());
+                logger.error(e);
             }
         } else {
 

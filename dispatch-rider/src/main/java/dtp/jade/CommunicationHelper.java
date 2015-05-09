@@ -7,8 +7,11 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import org.apache.log4j.Logger;
 
 public class CommunicationHelper {
+
+    private static Logger logger = Logger.getLogger(CommunicationHelper.class);
 
     // ----------------------------------------------------------//
     // ---------- Komunikaty wysylane przez GUIAgent'a ----------//
@@ -199,7 +202,7 @@ public class CommunicationHelper {
         try {
             descriptions = DFService.search(agent, template, constraints);
         } catch (FIPAException fe) {
-            fe.printStackTrace();       //FIXME
+            logger.error(fe);
         }
 
         aids = new AID[descriptions.length];

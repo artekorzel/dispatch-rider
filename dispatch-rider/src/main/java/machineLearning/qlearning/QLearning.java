@@ -10,12 +10,14 @@ import machineLearning.xml.MLTableToXMLWriter;
 import measure.Measure;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.*;
 
 public class QLearning extends MLAlgorithm implements Serializable {
 
+    private static Logger log = Logger.getLogger(QLearning.class);
 
     private final MLTableActions<GlobalConfiguration> globalActions = new MLTableGlobalActions();
     private final MLTableActions<HolonConfiguration> holonActions = new MLTableHolonActions();
@@ -349,7 +351,7 @@ public class QLearning extends MLAlgorithm implements Serializable {
         try {
             MLTableStructureParser.parse(fileName, this);
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error(e);
             System.exit(0);
         }
     }

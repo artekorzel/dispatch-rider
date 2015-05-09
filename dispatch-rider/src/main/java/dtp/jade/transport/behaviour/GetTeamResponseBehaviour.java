@@ -6,8 +6,11 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import org.apache.log4j.Logger;
 
 public class GetTeamResponseBehaviour extends CyclicBehaviour {
+
+    private static Logger logger = Logger.getLogger(GetTeamResponseBehaviour.class);
 
     private final TransportAgent agent;
 
@@ -24,14 +27,19 @@ public class GetTeamResponseBehaviour extends CyclicBehaviour {
         if (message != null) {
             try {
                 String response = (String) message.getContentObject();
-                if (response.equals("yes"))
-                    agent.response(message.getSender(), true);
-                else if (response.equals("no"))
-                    agent.response(message.getSender(), false);
-                else
-                    agent.response(message.getSender(), null);
+                switch (response) {
+                    case "yes":
+                        agent.response(message.getSender(), true);
+                        break;
+                    case "no":
+                        agent.response(message.getSender(), false);
+                        break;
+                    default:
+                        agent.response(message.getSender(), null);
+                        break;
+                }
             } catch (UnreadableException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         } else {
             block();
