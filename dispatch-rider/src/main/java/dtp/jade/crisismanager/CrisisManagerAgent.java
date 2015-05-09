@@ -1,24 +1,22 @@
 package dtp.jade.crisismanager;
 
+import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.crisismanager.behaviour.EndOfSimulationBehaviour;
 import dtp.jade.crisismanager.behaviour.GetCrisisEventBehaviour;
 import dtp.jade.crisismanager.behaviour.GetTimestampBehaviour;
 import dtp.jade.crisismanager.crisisevents.*;
 import jade.core.AID;
-import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class CrisisManagerAgent extends Agent {
+public class CrisisManagerAgent extends BaseAgent {
 
     private static Logger logger = Logger.getLogger(CrisisManagerAgent.class);
 
@@ -180,46 +178,14 @@ public class CrisisManagerAgent extends Agent {
     }
 
     public void sentCrisisEvent(AID aid, int perf, CrisisEvent crisisEvent) {
-
         logger.info("sending crisis event to " + aid.getLocalName() + " (event ID = " + crisisEvent.getEventID() + ")");
-
-        ACLMessage cfp;
-
-        cfp = new ACLMessage(perf);
-        cfp.addReceiver(aid);
-
-        try {
-
-            cfp.setContentObject(crisisEvent);
-
-        } catch (IOException e) {
-
-            logger.error(getLocalName() + " - IOException " + e.getMessage());
-            return;
-        }
-
-        send(cfp);
+        send(aid, crisisEvent, perf);
     }
 
     private void sendGUIMessage(String messageText) {
-
-        AID[] aids;
-        ACLMessage cfp;
-
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
-
+        AID[] aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
         if (aids.length == 1) {
-            for (AID aid : aids) {
-
-                cfp = new ACLMessage(CommunicationHelper.GUI_MESSAGE);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(getLocalName() + " - " + messageText);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException " + e.getMessage());
-                }
-                send(cfp);
-            }
+            send(aids, getLocalName() + " - " + messageText, CommunicationHelper.GUI_MESSAGE);
         } else {
             logger.error(getLocalName() + " - none or more than one agent with GUIService in the system");
         }

@@ -9,10 +9,8 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -295,22 +293,11 @@ public abstract class TransportAgent extends BaseAgent {
      * Potwierdzenie o gotowosci do negocjacji
      */
     private synchronized void sendReadyToStartNegotiation() {
-        ACLMessage cfp = null;
-
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "CommissionService");
 
         if (aids.length == 1) {
-            cfp = new ACLMessage(
-                    CommunicationHelper.TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException "
-                        + e.getMessage());
-            }
-            send(cfp);
+            send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with CommissionService in the system");
@@ -477,15 +464,7 @@ public abstract class TransportAgent extends BaseAgent {
         if (confirmedUnits.contains(aid))
             return;
         askingUnits.add(aid);
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.TEAM_OFFER);
-        cfp.addReceiver(aid);
-        askingUnits.add(aid);
-        try {
-            cfp.setContentObject("");
-        } catch (IOException e) {
-            logger.error(getLocalName() + " - IOException " + e.getMessage());
-        }
-        send(cfp);
+        send(aid, "", CommunicationHelper.TEAM_OFFER);
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
             return;
@@ -671,14 +650,7 @@ public abstract class TransportAgent extends BaseAgent {
                     sendFeedbackToDistributor(new NewHolonOffer());
             }
         }
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.TEAM_OFFER_RESPONSE);
-        cfp.addReceiver(aid);
-        try {
-            cfp.setContentObject(response);
-        } catch (IOException e) {
-            logger.error(getLocalName() + " - IOException " + e.getMessage());
-        }
-        send(cfp);
+        send(aid, response, CommunicationHelper.TEAM_OFFER_RESPONSE);
         if (confirmedUnits != null
                 && confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
@@ -804,16 +776,7 @@ public abstract class TransportAgent extends BaseAgent {
                     "CommissionService");
 
             if (aids.length == 1) {
-                ACLMessage cfp = new ACLMessage(
-                        CommunicationHelper.NEW_HOLON_OFFER);
-                cfp.addReceiver(aids[0]);
-                try {
-                    cfp.setContentObject(offer);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
+                send(aids[0], offer, CommunicationHelper.NEW_HOLON_OFFER);
             } else {
                 logger.error(getLocalName()
                         + " - none or more than one agent with CommissionService in the system");
@@ -890,16 +853,7 @@ public abstract class TransportAgent extends BaseAgent {
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "CommissionService");
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.HOLON_FEEDBACK);
-
-        cfp.addReceiver(aids[0]);
-        try {
-            cfp.setContentObject("");
-            this.send(cfp);
-        } catch (IOException e) {
-            logger.error("EunitCreationBehaviour - IOException "
-                    + e.getMessage());
-        }
+        send(aids[0], "", CommunicationHelper.HOLON_FEEDBACK);
     }
 
     /**
@@ -963,22 +917,11 @@ public abstract class TransportAgent extends BaseAgent {
             Map<TransportType, List<TransportAgentData>> agents) {
         this.agents = filtr(agents);
 
-        ACLMessage cfp = null;
-
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "GUIService");
 
         if (aids.length == 1) {
-            cfp = new ACLMessage(
-                    CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException "
-                        + e.getMessage());
-            }
-            send(cfp);
+            send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
@@ -1043,52 +986,14 @@ public abstract class TransportAgent extends BaseAgent {
      */
     public abstract void checkNewCommission(TransportCommission commission);
 
-    public abstract void checkReorganize(TransportCommission commission);/*
-                                                                         * {
-                                                                         *
-                                                                         * /**
-                                                                         * Method
-                                                                         * sending
-                                                                         * offer
-                                                                         * to
-                                                                         * Execution
-                                                                         * Unit
-                                                                         *
-                                                                         * @param
-                                                                         * aid
-                                                                         * id of
-                                                                         * an
-                                                                         * message
-                                                                         * receiver
-                                                                         *
-                                                                         * @param
-                                                                         * offer
-                                                                         * offer
-                                                                         * to be
-                                                                         * sent
-                                                                         */
+    public abstract void checkReorganize(TransportCommission commission);
 
     public void sendOfferToEUnit(AID aid, TransportOffer offer) {
-        ACLMessage message = new ACLMessage(CommunicationHelper.TRANSPORT_OFFER);
-        message.addReceiver(aid);
-        try {
-            message.setContentObject(offer);
-        } catch (IOException e) {
-            logger.error(getLocalName() + " - IOException - " + e.getMessage());
-        }
-        send(message);
+        send(aid, offer, CommunicationHelper.TRANSPORT_OFFER);
     }
 
     public void sendReorganizeOfferToEUnit(AID aid, TransportOffer offer) {
-        ACLMessage message = new ACLMessage(
-                CommunicationHelper.TRANSPORT_REORGANIZE_OFFER);
-        message.addReceiver(aid);
-        try {
-            message.setContentObject(offer);
-        } catch (IOException e) {
-            logger.error(getLocalName() + " - IOException - " + e.getMessage());
-        }
-        send(message);
+        send(aid, offer, CommunicationHelper.TRANSPORT_REORGANIZE_OFFER);
     }
 
     /**

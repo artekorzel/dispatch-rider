@@ -10,8 +10,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-
 public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
 
 
@@ -35,33 +33,15 @@ public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
             try {
 
                 Commission commission = (Commission) msg.getContentObject();
-                if (executionUnitAgent.addCommissionToCalendar(commission) == false) {
+                if (!executionUnitAgent.addCommissionToCalendar(commission)) {
                     logger.error("Fatal error: GetCommissionForEUnitBehaviour com=" + commission.getID());
-
-                    ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION_SEND_AGAIN);
-
-                    cfp.addReceiver(msg.getSender());
-                    try {
-                        cfp.setContentObject(commission);
-                        executionUnitAgent.send(cfp);
-                    } catch (IOException e) {
-                        logger.error("EunitCreationBehaviour - IOException " + e.getMessage());
-                    }
+                    executionUnitAgent.send(msg.getSender(), commission, CommunicationHelper.COMMISSION_SEND_AGAIN);
                     return;
                 } else
                     logger.info(executionUnitAgent.getLocalName() + ": commission " + commission.getID() + " added to calendar");
 
                 AID[] aids = CommunicationHelper.findAgentByServiceName(executionUnitAgent, "CommissionService");
-                ACLMessage cfp = new ACLMessage(CommunicationHelper.HOLON_FEEDBACK);
-
-                cfp.addReceiver(aids[0]);
-                try {
-                    cfp.setContentObject("");
-                    executionUnitAgent.send(cfp);
-                } catch (IOException e) {
-                    logger.error("EunitCreationBehaviour - IOException " + e.getMessage());
-                }
-
+                executionUnitAgent.send(aids[0], "", CommunicationHelper.HOLON_FEEDBACK);
             } catch (UnreadableException e1) {
                 logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
             }

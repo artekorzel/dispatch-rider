@@ -15,8 +15,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-
 public class EUnitCreationBehaviour extends CyclicBehaviour {
 
 
@@ -81,15 +79,7 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
             this.infoAgent.addEUnitAgentInfo();
 
             /* -------- INITIALIZE EUNIT AGENT BY EUNIT INFO DATA ------- */
-            try {
-                ACLMessage cfp = new ACLMessage(CommunicationHelper.EUNIT_INITIAL_DATA);
-                cfp.addReceiver(aid);
-                cfp.setContentObject(initialData);
-                this.infoAgent.send(cfp);
-            } catch (IOException e2) {
-                logger.error(this.infoAgent.getLocalName() + " - IOException " + e2.getMessage());
-            }
-
+            infoAgent.send(aid, initialData, CommunicationHelper.EUNIT_INITIAL_DATA);
         } else {
             block();
         }

@@ -17,8 +17,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-
 public class TruckCreationBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(TruckCreationBehaviour.class);
@@ -68,15 +66,7 @@ public class TruckCreationBehaviour extends CyclicBehaviour {
             }
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");
-            ACLMessage cfp = new ACLMessage(CommunicationHelper.TRANSPORT_AGENT_CREATED);
-
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-                agent.send(cfp);
-            } catch (IOException e) {
-                logger.error("TruckCreationBehaviour - IOException " + e.getMessage());
-            }
+            agent.send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
         } else {
             block();
         }

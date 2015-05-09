@@ -9,8 +9,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-
 public class GetTimestampBehaviour extends CyclicBehaviour {
 
 
@@ -52,16 +50,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(eunitAgent,
                     "GUIService");
-            ACLMessage cfp = new ACLMessage(
-                    CommunicationHelper.TIME_STAMP_CONFIRM);
-
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-                eunitAgent.send(cfp);
-            } catch (IOException e) {
-                logger.error(e);
-            }
+            eunitAgent.send(aids[0], "", CommunicationHelper.TIME_STAMP_CONFIRM);
         } else {
             block();
         }

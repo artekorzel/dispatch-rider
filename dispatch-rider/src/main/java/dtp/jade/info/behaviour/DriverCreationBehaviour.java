@@ -17,8 +17,6 @@ import jade.wrapper.AgentController;
 import jade.wrapper.StaleProxyException;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-
 public class DriverCreationBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(DriverCreationBehaviour.class);
@@ -48,7 +46,7 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " created");
 
                 MessageTemplate template2 = MessageTemplate.MatchPerformative(CommunicationHelper.TRANSPORT_DRIVER_AID);
-                ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);
+                ACLMessage msg2 = myAgent.blockingReceive(template2, 1000);    //FIXME osobny behaviour
                 AID aid = (AID) msg2.getContentObject();
                 logger.info(agent.getName() + " - " + agentInfo.getName() + " - got AID: " + aid);
                 agentInfo.setAID(aid);
@@ -61,19 +59,9 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
                 logger.error(e);
             }
 
-            logger.info("About to confirm agent creation...");
             AID[] aids = CommunicationHelper.findAgentByServiceName(agent, "GUIService");
-            ACLMessage cfp = new ACLMessage(CommunicationHelper.TRANSPORT_AGENT_CREATED);
-
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-                agent.send(cfp);
-                logger.info("Agent creation confirmed");
-            } catch (IOException e) {
-                logger.error("DriverCreationBehaviour - IOException " + e.getMessage());
-            }
-
+            agent.send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
+            logger.info("Agent creation confirmed");
         } else {
             block();
         }

@@ -14,7 +14,6 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -140,29 +139,14 @@ public class InfoAgent extends BaseAgent {
 
         logger.info("InfoAgent - sending agents data to agents");
         for (AID aid : aids) {
-            cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
-            cfp.addReceiver(aid);
-            try {
-                cfp.setContentObject(new TransportAgentsMessage(agents));
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException " + e.getMessage());
-            }
-            send(cfp);
+            send(aid, new TransportAgentsMessage(agents), CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
         }
 
         aids = CommunicationHelper.findAgentByServiceName(this, "CommissionService");
 
         logger.info("InfoAgent - sending agents data to Distributor");
         for (AID aid : aids) {
-
-            cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
-            cfp.addReceiver(aid);
-            try {
-                cfp.setContentObject(new TransportAgentsMessage(agents));
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException " + e.getMessage());
-            }
-            send(cfp);
+            send(aid, new TransportAgentsMessage(agents), CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
         }
     }
 }

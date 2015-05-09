@@ -9,8 +9,6 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
-
 public class GetTimestampBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetTimestampBehaviour.class);
@@ -40,20 +38,12 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
                 logger.error(this.crisisManagerAgent.getLocalName() + " - IOException " + e.getMessage());
             }
 
-            logger.info(myAgent.getLocalName() + "\t- got time stamp [" + time.toString() + "]");
+            logger.info(myAgent.getLocalName() + "\t- got time stamp [" + time + "]");
 
             crisisManagerAgent.nextSimstep(time);
 
             AID[] aids = CommunicationHelper.findAgentByServiceName(crisisManagerAgent, "GUIService");
-            ACLMessage cfp = new ACLMessage(CommunicationHelper.TIME_STAMP_CONFIRM);
-
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-                crisisManagerAgent.send(cfp);
-            } catch (IOException e) {
-                logger.error("GetTimestampBehaviour (CrisisManager) - IOException " + e.getMessage());
-            }
+            crisisManagerAgent.send(aids[0], "", CommunicationHelper.TIME_STAMP_CONFIRM);
 
         } else {
 

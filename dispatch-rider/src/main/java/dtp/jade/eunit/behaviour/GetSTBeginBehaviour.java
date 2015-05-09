@@ -5,16 +5,11 @@ import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import org.apache.log4j.Logger;
-
-import java.io.IOException;
 
 /**
  * @author KONY
  */
 public class GetSTBeginBehaviour extends CyclicBehaviour {
-
-    private static Logger logger = Logger.getLogger(GetSTBeginBehaviour.class);
 
     private final ExecutionUnitAgent executionUnitAgent;
 
@@ -28,16 +23,7 @@ public class GetSTBeginBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
-            ACLMessage message = new ACLMessage(CommunicationHelper.ST_BEGIN);
-            message.addReceiver(msg.getSender());
-            try {
-                message.setContentObject("");
-            } catch (IOException e) {
-                logger.error(e);
-            }
-            executionUnitAgent.send(message);
-
+            executionUnitAgent.send(msg.getSender(), "", CommunicationHelper.ST_BEGIN);
         } else {
 
             block();

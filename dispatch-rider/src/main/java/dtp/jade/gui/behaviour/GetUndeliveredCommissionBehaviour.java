@@ -30,11 +30,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
                 guiAgent.addUndeliveredCommission((NewTeamData) msg
                         .getContentObject());
 
-                ACLMessage response = new ACLMessage(
-                        CommunicationHelper.UNDELIVERIED_COMMISSION);
-                response.addReceiver(msg.getSender());
-                response.setContentObject("");
-                guiAgent.send(response);
+                guiAgent.send(msg.getSender(), "", CommunicationHelper.UNDELIVERIED_COMMISSION);
             } catch (Exception e) {
                 logger.error(e);
             }

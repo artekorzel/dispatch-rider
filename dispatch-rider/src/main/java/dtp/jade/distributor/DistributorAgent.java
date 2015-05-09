@@ -25,7 +25,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.lang.acl.ACLMessage;
 import machineLearning.MLAlgorithm;
 import measure.Measure;
 import measure.MeasureCalculator;
@@ -36,7 +35,6 @@ import measure.printer.MeasureData;
 import measure.visualization.MeasuresVisualizationRunner;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -239,38 +237,18 @@ public class DistributorAgent extends BaseAgent {
 
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "GUIService");
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.SIM_INFO_RECEIVED);
-
-        cfp.addReceiver(aids[0]);
-        try {
-            cfp.setContentObject("");
-            this.send(cfp);
-        } catch (IOException e) {
-            logger.error("EunitCreationBehaviour - IOException "
-                    + e.getMessage());
-        }
+        send(aids[0], "", CommunicationHelper.SIM_INFO_RECEIVED);
     }
 
     public synchronized void setAgentsData(
             Map<TransportType, List<TransportAgentData>> agents) {
         this.agents = agents;
 
-        ACLMessage cfp;
-
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "GUIService");
 
         if (aids.length == 1) {
-            cfp = new ACLMessage(
-                    CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException "
-                        + e.getMessage());
-            }
-            send(cfp);
+            send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
@@ -405,17 +383,7 @@ public class DistributorAgent extends BaseAgent {
         logger.info(getLocalName()
                 + " - sending commission(s) to Transport Agents");
 
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION);
-
-        for (AID aid : aids) {
-            cfp.addReceiver(aid);
-        }
-        try {
-            cfp.setContentObject(commsGroup);
-        } catch (IOException e) {
-            logger.error("IOException " + e.getMessage());
-        }
-        send(cfp);
+        send(aids, commsGroup, CommunicationHelper.COMMISSION);
     }
 
     // wysyla oferty do wszystkich EUnitow
@@ -425,21 +393,7 @@ public class DistributorAgent extends BaseAgent {
                 "ExecutionUnitService");
 
         if (aids.length != 0) {
-
-            ACLMessage cfp = new ACLMessage(
-                    CommunicationHelper.COMMISSION_OFFER_REQUEST);
-
-            for (AID aid : aids) {
-                cfp.addReceiver(aid);
-            }
-
-            try {
-                cfp.setContentObject(commission);
-            } catch (IOException e) {
-                logger.error(this.getLocalName() + " - IOException "
-                        + e.getMessage());
-            }
-            send(cfp);
+            send(aids, commission, CommunicationHelper.COMMISSION_OFFER_REQUEST);
         }
 
         return aids.length;
@@ -479,18 +433,7 @@ public class DistributorAgent extends BaseAgent {
 
         logger.info(getLocalName()
                 + " - sending commission(s) to Transport Agents");
-
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION);
-
-        for (AID aid : aids) {
-            cfp.addReceiver(aid);
-        }
-        try {
-            cfp.setContentObject(new Commission[]{currentCommission});
-        } catch (IOException e) {
-            logger.error("IOException " + e.getMessage());
-        }
-        send(cfp);
+        send(aids, new Commission[]{currentCommission}, CommunicationHelper.COMMISSION);
     }
 
     // TODO algorithm
@@ -529,28 +472,12 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void checkSTStatus() {
-        AID[] aids;
-        ACLMessage cfp;
-
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         if (aids.length > 0) {
             calendarStatsHolder = new CalendarStatsHolder(aids.length);
-
-            cfp = new ACLMessage(CommunicationHelper.EUNIT_SHOW_STATS);
-
-            for (AID aid : aids) {
-                cfp.addReceiver(aid);
-            }
-
-            try {
-                cfp.setContentObject("");
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException "
-                        + e.getMessage());
-            }
-            send(cfp);
+            send(aids, "", CommunicationHelper.EUNIT_SHOW_STATS);
         }
     }
 
@@ -600,15 +527,7 @@ public class DistributorAgent extends BaseAgent {
         eUnitsCount = holons.size();// getEUnitsAids().length;
         fullSimulatedTrading = false;
         for (AID aid : holons.keySet()) {// getEUnitsAids()) {
-            ACLMessage msg = new ACLMessage(
-                    CommunicationHelper.HOLONS_NEW_CALENDAR);
-            msg.addReceiver(aid);
-            try {
-                msg.setContentObject(holons.get(aid));
-                send(msg);
-            } catch (IOException e) {
-                logger.error(e);
-            }
+            send(aid, holons.get(aid), CommunicationHelper.HOLONS_NEW_CALENDAR);
         }
 
         if (eUnitsCount == 0) {
@@ -630,19 +549,9 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void sendFeedback(AID aid, Commission commission) {
-
-        ACLMessage cfp = new ACLMessage(CommunicationHelper.FEEDBACK);
-
-        cfp.addReceiver(aid);
-        try {
-            SimulatedTradingParameters params = currentSTAuction.getParams();
-            params.commission = commission;
-            cfp.setContentObject(params);
-        } catch (IOException e) {
-            logger.error(this.getLocalName() + " - IOException "
-                    + e.getMessage());
-        }
-        send(cfp);
+        SimulatedTradingParameters params = currentSTAuction.getParams();
+        params.commission = commission;
+        send(aid, params, CommunicationHelper.FEEDBACK);
     }
 
     private void sendGUIMessage(String messageText) {
@@ -750,19 +659,7 @@ public class DistributorAgent extends BaseAgent {
 
             newHolonOffers = new TreeSet<>();
 
-            ACLMessage cfp = new ACLMessage(
-                    CommunicationHelper.START_NEGOTIATION);
-
-            for (AID aid : aids) {
-                cfp.addReceiver(aid);
-            }
-            try {
-                cfp.setContentObject("");
-            } catch (IOException e) {
-                logger.error("IOException " + e.getMessage());
-            }
-            send(cfp);
-
+            send(aids, "", CommunicationHelper.START_NEGOTIATION);
         }
     }
 
@@ -942,35 +839,14 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void sentConfirmationToTransportUnit(AID aid) {
-        ACLMessage cfp = new ACLMessage(
-                CommunicationHelper.CONFIRMATIO_FROM_DISTRIBUTOR);
-
-        cfp.addReceiver(aid);
-        try {
-            cfp.setContentObject("");
-        } catch (IOException e) {
-            logger.error(this.getLocalName() + " - IOException "
-                    + e.getMessage());
-        }
-        send(cfp);
+        send(aid, "", CommunicationHelper.CONFIRMATIO_FROM_DISTRIBUTOR);
     }
 
     /**
      *
      */
     private void sentCommissionToEUnit() {
-        ACLMessage cfp = new ACLMessage(
-                CommunicationHelper.COMMISSION_FOR_EUNIT);
-
-        cfp.addReceiver(eUnitOffers.get(0).getAgent());
-        try {
-            cfp.setContentObject(currentCommission);
-        } catch (IOException e) {
-            logger.error(this.getLocalName() + " - IOException "
-                    + e.getMessage());
-        }
-        send(cfp);
-
+        send(eUnitOffers.get(0).getAgent(), currentCommission, CommunicationHelper.COMMISSION_FOR_EUNIT);
     }
 
     /**
@@ -1010,16 +886,7 @@ public class DistributorAgent extends BaseAgent {
         if (!checkCommission(data)) {
             AID aids[] = CommunicationHelper.findAgentByServiceName(this,
                     "GUIService");
-            ACLMessage message = new ACLMessage(
-                    CommunicationHelper.UNDELIVERIED_COMMISSION);
-            message.addReceiver(aids[0]);
-            try {
-                message.setContentObject(data);
-            } catch (IOException e) {
-                logger.error(e);
-            }
-            send(message);
-
+            send(aids[0], data, CommunicationHelper.UNDELIVERIED_COMMISSION);
             return;
         }
 
@@ -1029,16 +896,7 @@ public class DistributorAgent extends BaseAgent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-
-            ACLMessage cfp = new ACLMessage(
-                    CommunicationHelper.EXECUTION_UNIT_CREATION);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject(initialData);
-            } catch (IOException e) {
-                logger.error("IOException " + e.getMessage());
-            }
-            send(cfp);
+            send(aids[0], initialData, CommunicationHelper.EXECUTION_UNIT_CREATION);
         } else {
             logger.error("None or more than one Info Agent in the system");
         }
@@ -1126,17 +984,7 @@ public class DistributorAgent extends BaseAgent {
             createNewEUnit();
             return;
         }
-        ACLMessage msg = new ACLMessage(CommunicationHelper.HOLONS_CALENDAR);
-        for (AID aid : aids) {
-            msg.addReceiver(aid);
-        }
-
-        try {
-            msg.setContentObject("");
-            send(msg);
-        } catch (IOException e) {
-            logger.error(e);
-        }
+        send(aids, "", CommunicationHelper.HOLONS_CALENDAR);
     }
 
     public synchronized void addComplexSTSchedule(Schedule schedule, AID sender) {
@@ -1183,15 +1031,7 @@ public class DistributorAgent extends BaseAgent {
                 // calculateMeasure(holons, tmp);
                 eUnitsCount = tmp.size();// getEUnitsAids().length;
                 for (AID aid : getEUnitsAids()) {
-                    ACLMessage msg = new ACLMessage(
-                            CommunicationHelper.HOLONS_NEW_CALENDAR);
-                    msg.addReceiver(aid);
-                    try {
-                        msg.setContentObject(tmp.get(aid));
-                        send(msg);
-                    } catch (IOException e) {
-                        logger.error(e);
-                    }
+                    send(aid, tmp.get(aid), CommunicationHelper.HOLONS_NEW_CALENDAR);
                 }
                 if (eUnitsCount == 0)
                     scheduleChanged();
@@ -1310,18 +1150,10 @@ public class DistributorAgent extends BaseAgent {
                         else {
                             if (graphChanged) {
                                 graphChanged = false;
-                                ACLMessage response = new ACLMessage(
-                                        CommunicationHelper.GRAPH_CHANGED);
                                 AID sender = CommunicationHelper
                                         .findAgentByServiceName(this,
                                                 "GUIService")[0];
-                                response.addReceiver(sender);
-                                try {
-                                    response.setContentObject(false);
-                                } catch (IOException e) {
-                                    logger.error(e);
-                                }
-                                this.send(response);
+                                this.send(sender, false, CommunicationHelper.GRAPH_CHANGED);
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
                         }
@@ -1339,18 +1171,10 @@ public class DistributorAgent extends BaseAgent {
                         else {
                             if (graphChanged) {
                                 graphChanged = false;
-                                ACLMessage response = new ACLMessage(
-                                        CommunicationHelper.GRAPH_CHANGED);
                                 AID sender = CommunicationHelper
                                         .findAgentByServiceName(this,
                                                 "GUIService")[0];
-                                response.addReceiver(sender);
-                                try {
-                                    response.setContentObject(false);
-                                } catch (IOException e) {
-                                    logger.error(e);
-                                }
-                                this.send(response);
+                                this.send(sender, false, CommunicationHelper.GRAPH_CHANGED);
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
                         }
@@ -1408,18 +1232,9 @@ public class DistributorAgent extends BaseAgent {
         }
 
         if (conf != null) {
-            ACLMessage msg;
-
             eUnitsCount = conf.keySet().size();
             for (AID aid : conf.keySet()) {
-                msg = new ACLMessage(CommunicationHelper.CONFIGURATION_CHANGE);
-                msg.addReceiver(aid);
-                try {
-                    msg.setContentObject(conf.get(aid));
-                } catch (IOException e) {
-                    logger.error(e);
-                }
-                this.send(msg);
+                this.send(aid, conf.get(aid), CommunicationHelper.CONFIGURATION_CHANGE);
             }
 
             if (eUnitsCount == 0)
@@ -1448,15 +1263,7 @@ public class DistributorAgent extends BaseAgent {
 
             simulatedTrading();
         } else {
-            ACLMessage response = new ACLMessage(
-                    CommunicationHelper.GRAPH_CHANGED);
-            response.addReceiver(sender);
-            try {
-                response.setContentObject(false);
-            } catch (IOException e) {
-                logger.error(e);
-            }
-            this.send(response);
+            send(sender, false, CommunicationHelper.GRAPH_CHANGED);
         }
     }
 }

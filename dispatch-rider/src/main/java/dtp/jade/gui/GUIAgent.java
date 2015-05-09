@@ -14,6 +14,7 @@ import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.graph.GraphLink;
 import dtp.graph.predictor.GraphLinkPredictor;
+import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.agentcalendar.CalendarAction;
 import dtp.jade.agentcalendar.CalendarStats;
@@ -32,7 +33,6 @@ import dtp.xml.ConfigurationParser;
 import dtp.xml.ParseException;
 import gui.main.SingletonGUI;
 import jade.core.AID;
-import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -53,7 +53,7 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
-public class GUIAgent extends Agent {
+public class GUIAgent extends BaseAgent {
 
     protected static Logger logger = Logger.getLogger(GUIAgent.class);
     // trzyma obiekty CommissionHandler (zlecenie wraz z czasem naplyniecia
@@ -208,13 +208,12 @@ public class GUIAgent extends Agent {
                         .getConfigurationDirectory()
                         + File.separator
                         + "drivers.properties");
-            } catch (FileNotFoundException e) {
-                logger.fatal("properties file not found", e);
-
             } catch (IOException e) {
-                logger.fatal("reading properties file failed", e);
+                logger.fatal(e);
             }
         }
+
+        logger.info("Waiting for agents creation...");
     }
 
     public boolean isRecording() {
@@ -444,35 +443,22 @@ public class GUIAgent extends Agent {
     }
 
     public void sendSimInfo(AID aid) {
-
-        ACLMessage cfp;
-
-        cfp = new ACLMessage(CommunicationHelper.SIM_INFO);
-        cfp.addReceiver(aid);
-
-        try {
-
-            SimInfo info = simLogic.getSimInfo();
-            info.setPunishmentFunction(punishmentFunction);
-            info.setDefaultPunishmentFunValues(punishmentFunctionDefaults);
-            info.setDelayLimit(delayLimit);
-            info.setHolons(holons);
-            info.setFirstComplexSTResultOnly(firstComplexSTResultOnly);
-            info.setMlAlgorithm(mlAlgorithm);
-            info.setExploration(exploration);
-            info.setTrackFinder(trackFinder, graphLinkPredictor);
-            info.setSTAfterGraphChange(STAfterChange);
-            info.setExchangeAlgFactory(exchangeAlgFactory);
-            info.setBrute2Sorter(brute2Sorter);
-            cfp.setContentObject(info);
-
-        } catch (IOException e) {
-            logger.error(getLocalName() + " - IOException " + e.getMessage());
-        }
+        SimInfo info = simLogic.getSimInfo();
+        info.setPunishmentFunction(punishmentFunction);
+        info.setDefaultPunishmentFunValues(punishmentFunctionDefaults);
+        info.setDelayLimit(delayLimit);
+        info.setHolons(holons);
+        info.setFirstComplexSTResultOnly(firstComplexSTResultOnly);
+        info.setMlAlgorithm(mlAlgorithm);
+        info.setExploration(exploration);
+        info.setTrackFinder(trackFinder, graphLinkPredictor);
+        info.setSTAfterGraphChange(STAfterChange);
+        info.setExchangeAlgFactory(exchangeAlgFactory);
+        info.setBrute2Sorter(brute2Sorter);
 
         logger.info(getLocalName() + " - sending SimInfo to "
                 + aid.getLocalName());
-        send(cfp);
+        send(aid, info, CommunicationHelper.SIM_INFO);
     }
 
     public void sendSimInfoToAll(SimInfo simInfo) {
@@ -500,17 +486,8 @@ public class GUIAgent extends Agent {
         if (aids.length != 0) {
             simInfoReceived = aids.length;
             for (AID aid : aids) {
-                cfp = new ACLMessage(CommunicationHelper.SIM_INFO);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(simInfo);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
+                send(aid, simInfo, CommunicationHelper.SIM_INFO);
             }
-
         }
     }
 
@@ -526,16 +503,7 @@ public class GUIAgent extends Agent {
 
         if (aids.length != 0) {
             for (AID aid : aids) {
-
-                cfp = new ACLMessage(CommunicationHelper.GRAPH_UPDATE);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(graph);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
+                send(aid, graph, CommunicationHelper.GRAPH_UPDATE);
             }
         }
     }
@@ -622,12 +590,8 @@ public class GUIAgent extends Agent {
                 && commissionsHandler.getCommissionsBeforeTime(timestamp).length == 0
                 && !commissionsHandler.isAnyEUnitAtNode(false)) {
             if (timestamp == backToDepotTimestamp) {
-                ACLMessage cfp;
                 for (AID aid : aids) {
-                    cfp = new ACLMessage(CommunicationHelper.BACK_TO_DEPOT);
-                    cfp.addReceiver(aid);
-                    cfp.setContent("");
-                    send(cfp);
+                    send(aid, "", CommunicationHelper.BACK_TO_DEPOT);
                 }
             }
 
@@ -642,14 +606,7 @@ public class GUIAgent extends Agent {
      * Trzeba to robic ze wzgledu na to ze sprawdzamy czy eunit w danym momencie dojechal do commissiona (do tego potrzeba zupdatowac ich current location)
      */
     private void sendUpdateCurrentLocationRequest(AID[] aids, int timestamp) {
-        ACLMessage cfp;
-
-        for (AID aid : aids) {
-            cfp = new ACLMessage(CommunicationHelper.UPDATE_CURRENT_LOCATION);
-            cfp.addReceiver(aid);
-            cfp.setContent(Integer.toString(timestamp));
-            send(cfp);
-        }
+        send(aids, Integer.toString(timestamp), CommunicationHelper.UPDATE_CURRENT_LOCATION);
 
         //czekamy az kazdy z eunitow potwierdzi otrzymanie komunikatu
         for (AID ignored : aids) {
@@ -682,25 +639,12 @@ public class GUIAgent extends Agent {
                 + " commission(s) to Distributor Agent");
 
         if (aids.length == 1) {
+            send(aids[0], new CommissionsHolder(tempCommissions,
+                    commissionSendingType, choosingByCost,
+                    simulatedTradingCount, STDepth, defaultAgentsData,
+                    chooseWorstCommission, algorithm, dist, STTimestampGap,
+                    STCommissionGap, confChange), CommunicationHelper.COMMISSION);
 
-            ACLMessage cfp = new ACLMessage(CommunicationHelper.COMMISSION);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject(new CommissionsHolder(tempCommissions,
-                        commissionSendingType, choosingByCost,
-                        simulatedTradingCount, STDepth, defaultAgentsData,
-                        chooseWorstCommission, algorithm, dist, STTimestampGap,
-                        STCommissionGap, confChange));
-
-            } catch (IOException e) {
-                logger.error("IOException " + e.getMessage());
-            }
-            send(cfp);
-
-            /**
-             * @author Szyna
-             * Dodane zeby kazdy eunit wrocil do depotu przed skonczeniem symulacji
-             */
             if (commissionsHandler.getComsSize() == 0) {
                 backToDepotTimestamp = simTime + 10;
             }
@@ -727,18 +671,7 @@ public class GUIAgent extends Agent {
 
         stamps = aids.length + 2;
         if (aids.length > 0) {
-            cfp = new ACLMessage(CommunicationHelper.TIME_CHANGED);
-            for (AID aid : aids) {
-                cfp.addReceiver(aid);
-            }
-            try {
-                cfp.setContentObject(time);
-            } catch (IOException e) {
-                logger.error(getLocalName() + " - IOException "
-                        + e.getMessage());
-            }
-            send(cfp);
-
+            send(aids, time, CommunicationHelper.TIME_CHANGED);
         } else {
             logger.info(getLocalName()
                     + " - there are no EUnit Agents in the system");
@@ -749,17 +682,7 @@ public class GUIAgent extends Agent {
                 "CrisisManagementService");
 
         if (aids.length == 1) {
-            for (AID aid : aids) {
-                cfp = new ACLMessage(CommunicationHelper.TIME_CHANGED);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(time);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
+            send(aids, time, CommunicationHelper.TIME_CHANGED);
         } else {
             logger.info(getLocalName()
                     + " - none or more than one Crisis Manager Agent in the system");
@@ -770,17 +693,7 @@ public class GUIAgent extends Agent {
                 "CommissionService");
 
         if (aids.length == 1) {
-            for (AID aid : aids) {
-                cfp = new ACLMessage(CommunicationHelper.TIME_CHANGED);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(time);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
-            }
+            send(aids, time, CommunicationHelper.TIME_CHANGED);
         } else {
             logger.info(getLocalName()
                     + " - none or more than one Crisis Manager Agent in the system");
@@ -829,16 +742,7 @@ public class GUIAgent extends Agent {
             calendarStatsHolderForFile = new CalendarStatsHolder(aids.length);
 
             for (AID aid : aids) {
-                cfp = new ACLMessage(
-                        CommunicationHelper.EUNIT_SHOW_STATS_TO_WRITE);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject("");
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
+                send(aid, "", CommunicationHelper.EUNIT_SHOW_STATS_TO_WRITE);
             }
 
         } else {
@@ -1040,19 +944,9 @@ public class GUIAgent extends Agent {
                 simEnd();
             return;
         }
-        ACLMessage msg = new ACLMessage(CommunicationHelper.MEASURE_DATA);
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "CommissionService");
-
-        msg.addReceiver(aids[0]);
-
-        try {
-            msg.setContentObject("");
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
-
-        send(msg);
+        send(aids[0], "", CommunicationHelper.MEASURE_DATA);
     }
 
     public void printMeasures(MeasureData data) {
@@ -1070,14 +964,7 @@ public class GUIAgent extends Agent {
         if (mlAlgorithm != null && exploration) {
             AID aid = CommunicationHelper.findAgentByServiceName(this,
                     "CommissionService")[0];
-            ACLMessage msg = new ACLMessage(CommunicationHelper.MLTable);
-            msg.addReceiver(aid);
-            try {
-                msg.setContentObject("");
-            } catch (IOException e) {
-                logger.error(e);
-            }
-            this.send(msg);
+            send(aid, "", CommunicationHelper.MLTable);
         }
     }
 
@@ -1110,16 +997,7 @@ public class GUIAgent extends Agent {
         if (aids.length == 1) {
 
             for (AID aid : aids) {
-
-                cfp = new ACLMessage(CommunicationHelper.CRISIS_EVENT);
-                cfp.addReceiver(aid);
-                try {
-                    cfp.setContentObject(event);
-                } catch (IOException e) {
-                    logger.error(getLocalName() + " - IOException "
-                            + e.getMessage());
-                }
-                send(cfp);
+                send(aid, event, CommunicationHelper.CRISIS_EVENT);
             }
 
         } else {
@@ -1134,23 +1012,15 @@ public class GUIAgent extends Agent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-
-            ACLMessage cfp;
+            int msgType;
             if (type == TransportType.DRIVER) {
-                cfp = new ACLMessage(CommunicationHelper.DRIVER_CREATION);
+                msgType = CommunicationHelper.DRIVER_CREATION;
             } else if (type == TransportType.TRAILER) {
-                cfp = new ACLMessage(CommunicationHelper.TRAILER_CREATION);
+                msgType = CommunicationHelper.TRAILER_CREATION;
             } else {
-                cfp = new ACLMessage(CommunicationHelper.TRUCK_CREATION);
-                // data = data;
+                msgType = CommunicationHelper.TRUCK_CREATION;
             }
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject(data);
-            } catch (IOException e) {
-                logger.error("IOException " + e.getMessage());
-            }
-            send(cfp);
+            send(aids[0], data, msgType);
         } else {
             logger.error("None or more than one Info Agent in the system");
         }
@@ -1173,15 +1043,7 @@ public class GUIAgent extends Agent {
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
         eUnitsCount = aids.length;
-        ACLMessage msg = new ACLMessage(CommunicationHelper.SIMULATION_DATA);
-        for (AID aid : aids)
-            msg.addReceiver(aid);
-        try {
-            msg.setContentObject("");
-        } catch (IOException e) {
-            logger.error(e);
-        }
-        send(msg);
+        send(aids, "", CommunicationHelper.SIMULATION_DATA);
 
         if (eUnitsCount == 0)
             simLogic.nextSimStep2();
@@ -1229,31 +1091,15 @@ public class GUIAgent extends Agent {
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;
-        this.graph = graph;
-        for (AID aid : aids)
-            msg.addReceiver(aid);
-        try {
-            msg.setContentObject(new Object[]{graph, updateAfterArrival});
-        } catch (IOException e) {
-            logger.error(e);
-        }
-        this.send(msg);
+        send(aids, new Object[]{graph, updateAfterArrival}, CommunicationHelper.GRAPH_CHANGED);
     }
 
     public synchronized void graphChanged(boolean isEUnit) {
         if (isEUnit) {
             eUnitsCount--;
             if (eUnitsCount == 0) {
-                ACLMessage msg = new ACLMessage(
-                        CommunicationHelper.GRAPH_CHANGED);
-                msg.addReceiver(CommunicationHelper.findAgentByServiceName(
-                        this, "CommissionService")[0]);
-                try {
-                    msg.setContentObject(graph);
-                } catch (IOException e) {
-                    logger.error(e);
-                }
-                this.send(msg);
+                send(CommunicationHelper.findAgentByServiceName(
+                        this, "CommissionService")[0], graph, CommunicationHelper.GRAPH_CHANGED);
             }
         } else
             simLogic.nextSimStep4();
@@ -1265,19 +1111,10 @@ public class GUIAgent extends Agent {
             return;
         }
         changedGraphLinks = new LinkedList<>();
-        ACLMessage msg = new ACLMessage(
-                CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
         AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;
-        for (AID aid : aids)
-            msg.addReceiver(aid);
-        try {
-            msg.setContentObject("");
-        } catch (IOException e) {
-            logger.error(e);
-        }
-        this.send(msg);
+        send(aids, "", CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
     }
 
     public synchronized void addChangedLink(GraphLink link) {
@@ -1285,19 +1122,10 @@ public class GUIAgent extends Agent {
         if (link != null)
             changedGraphLinks.add(link);
         if (eUnitsCount == 0) {
-            ACLMessage msg = new ACLMessage(
-                    CommunicationHelper.GRAPH_LINK_CHANGED);
             AID[] aids = CommunicationHelper.findAgentByServiceName(this,
                     "ExecutionUnitService");
             this.eUnitsCount = aids.length;
-            for (AID aid : aids)
-                msg.addReceiver(aid);
-            try {
-                msg.setContentObject(changedGraphLinks);
-            } catch (IOException e) {
-                logger.error(e);
-            }
-            this.send(msg);
+            send(aids, changedGraphLinks, CommunicationHelper.GRAPH_LINK_CHANGED);
         }
     }
 
@@ -1319,15 +1147,7 @@ public class GUIAgent extends Agent {
                 "TransportUnitService").length;
 
         if (aids.length == 1) {
-
-            ACLMessage cfp = new ACLMessage(CommunicationHelper.AGENTS_DATA);
-            cfp.addReceiver(aids[0]);
-            try {
-                cfp.setContentObject("");
-            } catch (IOException e) {
-                logger.error("IOException " + e.getMessage());
-            }
-            send(cfp);
+            send(aids[0], "", CommunicationHelper.AGENTS_DATA);
         } else {
             logger.error("None or more than one Info Agent in the system");
         }

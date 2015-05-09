@@ -5,15 +5,8 @@ import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import org.apache.log4j.Logger;
-
-import java.io.IOException;
 
 public class GetMeasureDataBehaviour extends CyclicBehaviour {
-
-
-    private static Logger logger = Logger
-            .getLogger(GetMeasureDataBehaviour.class);
 
     private final DistributorAgent distributorAgent;
 
@@ -30,21 +23,8 @@ public class GetMeasureDataBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-
-            try {
-                ACLMessage response = new ACLMessage(
-                        CommunicationHelper.MEASURE_DATA);
-                response.addReceiver(msg.getSender());
-
-                response.setContentObject(distributorAgent.getMeasureData());
-
-                distributorAgent.send(response);
-            } catch (IOException e) {
-                logger.error(e);
-            }
-
+            distributorAgent.send(msg.getSender(), distributorAgent.getMeasureData(), CommunicationHelper.MEASURE_DATA);
         } else {
-
             block();
         }
     }

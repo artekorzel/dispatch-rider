@@ -24,11 +24,16 @@ public class BaseAgent extends Agent {
      * @param messageCode message code
      */
     public synchronized void send(AID aid, Serializable object, int messageCode) {
+        send(new AID[]{aid}, object, messageCode);
+    }
+
+    public synchronized void send(AID[] aids, Serializable object, int messageCode) {
         ACLMessage message = new ACLMessage(messageCode);
-        message.addReceiver(aid);
+        for (AID aid : aids) {
+            message.addReceiver(aid);
+        }
         try {
             message.setContentObject(object);
-
             send(message);
         } catch (IOException e) {
             logger.error(e);
