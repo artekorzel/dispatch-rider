@@ -50,9 +50,6 @@ import xml.elements.SimulationData;
 import xml.elements.XMLBuilder;
 
 import javax.swing.*;
-import javax.swing.Timer;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
@@ -64,8 +61,6 @@ public class GUIAgent extends Agent {
     protected CommissionsHandler commissionsHandler;
 
     protected SimLogic simLogic;
-    protected Timer timer;
-    protected int timerDelay;
     protected CalendarsHolder calendarsHolder;
     protected CalendarStatsHolder calendarStatsHolder;
     protected CalendarStatsHolder calendarStatsHolderForFile;
@@ -202,16 +197,6 @@ public class GUIAgent extends Agent {
 
 		/* -------- INTERFACE CREATION SECTION ------- */
             simLogic = new SimLogic(this);
-        /* -------- TIME TASK PERFORMER SECTION ------- */
-            ActionListener timerTaskPerformer = new ActionListener() {
-
-                public void actionPerformed(ActionEvent evt) {
-                    simLogic.nextSimStep();
-                }
-            };
-
-            timerDelay = 200;
-            timer = new Timer(timerDelay, timerTaskPerformer);
 
 		/* -------- COMMISSIONS HANDLER SECTION ------- */
             commissionsHandler = new CommissionsHandler();
@@ -252,6 +237,7 @@ public class GUIAgent extends Agent {
                     costFunction, 100000, 100000, 0);
             createNewTransportElement(initial, TransportType.DRIVER);
         }
+        logger.info("Drivers created: " + driversCount);
         return driversCount;
     }
 
@@ -339,6 +325,7 @@ public class GUIAgent extends Agent {
         }
 
         simLogic.setTrucksProperties(trucksProperties);
+        logger.info("Trucks created: " + trucksCount);
         return trucksCount;
     }
 
@@ -386,6 +373,7 @@ public class GUIAgent extends Agent {
         simLogic.setTrailersProperties(trailersProperties);
         br.close();
         fr.close();
+        logger.info("Trailers created: " + trailersCount);
         return trailersCount;
     }
 
