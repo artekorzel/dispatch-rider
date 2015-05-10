@@ -1,6 +1,6 @@
 package dtp.jade.eunit.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.crisismanager.crisisevents.CrisisEvent;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -27,7 +27,7 @@ public class GetCrisisEventBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.CRISIS_EVENT.name());
+                .MatchConversationId(MessageType.CRISIS_EVENT.name());
         ACLMessage msg = myAgent.receive(template);
 
         CrisisEvent crisisEvent = null;

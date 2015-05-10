@@ -1,7 +1,7 @@
 package dtp.jade.eunit.behaviour;
 
 import dtp.jade.AgentsService;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
@@ -28,7 +28,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
         /*-------- RECIEVING CURRENT TIME STAMP -------*/
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.TIME_CHANGED.name());
+                .MatchConversationId(MessageType.TIME_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -51,7 +51,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
             AID[] aids = AgentsService.findAgentByServiceName(eunitAgent,
                     "GUIService");
-            eunitAgent.send(aids[0], "", CommunicationHelper.TIME_STAMP_CONFIRM);
+            eunitAgent.send(aids[0], "", MessageType.TIME_STAMP_CONFIRM);
         } else {
             block();
         }

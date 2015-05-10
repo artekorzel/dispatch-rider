@@ -1,6 +1,6 @@
 package dtp.jade.transport.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.transport.TransportAgent;
 import dtp.jade.transport.TransportCommission;
 import jade.core.behaviours.CyclicBehaviour;
@@ -21,7 +21,7 @@ public class GetTransportReorganizeBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_REORGANIZE.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TRANSPORT_REORGANIZE.name());
         ACLMessage message = myAgent.receive(template);
 
         TransportCommission transportCommision = null;

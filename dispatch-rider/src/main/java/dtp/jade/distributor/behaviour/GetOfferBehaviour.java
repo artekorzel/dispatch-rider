@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import dtp.jade.eunit.EUnitOffer;
 import jade.core.behaviours.CyclicBehaviour;
@@ -36,7 +36,7 @@ public class GetOfferBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION_OFFER.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.COMMISSION_OFFER.name());
         ACLMessage msg = myAgent.receive(template);
 
         EUnitOffer offer;

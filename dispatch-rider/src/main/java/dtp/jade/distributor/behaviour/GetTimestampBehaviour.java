@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -24,7 +24,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
         /*-------- RECIEVING CURRENT TIME STAMP -------*/
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.TIME_CHANGED.name());
+                .MatchConversationId(MessageType.TIME_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -39,7 +39,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
             logger.info(myAgent.getLocalName() + "\t- got time stamp [" + time + "]");
 
             distributorAgent.nextSimstep(time);
-            distributorAgent.send(msg.getSender(), "", CommunicationHelper.TIME_STAMP_CONFIRM);
+            distributorAgent.send(msg.getSender(), "", MessageType.TIME_STAMP_CONFIRM);
         } else {
             block();
         }

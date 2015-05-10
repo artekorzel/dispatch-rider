@@ -1,7 +1,7 @@
 package dtp.jade.crisismanager.behaviour;
 
 import dtp.jade.AgentsService;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.crisismanager.CrisisManagerAgent;
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
@@ -24,7 +24,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
     public void action() {
 
         /*-------- RECIEVING CURRENT TIME STAMP -------*/
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TIME_CHANGED.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TIME_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -44,7 +44,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
             crisisManagerAgent.nextSimstep(time);
 
             AID[] aids = AgentsService.findAgentByServiceName(crisisManagerAgent, "GUIService");
-            crisisManagerAgent.send(aids[0], "", CommunicationHelper.TIME_STAMP_CONFIRM);
+            crisisManagerAgent.send(aids[0], "", MessageType.TIME_STAMP_CONFIRM);
 
         } else {
 

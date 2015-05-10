@@ -1,6 +1,6 @@
 package dtp.jade.info.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.info.InfoAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -16,7 +16,7 @@ public class EndOfSimulationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.SIM_END.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.SIM_END.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {

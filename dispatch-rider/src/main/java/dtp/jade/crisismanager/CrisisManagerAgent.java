@@ -2,7 +2,7 @@ package dtp.jade.crisismanager;
 
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.crisismanager.behaviour.EndOfSimulationBehaviour;
 import dtp.jade.crisismanager.behaviour.GetCrisisEventBehaviour;
 import dtp.jade.crisismanager.behaviour.GetTimestampBehaviour;
@@ -178,7 +178,7 @@ public class CrisisManagerAgent extends BaseAgent {
         return eventsOnTime;
     }
 
-    public void sentCrisisEvent(AID aid, CommunicationHelper messageCode, CrisisEvent crisisEvent) {
+    public void sentCrisisEvent(AID aid, MessageType messageCode, CrisisEvent crisisEvent) {
         logger.info("sending crisis event to " + aid.getLocalName() + " (event ID = " + crisisEvent.getEventID() + ")");
         send(aid, crisisEvent, messageCode);
     }
@@ -186,7 +186,7 @@ public class CrisisManagerAgent extends BaseAgent {
     private void sendGUIMessage(String messageText) {
         AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
         if (aids.length == 1) {
-            send(aids, getLocalName() + " - " + messageText, CommunicationHelper.GUI_MESSAGE);
+            send(aids, getLocalName() + " - " + messageText, MessageType.GUI_MESSAGE);
         } else {
             logger.error(getLocalName() + " - none or more than one agent with GUIService in the system");
         }

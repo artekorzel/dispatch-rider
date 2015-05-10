@@ -3,7 +3,7 @@ package dtp.jade.transport;
 import dtp.commission.Commission;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.transport.behaviour.*;
 import jade.core.AID;
 import jade.domain.DFService;
@@ -297,7 +297,7 @@ public abstract class TransportAgent extends BaseAgent {
                 "CommissionService");
 
         if (aids.length == 1) {
-            send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION);
+            send(aids[0], "", MessageType.TRANSPORT_AGENT_PREPARED_TO_NEGOTIATION);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with CommissionService in the system");
@@ -464,7 +464,7 @@ public abstract class TransportAgent extends BaseAgent {
         if (confirmedUnits.contains(aid))
             return;
         askingUnits.add(aid);
-        send(aid, "", CommunicationHelper.TEAM_OFFER);
+        send(aid, "", MessageType.TEAM_OFFER);
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
             return;
@@ -650,7 +650,7 @@ public abstract class TransportAgent extends BaseAgent {
                     sendFeedbackToDistributor(new NewHolonOffer());
             }
         }
-        send(aid, response, CommunicationHelper.TEAM_OFFER_RESPONSE);
+        send(aid, response, MessageType.TEAM_OFFER_RESPONSE);
         if (confirmedUnits != null
                 && confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
@@ -776,7 +776,7 @@ public abstract class TransportAgent extends BaseAgent {
                     "CommissionService");
 
             if (aids.length == 1) {
-                send(aids[0], offer, CommunicationHelper.NEW_HOLON_OFFER);
+                send(aids[0], offer, MessageType.NEW_HOLON_OFFER);
             } else {
                 logger.error(getLocalName()
                         + " - none or more than one agent with CommissionService in the system");
@@ -852,7 +852,7 @@ public abstract class TransportAgent extends BaseAgent {
 
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
-        send(aids[0], "", CommunicationHelper.HOLON_FEEDBACK);
+        send(aids[0], "", MessageType.HOLON_FEEDBACK);
     }
 
     /**
@@ -920,7 +920,7 @@ public abstract class TransportAgent extends BaseAgent {
                 "GUIService");
 
         if (aids.length == 1) {
-            send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
+            send(aids[0], "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
@@ -988,11 +988,11 @@ public abstract class TransportAgent extends BaseAgent {
     public abstract void checkReorganize(TransportCommission commission);
 
     public void sendOfferToEUnit(AID aid, TransportOffer offer) {
-        send(aid, offer, CommunicationHelper.TRANSPORT_OFFER);
+        send(aid, offer, MessageType.TRANSPORT_OFFER);
     }
 
     public void sendReorganizeOfferToEUnit(AID aid, TransportOffer offer) {
-        send(aid, offer, CommunicationHelper.TRANSPORT_REORGANIZE_OFFER);
+        send(aid, offer, MessageType.TRANSPORT_REORGANIZE_OFFER);
     }
 
     /**
@@ -1058,13 +1058,13 @@ public abstract class TransportAgent extends BaseAgent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-            CommunicationHelper messageCode;
+            MessageType messageCode;
             if (getTransportType().equals(TransportType.DRIVER)) {
-                messageCode = CommunicationHelper.TRANSPORT_DRIVER_AID;
+                messageCode = MessageType.TRANSPORT_DRIVER_AID;
             } else if (getTransportType().equals(TransportType.TRAILER)) {
-                messageCode = CommunicationHelper.TRANSPORT_TRAILER_AID;
+                messageCode = MessageType.TRANSPORT_TRAILER_AID;
             } else {
-                messageCode = CommunicationHelper.TRANSPORT_TRUCK_AID;
+                messageCode = MessageType.TRANSPORT_TRUCK_AID;
             }
             send(aids[0], this.getAID(), messageCode);
         } else {

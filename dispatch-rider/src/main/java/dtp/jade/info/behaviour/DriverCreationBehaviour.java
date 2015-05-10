@@ -1,6 +1,6 @@
 package dtp.jade.info.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.info.AgentInfoPOJO;
 import dtp.jade.info.InfoAgent;
 import dtp.jade.transport.TransportAgentData;
@@ -25,7 +25,7 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.DRIVER_CREATION.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.DRIVER_CREATION.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {
@@ -33,10 +33,10 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
             try {
                 TransportElementInitialData initial = (TransportElementInitialData) message.getContentObject();
 
-                agent.sendString(agent.getNextVMAgent(), agentName, CommunicationHelper.DRIVER_CREATION);
+                agent.sendString(agent.getNextVMAgent(), agentName, MessageType.DRIVER_CREATION);
                 logger.info(agent.getName() + " - " + agentName + " created");
 
-                MessageTemplate template2 = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_DRIVER_AID.name());
+                MessageTemplate template2 = MessageTemplate.MatchConversationId(MessageType.TRANSPORT_DRIVER_AID.name());
                 ACLMessage msg2 = myAgent.blockingReceive(template2);
                 AID aid = (AID) msg2.getContentObject();
                 logger.info(agent.getName() + " - " + agentName + " - got AID: " + aid);
@@ -45,12 +45,12 @@ public class DriverCreationBehaviour extends CyclicBehaviour {
                 agent.addDriverAgentInfo();
 
                 agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.DRIVER);
-                agent.send(aid, initial, CommunicationHelper.TRANSPORT_INITIAL_DATA);
+                agent.send(aid, initial, MessageType.TRANSPORT_INITIAL_DATA);
             } catch (UnreadableException e) {
                 logger.error(e);
             }
 
-            agent.sendString(message.getSender(), "", CommunicationHelper.TRANSPORT_AGENT_CREATED);
+            agent.sendString(message.getSender(), "", MessageType.TRANSPORT_AGENT_CREATED);
             logger.info("Agent creation confirmed");
         } else {
             block();

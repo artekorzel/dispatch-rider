@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -19,11 +19,11 @@ public class GetMeasureDataBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.MEASURE_DATA.name());
+                .MatchConversationId(MessageType.MEASURE_DATA.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-            distributorAgent.send(msg.getSender(), distributorAgent.getMeasureData(), CommunicationHelper.MEASURE_DATA);
+            distributorAgent.send(msg.getSender(), distributorAgent.getMeasureData(), MessageType.MEASURE_DATA);
         } else {
             block();
         }

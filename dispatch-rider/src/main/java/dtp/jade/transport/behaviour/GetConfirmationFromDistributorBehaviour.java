@@ -1,6 +1,6 @@
 package dtp.jade.transport.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.transport.TransportAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -16,7 +16,7 @@ public class GetConfirmationFromDistributorBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.CONFIRMATIO_FROM_DISTRIBUTOR.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.CONFIRMATIO_FROM_DISTRIBUTOR.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

@@ -1,6 +1,6 @@
 package dtp.jade.gui.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -22,7 +22,7 @@ public class GetCalendarBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_MY_CALENDAR.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EUNIT_MY_CALENDAR.name());
         ACLMessage msg = myAgent.receive(template);
 
         String calendar;

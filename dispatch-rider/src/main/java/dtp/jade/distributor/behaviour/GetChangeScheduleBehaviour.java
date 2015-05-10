@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -20,7 +20,7 @@ public class GetChangeScheduleBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.CHANGE_SCHEDULE.name());
+                .MatchConversationId(MessageType.CHANGE_SCHEDULE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

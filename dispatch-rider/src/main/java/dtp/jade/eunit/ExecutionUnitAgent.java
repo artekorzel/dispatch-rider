@@ -9,7 +9,7 @@ import dtp.graph.Graph;
 import dtp.graph.GraphLink;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.ProblemType;
 import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.distributor.NewTeamData;
@@ -139,7 +139,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
-        send(aids[0], "", CommunicationHelper.EXECUTION_UNIT_CREATION);
+        send(aids[0], "", MessageType.EXECUTION_UNIT_CREATION);
     }
 
     public void setMaxLoad(double maxLoad) {
@@ -179,7 +179,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         if (aids.length == 1) {
             AID distributorAgentAID = aids[0];
-            send(distributorAgentAID, this.getAID(), CommunicationHelper.EXECUTION_UNIT_AID);
+            send(distributorAgentAID, this.getAID(), MessageType.EXECUTION_UNIT_AID);
         } else {
             logger.error("None or more than one Distributor Agent in the system");
         }
@@ -267,7 +267,7 @@ public class ExecutionUnitAgent extends BaseAgent {
                 "CommissionService");
 
         if (aids.length == 1) {
-            send(aids, offer, CommunicationHelper.COMMISSION_OFFER);
+            send(aids, offer, MessageType.COMMISSION_OFFER);
         } else {
             logger.warn("none or more than one EUnit agent in the system");
         }
@@ -306,7 +306,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         if (aids.length == 1) {
             for (AID aid : aids) {
-                send(aid, calendarToSend, CommunicationHelper.EUNIT_MY_CALENDAR);
+                send(aid, calendarToSend, MessageType.EUNIT_MY_CALENDAR);
             }
         } else {
             logger.error(getLocalName()
@@ -343,7 +343,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         } else {
             calendarStatsToSend.setTruckAID(new AID("no truck", false));
         }
-        send(sender, calendarStatsToSend, CommunicationHelper.EUNIT_MY_STATS);
+        send(sender, calendarStatsToSend, MessageType.EUNIT_MY_STATS);
     }
 
     public synchronized void sendCalendarStatsToFile() {
@@ -392,7 +392,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         if (aids.length == 1) {
             for (AID aid : aids) {
-                send(aid, calendarStatsToSend, CommunicationHelper.EUNIT_MY_FILE_STATS);
+                send(aid, calendarStatsToSend, MessageType.EUNIT_MY_FILE_STATS);
             }
         } else {
             logger.error(getLocalName()
@@ -413,12 +413,12 @@ public class ExecutionUnitAgent extends BaseAgent {
         }
         stat.setSchedule(tmpSchedule);
 
-        send(sender, stat, CommunicationHelper.WORST_COMMISSION_COST);
+        send(sender, stat, MessageType.WORST_COMMISSION_COST);
     }
 
     public synchronized void changeSchedule(Schedule newSchedule, AID sender) {
         schedule = newSchedule;
-        send(sender, "", CommunicationHelper.CHANGE_SCHEDULE);
+        send(sender, "", MessageType.CHANGE_SCHEDULE);
     }
 
     // Info wysylane jest zawsze po otrzymaniu timestamp
@@ -430,7 +430,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         if (aids.length == 1) {
             for (AID aid : aids) {
-                send(aid, getInfo(), CommunicationHelper.EUNIT_INFO);
+                send(aid, getInfo(), MessageType.EUNIT_INFO);
             }
         } else {
             logger.error(getLocalName()
@@ -628,9 +628,9 @@ public class ExecutionUnitAgent extends BaseAgent {
         if (isSimulatedTradingEnabled) {
             schedule.setRefreshCurrentLocation(refreshCurrentLocation);
             schedule.setAlgorithm(algorithm);
-            send(sender, Schedule.copy(schedule), CommunicationHelper.HOLONS_CALENDAR);
+            send(sender, Schedule.copy(schedule), MessageType.HOLONS_CALENDAR);
         } else {
-            send(sender, null, CommunicationHelper.HOLONS_CALENDAR);
+            send(sender, null, MessageType.HOLONS_CALENDAR);
         }
     }
 
@@ -640,7 +640,7 @@ public class ExecutionUnitAgent extends BaseAgent {
             this.schedule.setCreationTime(creationTime);
             this.schedule.setAlgorithm(algorithm);
         }
-        send(sender, "", CommunicationHelper.HOLONS_NEW_CALENDAR);
+        send(sender, "", MessageType.HOLONS_NEW_CALENDAR);
     }
 
     /* *** end of ST part *** */
@@ -668,7 +668,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         data.setLocation(schedule.getCurrentLocation());
         data.setSchedule(schedule);
-        send(sender, data, CommunicationHelper.SIMULATION_DATA);
+        send(sender, data, MessageType.SIMULATION_DATA);
     }
 
     private List<CommissionData> getCommissionsData() {
@@ -727,7 +727,7 @@ public class ExecutionUnitAgent extends BaseAgent {
                 isSimulatedTradingEnabled = conf.getSimulatedTrading();
 
         }
-        send(sender, "", CommunicationHelper.CONFIGURATION_CHANGE);
+        send(sender, "", MessageType.CONFIGURATION_CHANGE);
     }
 
     public synchronized void graphChanged(Graph graph,
@@ -737,21 +737,21 @@ public class ExecutionUnitAgent extends BaseAgent {
         ((GraphSchedule) this.schedule).changeGraph(graph, timestamp,
                 simInfo.getDepot(), updateAfterArrival);
 
-        send(sender, true, CommunicationHelper.GRAPH_CHANGED);
+        send(sender, true, MessageType.GRAPH_CHANGED);
     }
 
     public synchronized void askForGraphChanges(AID sender) {
         GraphLink link = ((GraphSchedule) schedule).getChangeLink();
-        send(sender, link, CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
+        send(sender, link, MessageType.ASK_IF_GRAPH_LINK_CHANGED);
     }
 
     public synchronized void changeGraphLinks(LinkedList<GraphLink> links,
                                               AID sender) {
         ((GraphSchedule) schedule).insertGraphChanges(links);
-        send(sender, "", CommunicationHelper.GRAPH_LINK_CHANGED);
+        send(sender, "", MessageType.GRAPH_LINK_CHANGED);
     }
 
     public void confirmUpdateCurrentLocationRequest(AID sender) {
-        send(sender, "", CommunicationHelper.UPDATE_CURRENT_LOCATION);
+        send(sender, "", MessageType.UPDATE_CURRENT_LOCATION);
     }
 }

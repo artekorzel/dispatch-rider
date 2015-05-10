@@ -7,7 +7,7 @@ import dtp.commission.Commission;
 import dtp.graph.Graph;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.distributor.behaviour.*;
 import dtp.jade.eunit.EUnitInitialData;
@@ -238,7 +238,7 @@ public class DistributorAgent extends BaseAgent {
 
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "GUIService");
-        send(aids[0], "", CommunicationHelper.SIM_INFO_RECEIVED);
+        send(aids[0], "", MessageType.SIM_INFO_RECEIVED);
     }
 
     public synchronized void setAgentsData(
@@ -249,7 +249,7 @@ public class DistributorAgent extends BaseAgent {
                 "GUIService");
 
         if (aids.length == 1) {
-            send(aids[0], "", CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION);
+            send(aids[0], "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
@@ -384,7 +384,7 @@ public class DistributorAgent extends BaseAgent {
         logger.info(getLocalName()
                 + " - sending commission(s) to Transport Agents");
 
-        send(aids, commsGroup, CommunicationHelper.COMMISSION);
+        send(aids, commsGroup, MessageType.COMMISSION);
     }
 
     // wysyla oferty do wszystkich EUnitow
@@ -394,7 +394,7 @@ public class DistributorAgent extends BaseAgent {
                 "ExecutionUnitService");
 
         if (aids.length != 0) {
-            send(aids, commission, CommunicationHelper.COMMISSION_OFFER_REQUEST);
+            send(aids, commission, MessageType.COMMISSION_OFFER_REQUEST);
         }
 
         return aids.length;
@@ -434,7 +434,7 @@ public class DistributorAgent extends BaseAgent {
 
         logger.info(getLocalName()
                 + " - sending commission(s) to Transport Agents");
-        send(aids, new Commission[]{currentCommission}, CommunicationHelper.COMMISSION);
+        send(aids, new Commission[]{currentCommission}, MessageType.COMMISSION);
     }
 
     // TODO algorithm
@@ -478,7 +478,7 @@ public class DistributorAgent extends BaseAgent {
 
         if (aids.length > 0) {
             calendarStatsHolder = new CalendarStatsHolder(aids.length);
-            send(aids, "", CommunicationHelper.EUNIT_SHOW_STATS);
+            send(aids, "", MessageType.EUNIT_SHOW_STATS);
         }
     }
 
@@ -528,7 +528,7 @@ public class DistributorAgent extends BaseAgent {
         eUnitsCount = holons.size();// getEUnitsAids().length;
         fullSimulatedTrading = false;
         for (AID aid : holons.keySet()) {// getEUnitsAids()) {
-            send(aid, holons.get(aid), CommunicationHelper.HOLONS_NEW_CALENDAR);
+            send(aid, holons.get(aid), MessageType.HOLONS_NEW_CALENDAR);
         }
 
         if (eUnitsCount == 0) {
@@ -552,7 +552,7 @@ public class DistributorAgent extends BaseAgent {
     private void sendFeedback(AID aid, Commission commission) {
         SimulatedTradingParameters params = currentSTAuction.getParams();
         params.commission = commission;
-        send(aid, params, CommunicationHelper.FEEDBACK);
+        send(aid, params, MessageType.FEEDBACK);
     }
 
     private void sendGUIMessage(String messageText) {
@@ -570,7 +570,7 @@ public class DistributorAgent extends BaseAgent {
 
         if (aids.length == 1) {
             send(aids[0], getLocalName() + " - " + messageText,
-                    CommunicationHelper.GUI_MESSAGE);
+                    MessageType.GUI_MESSAGE);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
@@ -591,7 +591,7 @@ public class DistributorAgent extends BaseAgent {
             } else {
                 content = nooneList.size();
             }
-            send(aids[0], content, CommunicationHelper.NOONE_LIST);
+            send(aids[0], content, MessageType.NOONE_LIST);
         } else {
             logger.error(getLocalName()
                     + " - none or more than one agent with GUIService in the system");
@@ -660,7 +660,7 @@ public class DistributorAgent extends BaseAgent {
 
             newHolonOffers = new TreeSet<>();
 
-            send(aids, "", CommunicationHelper.START_NEGOTIATION);
+            send(aids, "", MessageType.START_NEGOTIATION);
         }
     }
 
@@ -840,14 +840,14 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void sentConfirmationToTransportUnit(AID aid) {
-        send(aid, "", CommunicationHelper.CONFIRMATIO_FROM_DISTRIBUTOR);
+        send(aid, "", MessageType.CONFIRMATIO_FROM_DISTRIBUTOR);
     }
 
     /**
      *
      */
     private void sentCommissionToEUnit() {
-        send(eUnitOffers.get(0).getAgent(), currentCommission, CommunicationHelper.COMMISSION_FOR_EUNIT);
+        send(eUnitOffers.get(0).getAgent(), currentCommission, MessageType.COMMISSION_FOR_EUNIT);
     }
 
     /**
@@ -887,7 +887,7 @@ public class DistributorAgent extends BaseAgent {
         if (!checkCommission(data)) {
             AID aids[] = AgentsService.findAgentByServiceName(this,
                     "GUIService");
-            send(aids[0], data, CommunicationHelper.UNDELIVERIED_COMMISSION);
+            send(aids[0], data, MessageType.UNDELIVERIED_COMMISSION);
             return;
         }
 
@@ -897,7 +897,7 @@ public class DistributorAgent extends BaseAgent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-            send(aids[0], initialData, CommunicationHelper.EXECUTION_UNIT_CREATION);
+            send(aids[0], initialData, MessageType.EXECUTION_UNIT_CREATION);
         } else {
             logger.error("None or more than one Info Agent in the system");
         }
@@ -985,7 +985,7 @@ public class DistributorAgent extends BaseAgent {
             createNewEUnit();
             return;
         }
-        send(aids, "", CommunicationHelper.HOLONS_CALENDAR);
+        send(aids, "", MessageType.HOLONS_CALENDAR);
     }
 
     public synchronized void addComplexSTSchedule(Schedule schedule, AID sender) {
@@ -1032,7 +1032,7 @@ public class DistributorAgent extends BaseAgent {
                 // calculateMeasure(holons, tmp);
                 eUnitsCount = tmp.size();// getEUnitsAids().length;
                 for (AID aid : getEUnitsAids()) {
-                    send(aid, tmp.get(aid), CommunicationHelper.HOLONS_NEW_CALENDAR);
+                    send(aid, tmp.get(aid), MessageType.HOLONS_NEW_CALENDAR);
                 }
                 if (eUnitsCount == 0)
                     scheduleChanged();
@@ -1154,7 +1154,7 @@ public class DistributorAgent extends BaseAgent {
                                 AID sender = AgentsService
                                         .findAgentByServiceName(this,
                                                 "GUIService")[0];
-                                this.send(sender, false, CommunicationHelper.GRAPH_CHANGED);
+                                this.send(sender, false, MessageType.GRAPH_CHANGED);
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
                         }
@@ -1175,7 +1175,7 @@ public class DistributorAgent extends BaseAgent {
                                 AID sender = AgentsService
                                         .findAgentByServiceName(this,
                                                 "GUIService")[0];
-                                this.send(sender, false, CommunicationHelper.GRAPH_CHANGED);
+                                this.send(sender, false, MessageType.GRAPH_CHANGED);
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
                         }
@@ -1235,7 +1235,7 @@ public class DistributorAgent extends BaseAgent {
         if (conf != null) {
             eUnitsCount = conf.keySet().size();
             for (AID aid : conf.keySet()) {
-                this.send(aid, conf.get(aid), CommunicationHelper.CONFIGURATION_CHANGE);
+                this.send(aid, conf.get(aid), MessageType.CONFIGURATION_CHANGE);
             }
 
             if (eUnitsCount == 0)
@@ -1264,7 +1264,7 @@ public class DistributorAgent extends BaseAgent {
 
             simulatedTrading();
         } else {
-            send(sender, false, CommunicationHelper.GRAPH_CHANGED);
+            send(sender, false, MessageType.GRAPH_CHANGED);
         }
     }
 }

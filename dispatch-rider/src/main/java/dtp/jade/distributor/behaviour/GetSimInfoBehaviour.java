@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import dtp.simulation.SimInfo;
 import jade.core.behaviours.CyclicBehaviour;
@@ -21,7 +21,7 @@ public class GetSimInfoBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.SIM_INFO.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.SIM_INFO.name());
         ACLMessage msg = myAgent.receive(template);
 
         SimInfo simConstrains;

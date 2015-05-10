@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -17,7 +17,7 @@ public class GetEUnitCreatedBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EXECUTION_UNIT_CREATION.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EXECUTION_UNIT_CREATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

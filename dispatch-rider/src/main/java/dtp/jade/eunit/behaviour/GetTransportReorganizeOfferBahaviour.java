@@ -1,6 +1,6 @@
 package dtp.jade.eunit.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.EUnitOffer;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import dtp.jade.transport.TransportOffer;
@@ -22,7 +22,7 @@ public class GetTransportReorganizeOfferBahaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_REORGANIZE_OFFER.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TRANSPORT_REORGANIZE_OFFER.name());
         ACLMessage msg = agent.receive(template);
 
         TransportOffer offer = null;

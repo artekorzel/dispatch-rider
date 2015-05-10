@@ -1,6 +1,6 @@
 package dtp.jade.transport.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.transport.TransportAgent;
 import dtp.jade.transport.TransportFeedback;
 import jade.core.behaviours.CyclicBehaviour;
@@ -21,7 +21,7 @@ public class GetTransportFeedbackBahaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_FEEDBACK.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TRANSPORT_FEEDBACK.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

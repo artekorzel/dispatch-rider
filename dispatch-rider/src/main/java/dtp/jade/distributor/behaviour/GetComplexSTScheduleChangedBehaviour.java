@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -17,7 +17,7 @@ public class GetComplexSTScheduleChangedBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.HOLONS_NEW_CALENDAR.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.HOLONS_NEW_CALENDAR.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

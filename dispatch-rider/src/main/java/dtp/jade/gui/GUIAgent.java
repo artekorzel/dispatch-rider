@@ -16,7 +16,7 @@ import dtp.graph.GraphLink;
 import dtp.graph.predictor.GraphLinkPredictor;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.agentcalendar.CalendarAction;
 import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.crisismanager.crisisevents.CrisisEvent;
@@ -459,7 +459,7 @@ public class GUIAgent extends BaseAgent {
 
         logger.info(getLocalName() + " - sending SimInfo to "
                 + aid.getLocalName());
-        send(aid, info, CommunicationHelper.SIM_INFO);
+        send(aid, info, MessageType.SIM_INFO);
     }
 
     public void sendSimInfoToAll(SimInfo simInfo) {
@@ -487,7 +487,7 @@ public class GUIAgent extends BaseAgent {
         if (aids.length != 0) {
             simInfoReceived = aids.length;
             for (AID aid : aids) {
-                send(aid, simInfo, CommunicationHelper.SIM_INFO);
+                send(aid, simInfo, MessageType.SIM_INFO);
             }
         }
     }
@@ -504,7 +504,7 @@ public class GUIAgent extends BaseAgent {
 
         if (aids.length != 0) {
             for (AID aid : aids) {
-                send(aid, graph, CommunicationHelper.GRAPH_UPDATE);
+                send(aid, graph, MessageType.GRAPH_UPDATE);
             }
         }
     }
@@ -592,7 +592,7 @@ public class GUIAgent extends BaseAgent {
                 && !commissionsHandler.isAnyEUnitAtNode(false)) {
             if (timestamp == backToDepotTimestamp) {
                 for (AID aid : aids) {
-                    send(aid, "", CommunicationHelper.BACK_TO_DEPOT);
+                    send(aid, "", MessageType.BACK_TO_DEPOT);
                 }
             }
 
@@ -607,11 +607,11 @@ public class GUIAgent extends BaseAgent {
      * Trzeba to robic ze wzgledu na to ze sprawdzamy czy eunit w danym momencie dojechal do commissiona (do tego potrzeba zupdatowac ich current location)
      */
     private void sendUpdateCurrentLocationRequest(AID[] aids, int timestamp) {
-        sendString(aids, Integer.toString(timestamp), CommunicationHelper.UPDATE_CURRENT_LOCATION);
+        sendString(aids, Integer.toString(timestamp), MessageType.UPDATE_CURRENT_LOCATION);
 
         //czekamy az kazdy z eunitow potwierdzi otrzymanie komunikatu
         for (AID ignored : aids) {
-            blockingReceive(MessageTemplate.MatchConversationId(CommunicationHelper.UPDATE_CURRENT_LOCATION.name()));
+            blockingReceive(MessageTemplate.MatchConversationId(MessageType.UPDATE_CURRENT_LOCATION.name()));
         }
 
     }
@@ -644,7 +644,7 @@ public class GUIAgent extends BaseAgent {
                     commissionSendingType, choosingByCost,
                     simulatedTradingCount, STDepth, defaultAgentsData,
                     chooseWorstCommission, algorithm, dist, STTimestampGap,
-                    STCommissionGap, confChange), CommunicationHelper.COMMISSION);
+                    STCommissionGap, confChange), MessageType.COMMISSION);
 
             if (commissionsHandler.getComsSize() == 0) {
                 backToDepotTimestamp = simTime + 10;
@@ -672,7 +672,7 @@ public class GUIAgent extends BaseAgent {
 
         stamps = aids.length + 2;
         if (aids.length > 0) {
-            send(aids, time, CommunicationHelper.TIME_CHANGED);
+            send(aids, time, MessageType.TIME_CHANGED);
         } else {
             logger.info(getLocalName()
                     + " - there are no EUnit Agents in the system");
@@ -683,7 +683,7 @@ public class GUIAgent extends BaseAgent {
                 "CrisisManagementService");
 
         if (aids.length == 1) {
-            send(aids, time, CommunicationHelper.TIME_CHANGED);
+            send(aids, time, MessageType.TIME_CHANGED);
         } else {
             logger.info(getLocalName()
                     + " - none or more than one Crisis Manager Agent in the system");
@@ -694,7 +694,7 @@ public class GUIAgent extends BaseAgent {
                 "CommissionService");
 
         if (aids.length == 1) {
-            send(aids, time, CommunicationHelper.TIME_CHANGED);
+            send(aids, time, MessageType.TIME_CHANGED);
         } else {
             logger.info(getLocalName()
                     + " - none or more than one Crisis Manager Agent in the system");
@@ -743,7 +743,7 @@ public class GUIAgent extends BaseAgent {
             calendarStatsHolderForFile = new CalendarStatsHolder(aids.length);
 
             for (AID aid : aids) {
-                send(aid, "", CommunicationHelper.EUNIT_SHOW_STATS_TO_WRITE);
+                send(aid, "", MessageType.EUNIT_SHOW_STATS_TO_WRITE);
             }
 
         } else {
@@ -947,7 +947,7 @@ public class GUIAgent extends BaseAgent {
         }
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
-        send(aids[0], "", CommunicationHelper.MEASURE_DATA);
+        send(aids[0], "", MessageType.MEASURE_DATA);
     }
 
     public void printMeasures(MeasureData data) {
@@ -965,7 +965,7 @@ public class GUIAgent extends BaseAgent {
         if (mlAlgorithm != null && exploration) {
             AID aid = AgentsService.findAgentByServiceName(this,
                     "CommissionService")[0];
-            send(aid, "", CommunicationHelper.MLTable);
+            send(aid, "", MessageType.MLTable);
         }
     }
 
@@ -998,7 +998,7 @@ public class GUIAgent extends BaseAgent {
         if (aids.length == 1) {
 
             for (AID aid : aids) {
-                send(aid, event, CommunicationHelper.CRISIS_EVENT);
+                send(aid, event, MessageType.CRISIS_EVENT);
             }
 
         } else {
@@ -1013,13 +1013,13 @@ public class GUIAgent extends BaseAgent {
                 "AgentCreationService");
 
         if (aids.length == 1) {
-            CommunicationHelper msgType;
+            MessageType msgType;
             if (type == TransportType.DRIVER) {
-                msgType = CommunicationHelper.DRIVER_CREATION;
+                msgType = MessageType.DRIVER_CREATION;
             } else if (type == TransportType.TRAILER) {
-                msgType = CommunicationHelper.TRAILER_CREATION;
+                msgType = MessageType.TRAILER_CREATION;
             } else {
-                msgType = CommunicationHelper.TRUCK_CREATION;
+                msgType = MessageType.TRUCK_CREATION;
             }
             send(aids[0], data, msgType);
         } else {
@@ -1044,7 +1044,7 @@ public class GUIAgent extends BaseAgent {
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
         eUnitsCount = aids.length;
-        send(aids, "", CommunicationHelper.SIMULATION_DATA);
+        send(aids, "", MessageType.SIMULATION_DATA);
 
         if (eUnitsCount == 0)
             simLogic.nextSimStep2();
@@ -1091,7 +1091,7 @@ public class GUIAgent extends BaseAgent {
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;
-        send(aids, new Object[]{graph, updateAfterArrival}, CommunicationHelper.GRAPH_CHANGED);
+        send(aids, new Object[]{graph, updateAfterArrival}, MessageType.GRAPH_CHANGED);
     }
 
     public synchronized void graphChanged(boolean isEUnit) {
@@ -1099,7 +1099,7 @@ public class GUIAgent extends BaseAgent {
             eUnitsCount--;
             if (eUnitsCount == 0) {
                 send(AgentsService.findAgentByServiceName(
-                        this, "CommissionService")[0], graph, CommunicationHelper.GRAPH_CHANGED);
+                        this, "CommissionService")[0], graph, MessageType.GRAPH_CHANGED);
             }
         } else
             simLogic.nextSimStep4();
@@ -1114,7 +1114,7 @@ public class GUIAgent extends BaseAgent {
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;
-        send(aids, "", CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
+        send(aids, "", MessageType.ASK_IF_GRAPH_LINK_CHANGED);
     }
 
     public synchronized void addChangedLink(GraphLink link) {
@@ -1125,7 +1125,7 @@ public class GUIAgent extends BaseAgent {
             AID[] aids = AgentsService.findAgentByServiceName(this,
                     "ExecutionUnitService");
             this.eUnitsCount = aids.length;
-            send(aids, changedGraphLinks, CommunicationHelper.GRAPH_LINK_CHANGED);
+            send(aids, changedGraphLinks, MessageType.GRAPH_LINK_CHANGED);
         }
     }
 
@@ -1147,7 +1147,7 @@ public class GUIAgent extends BaseAgent {
                 "TransportUnitService").length;
 
         if (aids.length == 1) {
-            send(aids[0], "", CommunicationHelper.AGENTS_DATA);
+            send(aids[0], "", MessageType.AGENTS_DATA);
         } else {
             logger.error("None or more than one Info Agent in the system");
         }

@@ -1,6 +1,6 @@
 package dtp.jade.eunit.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -19,11 +19,11 @@ public class GetSTBeginBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.ST_BEGIN.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.ST_BEGIN.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-            executionUnitAgent.send(msg.getSender(), "", CommunicationHelper.ST_BEGIN);
+            executionUnitAgent.send(msg.getSender(), "", MessageType.ST_BEGIN);
         } else {
 
             block();

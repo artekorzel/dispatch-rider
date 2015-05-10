@@ -2,7 +2,7 @@ package dtp.jade.eunit.behaviour;
 
 import dtp.commission.Commission;
 import dtp.jade.AgentsService;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
@@ -27,7 +27,7 @@ public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION_FOR_EUNIT.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.COMMISSION_FOR_EUNIT.name());
         ACLMessage msg = myAgent.receive(template);
         if (msg != null) {
 
@@ -36,13 +36,13 @@ public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
                 Commission commission = (Commission) msg.getContentObject();
                 if (!executionUnitAgent.addCommissionToCalendar(commission)) {
                     logger.error("Fatal error: GetCommissionForEUnitBehaviour com=" + commission.getID());
-                    executionUnitAgent.send(msg.getSender(), commission, CommunicationHelper.COMMISSION_SEND_AGAIN);
+                    executionUnitAgent.send(msg.getSender(), commission, MessageType.COMMISSION_SEND_AGAIN);
                     return;
                 } else
                     logger.info(executionUnitAgent.getLocalName() + ": commission " + commission.getID() + " added to calendar");
 
                 AID[] aids = AgentsService.findAgentByServiceName(executionUnitAgent, "CommissionService");
-                executionUnitAgent.send(aids[0], "", CommunicationHelper.HOLON_FEEDBACK);
+                executionUnitAgent.send(aids[0], "", MessageType.HOLON_FEEDBACK);
             } catch (UnreadableException e1) {
                 logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
             }

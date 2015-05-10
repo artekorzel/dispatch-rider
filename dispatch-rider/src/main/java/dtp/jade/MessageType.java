@@ -1,6 +1,6 @@
 package dtp.jade;
 
-public enum CommunicationHelper {
+public enum MessageType {
 
     // ----------------------------------------------------------//
     // ---------- Komunikaty wysylane przez GUIAgent'a ----------//

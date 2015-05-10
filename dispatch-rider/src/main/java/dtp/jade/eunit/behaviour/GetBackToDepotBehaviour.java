@@ -7,7 +7,7 @@ package dtp.jade.eunit.behaviour;
 import algorithm.Helper;
 import algorithm.Schedule;
 import dtp.commission.Commission;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -25,7 +25,7 @@ public class GetBackToDepotBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.BACK_TO_DEPOT.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.BACK_TO_DEPOT.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

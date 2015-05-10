@@ -1,6 +1,6 @@
 package dtp.jade.transport.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.transport.TransportAgent;
 import dtp.jade.transport.TransportElementInitialData;
 import dtp.jade.transport.TransportElementInitialDataTrailer;
@@ -23,7 +23,7 @@ public class GetInitialDataBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_INITIAL_DATA.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TRANSPORT_INITIAL_DATA.name());
         ACLMessage message = agent.receive(template);
 
         if (message != null) {

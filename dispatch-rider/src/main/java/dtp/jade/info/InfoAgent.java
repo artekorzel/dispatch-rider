@@ -2,7 +2,7 @@ package dtp.jade.info;
 
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.info.behaviour.*;
 import dtp.jade.transport.TransportAgentData;
 import dtp.jade.transport.TransportAgentsMessage;
@@ -128,14 +128,14 @@ public class InfoAgent extends BaseAgent {
 
         logger.info("InfoAgent - sending agents data to agents");
         for (AID aid : aids) {
-            send(aid, new TransportAgentsMessage(agents), CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
+            send(aid, new TransportAgentsMessage(agents), MessageType.AGENTS_DATA_FOR_TRANSPORTUNITS);
         }
 
         aids = AgentsService.findAgentByServiceName(this, "CommissionService");
 
         logger.info("InfoAgent - sending agents data to Distributor");
         for (AID aid : aids) {
-            send(aid, new TransportAgentsMessage(agents), CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
+            send(aid, new TransportAgentsMessage(agents), MessageType.AGENTS_DATA_FOR_TRANSPORTUNITS);
         }
     }
 }

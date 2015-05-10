@@ -1,6 +1,6 @@
 package dtp.jade.gui.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -21,7 +21,7 @@ public class GetMessageBehaviour extends CyclicBehaviour {
     public void action() {
 
         /*-------- RECIEVING REQUESTS FOR DISPLAYING MESSAGE IN GUI -------*/
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.GUI_MESSAGE.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.GUI_MESSAGE.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

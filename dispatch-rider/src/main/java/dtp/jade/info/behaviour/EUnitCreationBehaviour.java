@@ -1,6 +1,6 @@
 package dtp.jade.info.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.EUnitInitialData;
 import dtp.jade.info.AgentInfoPOJO;
 import dtp.jade.info.InfoAgent;
@@ -23,7 +23,7 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EXECUTION_UNIT_CREATION.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EXECUTION_UNIT_CREATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -31,10 +31,10 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
             try {
                 EUnitInitialData initialData = (EUnitInitialData) msg.getContentObject();
 
-                infoAgent.sendString(infoAgent.getNextVMAgent(), agentName, CommunicationHelper.EXECUTION_UNIT_CREATION);
+                infoAgent.sendString(infoAgent.getNextVMAgent(), agentName, MessageType.EXECUTION_UNIT_CREATION);
                 logger.info(infoAgent.getName() + " - " + agentName + " created");
 
-                MessageTemplate template2 = MessageTemplate.MatchConversationId(CommunicationHelper.EXECUTION_UNIT_AID.name());
+                MessageTemplate template2 = MessageTemplate.MatchConversationId(MessageType.EXECUTION_UNIT_AID.name());
                 ACLMessage msg2 = myAgent.blockingReceive(template2);
                 AID aid = (AID) msg2.getContentObject();
                 AgentInfoPOJO newAgentInfo = new AgentInfoPOJO();
@@ -42,7 +42,7 @@ public class EUnitCreationBehaviour extends CyclicBehaviour {
                 newAgentInfo.setAID(aid);
                 infoAgent.addEUnitAgentInfo();
 
-                infoAgent.send(aid, initialData, CommunicationHelper.EUNIT_INITIAL_DATA);
+                infoAgent.send(aid, initialData, MessageType.EUNIT_INITIAL_DATA);
             } catch (UnreadableException e) {
                 logger.error(this.infoAgent.getLocalName() + " - UnreadableException ", e);
             }

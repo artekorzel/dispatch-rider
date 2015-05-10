@@ -1,16 +1,18 @@
 package dtp.jade.vm;
 
 import dtp.jade.BaseAgent;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import dtp.jade.transport.driver.DriverAgent;
 import dtp.jade.transport.trailer.TrailerAgent;
 import dtp.jade.transport.truck.TruckAgent;
 import dtp.jade.vm.behaviour.AgentCreationBehaviour;
+import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import jade.wrapper.StaleProxyException;
 import org.apache.log4j.Logger;
 
 public class VMAgent extends BaseAgent {
@@ -23,10 +25,10 @@ public class VMAgent extends BaseAgent {
 
         registerServices();
 
-        addBehaviour(new AgentCreationBehaviour(this, CommunicationHelper.DRIVER_CREATION, DriverAgent.class));
-        addBehaviour(new AgentCreationBehaviour(this, CommunicationHelper.TRUCK_CREATION, TruckAgent.class));
-        addBehaviour(new AgentCreationBehaviour(this, CommunicationHelper.TRAILER_CREATION, TrailerAgent.class));
-        addBehaviour(new AgentCreationBehaviour(this, CommunicationHelper.EXECUTION_UNIT_CREATION, ExecutionUnitAgent.class));
+        addBehaviour(new AgentCreationBehaviour(this, MessageType.DRIVER_CREATION, DriverAgent.class));
+        addBehaviour(new AgentCreationBehaviour(this, MessageType.TRUCK_CREATION, TruckAgent.class));
+        addBehaviour(new AgentCreationBehaviour(this, MessageType.TRAILER_CREATION, TrailerAgent.class));
+        addBehaviour(new AgentCreationBehaviour(this, MessageType.EXECUTION_UNIT_CREATION, ExecutionUnitAgent.class));
 
         logger.info(this.getLocalName() + " VMAgent - end of initialization");
     }
@@ -45,6 +47,15 @@ public class VMAgent extends BaseAgent {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
             logger.error(this.getLocalName() + " - FIPAException " + fe.getMessage());
+        }
+    }
+
+    public void createAgent(String agentName, Class<? extends Agent> agentClass) {
+        try {
+            getContainerController().createNewAgent(agentName, agentClass.getName(), null).start();
+            logger.info(getName() + " - " + agentName + " created");
+        } catch (StaleProxyException e) {
+            logger.error(e);
         }
     }
 }

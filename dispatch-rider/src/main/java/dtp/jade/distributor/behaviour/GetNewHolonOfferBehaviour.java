@@ -1,6 +1,6 @@
 package dtp.jade.distributor.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.DistributorAgent;
 import dtp.jade.transport.NewHolonOffer;
 import jade.core.behaviours.CyclicBehaviour;
@@ -36,7 +36,7 @@ public class GetNewHolonOfferBehaviour extends CyclicBehaviour {
      */
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.NEW_HOLON_OFFER.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.NEW_HOLON_OFFER.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

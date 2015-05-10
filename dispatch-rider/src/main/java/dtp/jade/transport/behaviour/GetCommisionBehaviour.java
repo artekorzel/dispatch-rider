@@ -1,7 +1,7 @@
 package dtp.jade.transport.behaviour;
 
 import dtp.commission.Commission;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.transport.TransportAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -35,7 +35,7 @@ public class GetCommisionBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.COMMISSION.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.COMMISSION.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

@@ -1,6 +1,6 @@
 package dtp.jade.gui.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -16,7 +16,7 @@ public class GetTransportAgentConfirmationBehaviour extends CyclicBehaviour {
 
     public void action() {
 
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.TRANSPORT_AGENT_CONFIRMATION.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TRANSPORT_AGENT_CONFIRMATION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

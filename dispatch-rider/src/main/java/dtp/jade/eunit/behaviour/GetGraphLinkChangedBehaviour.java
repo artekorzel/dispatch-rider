@@ -1,7 +1,7 @@
 package dtp.jade.eunit.behaviour;
 
 import dtp.graph.GraphLink;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -29,7 +29,7 @@ public class GetGraphLinkChangedBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.GRAPH_LINK_CHANGED.name());
+                .MatchConversationId(MessageType.GRAPH_LINK_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

@@ -1,6 +1,6 @@
 package dtp.jade.gui.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -20,7 +20,7 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.GRAPH_CHANGED.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.GRAPH_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {

@@ -1,6 +1,6 @@
 package dtp.jade.gui.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.distributor.NewTeamData;
 import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -22,7 +22,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(CommunicationHelper.UNDELIVERIED_COMMISSION.name());
+                .MatchConversationId(MessageType.UNDELIVERIED_COMMISSION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -30,7 +30,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
                 guiAgent.addUndeliveredCommission((NewTeamData) msg
                         .getContentObject());
 
-                guiAgent.send(msg.getSender(), "", CommunicationHelper.UNDELIVERIED_COMMISSION);
+                guiAgent.send(msg.getSender(), "", MessageType.UNDELIVERIED_COMMISSION);
             } catch (Exception e) {
                 logger.error(e);
             }

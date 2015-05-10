@@ -1,6 +1,6 @@
 package dtp.jade.eunit.behaviour;
 
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.eunit.EUnitInitialData;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -21,7 +21,7 @@ public class GetInitialDataBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(CommunicationHelper.EUNIT_INITIAL_DATA.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EUNIT_INITIAL_DATA.name());
         ACLMessage msg = eUnit.receive(template);
         if (msg != null) {
             try {

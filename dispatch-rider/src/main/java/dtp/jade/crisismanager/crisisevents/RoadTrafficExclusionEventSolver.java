@@ -1,7 +1,7 @@
 package dtp.jade.crisismanager.crisisevents;
 
 import dtp.jade.AgentsService;
-import dtp.jade.CommunicationHelper;
+import dtp.jade.MessageType;
 import dtp.jade.crisismanager.CrisisManagerAgent;
 import jade.core.AID;
 
@@ -31,7 +31,7 @@ public class RoadTrafficExclusionEventSolver {
         AID[] aids = AgentsService.findAgentByServiceName(CMAgent, "ExecutionUnitService");
 
         for (AID aid : aids) {
-            CMAgent.sentCrisisEvent(aid, CommunicationHelper.CRISIS_EVENT, event);
+            CMAgent.sentCrisisEvent(aid, MessageType.CRISIS_EVENT, event);
         }
     }
 }
