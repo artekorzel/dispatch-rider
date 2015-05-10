@@ -6,6 +6,7 @@ import algorithm.Brute2Sorter;
 import algorithm.BruteForceAlgorithm;
 import algorithm.STLike.ExchangeAlgorithmsFactory;
 import algorithm.Schedule;
+import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
 import dtp.commission.CommissionsHandler;
@@ -123,16 +124,16 @@ public class GUIAgent extends BaseAgent {
     protected void setup() {
         logger.info(this.getLocalName() + " - Hello World!");
 
-//        try {
-//            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
-//        } catch (Exception e) {
-//            logger.warn(e);
-//        }
-//
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException ignored) {
-//        }
+        try {
+            javax.swing.UIManager.setLookAndFeel(Plastic3DLookAndFeel.class.getCanonicalName());
+        } catch (Exception e) {
+            logger.warn(e);
+        }
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ignored) {
+        }
 
 		/* -------- SERVICES SECTION ------- */
         registerServices();
