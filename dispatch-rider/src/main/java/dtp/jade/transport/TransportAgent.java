@@ -57,26 +57,26 @@ public abstract class TransportAgent extends BaseAgent {
                                            TransportElementInitialDataTrailer trailer, Commission comm,
                                            Double punishment) {
         String expr = function;
-        expr = expr.replace("power", new Double(truck.getPower()).toString());
+        expr = expr.replace("power", Double.toString(truck.getPower()));
         expr = expr.replace("reliability",
-                new Double(truck.getReliability()).toString());
+                Double.toString(truck.getReliability()));
         expr = expr.replace("comfort",
-                new Double(truck.getComfort()).toString());
+                Double.toString(truck.getComfort()));
         expr = expr.replace("fuel",
-                new Double(truck.getFuelConsumption()).toString());
-        expr = expr.replace("mass", new Double(trailer.getMass()).toString());
+                Double.toString(truck.getFuelConsumption()));
+        expr = expr.replace("mass", Double.toString(trailer.getMass()));
         expr = expr.replace("capacity",
-                new Double(trailer.getCapacity()).toString());
+                Double.toString(trailer.getCapacity()));
         expr = expr.replace("actualLoad",
-                new Double(comm.getActualLoad()).toString());
+                Double.toString(comm.getActualLoad()));
         expr = expr.replace("universality",
-                new Double(trailer.getUniversality()).toString());
-        expr = expr.replace("dist", new Double(dist).toString());
-        expr = expr.replace("load", new Double(comm.getLoad()).toString());
+                Double.toString(trailer.getUniversality()));
+        expr = expr.replace("dist", Double.toString(dist));
+        expr = expr.replace("load", Double.toString(comm.getLoad()));
         expr = expr.replace("pickUpServiceTime",
-                new Double(comm.getPickUpServiceTime()).toString());
+                Double.toString(comm.getPickUpServiceTime()));
         expr = expr.replace("deliveryServiceTime",
-                new Double(comm.getDeliveryServiceTime()).toString());
+                Double.toString(comm.getDeliveryServiceTime()));
         if (punishment != null)
             expr = expr.replace("punishment", punishment.toString());
         else
@@ -104,7 +104,7 @@ public abstract class TransportAgent extends BaseAgent {
         waitingUnits = Collections.synchronizedSet(waitingUnits);
         feedbackSended = false;
 
-        if (isHolonPart() == false)
+        if (!isHolonPart())
             makeHolonPartsList();
         /*
          * if(getAID().getLocalName().contains("Truck #0")) for(HolonPartsCost
@@ -135,7 +135,7 @@ public abstract class TransportAgent extends BaseAgent {
         waitingUnits = Collections.synchronizedSet(waitingUnits);
         feedbackSended = false;
 
-        if (isHolonPart() == false)
+        if (!isHolonPart())
             makeList();
         // makeHolonPartsList();
         /*
@@ -170,8 +170,8 @@ public abstract class TransportAgent extends BaseAgent {
         Commission com;
         commission = commissions[0];
         makeHolonPartsListFromAllAgents();
-        for (int i = 0; i < commissions.length; i++) {
-            com = commissions[i];
+        for (Commission commission1 : commissions) {
+            com = commission1;
             for (HolonPartsCost part : holonPartsCostList) {
                 if (canCarryCommission(com, part)) {
                     part.addCommission(com);
@@ -198,10 +198,10 @@ public abstract class TransportAgent extends BaseAgent {
         if (part.getCommissions().size() == 0)
             return;
         double oldCost = calculateCommissionsCost(part.getCommissions(), part);
-        double newCost = part.getCost();
+        double newCost;
         List<Commission> newPartList = part.getCommissions();
         for (int i = 0; i < part.getCommissionsCount(); i++) {
-            List<Commission> newList = new LinkedList<Commission>();
+            List<Commission> newList = new LinkedList<>();
             for (int j = 0; j < i; j++)
                 newList.add(part.getCommissions().get(j));
             newList.add(com);
@@ -756,7 +756,7 @@ public abstract class TransportAgent extends BaseAgent {
      * @param offer
      */
     public synchronized void sendFeedbackToDistributor(NewHolonOffer offer) {
-        if (feedbackSended == false) {
+        if (!feedbackSended) {
             feedbackSended = true;
             if (waitingUnits != null)
                 for (Object aid : waitingUnits.toArray()) {
@@ -847,7 +847,6 @@ public abstract class TransportAgent extends BaseAgent {
             }
             if (getDriver(aid) != null) {
                 holonParts[i] = getDriver(aid);
-                continue;
             }
         }
 

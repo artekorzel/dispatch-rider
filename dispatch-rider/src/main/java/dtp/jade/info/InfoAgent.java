@@ -14,10 +14,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InfoAgent extends BaseAgent {
 
@@ -29,6 +26,7 @@ public class InfoAgent extends BaseAgent {
     private int eunitAgentsNo;
 
     private Map<TransportType, List<TransportAgentData>> agents;
+    private int nextVMAgentIndex = 0;
 
     protected void setup() {
 
@@ -50,31 +48,17 @@ public class InfoAgent extends BaseAgent {
         logger.info("InfoAgent - end of initialization");
     }
 
-    void registerServices() {
+    private void registerServices() {
 
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
 
         /*-------- AGENT CREATION SERVICE SECTION -------*/
-        ServiceDescription sd1 = new ServiceDescription();
-        sd1.setType("AgentCreationService");
-        sd1.setName("AgentCreationService");
-        dfd.addServices(sd1);
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("AgentCreationService");
+        sd.setName("AgentCreationService");
+        dfd.addServices(sd);
         logger.info(this.getLocalName() + " - registering AgentCreationService");
-
-        /*-------- AGENT DELETION SERVICE SECTION -------*/
-        ServiceDescription sd2 = new ServiceDescription();
-        sd2.setType("AgentDeletionService");
-        sd2.setName("AgentDeletionService");
-        dfd.addServices(sd2);
-        logger.info(this.getLocalName() + " - registering AgentDeletionService");
-
-        /*-------- INFO AGENT SERVICE SECTION -------*/
-        ServiceDescription sd3 = new ServiceDescription();
-        sd3.setType("InfoAgentService");
-        sd3.setName("InfoAgentService");
-        dfd.addServices(sd3);
-        logger.info(this.getLocalName() + " - registering InfoAgentService");
 
         /*-------- REGISTRATION SECTION -------*/
         try {
@@ -123,6 +107,12 @@ public class InfoAgent extends BaseAgent {
 
     public void addEUnitAgentInfo() {
         this.eunitAgentsNo++;
+    }
+
+    public AID getNextVMAgent() {
+        AID[] vmAgents = AgentsService.findAgentByServiceName(this, "VMAgentCreationService");
+        Arrays.sort(vmAgents);
+        return vmAgents[nextVMAgentIndex++ % vmAgents.length];
     }
 
     public void simEnd() {
