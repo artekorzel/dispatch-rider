@@ -6,7 +6,7 @@ import java.io.Serializable;
  * This class contains parameters, which can be changed during simulation. They
  * are global parameters, which means they concern behavior of simulation, or
  * concern all holons.
- * <p/>
+ * <p>
  * You don't have to set all parameters (unset parameters will be omitted).
  */
 public class GlobalConfiguration implements Serializable {

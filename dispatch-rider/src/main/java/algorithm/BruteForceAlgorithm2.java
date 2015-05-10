@@ -192,8 +192,8 @@ public class BruteForceAlgorithm2 implements Algorithm {
         Map<Integer, Commission> idToCommission = new HashMap<>();
 
         if (currentSchedule != null) {
-			/*
-			 * We calculate from which index, we can do changes in schedule
+            /*
+             * We calculate from which index, we can do changes in schedule
 			 */
             schedule = simInfo.createSchedule(currentSchedule.getAlgorithm());
             schedule.initSchedule(currentSchedule);

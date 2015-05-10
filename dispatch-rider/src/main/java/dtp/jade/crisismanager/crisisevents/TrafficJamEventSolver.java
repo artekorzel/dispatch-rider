@@ -1,5 +1,6 @@
 package dtp.jade.crisismanager.crisisevents;
 
+import dtp.jade.AgentsService;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.crisismanager.CrisisManagerAgent;
 import jade.core.AID;
@@ -27,14 +28,10 @@ public class TrafficJamEventSolver {
     }
 
     private void sendTrafficJamInfoToEUnits() {
+        AID[] aids = AgentsService.findAgentByServiceName(CMAgent, "ExecutionUnitService");
 
-        AID[] aids;
-
-        aids = CommunicationHelper.findAgentByServiceName(CMAgent, "ExecutionUnitService");
-
-        for (int i = 0; i < aids.length; i++) {
-
-            CMAgent.sentCrisisEvent(aids[i], CommunicationHelper.CRISIS_EVENT, event);
+        for (AID aid : aids) {
+            CMAgent.sentCrisisEvent(aid, CommunicationHelper.CRISIS_EVENT, event);
         }
     }
 }

@@ -1,5 +1,6 @@
 package dtp.jade.crisismanager;
 
+import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.crisismanager.behaviour.EndOfSimulationBehaviour;
@@ -183,7 +184,7 @@ public class CrisisManagerAgent extends BaseAgent {
     }
 
     private void sendGUIMessage(String messageText) {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
+        AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
         if (aids.length == 1) {
             send(aids, getLocalName() + " - " + messageText, CommunicationHelper.GUI_MESSAGE);
         } else {

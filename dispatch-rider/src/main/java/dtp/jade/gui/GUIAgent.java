@@ -14,6 +14,7 @@ import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.graph.GraphLink;
 import dtp.graph.predictor.GraphLinkPredictor;
+import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.agentcalendar.CalendarAction;
@@ -466,7 +467,7 @@ public class GUIAgent extends BaseAgent {
         AID[] aids;
         ACLMessage cfp;
 
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
 
         logger.info(getLocalName() + " - sending SimInfo to Distributor");
@@ -495,7 +496,7 @@ public class GUIAgent extends BaseAgent {
         AID[] aids;
         ACLMessage cfp;
 
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         logger.info(getLocalName() + " - sending graph update to "
@@ -583,7 +584,7 @@ public class GUIAgent extends BaseAgent {
     public int getNextTimestamp(int timestamp) {
         ++timestamp;
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this, "ExecutionUnitService");
+        AID[] aids = AgentsService.findAgentByServiceName(this, "ExecutionUnitService");
         sendUpdateCurrentLocationRequest(aids, timestamp);
 
         while (timestamp <= simLogic.getSimInfo().getDeadline()
@@ -632,7 +633,7 @@ public class GUIAgent extends BaseAgent {
         }
         Arrays.sort(tempCommissions);
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
 
         logger.info(getLocalName() + " - sending " + tempCommissions.length
@@ -666,7 +667,7 @@ public class GUIAgent extends BaseAgent {
         ACLMessage cfp;
 
         /* -------- EUNITS SECTION ------- */
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         stamps = aids.length + 2;
@@ -678,7 +679,7 @@ public class GUIAgent extends BaseAgent {
         }
 
         /* -------- CRISIS MANAGER SECTION ------- */
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "CrisisManagementService");
 
         if (aids.length == 1) {
@@ -689,7 +690,7 @@ public class GUIAgent extends BaseAgent {
         }
 
         /* -------- DISTRIBUTOR SECTION ------- */
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
 
         if (aids.length == 1) {
@@ -729,7 +730,7 @@ public class GUIAgent extends BaseAgent {
 
         saveFileName = fileName;
 
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         if (calendarStatsHolderForFile != null) {
@@ -944,7 +945,7 @@ public class GUIAgent extends BaseAgent {
                 simEnd();
             return;
         }
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
         send(aids[0], "", CommunicationHelper.MEASURE_DATA);
     }
@@ -962,7 +963,7 @@ public class GUIAgent extends BaseAgent {
 
     private void saveMLTable() {
         if (mlAlgorithm != null && exploration) {
-            AID aid = CommunicationHelper.findAgentByServiceName(this,
+            AID aid = AgentsService.findAgentByServiceName(this,
                     "CommissionService")[0];
             send(aid, "", CommunicationHelper.MLTable);
         }
@@ -991,7 +992,7 @@ public class GUIAgent extends BaseAgent {
         AID[] aids;
         ACLMessage cfp;
 
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "CrisisManagementService");
 
         if (aids.length == 1) {
@@ -1008,7 +1009,7 @@ public class GUIAgent extends BaseAgent {
 
     private void createNewTransportElement(TransportElementInitialData data,
                                            TransportType type) {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "AgentCreationService");
 
         if (aids.length == 1) {
@@ -1040,7 +1041,7 @@ public class GUIAgent extends BaseAgent {
         data = new LinkedList<>();
         this.timeStamp = timestamp;
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
         eUnitsCount = aids.length;
         send(aids, "", CommunicationHelper.SIMULATION_DATA);
@@ -1087,7 +1088,7 @@ public class GUIAgent extends BaseAgent {
         }
         logger.info("graph changed");
         SingletonGUI.getInstance().update(graph);
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;
         send(aids, new Object[]{graph, updateAfterArrival}, CommunicationHelper.GRAPH_CHANGED);
@@ -1097,7 +1098,7 @@ public class GUIAgent extends BaseAgent {
         if (isEUnit) {
             eUnitsCount--;
             if (eUnitsCount == 0) {
-                send(CommunicationHelper.findAgentByServiceName(
+                send(AgentsService.findAgentByServiceName(
                         this, "CommissionService")[0], graph, CommunicationHelper.GRAPH_CHANGED);
             }
         } else
@@ -1110,7 +1111,7 @@ public class GUIAgent extends BaseAgent {
             return;
         }
         changedGraphLinks = new LinkedList<>();
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
         this.eUnitsCount = aids.length;
         send(aids, "", CommunicationHelper.ASK_IF_GRAPH_LINK_CHANGED);
@@ -1121,7 +1122,7 @@ public class GUIAgent extends BaseAgent {
         if (link != null)
             changedGraphLinks.add(link);
         if (eUnitsCount == 0) {
-            AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+            AID[] aids = AgentsService.findAgentByServiceName(this,
                     "ExecutionUnitService");
             this.eUnitsCount = aids.length;
             send(aids, changedGraphLinks, CommunicationHelper.GRAPH_LINK_CHANGED);
@@ -1140,9 +1141,9 @@ public class GUIAgent extends BaseAgent {
     }
 
     private void next() {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "AgentCreationService");
-        transportAgentsCount = CommunicationHelper.findAgentByServiceName(this,
+        transportAgentsCount = AgentsService.findAgentByServiceName(this,
                 "TransportUnitService").length;
 
         if (aids.length == 1) {

@@ -1,6 +1,7 @@
 package dtp.jade.eunit.behaviour;
 
 import dtp.commission.Commission;
+import dtp.jade.AgentsService;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.AID;
@@ -40,7 +41,7 @@ public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
                 } else
                     logger.info(executionUnitAgent.getLocalName() + ": commission " + commission.getID() + " added to calendar");
 
-                AID[] aids = CommunicationHelper.findAgentByServiceName(executionUnitAgent, "CommissionService");
+                AID[] aids = AgentsService.findAgentByServiceName(executionUnitAgent, "CommissionService");
                 executionUnitAgent.send(aids[0], "", CommunicationHelper.HOLON_FEEDBACK);
             } catch (UnreadableException e1) {
                 logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException " + e1.getMessage());

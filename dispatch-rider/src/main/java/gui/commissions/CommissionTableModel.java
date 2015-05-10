@@ -59,7 +59,6 @@ public class CommissionTableModel extends AbstractTableModel implements Updateab
 
     @Override
     public void setSimInfo(SimInfo simInfo) {
-        // TODO Auto-generated method stub
 
     }
 }

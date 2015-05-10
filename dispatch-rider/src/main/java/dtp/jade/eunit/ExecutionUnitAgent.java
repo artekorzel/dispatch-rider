@@ -7,6 +7,7 @@ import algorithm.Schedule;
 import dtp.commission.Commission;
 import dtp.graph.Graph;
 import dtp.graph.GraphLink;
+import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.ProblemType;
@@ -136,7 +137,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         setSimInfo(initialData.getSimInfo());
         newHolonTeam(initialData.getData());
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
         send(aids[0], "", CommunicationHelper.EXECUTION_UNIT_CREATION);
     }
@@ -173,7 +174,7 @@ public class ExecutionUnitAgent extends BaseAgent {
      */
     private void sendAidToInfoAgent() {
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "AgentCreationService");
 
         if (aids.length == 1) {
@@ -262,7 +263,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
     public void sendOfferToDistributor(EUnitOffer offer) {
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
 
         if (aids.length == 1) {
@@ -301,7 +302,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         AID[] aids;
 
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
+        aids = AgentsService.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
             for (AID aid : aids) {
@@ -387,7 +388,7 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         AID[] aids;
 
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
+        aids = AgentsService.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
             for (AID aid : aids) {
@@ -425,7 +426,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     public synchronized void sendInfo() {
         AID[] aids;
 
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
+        aids = AgentsService.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
             for (AID aid : aids) {
@@ -605,8 +606,8 @@ public class ExecutionUnitAgent extends BaseAgent {
                 && data.getTrailer().getCapacity() < data.getCommission()
                 .getLoad()) {
             logger.warn("Ustawiono za mala pojemnosc domyslnej przyczepy (zlecenie id="
-                            + data.getCommission().getID()
-                            + " nie moze byc zrealizowane)");
+                    + data.getCommission().getID()
+                    + " nie moze byc zrealizowane)");
             System.exit(0);
         }
         if (data.getDriverAID() == null)
@@ -706,7 +707,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     public void updateCurrentLocation(int timestamp) {
         schedule.updateCurrentLocation(timestamp, simInfo.getDepot(), getAID());
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this, "CommissionService");
+        AID[] aids = AgentsService.findAgentByServiceName(this, "CommissionService");
         sendSchedule(aids[0], true);
     }
 

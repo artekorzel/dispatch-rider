@@ -16,6 +16,7 @@ import java.io.Serializable;
 public class BaseAgent extends Agent {
 
     private static Logger logger = Logger.getLogger(BaseAgent.class);
+
     /**
      * Method used to send objects between agents.
      *

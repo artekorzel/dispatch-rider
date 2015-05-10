@@ -30,18 +30,12 @@ public class GetCrisisEventBehaviour extends CyclicBehaviour {
         if (msg != null) {
 
             try {
-
                 crisisEvent = (CrisisEvent) msg.getContentObject();
-
                 crisisManagerAgent.addCrisisEvent(crisisEvent);
-
             } catch (UnreadableException e) {
-
                 logger.error(crisisManagerAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }
-
         } else {
-
             block();
         }
     }

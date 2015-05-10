@@ -14,8 +14,6 @@ import java.util.*;
 
 public class PatternCalculator {
 
-    private static Logger logger = Logger.getLogger(PatternCalculator.class);
-
     private static final String benchmarksPath = "benchmarks";
     private static final String pdp_100[] = {"lc101.txt", "lc102.txt", "lc103.txt",
             "lc104.txt", "lc105.txt", "lr101.txt", "lr102.txt", "lr103.txt",
@@ -35,7 +33,7 @@ public class PatternCalculator {
             "LR2_2_2.txt", "LR2_2_3.txt", "LR2_2_4.txt", "LR2_2_5.txt",
             "LRC2_2_1.txt", "LRC2_2_2.txt", "LRC2_2_3.txt", "LRC2_2_4.txt",
             "LRC2_2_5.txt"};
-
+    private static Logger logger = Logger.getLogger(PatternCalculator.class);
     private Map<String, String[]> tests;
     private Map<String, String> paths;
 

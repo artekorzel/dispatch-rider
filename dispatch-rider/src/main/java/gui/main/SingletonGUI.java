@@ -2,7 +2,7 @@ package gui.main;
 
 /**
  * @author Jakub Tyrcha
- *         <p/>
+ *         <p>
  *         Implementacja wzorca singleton opakowujaca WindowGUI.
  *         Za posrednictwem tej klasy odbywa sie komunikacja z gui.
  */

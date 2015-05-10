@@ -1,5 +1,6 @@
 package dtp.jade.info;
 
+import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.info.behaviour.*;
@@ -11,7 +12,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
-import jade.lang.acl.ACLMessage;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -74,7 +74,7 @@ public class InfoAgent extends BaseAgent {
         sd3.setType("InfoAgentService");
         sd3.setName("InfoAgentService");
         dfd.addServices(sd3);
-        logger.info(this.getLocalName() + " - registering AgentAgentService");
+        logger.info(this.getLocalName() + " - registering InfoAgentService");
 
         /*-------- REGISTRATION SECTION -------*/
         try {
@@ -134,15 +134,14 @@ public class InfoAgent extends BaseAgent {
     }
 
     public void sendDataToAgents() {
-        ACLMessage cfp;
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this, "TransportUnitService");
+        AID[] aids = AgentsService.findAgentByServiceName(this, "TransportUnitService");
 
         logger.info("InfoAgent - sending agents data to agents");
         for (AID aid : aids) {
             send(aid, new TransportAgentsMessage(agents), CommunicationHelper.AGENTS_DATA_FOR_TRANSPORTUNITS);
         }
 
-        aids = CommunicationHelper.findAgentByServiceName(this, "CommissionService");
+        aids = AgentsService.findAgentByServiceName(this, "CommissionService");
 
         logger.info("InfoAgent - sending agents data to Distributor");
         for (AID aid : aids) {

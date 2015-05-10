@@ -1,5 +1,6 @@
 package dtp.jade.crisismanager.behaviour;
 
+import dtp.jade.AgentsService;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.crisismanager.CrisisManagerAgent;
 import jade.core.AID;
@@ -42,7 +43,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
             crisisManagerAgent.nextSimstep(time);
 
-            AID[] aids = CommunicationHelper.findAgentByServiceName(crisisManagerAgent, "GUIService");
+            AID[] aids = AgentsService.findAgentByServiceName(crisisManagerAgent, "GUIService");
             crisisManagerAgent.send(aids[0], "", CommunicationHelper.TIME_STAMP_CONFIRM);
 
         } else {

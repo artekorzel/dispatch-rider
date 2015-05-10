@@ -270,8 +270,8 @@ public class MapHolder extends TimestampUpdateable {
             layout = new FRLayout<GraphPoint, GraphLink>(graph);
 
             layout.setSize(new Dimension(800, 800));
-			/*for (GraphPoint p: graph.getVertices()){
-				layout.setLocation(p, new Point2D.Double(p.getX(), p.getY()));
+            /*for (GraphPoint p: graph.getVertices()){
+                layout.setLocation(p, new Point2D.Double(p.getX(), p.getY()));
 				layout.lock(p, true);
 			}*/
 

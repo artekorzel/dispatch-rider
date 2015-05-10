@@ -5,6 +5,7 @@ import algorithm.STLike.ExchangeAlgorithmsFactory;
 import algorithm.simulatedTrading.SimulatedTradingParameters;
 import dtp.commission.Commission;
 import dtp.graph.Graph;
+import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.agentcalendar.CalendarStats;
@@ -235,7 +236,7 @@ public class DistributorAgent extends BaseAgent {
         if (mlAlgorithm != null)
             this.mlAlgorithm.setSimInfo(simInfo);
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "GUIService");
         send(aids[0], "", CommunicationHelper.SIM_INFO_RECEIVED);
     }
@@ -244,7 +245,7 @@ public class DistributorAgent extends BaseAgent {
             Map<TransportType, List<TransportAgentData>> agents) {
         this.agents = agents;
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "GUIService");
 
         if (aids.length == 1) {
@@ -357,7 +358,7 @@ public class DistributorAgent extends BaseAgent {
     private synchronized void carryCommission() {
 
         if (simInfo.getPunishmentFunction() != null) {
-            int holons = CommunicationHelper.findAgentByServiceName(this,
+            int holons = AgentsService.findAgentByServiceName(this,
                     "ExecutionUnitService").length;
             choosingByCost = holons < simInfo.getHolons();
 
@@ -377,7 +378,7 @@ public class DistributorAgent extends BaseAgent {
     private synchronized void carryCommissions() {
         simulatedTrading = false;
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "TransportUnitService");
 
         logger.info(getLocalName()
@@ -389,7 +390,7 @@ public class DistributorAgent extends BaseAgent {
     // wysyla oferty do wszystkich EUnitow
     private int sendOffers(Commission commission) {
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         if (aids.length != 0) {
@@ -428,7 +429,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void beginTransportUnitsNegotiation() {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "TransportUnitService");
 
         logger.info(getLocalName()
@@ -472,7 +473,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void checkSTStatus() {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         if (aids.length > 0) {
@@ -565,7 +566,7 @@ public class DistributorAgent extends BaseAgent {
 
         AID[] aids;
 
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
+        aids = AgentsService.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
             send(aids[0], getLocalName() + " - " + messageText,
@@ -581,7 +582,7 @@ public class DistributorAgent extends BaseAgent {
         AID[] aids;
         // ACLMessage cfp = null;
 
-        aids = CommunicationHelper.findAgentByServiceName(this, "GUIService");
+        aids = AgentsService.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
             Serializable content;
@@ -606,7 +607,7 @@ public class DistributorAgent extends BaseAgent {
         Iterator<AID> iter;
         int count;
 
-        aids = CommunicationHelper.findAgentByServiceName(this,
+        aids = AgentsService.findAgentByServiceName(this,
                 "ExecutionUnitService");
 
         aidsList = new ArrayList<>();
@@ -645,13 +646,13 @@ public class DistributorAgent extends BaseAgent {
         transportUnitsPrepare++;
 
         if (transportUnitCount == -1)
-            transportUnitCount = CommunicationHelper.findAgentByServiceName(
+            transportUnitCount = AgentsService.findAgentByServiceName(
                     this, "TransportUnitService").length;
         if (transportUnitsPrepare == transportUnitCount) {
             transportUnitsPrepare = 0;
 
             logger.info("START");
-            AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+            AID[] aids = AgentsService.findAgentByServiceName(this,
                     "TransportUnitService");
 
             logger.info(getLocalName()
@@ -731,7 +732,7 @@ public class DistributorAgent extends BaseAgent {
      */
     private synchronized void sendCommissionsToBestHolons() {
         if (simInfo.getPunishmentFunction() != null) {
-            int holons = CommunicationHelper.findAgentByServiceName(this,
+            int holons = AgentsService.findAgentByServiceName(this,
                     "ExecutionUnitService").length;
             choosingByCost = holons < simInfo.getHolons();
         }
@@ -884,7 +885,7 @@ public class DistributorAgent extends BaseAgent {
         NewTeamData data = newTeamData;
 
         if (!checkCommission(data)) {
-            AID aids[] = CommunicationHelper.findAgentByServiceName(this,
+            AID aids[] = AgentsService.findAgentByServiceName(this,
                     "GUIService");
             send(aids[0], data, CommunicationHelper.UNDELIVERIED_COMMISSION);
             return;
@@ -892,7 +893,7 @@ public class DistributorAgent extends BaseAgent {
 
         EUnitInitialData initialData = new EUnitInitialData(simInfo, data);
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "AgentCreationService");
 
         if (aids.length == 1) {
@@ -924,8 +925,8 @@ public class DistributorAgent extends BaseAgent {
                 && data.getTrailer().getCapacity() < data.getCommission()
                 .getLoad()) {
             logger.error("Ustawiono za mala pojemnosc domyslnej przyczepy (zlecenie id="
-                            + data.getCommission().getID()
-                            + " nie moze byc zrealizowane)");
+                    + data.getCommission().getID()
+                    + " nie moze byc zrealizowane)");
             System.exit(0);
         }
         if (data.getCommission() != null) {
@@ -1150,7 +1151,7 @@ public class DistributorAgent extends BaseAgent {
                         else {
                             if (graphChanged) {
                                 graphChanged = false;
-                                AID sender = CommunicationHelper
+                                AID sender = AgentsService
                                         .findAgentByServiceName(this,
                                                 "GUIService")[0];
                                 this.send(sender, false, CommunicationHelper.GRAPH_CHANGED);
@@ -1171,7 +1172,7 @@ public class DistributorAgent extends BaseAgent {
                         else {
                             if (graphChanged) {
                                 graphChanged = false;
-                                AID sender = CommunicationHelper
+                                AID sender = AgentsService
                                         .findAgentByServiceName(this,
                                                 "GUIService")[0];
                                 this.send(sender, false, CommunicationHelper.GRAPH_CHANGED);

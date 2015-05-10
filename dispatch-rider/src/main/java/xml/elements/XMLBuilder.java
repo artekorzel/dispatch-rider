@@ -130,7 +130,7 @@ public class XMLBuilder {
             rootEl.appendChild(baseRetEl);
         } catch (ParserConfigurationException pce) {
             logger.error("Error while trying to instantiate DocumentBuilder "
-                            + pce);
+                    + pce);
             System.exit(1);
         }
     }

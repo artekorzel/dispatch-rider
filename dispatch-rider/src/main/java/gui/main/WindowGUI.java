@@ -28,7 +28,7 @@ import java.util.Vector;
 
 /**
  * @author Jakub Tyrcha, Tomasz Put
- *         <p/>
+ *         <p>
  *         Podstawowa klasa modulu GUI, reprezentujaca glowne okno,
  *         spinajaca wszystkie zakladki, przekazujaca im dane do wyswietlenia,
  *         obslugujaca slider czasowy

@@ -13,7 +13,7 @@ import java.util.Set;
  * Punishment function can be complex. You have to put it's body to constructor.
  * Punishment function format is like this:
  * formula1;conditions1?formula2;conditions2?...?formulan;conditionsn
- * <p/>
+ * <p>
  * in conditions you can use any logic operators you use in java (you can use
  * 'true' as well). If you want example, take a look in main
  */

@@ -1,6 +1,7 @@
 package dtp.jade.transport;
 
 import dtp.commission.Commission;
+import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.transport.behaviour.*;
@@ -45,9 +46,9 @@ public abstract class TransportAgent extends BaseAgent {
     /**
      * Wyznacza wartosc funkcji kosztu Skroty uzywane w funkcji kosztu TRUCK:
      * power reliability comfort fuel TRAILER: mass capacity universality
-     * <p/>
+     * <p>
      * DISTANCE dist
-     * <p/>
+     * <p>
      * COMMISSION load pickUpServiceTime deliveryServiceTime punishment
      */
     public static double costFunctionValue(String function, double dist,
@@ -119,7 +120,6 @@ public abstract class TransportAgent extends BaseAgent {
     /**
      * Metoda wywolywana w trybie z przesylaniem zlecen paczkami Inicjuje
      * srodowisko dla pozniejszej negocjacji
-     *
      */
     public synchronized void setCommissions(Commission[] commissions) {
         this.commissions = commissions;
@@ -293,7 +293,7 @@ public abstract class TransportAgent extends BaseAgent {
      * Potwierdzenie o gotowosci do negocjacji
      */
     private synchronized void sendReadyToStartNegotiation() {
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
 
         if (aids.length == 1) {
@@ -772,7 +772,7 @@ public abstract class TransportAgent extends BaseAgent {
              * System.out.println("feedback"); System.exit(0); }
              */
 
-            AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+            AID[] aids = AgentsService.findAgentByServiceName(this,
                     "CommissionService");
 
             if (aids.length == 1) {
@@ -851,7 +851,7 @@ public abstract class TransportAgent extends BaseAgent {
             }
         }
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
         send(aids[0], "", CommunicationHelper.HOLON_FEEDBACK);
     }
@@ -917,7 +917,7 @@ public abstract class TransportAgent extends BaseAgent {
             Map<TransportType, List<TransportAgentData>> agents) {
         this.agents = filtr(agents);
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "GUIService");
 
         if (aids.length == 1) {
@@ -1055,7 +1055,7 @@ public abstract class TransportAgent extends BaseAgent {
 
     private void sendAidToInfoAgent() {
 
-        AID[] aids = CommunicationHelper.findAgentByServiceName(this,
+        AID[] aids = AgentsService.findAgentByServiceName(this,
                 "AgentCreationService");
 
         if (aids.length == 1) {

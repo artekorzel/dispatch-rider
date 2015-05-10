@@ -68,7 +68,6 @@ public class PathTableModel extends AbstractTableModel implements Updateable {
 
     @Override
     public void setSimInfo(SimInfo simInfo) {
-        // TODO Auto-generated method stub
 
     }
 

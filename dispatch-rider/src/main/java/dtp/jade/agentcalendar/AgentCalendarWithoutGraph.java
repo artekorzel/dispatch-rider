@@ -135,7 +135,7 @@ public class AgentCalendarWithoutGraph implements AgentCalendar {
                         } else {
                             loadDifference = loadOk;
                             logger.warn("AgentCalendar -> LOAD NOT OK >> "
-                                            + loadDifference);
+                                    + loadDifference);
                         }
 
                         schedule = backupScheduleDelivery;

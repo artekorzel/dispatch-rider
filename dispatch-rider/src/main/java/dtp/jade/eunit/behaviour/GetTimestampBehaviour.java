@@ -1,5 +1,6 @@
 package dtp.jade.eunit.behaviour;
 
+import dtp.jade.AgentsService;
 import dtp.jade.CommunicationHelper;
 import dtp.jade.eunit.ExecutionUnitAgent;
 import jade.core.AID;
@@ -48,7 +49,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
             logger.info(myAgent.getLocalName() + "\t- got time stamp ["
                     + time + "]");
 
-            AID[] aids = CommunicationHelper.findAgentByServiceName(eunitAgent,
+            AID[] aids = AgentsService.findAgentByServiceName(eunitAgent,
                     "GUIService");
             eunitAgent.send(aids[0], "", CommunicationHelper.TIME_STAMP_CONFIRM);
         } else {
