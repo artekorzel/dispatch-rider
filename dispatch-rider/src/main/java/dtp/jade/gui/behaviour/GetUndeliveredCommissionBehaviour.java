@@ -22,7 +22,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
     public void action() {
 
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(MessageType.UNDELIVERIED_COMMISSION.name());
+                .MatchConversationId(MessageType.UNDELIVERED_COMMISSION.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
@@ -30,7 +30,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
                 guiAgent.addUndeliveredCommission((NewTeamData) msg
                         .getContentObject());
 
-                guiAgent.send(msg.getSender(), "", MessageType.UNDELIVERIED_COMMISSION);
+                guiAgent.send(msg.getSender(), "", MessageType.UNDELIVERED_COMMISSION);
             } catch (Exception e) {
                 logger.error(e);
             }

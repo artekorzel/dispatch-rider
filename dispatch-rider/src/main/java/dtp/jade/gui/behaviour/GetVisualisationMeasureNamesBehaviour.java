@@ -6,35 +6,30 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
-import measure.printer.MeasureData;
 import org.apache.log4j.Logger;
 
-public class GetMeasureDataBehaviour extends CyclicBehaviour {
+public class GetVisualisationMeasureNamesBehaviour extends CyclicBehaviour {
 
-    private static Logger logger = Logger.getLogger(GetMeasureDataBehaviour.class);
+    private static final Logger logger = Logger.getLogger(GetVisualisationMeasureNamesBehaviour.class);
+    private final GUIAgent guiAgent;
 
-    private final dtp.jade.gui.GUIAgent guiAgent;
-
-    public GetMeasureDataBehaviour(GUIAgent agent) {
-
-        this.guiAgent = agent;
+    public GetVisualisationMeasureNamesBehaviour(GUIAgent guiAgent) {
+        this.guiAgent = guiAgent;
     }
 
     @Override
     public void action() {
-
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(MessageType.MEASURE_DATA.name());
+                .MatchConversationId(MessageType.VISUALISATION_MEASURE_NAMES.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
             try {
-                guiAgent.printMeasures((MeasureData) msg.getContentObject());
+                guiAgent.setVisualisationMeasures((String[]) msg.getContentObject());
             } catch (UnreadableException e) {
                 logger.error(e);
             }
         } else {
-
             block();
         }
     }

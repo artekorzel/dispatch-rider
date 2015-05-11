@@ -3,25 +3,22 @@ package measure.visualization;
 import gui.main.SingletonGUI;
 import jade.core.AID;
 import measure.Measure;
-import measure.MeasureCalculatorsHolder;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class MeasuresVisualizationRunner {
 
     private final Map<String, MeasureVisualizationPanel> panels = new HashMap<>();
     private final Map<String, MeasureVisualizationControl> controls = new HashMap<>();
 
-    public MeasuresVisualizationRunner(MeasureCalculatorsHolder holder) {
-        init(holder.getVisualizationMeasuresNames());
+    public MeasuresVisualizationRunner(String[] measureNames) {
+        init(measureNames);
     }
 
-    private void init(List<String> names) {
+    private void init(String[] names) {
         for (final String name : names) {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
@@ -40,14 +37,14 @@ public class MeasuresVisualizationRunner {
         }
     }
 
-    public void update(Measure measure, String name) {
-        MeasureVisualizationPanel panel = panels.get(name);
+    public void update(Measure measure) {
+        MeasureVisualizationPanel panel = panels.get(measure.getName());
         if (panel != null) {
             panel.updateChart(measure);
         }
     }
 
-    public synchronized void setCurrentHolons(Set<AID> aids) {
+    public synchronized void setCurrentHolons(AID[] aids) {
         for (MeasureVisualizationControl control : controls.values()) {
             control.register(MeasureVisualizationPanel.avgSeriesName);
         }

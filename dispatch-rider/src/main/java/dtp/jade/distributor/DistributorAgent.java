@@ -33,7 +33,6 @@ import measure.MeasureCalculatorsHolder;
 import measure.configuration.GlobalConfiguration;
 import measure.configuration.HolonConfiguration;
 import measure.printer.MeasureData;
-import measure.visualization.MeasuresVisualizationRunner;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -68,7 +67,6 @@ public class DistributorAgent extends BaseAgent {
     private SimInfo simInfo;
     private MeasureCalculatorsHolder calculatorsHolder;
     private MLAlgorithm mlAlgorithm;
-    private MeasuresVisualizationRunner measuresVisualizationRunner;
     private int handledCommissionsCount = 0;
     private boolean commissionSendingType;
     private boolean choosingByCost;
@@ -100,6 +98,7 @@ public class DistributorAgent extends BaseAgent {
     private Map<AID, Schedule> oldSchedule;
     private Map<AID, Schedule> newSchedule;
     private boolean graphChanged = false;
+    private boolean shouldSendVisualisationMeasureData = false;
 
     public static Map<AID, Schedule> getEUnits() {
         return holons;
@@ -220,14 +219,14 @@ public class DistributorAgent extends BaseAgent {
         this.simInfo = simInfo;
         this.calculatorsHolder = simInfo.getCalculatorsHolder();
 
+        AID[] aids = AgentsService.findAgentByServiceName(this,
+                "GUIService");
+
         if (calculatorsHolder != null) {
-
-            if (calculatorsHolder.getVisualizationMeasuresNames().size() > 0)
-                measuresVisualizationRunner = new MeasuresVisualizationRunner(
-                        calculatorsHolder);
-            else
-                measuresVisualizationRunner = null;
-
+            shouldSendVisualisationMeasureData = true;
+            List<String> visualizationMeasuresNames = calculatorsHolder.getVisualizationMeasuresNames();
+            send(aids, visualizationMeasuresNames.<String>toArray(new String[visualizationMeasuresNames.size()]),
+                    MessageType.VISUALISATION_MEASURE_NAMES);
         }
 
         this.mlAlgorithm = simInfo.getMlAlgorithm();
@@ -236,8 +235,6 @@ public class DistributorAgent extends BaseAgent {
         if (mlAlgorithm != null)
             this.mlAlgorithm.setSimInfo(simInfo);
 
-        AID[] aids = AgentsService.findAgentByServiceName(this,
-                "GUIService");
         send(aids[0], "", MessageType.SIM_INFO_RECEIVED);
     }
 
@@ -887,7 +884,7 @@ public class DistributorAgent extends BaseAgent {
         if (!checkCommission(data)) {
             AID aids[] = AgentsService.findAgentByServiceName(this,
                     "GUIService");
-            send(aids[0], data, MessageType.UNDELIVERIED_COMMISSION);
+            send(aids[0], data, MessageType.UNDELIVERED_COMMISSION);
             return;
         }
 
@@ -1063,6 +1060,7 @@ public class DistributorAgent extends BaseAgent {
     private void calculateMeasure(Map<AID, Schedule> oldSchedule,
                                   Map<AID, Schedule> newSchedule) {
 
+        Set<AID> oldScheduleAids = oldSchedule.keySet();
         if (calculatorsHolder != null && timestamp >= nextMeasureTimestamp) {
 
             List<Measure> measures = new LinkedList<>();
@@ -1072,9 +1070,12 @@ public class DistributorAgent extends BaseAgent {
             calculatorsHolder.setTimestamp(timestamp);
             calculatorsHolder.setCommissions(commissions);
 
-            if (measuresVisualizationRunner != null)
-                measuresVisualizationRunner.setCurrentHolons(oldSchedule
-                        .keySet());
+            AID[] aids = null;
+
+            if (shouldSendVisualisationMeasureData) {
+                aids = AgentsService.findAgentByServiceName(this, "GUIService");
+                send(aids, oldScheduleAids.<AID>toArray(new AID[oldScheduleAids.size()]), MessageType.VISUALISATION_MEASURE_SET_HOLONS);
+            }
 
             for (MeasureCalculator measureCalc : calculatorsHolder
                     .getCalculators()) {
@@ -1086,9 +1087,10 @@ public class DistributorAgent extends BaseAgent {
 
                 measures.add(measure);
 
-                if (measuresVisualizationRunner != null)
-                    measuresVisualizationRunner.update(measure,
-                            measureCalc.getName());
+                measure.setName(measureCalc.getName());
+                if (shouldSendVisualisationMeasureData) {
+                    send(aids, measure, MessageType.VISUALISATION_MEASURE_UPDATE);
+                }
             }
 
             measureData.addMeasures(measures);
@@ -1116,7 +1118,7 @@ public class DistributorAgent extends BaseAgent {
                 }
             }
             Map<AID, Schedule> copyOfOldSchedule = new HashMap<>();
-            for (AID key : oldSchedule.keySet()) {
+            for (AID key : oldScheduleAids) {
                 copyOfOldSchedule.put(key, Schedule.copy(oldSchedule.get(key)));
             }
 

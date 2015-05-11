@@ -42,9 +42,11 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import machineLearning.MLAlgorithm;
 import machineLearning.clustering.Clustering;
+import measure.Measure;
 import measure.MeasureCalculatorsHolder;
 import measure.printer.MeasureData;
 import measure.printer.PrintersHolder;
+import measure.visualization.MeasuresVisualizationRunner;
 import org.apache.log4j.Logger;
 import pattern.ConfigurationChooser;
 import xml.elements.SimulationData;
@@ -56,59 +58,60 @@ import java.util.*;
 
 public class GUIAgent extends BaseAgent {
 
-    protected static Logger logger = Logger.getLogger(GUIAgent.class);
+    private static Logger logger = Logger.getLogger(GUIAgent.class);
     // trzyma obiekty CommissionHandler (zlecenie wraz z czasem naplyniecia
     // do systemu), w odpowiednim czasie wysyla zlecenie do dystrybutora
-    protected CommissionsHandler commissionsHandler;
+    private CommissionsHandler commissionsHandler;
 
-    protected SimLogic simLogic;
-    protected CalendarsHolder calendarsHolder;
-    protected CalendarStatsHolder calendarStatsHolder;
-    protected CalendarStatsHolder calendarStatsHolderForFile;
-    protected String saveFileName;
-    protected int eUnitsCount;
-    protected int agentsCount;
-    protected boolean recording;
-    protected String graphChangeTime;
-    protected int graphChangeFreq;
-    protected int simInfoReceived;
-    protected Map<Integer, List<SimulationData>> simulationData = new TreeMap<>();
-    protected long simTime;
-    protected String punishmentFunction;
-    protected Map<String, Double> punishmentFunctionDefaults;
-    protected Double delayLimit;
-    protected int holons;
-    protected boolean firstComplexSTResultOnly;
-    protected MLAlgorithm mlAlgorithm;
-    protected boolean exploration;
-    protected TrackFinder trackFinder;
-    protected GraphLinkPredictor graphLinkPredictor;
-    protected boolean STAfterChange;
-    protected ExchangeAlgorithmsFactory exchangeAlgFactory;
-    protected boolean commissionSendingType = false;
-    protected boolean choosingByCost = true;
-    protected int simulatedTradingCount = 0;
-    protected int STDepth = 1;
-    protected DefaultAgentsData defaultAgentsData = null;
-    protected String chooseWorstCommission;
-    protected Algorithm algorithm = new BruteForceAlgorithm();
-    protected boolean dist;
-    protected int STTimestampGap;
-    protected int STCommissionGap;
-    protected PrintersHolder printersHolder;
-    protected MeasureCalculatorsHolder calculatorsHolder;
-    protected boolean confChange;
-    protected String mlTableFileName;
-    protected int stamps;
-    protected int defaultStats;
-    protected List<SimulationData> data;
-    protected Integer timeStamp;
-    protected List<NewTeamData> undeliveredCommissions = new LinkedList<>();
-    protected Graph graph;
-    protected int graphChangeTimestamp = -1;
-    protected LinkedList<GraphLink> changedGraphLinks;
-    protected Brute2Sorter brute2Sorter;
-    protected int backToDepotTimestamp = -1;
+    private SimLogic simLogic;
+    private CalendarsHolder calendarsHolder;
+    private CalendarStatsHolder calendarStatsHolder;
+    private CalendarStatsHolder calendarStatsHolderForFile;
+    private String saveFileName;
+    private int eUnitsCount;
+    private int agentsCount;
+    private boolean recording;
+    private String graphChangeTime;
+    private int graphChangeFreq;
+    private int simInfoReceived;
+    private Map<Integer, List<SimulationData>> simulationData = new TreeMap<>();
+    private long simTime;
+    private String punishmentFunction;
+    private Map<String, Double> punishmentFunctionDefaults;
+    private Double delayLimit;
+    private int holons;
+    private boolean firstComplexSTResultOnly;
+    private MLAlgorithm mlAlgorithm;
+    private boolean exploration;
+    private TrackFinder trackFinder;
+    private GraphLinkPredictor graphLinkPredictor;
+    private boolean STAfterChange;
+    private ExchangeAlgorithmsFactory exchangeAlgFactory;
+    private boolean commissionSendingType = false;
+    private boolean choosingByCost = true;
+    private int simulatedTradingCount = 0;
+    private int STDepth = 1;
+    private DefaultAgentsData defaultAgentsData = null;
+    private String chooseWorstCommission;
+    private Algorithm algorithm = new BruteForceAlgorithm();
+    private boolean dist;
+    private int STTimestampGap;
+    private int STCommissionGap;
+    private PrintersHolder printersHolder;
+    private MeasureCalculatorsHolder calculatorsHolder;
+    private boolean confChange;
+    private String mlTableFileName;
+    private int stamps;
+    private int defaultStats;
+    private List<SimulationData> data;
+    private Integer timeStamp;
+    private List<NewTeamData> undeliveredCommissions = new LinkedList<>();
+    private Graph graph;
+    private int graphChangeTimestamp = -1;
+    private LinkedList<GraphLink> changedGraphLinks;
+    private Brute2Sorter brute2Sorter;
+    private int backToDepotTimestamp = -1;
+    private MeasuresVisualizationRunner measuresVisualizationRunner;
 
     private Iterator<TestConfiguration> configurationIterator = null;
     private TestConfiguration configuration;
@@ -156,6 +159,9 @@ public class GUIAgent extends BaseAgent {
         this.addBehaviour(new GetGraphChangedBehaviour(this));
         this.addBehaviour(new GetAskForGraphChangesBehaviour(this));
         this.addBehaviour(new GetGraphLinkChangedBehaviour(this));
+        this.addBehaviour(new GetVisualisationMeasureNamesBehaviour(this));
+        this.addBehaviour(new VisualisationMeasureSetHolonsBehaviour(this));
+        this.addBehaviour(new VisualisationMeasureUpdateBehaviour(this));
 
         logger.info("GuiAgent - end of initialization");
 
@@ -1247,5 +1253,23 @@ public class GUIAgent extends BaseAgent {
         simLogic.simStart();
         logger.info("Starting test: " + configuration.getResults());
         simLogic.autoSimulation(configuration.getResults());
+    }
+
+    public void setVisualisationMeasures(String[] measureNames) {
+        if (measureNames != null && measureNames.length > 0) {
+            measuresVisualizationRunner = new MeasuresVisualizationRunner(measureNames);
+        }
+    }
+
+    public void setVisualisationMeasuresHolons(AID[] holons) {
+        if (measuresVisualizationRunner != null) {
+            measuresVisualizationRunner.setCurrentHolons(holons);
+        }
+    }
+
+    public void visualisationMeasuresUpdate(Measure measure) {
+        if (measuresVisualizationRunner != null) {
+            measuresVisualizationRunner.update(measure);
+        }
     }
 }

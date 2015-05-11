@@ -11,7 +11,9 @@ import java.util.Map;
  */
 public class Measure implements Serializable {
 
-    private final Map<String, Double> values = new HashMap<>();
+    private String name;
+
+    private Map<String, Double> values = new HashMap<>();
 
     private int timestamp;
     private int comId;
@@ -24,6 +26,18 @@ public class Measure implements Serializable {
         values.put(aidLocalName, value);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setValues(Map<String, Double> values) {
+        this.values.putAll(values);
+    }
+
     public Map<String, Double> getValues() {
         return values;
     }
@@ -32,9 +46,6 @@ public class Measure implements Serializable {
         return timestamp;
     }
 
-    /**
-     * Set by Distributor
-     */
     public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
@@ -43,9 +54,6 @@ public class Measure implements Serializable {
         return comId;
     }
 
-    /**
-     * Set by Distributor
-     */
     public void setComId(int comId) {
         this.comId = comId;
     }
