@@ -19,7 +19,6 @@ import dtp.jade.gui.DefaultAgentsData;
 import dtp.jade.transport.*;
 import dtp.simulation.SimInfo;
 import dtp.util.AIDsComparator;
-import gui.main.SingletonGUI;
 import gui.parameters.DRParams;
 import jade.core.AID;
 import jade.domain.DFService;
@@ -309,7 +308,9 @@ public class DistributorAgent extends BaseAgent {
             params.setSimulatedTradingCount(this.simulatedTradingCount);
             params.setSTCommissionsionsGap(this.STCommissionsGap);
             params.setSTTimestampGap(this.STTimestampGap);
-            SingletonGUI.getInstance().update(params);
+
+            AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
+            send(aids, params, MessageType.GUI_SIMULATION_PARAMS);
         }
 
         commissions = new LinkedList<>();
@@ -561,9 +562,7 @@ public class DistributorAgent extends BaseAgent {
                 && timestamp >= nextMeasureTimestamp)
             nextMeasureTimestamp += calculatorsHolder.getTimeGap();
 
-        AID[] aids;
-
-        aids = AgentsService.findAgentByServiceName(this, "GUIService");
+        AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
 
         if (aids.length == 1) {
             send(aids[0], getLocalName() + " - " + messageText,

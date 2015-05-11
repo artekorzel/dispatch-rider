@@ -33,6 +33,7 @@ import dtp.util.ExtensionFilter;
 import dtp.xml.ConfigurationParser;
 import dtp.xml.ParseException;
 import gui.main.SingletonGUI;
+import gui.parameters.DRParams;
 import jade.core.AID;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -162,6 +163,7 @@ public class GUIAgent extends BaseAgent {
         this.addBehaviour(new GetVisualisationMeasureNamesBehaviour(this));
         this.addBehaviour(new VisualisationMeasureSetHolonsBehaviour(this));
         this.addBehaviour(new VisualisationMeasureUpdateBehaviour(this));
+        this.addBehaviour(new SetGUISimulationParams(this));
 
         logger.info("GuiAgent - end of initialization");
 
@@ -1271,5 +1273,9 @@ public class GUIAgent extends BaseAgent {
         if (measuresVisualizationRunner != null) {
             measuresVisualizationRunner.update(measure);
         }
+    }
+
+    public void setGUISimulationParams(DRParams params) {
+        SingletonGUI.getInstance().update(params);
     }
 }

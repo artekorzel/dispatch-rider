@@ -1,6 +1,8 @@
 package gui.parameters;
 
-public class DRParams {
+import java.io.Serializable;
+
+public class DRParams implements Serializable {
     private boolean commissionSendingType;
     private boolean dist;
     private boolean choosingByCost;
@@ -10,38 +12,6 @@ public class DRParams {
     private int maxFullSTDepth;
     private int STTimestampGap;
     private int STCommissionsionsGap;
-
-    public String getAlgorithm() {
-        return algorithm;
-    }
-
-    public void setAlgorithm(String algorithm) {
-        this.algorithm = algorithm;
-    }
-
-    public int getMaxFullSTDepth() {
-        return maxFullSTDepth;
-    }
-
-    public void setMaxFullSTDepth(int maxFullSTDepth) {
-        this.maxFullSTDepth = maxFullSTDepth;
-    }
-
-    public int getSTTimestampGap() {
-        return STTimestampGap;
-    }
-
-    public void setSTTimestampGap(int sTTimestampGap) {
-        STTimestampGap = sTTimestampGap;
-    }
-
-    public int getSTCommissionsionsGap() {
-        return STCommissionsionsGap;
-    }
-
-    public void setSTCommissionsionsGap(int sTCommissionsionsGap) {
-        STCommissionsionsGap = sTCommissionsionsGap;
-    }
 
     public boolean isCommissionSendingType() {
         return commissionSendingType;
@@ -81,5 +51,37 @@ public class DRParams {
 
     public void setChooseWorstCommission(String chooseWorstCommission) {
         this.chooseWorstCommission = chooseWorstCommission;
+    }
+
+    public String getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public int getMaxFullSTDepth() {
+        return maxFullSTDepth;
+    }
+
+    public void setMaxFullSTDepth(int maxFullSTDepth) {
+        this.maxFullSTDepth = maxFullSTDepth;
+    }
+
+    public int getSTTimestampGap() {
+        return STTimestampGap;
+    }
+
+    public void setSTTimestampGap(int STTimestampGap) {
+        this.STTimestampGap = STTimestampGap;
+    }
+
+    public int getSTCommissionsionsGap() {
+        return STCommissionsionsGap;
+    }
+
+    public void setSTCommissionsionsGap(int STCommissionsionsGap) {
+        this.STCommissionsionsGap = STCommissionsionsGap;
     }
 }
