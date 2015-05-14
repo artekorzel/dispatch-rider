@@ -12,7 +12,6 @@ import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.distributor.behaviour.*;
 import dtp.jade.eunit.EUnitInitialData;
 import dtp.jade.eunit.EUnitOffer;
-import dtp.jade.eunit.behaviour.GetCalendarStatsBehaviour;
 import dtp.jade.gui.CalendarStatsHolder;
 import dtp.jade.gui.CommissionsHolder;
 import dtp.jade.gui.DefaultAgentsData;
@@ -219,7 +218,7 @@ public class DistributorAgent extends BaseAgent {
         this.calculatorsHolder = simInfo.getCalculatorsHolder();
 
         AID[] aids = AgentsService.findAgentByServiceName(this,
-                "GUIService");
+                "SimulationService");
 
         if (calculatorsHolder != null) {
             shouldSendVisualisationMeasureData = true;
@@ -244,12 +243,7 @@ public class DistributorAgent extends BaseAgent {
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "GUIService");
 
-        if (aids.length == 1) {
-            send(aids[0], "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
+        send(aids, "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
     }
 
     private TransportElementInitialDataTruck getTruck(AID aid) {
@@ -481,12 +475,8 @@ public class DistributorAgent extends BaseAgent {
     }
 
     public synchronized void addCalendarStats(CalendarStats calendarStats) {
-
         if (calendarStatsHolder == null) {
-
-            logger.error(getLocalName()
-                    + " - no calendarStatsHolder to add stats to");
-            System.exit(0);
+            logger.error(getLocalName() + " - no calendarStatsHolder to add stats to");
         }
 
         calendarStatsHolder.addCalendarStats(calendarStats);
@@ -836,7 +826,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private void sentConfirmationToTransportUnit(AID aid) {
-        send(aid, "", MessageType.CONFIRMATIO_FROM_DISTRIBUTOR);
+        send(aid, "", MessageType.CONFIRMATION_FROM_DISTRIBUTOR);
     }
 
     /**
@@ -881,16 +871,14 @@ public class DistributorAgent extends BaseAgent {
         NewTeamData data = newTeamData;
 
         if (!checkCommission(data)) {
-            AID aids[] = AgentsService.findAgentByServiceName(this,
-                    "GUIService");
-            send(aids[0], data, MessageType.UNDELIVERED_COMMISSION);
+            AID aids[] = AgentsService.findAgentByServiceName(this, "SimulationService");
+            send(aids, data, MessageType.UNDELIVERED_COMMISSION);
             return;
         }
 
         EUnitInitialData initialData = new EUnitInitialData(simInfo, data);
 
-        AID[] aids = AgentsService.findAgentByServiceName(this,
-                "AgentCreationService");
+        AID[] aids = AgentsService.findAgentByServiceName(this, "AgentCreationService");
 
         if (aids.length == 1) {
             send(aids[0], initialData, MessageType.EXECUTION_UNIT_CREATION);

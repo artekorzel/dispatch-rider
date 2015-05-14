@@ -19,10 +19,11 @@ import measure.MeasureCalculatorsHolder;
 import measure.printer.PrintersHolder;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class TestConfiguration {
+public class TestConfiguration implements Serializable {
 
     private static Logger logger = Logger.getLogger(TestConfiguration.class);
     private String adapterName;

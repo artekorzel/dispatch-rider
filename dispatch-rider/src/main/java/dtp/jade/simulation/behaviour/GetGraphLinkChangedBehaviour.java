@@ -1,17 +1,17 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class GetGraphLinkChangedBehaviour extends CyclicBehaviour {
 
-    private final GUIAgent guiAgent;
+    private final SimulationAgent agent;
 
-    public GetGraphLinkChangedBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetGraphLinkChangedBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class GetGraphLinkChangedBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-            guiAgent.linkChanged();
+            agent.linkChanged();
         } else {
             block();
         }

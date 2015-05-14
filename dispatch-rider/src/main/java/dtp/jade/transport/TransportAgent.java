@@ -909,23 +909,13 @@ public abstract class TransportAgent extends BaseAgent {
         return result;
     }
 
-    /**
-     * @param agents
-     */
-    public void setAgentsData(
-            Map<TransportType, List<TransportAgentData>> agents) {
+    public void setAgentsData(Map<TransportType, List<TransportAgentData>> agents) {
         this.agents = filtr(agents);
 
         AID[] aids = AgentsService.findAgentByServiceName(this,
-                "GUIService");
+                "SimulationService");
 
-        if (aids.length == 1) {
-            send(aids[0], "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
-
+        send(aids, "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
     }
 
     /**

@@ -2,7 +2,7 @@ package dtp.jade.gui.behaviour;
 
 import dtp.jade.MessageType;
 import dtp.jade.distributor.NewTeamData;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -12,10 +12,10 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetUndeliveredCommissionBehaviour.class);
 
-    private final GUIAgent guiAgent;
+    private final SimulationAgent agent;
 
-    public GetUndeliveredCommissionBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetUndeliveredCommissionBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     @Override
@@ -27,10 +27,10 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
             try {
-                guiAgent.addUndeliveredCommission((NewTeamData) msg
+                agent.addUndeliveredCommission((NewTeamData) msg
                         .getContentObject());
 
-                guiAgent.send(msg.getSender(), "", MessageType.UNDELIVERED_COMMISSION);
+                agent.send(msg.getSender(), "", MessageType.UNDELIVERED_COMMISSION);
             } catch (Exception e) {
                 logger.error(e);
             }

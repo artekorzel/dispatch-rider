@@ -74,7 +74,7 @@ public class XMLBuilder {
                     transportEl.setAttribute("comfort", Integer.toString(simData
                             .getTruck().getComfort()));
 
-                    transportEl.setAttribute("id", simData.getTruck().getAID()
+                    transportEl.setAttribute("id", simData.getTruck().getAid()
                             .getName().split("#")[1].split("@")[0]);
                     partsEl.appendChild(transportEl);
                     transportEl = dom.createElement("trailer");
@@ -86,11 +86,11 @@ public class XMLBuilder {
                             .getTrailer().getCargoType()));
                     transportEl.setAttribute("universality", Integer.toString(simData.getTrailer().getUniversality()));
                     transportEl.setAttribute("id", simData.getTrailer()
-                            .getAID().getName().split("#")[1].split("@")[0]);
+                            .getAid().getName().split("#")[1].split("@")[0]);
                     // TODO other trailer properties
                     partsEl.appendChild(transportEl);
                     transportEl = dom.createElement("driver");
-                    transportEl.setAttribute("id", simData.getDriver().getAID()
+                    transportEl.setAttribute("id", simData.getDriver().getAid()
                             .getName().split("#")[1].split("@")[0]);
                     partsEl.appendChild(transportEl);
 

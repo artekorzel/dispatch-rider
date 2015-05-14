@@ -12,13 +12,7 @@ import java.io.Serializable;
 public class TransportElementInitialData implements Serializable {
 
     private AID aid;
-    /**
-     * This element capacity
-     */
     private int capacity;
-    /**
-     * Referral element capacity
-     */
     private int defaultCapacity;
     private int depot = 0;
     private String costFunction;
@@ -34,62 +28,43 @@ public class TransportElementInitialData implements Serializable {
         else this.costFunction = "0.01*dist*(4-comfort)+(dist/100)*fuel*((mass+load)/power)";
     }
 
-    public AID getAID() {
+    public AID getAid() {
         return aid;
     }
 
-    public void setAID(AID aid) {
+    public void setAid(AID aid) {
         this.aid = aid;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getDefaultCapacity() {
+        return defaultCapacity;
+    }
+
+    public void setDefaultCapacity(int defaultCapacity) {
+        this.defaultCapacity = defaultCapacity;
+    }
+
+    public int getDepot() {
+        return depot;
+    }
+
+    public void setDepot(int depot) {
+        this.depot = depot;
     }
 
     public String getCostFunction() {
         return costFunction;
     }
 
-    /**
-     * @return the capacity
-     */
-    public int getCapacity() {
-        return capacity;
+    public void setCostFunction(String costFunction) {
+        this.costFunction = costFunction;
     }
-
-    /**
-     * @param capacity the capacity to set
-     */
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    /**
-     * @return the defaultCapacity
-     */
-    public int getDefaultCapacity() {
-        return defaultCapacity;
-    }
-
-    /**
-     * @param defaultCapacity the defaultCapacity to set
-     */
-    public void setDefaultCapacity(int defaultCapacity) {
-        this.defaultCapacity = defaultCapacity;
-    }
-
-    /**
-     * getter
-     *
-     * @return the depot
-     */
-    public int getDepot() {
-        return depot;
-    }
-
-    /**
-     * setter
-     *
-     * @param depot the depot to set
-     */
-    public void setDepot(int depot) {
-        this.depot = depot;
-    }
-
 }

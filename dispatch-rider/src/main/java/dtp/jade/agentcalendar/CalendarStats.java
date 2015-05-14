@@ -42,6 +42,9 @@ public class CalendarStats implements Serializable {
     private long reorganizationTime;
     private long organizationTime;
 
+    public CalendarStats() {
+    }
+
     public CalendarStats(AID aid) {
 
         maxSTDepth = 0;

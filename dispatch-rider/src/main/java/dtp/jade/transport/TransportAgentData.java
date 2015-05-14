@@ -20,7 +20,7 @@ public class TransportAgentData implements Serializable {
 
     public void setData(TransportElementInitialData data) {
         this.data = data;
-        this.data.setAID(aid);
+        this.data.setAid(aid);
     }
 
     public AID getAid() {

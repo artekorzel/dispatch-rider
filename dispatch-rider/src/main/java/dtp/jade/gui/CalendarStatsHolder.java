@@ -4,13 +4,17 @@ import dtp.jade.agentcalendar.CalendarStats;
 import dtp.util.AgentIDResolver;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class CalendarStatsHolder {
+public class CalendarStatsHolder implements Serializable {
 
-    private final HashMap<Integer, CalendarStats> collectedStats;
-    private final int calendarStatsNumber;
+    private HashMap<Integer, CalendarStats> collectedStats;
+    private int calendarStatsNumber;
     private int collectedCalendarStatsNumber;
+
+    public CalendarStatsHolder() {
+    }
 
     public CalendarStatsHolder(int calendarStatsNumber) {
         this.calendarStatsNumber = calendarStatsNumber;
@@ -27,10 +31,6 @@ public class CalendarStatsHolder {
 
         collectedStats.put(eUnitAgentID, calendarStats);
         collectedCalendarStatsNumber++;
-    }
-
-    public int getCollectedCalendarStatsNumber() {
-        return collectedCalendarStatsNumber;
     }
 
     public boolean gotAllCalendarStats() {
@@ -100,5 +100,29 @@ public class CalendarStatsHolder {
         for (int i : collectedStats.keySet())
             result += collectedStats.get(i).getPunishment();
         return result;
+    }
+
+    public HashMap<Integer, CalendarStats> getCollectedStats() {
+        return collectedStats;
+    }
+
+    public void setCollectedStats(HashMap<Integer, CalendarStats> collectedStats) {
+        this.collectedStats = collectedStats;
+    }
+
+    public int getCalendarStatsNumber() {
+        return calendarStatsNumber;
+    }
+
+    public void setCalendarStatsNumber(int calendarStatsNumber) {
+        this.calendarStatsNumber = calendarStatsNumber;
+    }
+
+    public int getCollectedCalendarStatsNumber() {
+        return collectedCalendarStatsNumber;
+    }
+
+    public void setCollectedCalendarStatsNumber(int collectedCalendarStatsNumber) {
+        this.collectedCalendarStatsNumber = collectedCalendarStatsNumber;
     }
 }

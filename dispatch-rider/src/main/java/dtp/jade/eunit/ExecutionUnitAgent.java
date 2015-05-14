@@ -69,9 +69,6 @@ public class ExecutionUnitAgent extends BaseAgent {
     private TransportElementInitialDataTruck truckData;
     private TransportElementInitialDataTrailer trailerData;
 
-    private HolonCreationAuction auction;
-    private HolonReorganizeAuction reauction;
-
     private EUnitInitialData initialData;
 
     private boolean isSimulatedTradingEnabled = true;
@@ -88,10 +85,8 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         /* -------- BEHAVIOURS SECTION ------- */
         this.addBehaviour(new GetGraphBehaviour(this));
-        this.addBehaviour(new GetGraphUpdateBehaviour(this));
         this.addBehaviour(new GetTimestampBehaviour(this));
         this.addBehaviour(new GetCommissionFromDistributorAgentBehaviour(this));
-        this.addBehaviour(new GetCalendarRequestBehaviour(this));
         this.addBehaviour(new GetCalendarStatsRequestBehaviour(this));
         this.addBehaviour(new GetWorstCommissionRequestBehaviour(this));
         this.addBehaviour(new GetResetRequestBehaviour(this));
@@ -209,11 +204,6 @@ public class ExecutionUnitAgent extends BaseAgent {
             initCalendar();
     }
 
-    public synchronized void updateGraph(Graph graph) {
-
-        this.graph = graph;
-    }
-
     public synchronized void setCurrentTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
@@ -297,23 +287,6 @@ public class ExecutionUnitAgent extends BaseAgent {
         }
     }
 
-    public synchronized void sendCalendar() {
-        String calendarToSend = "";
-
-        AID[] aids;
-
-        aids = AgentsService.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-            for (AID aid : aids) {
-                send(aid, calendarToSend, MessageType.EUNIT_MY_CALENDAR);
-            }
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
-    }
-
     public synchronized void sendCalendarStats(AID sender) {
 
         CalendarStats calendarStatsToSend = new CalendarStats(getAID());
@@ -386,18 +359,8 @@ public class ExecutionUnitAgent extends BaseAgent {
 
         calendarStatsToSend.setDefault(isDefault);
 
-        AID[] aids;
-
-        aids = AgentsService.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-            for (AID aid : aids) {
-                send(aid, calendarStatsToSend, MessageType.EUNIT_MY_FILE_STATS);
-            }
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
+        AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
+        send(aids, calendarStatsToSend, MessageType.EUNIT_MY_FILE_STATS);
     }
 
     public synchronized void sendWorstCommissionCost(
@@ -458,7 +421,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     public synchronized HolonCreationAuction getAuction() {
-        return auction;
+        return null;
     }
 
     private double calculatePunishment(Schedule tmpSchedule) {
@@ -540,7 +503,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     public HolonReorganizeAuction getReauction() {
-        return reauction;
+        return null;
     }
 
     @Override

@@ -250,7 +250,7 @@ public class MapHolder extends TimestampUpdateable {
             HolonGraphPoint point = new HolonGraphPoint(data.getLocation().x, data.getLocation().y);
             point.setHolonID(data.getHolonId());
             point.setHolonCreationTime(data.getHolonCreationTime());
-            point.setDriver(data.getDriver().getAID().getLocalName());
+            point.setDriver(data.getDriver().getAid().getLocalName());
             point.setTruckComfort(data.getTruck().getComfort());
             point.setTrailerCapacity(data.getTrailer().getCapacity());
             point.setSummaryCost(data.getSchedule().calculateSummaryCost(simInfo));

@@ -20,23 +20,20 @@ public class CommissionsHolder implements Serializable {
     private final int STCommissionGap;
     private final boolean confChange;
 
-    public CommissionsHolder(Commission[] commissions, boolean type,
-                             boolean choosingByCost, int simulatedTrading, int STDepth,
-                             DefaultAgentsData defaultAgentsData, String chooseWorstCommission,
-                             Algorithm algorithm, boolean isDist, int STTimestampGap,
-                             int STCommissionGap, boolean confChange) {
+    public CommissionsHolder(Commission[] commissions, TestConfiguration configuration,
+                             int STDepth, boolean dist, Algorithm algorithm, String chooseWorstCommission) {
         this.commissions = commissions;
-        this.dist = isDist;
-        this.type = type;
-        this.simulatedTrading = simulatedTrading;
+        this.dist = dist;
+        this.type = configuration.isPackageSending();
+        this.simulatedTrading = configuration.getSimulatedTrading();
         this.STDepth = STDepth;
-        this.choosingByCost = choosingByCost;
-        this.defaultAgentsData = defaultAgentsData;
+        this.choosingByCost = configuration.isChoosingByCost();
+        this.defaultAgentsData = configuration.getDefaultAgentsData();
         this.chooseWorstCommission = chooseWorstCommission;
         this.algorithm = algorithm;
-        this.STTimestampGap = STTimestampGap;
-        this.STCommissionGap = STCommissionGap;
-        this.confChange = confChange;
+        this.STTimestampGap = configuration.getSTTimeGap();
+        this.STCommissionGap = configuration.getSTCommissionGap();
+        this.confChange = configuration.isConfChange();
     }
 
     public boolean isConfChange() {

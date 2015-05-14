@@ -1,17 +1,17 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class GetSimInfoRequestBehaviour extends CyclicBehaviour {
 
-    private GUIAgent guiAgent;
+    private SimulationAgent agent;
 
-    public GetSimInfoRequestBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetSimInfoRequestBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     public void action() {
@@ -20,7 +20,7 @@ public class GetSimInfoRequestBehaviour extends CyclicBehaviour {
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
-            guiAgent.sendSimInfo(msg.getSender());
+            agent.sendSimInfo(msg.getSender());
         } else {
             block();
         }

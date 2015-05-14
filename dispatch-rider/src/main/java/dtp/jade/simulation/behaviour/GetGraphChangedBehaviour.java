@@ -1,7 +1,7 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -12,10 +12,10 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetGraphChangedBehaviour.class);
 
-    private final GUIAgent guiAgent;
+    private final SimulationAgent agent;
 
-    public GetGraphChangedBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetGraphChangedBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     @Override
@@ -26,12 +26,11 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
         if (msg != null) {
 
             try {
-                guiAgent.graphChanged((Boolean) msg.getContentObject());
+                agent.graphChanged((Boolean) msg.getContentObject());
             } catch (UnreadableException e) {
                 logger.error(e);
             }
         } else {
-
             block();
         }
     }

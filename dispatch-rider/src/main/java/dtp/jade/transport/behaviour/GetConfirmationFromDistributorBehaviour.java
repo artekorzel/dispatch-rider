@@ -16,7 +16,7 @@ public class GetConfirmationFromDistributorBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.CONFIRMATIO_FROM_DISTRIBUTOR.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.CONFIRMATION_FROM_DISTRIBUTOR.name());
         ACLMessage message = myAgent.receive(template);
 
         if (message != null) {

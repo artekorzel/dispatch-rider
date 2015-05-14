@@ -37,8 +37,8 @@ public class HolonUpdateable extends TimestampUpdateable {
         holonParams.put(getColumnNames()[0], data.getHolonId());
         holonParams.put(getColumnNames()[1], data.getHolonCreationTime());
         holonParams.put(getColumnNames()[2], "(" + data.getLocation().x + ", " + data.getLocation().y + ")");
-        holonParams.put(getColumnNames()[3], data.getDriver().getAID().getLocalName());
-        holonParams.put(getColumnNames()[4], data.getTruck().getAID().getLocalName());
+        holonParams.put(getColumnNames()[3], data.getDriver().getAid().getLocalName());
+        holonParams.put(getColumnNames()[4], data.getTruck().getAid().getLocalName());
     }
 
     public String[] getColumnNames() {

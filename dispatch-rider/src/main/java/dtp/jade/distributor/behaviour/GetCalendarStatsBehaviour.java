@@ -1,40 +1,47 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.distributor.behaviour;
 
 import dtp.jade.MessageType;
 import dtp.jade.agentcalendar.CalendarStats;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.distributor.DistributorAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-public class GetCalenderStatsToFileBehaviour extends CyclicBehaviour {
 
+public class GetCalendarStatsBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetCalendarStatsBehaviour.class);
 
-    private GUIAgent guiAgent;
+    private DistributorAgent agent;
 
-    public GetCalenderStatsToFileBehaviour(GUIAgent agent) {
+    public GetCalendarStatsBehaviour(DistributorAgent agent) {
 
-        this.guiAgent = agent;
+        this.agent = agent;
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EUNIT_MY_FILE_STATS.name());
+
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EUNIT_MY_STATS.name());
         ACLMessage msg = myAgent.receive(template);
 
         CalendarStats calendarStats;
 
         if (msg != null) {
+
             try {
+
                 calendarStats = (CalendarStats) msg.getContentObject();
-                guiAgent.addCalendarStatsToFile(calendarStats);
+                agent.addCalendarStats(calendarStats);
+
             } catch (UnreadableException e) {
-                logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
+
+                logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
             }
+
         } else {
+
             block();
         }
     }

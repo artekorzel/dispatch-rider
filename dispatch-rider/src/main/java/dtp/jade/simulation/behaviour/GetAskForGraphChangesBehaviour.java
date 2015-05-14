@@ -1,8 +1,8 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.graph.GraphLink;
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -13,10 +13,10 @@ public class GetAskForGraphChangesBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetAskForGraphChangesBehaviour.class);
 
-    private final GUIAgent guiAgent;
+    private final SimulationAgent agent;
 
-    public GetAskForGraphChangesBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetAskForGraphChangesBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     @Override
@@ -27,10 +27,10 @@ public class GetAskForGraphChangesBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
             try {
-                guiAgent.addChangedLink((GraphLink) msg.getContentObject());
+                agent.addChangedLink((GraphLink) msg.getContentObject());
 
             } catch (UnreadableException e) {
-                logger.error(this.guiAgent.getLocalName()
+                logger.error(this.agent.getLocalName()
                         + " - UnreadableException " + e.getMessage());
             }
         } else {

@@ -1,7 +1,7 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
 public class GetConfirmOfTimeStampBehaviour extends CyclicBehaviour {
     protected static Logger logger = Logger.getLogger(GetConfirmOfTimeStampBehaviour.class);
 
-    private GUIAgent guiAgent;
+    private SimulationAgent agent;
 
-    public GetConfirmOfTimeStampBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetConfirmOfTimeStampBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     public void action() {
@@ -22,7 +22,7 @@ public class GetConfirmOfTimeStampBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
 //            logger.info(msg.getSender().getName() + " - stampConfirmed");
-            guiAgent.stampConfirmed();
+            agent.stampConfirmed();
         } else {
             block();
         }

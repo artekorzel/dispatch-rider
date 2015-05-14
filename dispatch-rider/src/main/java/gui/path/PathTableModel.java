@@ -51,7 +51,6 @@ public class PathTableModel extends AbstractTableModel implements Updateable {
 
     @Override
     public int getDrawnTimestamp() {
-        // TODO Auto-generated method stub
         return updateable.getDrawnTimestamp();
     }
 

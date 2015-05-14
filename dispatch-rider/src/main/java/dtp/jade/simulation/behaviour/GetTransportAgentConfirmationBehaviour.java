@@ -1,16 +1,16 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class GetTransportAgentConfirmationBehaviour extends CyclicBehaviour {
 
-    private GUIAgent agent;
+    private SimulationAgent agent;
 
-    public GetTransportAgentConfirmationBehaviour(GUIAgent agent) {
+    public GetTransportAgentConfirmationBehaviour(SimulationAgent agent) {
         this.agent = agent;
     }
 

@@ -1,7 +1,7 @@
 package dtp.jade.gui.behaviour;
 
-import dtp.graph.Graph;
 import dtp.jade.MessageType;
+import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.gui.GUIAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -9,26 +9,27 @@ import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import org.apache.log4j.Logger;
 
-public class GetGraphUpdateBehaviour extends CyclicBehaviour {
+public class PrepareCalendarStatsToSaveInFileBehaviour extends CyclicBehaviour {
 
-    private static Logger logger = Logger.getLogger(GetGraphUpdateBehaviour.class);
+    private static Logger logger = Logger.getLogger(PrepareCalendarStatsToSaveInFileBehaviour.class);
 
     private GUIAgent guiAgent;
 
-    public GetGraphUpdateBehaviour(GUIAgent agent) {
+    public PrepareCalendarStatsToSaveInFileBehaviour(GUIAgent agent) {
+
         this.guiAgent = agent;
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.GRAPH_UPDATE.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EUNIT_MY_FILE_STATS.name());
         ACLMessage msg = myAgent.receive(template);
 
-        Graph graph;
+        CalendarStats calendarStats;
 
         if (msg != null) {
             try {
-                graph = (Graph) msg.getContentObject();
-                guiAgent.updateGraph(graph);
+                calendarStats = (CalendarStats) msg.getContentObject();
+                guiAgent.addCalendarStatsToFile(calendarStats);
             } catch (UnreadableException e) {
                 logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
             }
@@ -36,5 +37,4 @@ public class GetGraphUpdateBehaviour extends CyclicBehaviour {
             block();
         }
     }
-
 }

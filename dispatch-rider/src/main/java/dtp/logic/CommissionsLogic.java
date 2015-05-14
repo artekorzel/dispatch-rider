@@ -3,7 +3,7 @@ package dtp.logic;
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
 import dtp.commission.TxtFileReader;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import dtp.simulation.SimInfo;
 
 import java.awt.geom.Point2D;
@@ -13,7 +13,7 @@ import java.util.List;
 public class CommissionsLogic {
 
     private SimLogic simLogic;
-    private GUIAgent guiAgent;
+    private SimulationAgent simulationAgent;
     private List<CommissionHandler> listCommissions;
 
     private double depotX;
@@ -21,9 +21,9 @@ public class CommissionsLogic {
     private double deadline = 1500;
     private double maxLoad = 200;
 
-    public CommissionsLogic(SimLogic simLogic, GUIAgent guiAgent) {
+    public CommissionsLogic(SimLogic simLogic, SimulationAgent simulationAgent) {
         this.simLogic = simLogic;
-        this.guiAgent = guiAgent;
+        this.simulationAgent = simulationAgent;
         listCommissions = new ArrayList<>();
     }
 
@@ -58,7 +58,7 @@ public class CommissionsLogic {
 
     public void addCommissionHandler(CommissionHandler commissionHandler) {
         listCommissions.add(commissionHandler);
-        guiAgent.addCommissionHandler(commissionHandler);
+        simulationAgent.addCommissionHandler(commissionHandler);
     }
 
     public void setSimConstraints(double depotX, double depotY, double deadline, double maxLoad) {

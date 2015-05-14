@@ -1,7 +1,7 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -11,10 +11,10 @@ public class GetTransportAgentCreatedBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetTransportAgentCreatedBehaviour.class);
 
-    private GUIAgent guiAgent;
+    private SimulationAgent agent;
 
-    public GetTransportAgentCreatedBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetTransportAgentCreatedBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     public void action() {
@@ -24,7 +24,7 @@ public class GetTransportAgentCreatedBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
             logger.info("new TransportAgent was created ");
-            guiAgent.transportAgentCreated();
+            agent.transportAgentCreated();
         } else {
             block();
         }

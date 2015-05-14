@@ -1,7 +1,7 @@
-package dtp.jade.gui.behaviour;
+package dtp.jade.simulation.behaviour;
 
 import dtp.jade.MessageType;
-import dtp.jade.gui.GUIAgent;
+import dtp.jade.simulation.SimulationAgent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -12,10 +12,10 @@ public class GetMessageBehaviour extends CyclicBehaviour {
 
     private static Logger logger = Logger.getLogger(GetMessageBehaviour.class);
 
-    private GUIAgent guiAgent;
+    private SimulationAgent agent;
 
-    public GetMessageBehaviour(GUIAgent agent) {
-        this.guiAgent = agent;
+    public GetMessageBehaviour(SimulationAgent agent) {
+        this.agent = agent;
     }
 
     public void action() {
@@ -33,14 +33,14 @@ public class GetMessageBehaviour extends CyclicBehaviour {
 
                 // TODO temporary
                 if (message.equals("DistributorAgent - NEXT_SIMSTEP")) {
-                    guiAgent.nextAutoSimStep();
+                    agent.nextAutoSimStep();
                     // wykorzystywane do sim GOD
                     // startuje timer, zeby ten zrobil nextSimstep i statystyki
                     // zaraz potem timer trzeba zatrzymac
                 }
 
             } catch (UnreadableException e) {
-                logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
+                logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
             }
         } else {
 
