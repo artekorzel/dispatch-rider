@@ -158,8 +158,7 @@ public class ExecutionUnitAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException "
-                    + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
@@ -218,13 +217,7 @@ public class ExecutionUnitAgent extends BaseAgent {
     }
 
     public int getTimestamp() {
-
         return timestamp;
-    }
-
-    public synchronized void nextSimStep() {
-
-        sendInfo();
     }
 
     public synchronized TransportOffer getDriver() {
@@ -382,28 +375,6 @@ public class ExecutionUnitAgent extends BaseAgent {
     public synchronized void changeSchedule(Schedule newSchedule, AID sender) {
         schedule = newSchedule;
         send(sender, "", MessageType.CHANGE_SCHEDULE);
-    }
-
-    // Info wysylane jest zawsze po otrzymaniu timestamp
-    // jak rowniez po zakonczeniu aukcji
-    public synchronized void sendInfo() {
-        AID[] aids;
-
-        aids = AgentsService.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-            for (AID aid : aids) {
-                send(aid, getInfo(), MessageType.EUNIT_INFO);
-            }
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
-    }
-
-    // TODO implement. Not used
-    private EUnitInfo getInfo() {
-        return null;
     }
 
     public synchronized void resetAgent() {

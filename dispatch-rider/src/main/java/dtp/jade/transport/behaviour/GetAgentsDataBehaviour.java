@@ -29,7 +29,7 @@ public class GetAgentsDataBehaviour extends CyclicBehaviour {
                 TransportAgentsMessage agents = (TransportAgentsMessage) message.getContentObject();
                 agent.setAgentsData(agents.getAgents());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
 
         } else {

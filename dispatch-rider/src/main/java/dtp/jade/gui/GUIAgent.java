@@ -12,6 +12,7 @@ import dtp.jade.gui.behaviour.*;
 import dtp.jade.transport.TransportElementInitialData;
 import dtp.jade.transport.TransportElementInitialDataTrailer;
 import dtp.jade.transport.TransportElementInitialDataTruck;
+import dtp.simulation.SimInfo;
 import dtp.util.ExtensionFilter;
 import dtp.xml.ConfigurationParser;
 import dtp.xml.ParseException;
@@ -49,6 +50,7 @@ public class GUIAgent extends BaseAgent {
     private MeasuresVisualizationRunner measuresVisualizationRunner;
     private Iterator<TestConfiguration> configurationIterator = null;
     private TestConfiguration configuration;
+    private SimInfo simInfo;
 
     @Override
     protected void setup() {
@@ -74,6 +76,7 @@ public class GUIAgent extends BaseAgent {
         this.addBehaviour(new VisualisationMeasureSetHolonsBehaviour(this));
         this.addBehaviour(new VisualisationMeasureUpdateBehaviour(this));
         this.addBehaviour(new SetGUISimulationParams(this));
+        this.addBehaviour(new SetSimInfoParams(this));
         this.addBehaviour(new GetSimulationDataBehaviour(this));
         this.addBehaviour(new PrepareCalendarStatsToSaveInFileBehaviour(this));
         this.addBehaviour(new SaveCalendarStatsBehaviour(this));
@@ -81,7 +84,7 @@ public class GUIAgent extends BaseAgent {
         this.addBehaviour(new GetMLTableBehaviour(this));
         this.addBehaviour(new GetSimTimeBehaviour(this));
         this.addBehaviour(new GraphChangedBehaviour());
-        this.addBehaviour(new GetTimestampBehaviour());
+        this.addBehaviour(new GetTimestampBehaviour(this));
 
         logger.info("GUIAgent - end of initialization");
 
@@ -148,8 +151,7 @@ public class GUIAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException "
-                    + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
@@ -294,6 +296,11 @@ public class GUIAgent extends BaseAgent {
         SingletonGUI.getInstance().update(params);
     }
 
+    public void setSimulationInfoParams(SimInfo params) {
+        this.simInfo = params;
+        SingletonGUI.getInstance().update(params);
+    }
+
     public synchronized void addSimulationData(SimulationData data) {
         SingletonGUI.getInstance().update(data);
     }
@@ -397,10 +404,10 @@ public class GUIAgent extends BaseAgent {
             calendarStatsHolderForFile = null;
 
             if (configuration.isRecording())
-                new XMLBuilder(simulationData, configuration.getAdapter().getSimInfo().getDepot())
+                new XMLBuilder(simulationData, simInfo.getDepot())
                         .save(file.getAbsolutePath() + ".xml");
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
         saveMeasures();
         saveMLTable();
@@ -437,7 +444,7 @@ public class GUIAgent extends BaseAgent {
         try {
             table.save(mlTableFileName, saveFileName);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
         simEnd();
     }
@@ -447,7 +454,7 @@ public class GUIAgent extends BaseAgent {
         try {
             configuration.getPrintersHolder().print(saveFileName, data, configuration.getCalculatorsHolder());
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
         if (configuration.getMlAlgorithm() == null)
             simEnd();

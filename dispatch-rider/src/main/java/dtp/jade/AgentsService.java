@@ -28,7 +28,7 @@ public class AgentsService {
         try {
             descriptions = DFService.search(agent, template, constraints);
         } catch (FIPAException fe) {
-            logger.error(fe);
+            logger.error(fe.getMessage(), fe);
         }
 
         aids = new AID[descriptions.length];

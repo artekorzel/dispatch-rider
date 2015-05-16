@@ -351,7 +351,7 @@ public class QLearning extends MLAlgorithm implements Serializable {
         try {
             MLTableStructureParser.parse(fileName, this);
         } catch (ParseException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             System.exit(0);
         }
     }

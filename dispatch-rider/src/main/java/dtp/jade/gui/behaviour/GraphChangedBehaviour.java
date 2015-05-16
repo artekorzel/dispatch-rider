@@ -19,14 +19,14 @@ public class GraphChangedBehaviour extends CyclicBehaviour {
     @Override
     public void action() {
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(MessageType.GUI_SIMULATION_PARAMS.name());
+                .MatchConversationId(MessageType.GRAPH_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
             try {
                 SingletonGUI.getInstance().update((Graph) msg.getContentObject());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

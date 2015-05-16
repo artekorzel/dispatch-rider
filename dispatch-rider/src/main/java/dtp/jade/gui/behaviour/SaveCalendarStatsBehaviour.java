@@ -24,7 +24,7 @@ public class SaveCalendarStatsBehaviour extends CyclicBehaviour {
     }
 
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.EUNIT_MY_FILE_STATS.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.STATS_DATA.name());
         ACLMessage msg = myAgent.receive(template);
 
 
@@ -36,7 +36,7 @@ public class SaveCalendarStatsBehaviour extends CyclicBehaviour {
                 TreeMap<Integer, List<SimulationData>> simulationData = (TreeMap<Integer, List<SimulationData>>) statsData[2];
                 guiAgent.performStatsSave(commissionsCount, undeliveredCommissions, simulationData);
             } catch (UnreadableException e) {
-                logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
+                logger.error(this.guiAgent.getLocalName() + " - UnreadableException ", e);
             }
         } else {
             block();

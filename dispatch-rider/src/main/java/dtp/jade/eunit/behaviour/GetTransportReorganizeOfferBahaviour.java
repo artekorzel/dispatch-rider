@@ -58,7 +58,7 @@ public class GetTransportReorganizeOfferBahaviour extends CyclicBehaviour {
 
                 }
             } catch (UnreadableException e1) {
-                logger.error(this.agent.getLocalName() + " - UnreadableException " + e1.getMessage());
+                logger.error(this.agent.getLocalName() + " - UnreadableException ", e1);
             }
 
         } else {

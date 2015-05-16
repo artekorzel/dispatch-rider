@@ -28,7 +28,7 @@ public class SetGUISimulationParams extends CyclicBehaviour {
             try {
                 guiAgent.setGUISimulationParams((DRParams) msg.getContentObject());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

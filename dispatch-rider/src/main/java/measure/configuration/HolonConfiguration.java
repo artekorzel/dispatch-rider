@@ -46,7 +46,7 @@ public class HolonConfiguration implements Serializable {
         try {
             this.algorithm = AlgorithmType.valueOf(algorithmName).typeClass().newInstance();
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 

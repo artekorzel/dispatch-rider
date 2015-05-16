@@ -33,7 +33,7 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
                 time = (Integer) msg.getContentObject();
             } catch (UnreadableException e) {
                 logger.error(this.distributorAgent.getLocalName()
-                        + " - IOException " + e.getMessage());
+                        + " - IOException ", e);
             }
 
             logger.info(myAgent.getLocalName() + "\t- got time stamp [" + time + "]");

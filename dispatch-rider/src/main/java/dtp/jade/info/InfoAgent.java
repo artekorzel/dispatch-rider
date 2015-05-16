@@ -64,7 +64,7 @@ public class InfoAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException " + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
@@ -127,15 +127,11 @@ public class InfoAgent extends BaseAgent {
         AID[] aids = AgentsService.findAgentByServiceName(this, "TransportUnitService");
 
         logger.info("InfoAgent - sending agents data to agents");
-        for (AID aid : aids) {
-            send(aid, new TransportAgentsMessage(agents), MessageType.AGENTS_DATA_FOR_TRANSPORTUNITS);
-        }
+        send(aids, new TransportAgentsMessage(agents), MessageType.AGENTS_DATA_FOR_TRANSPORTUNITS);
 
         aids = AgentsService.findAgentByServiceName(this, "CommissionService");
 
         logger.info("InfoAgent - sending agents data to Distributor");
-        for (AID aid : aids) {
-            send(aid, new TransportAgentsMessage(agents), MessageType.AGENTS_DATA_FOR_TRANSPORTUNITS);
-        }
+        send(aids, new TransportAgentsMessage(agents), MessageType.AGENTS_DATA_FOR_TRANSPORTUNITS);
     }
 }

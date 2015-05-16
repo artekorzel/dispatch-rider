@@ -36,14 +36,14 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
             } catch (UnreadableException e) {
 
-                logger.error(this.crisisManagerAgent.getLocalName() + " - IOException " + e.getMessage());
+                logger.error(this.crisisManagerAgent.getLocalName() + " - IOException ", e);
             }
 
             logger.info(myAgent.getLocalName() + "\t- got time stamp [" + time + "]");
 
             crisisManagerAgent.nextSimstep(time);
 
-            AID[] aids = AgentsService.findAgentByServiceName(crisisManagerAgent, "GUIService");
+            AID[] aids = AgentsService.findAgentByServiceName(crisisManagerAgent, "SimulationService");
             crisisManagerAgent.send(aids[0], "", MessageType.TIME_STAMP_CONFIRM);
 
         } else {

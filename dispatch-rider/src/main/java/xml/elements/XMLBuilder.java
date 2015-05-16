@@ -152,7 +152,7 @@ public class XMLBuilder {
             xformer.transform(source, result);
 
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 

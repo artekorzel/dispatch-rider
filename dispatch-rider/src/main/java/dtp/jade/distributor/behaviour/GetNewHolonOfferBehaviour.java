@@ -47,7 +47,7 @@ public class GetNewHolonOfferBehaviour extends CyclicBehaviour {
                 distributorAgent.newHolonOffer(offer);
             } catch (UnreadableException e1) {
 
-                logger.error(this.distributorAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
+                logger.error(this.distributorAgent.getLocalName() + " - UnreadableException ", e1);
             }
 
         } else {

@@ -80,7 +80,7 @@ public class GetCrisisEventBehaviour extends CyclicBehaviour {
             } catch (UnreadableException e) {
 
                 logger.error(eUnitAgent.getLocalName()
-                        + " - UnreadableException " + e.getMessage());
+                        + " - UnreadableException ", e);
             }
 
         } else {

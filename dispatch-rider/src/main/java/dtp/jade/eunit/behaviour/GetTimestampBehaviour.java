@@ -1,9 +1,7 @@
 package dtp.jade.eunit.behaviour;
 
-import dtp.jade.AgentsService;
 import dtp.jade.MessageType;
 import dtp.jade.eunit.ExecutionUnitAgent;
-import jade.core.AID;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -38,20 +36,14 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
                 time = (Integer) msg.getContentObject();
                 eunitAgent.setCurrentTimestamp(time);
-                eunitAgent.nextSimStep();
-
             } catch (UnreadableException e) {
-
-                logger.error(this.eunitAgent.getLocalName() + " - IOException "
-                        + e.getMessage());
+                logger.error(this.eunitAgent.getLocalName() + " - IOException ", e);
             }
 
             logger.info(myAgent.getLocalName() + "\t- got time stamp ["
                     + time + "]");
 
-            AID[] aids = AgentsService.findAgentByServiceName(eunitAgent,
-                    "GUIService");
-            eunitAgent.send(aids[0], "", MessageType.TIME_STAMP_CONFIRM);
+            eunitAgent.send(msg.getSender(), "", MessageType.TIME_STAMP_CONFIRM);
         } else {
             block();
         }

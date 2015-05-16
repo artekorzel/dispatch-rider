@@ -48,7 +48,7 @@ public class TrailerCreationBehaviour extends CyclicBehaviour {
                 agent.addTransportAgentData(new TransportAgentData(initial, aid), TransportType.TRAILER);
                 agent.send(aid, initial, MessageType.TRANSPORT_INITIAL_DATA);
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
 
             agent.send(message.getSender(), "", MessageType.TRANSPORT_AGENT_CREATED);

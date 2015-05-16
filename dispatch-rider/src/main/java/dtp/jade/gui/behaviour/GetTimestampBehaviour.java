@@ -1,6 +1,7 @@
 package dtp.jade.gui.behaviour;
 
 import dtp.jade.MessageType;
+import dtp.jade.gui.GUIAgent;
 import gui.main.SingletonGUI;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -11,21 +12,24 @@ import org.apache.log4j.Logger;
 public class GetTimestampBehaviour extends CyclicBehaviour {
 
     private static final Logger logger = Logger.getLogger(GetTimestampBehaviour.class);
+    private GUIAgent agent;
 
-    public GetTimestampBehaviour() {
+    public GetTimestampBehaviour(GUIAgent agent) {
+        this.agent = agent;
     }
 
     @Override
     public void action() {
         MessageTemplate template = MessageTemplate
-                .MatchConversationId(MessageType.GUI_SIMULATION_PARAMS.name());
+                .MatchConversationId(MessageType.TIME_CHANGED.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
             try {
                 SingletonGUI.getInstance().newTimestamp((Integer) msg.getContentObject());
+                agent.send(msg.getSender(), "", MessageType.TIME_STAMP_CONFIRM);
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

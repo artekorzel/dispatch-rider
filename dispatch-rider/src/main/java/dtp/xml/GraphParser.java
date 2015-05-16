@@ -31,9 +31,9 @@ public class GraphParser {
             // parser.setProperty(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
             // parser.setProperty(JAXP_SCHEMA_SOURCE, new File(SCHEMA_SOURCE));
         } catch (SAXException e1) {
-            throw new ParseException("SAXException: " + e1.getMessage());
+            throw new ParseException("SAXException: ", e1);
         } catch (ParserConfigurationException e2) {
-            throw new ParseException("ParserConfigurationException: " + e2.getMessage());
+            throw new ParseException("ParserConfigurationException: ", e2);
         }
     }
 
@@ -83,10 +83,10 @@ public class GraphParser {
 
         } catch (IOException e1) {
 
-            throw new ParseException("IOException: " + e1.getMessage());
+            throw new ParseException("IOException: " + e1.getMessage(), e1);
         } catch (SAXException e2) {
 
-            throw new ParseException("SAXException: " + e2.getMessage());
+            throw new ParseException("SAXException: " + e2.getMessage(), e2);
         }
     }
 }

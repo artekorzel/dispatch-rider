@@ -31,7 +31,7 @@ public class GetAskForGraphChangesBehaviour extends CyclicBehaviour {
 
             } catch (UnreadableException e) {
                 logger.error(this.agent.getLocalName()
-                        + " - UnreadableException " + e.getMessage());
+                        + " - UnreadableException ", e);
             }
         } else {
             block();

@@ -20,14 +20,14 @@ public class GetTrailersCreationDataBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.CONFIGURATION.name());
+        MessageTemplate template = MessageTemplate.MatchConversationId(MessageType.TRAILERS_DATA.name());
         ACLMessage msg = myAgent.receive(template);
 
         if (msg != null) {
             try {
                 agent.nextTestCreateTrailers((TransportElementInitialDataTrailer[]) msg.getContentObject());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

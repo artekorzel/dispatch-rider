@@ -10,7 +10,7 @@ public class MLAlgorithmFactory {
         try {
             return MLAlgorithmType.valueOf(name).typeClass().newInstance();
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

@@ -38,7 +38,7 @@ public class BaseAgent extends Agent {
             message.setContentObject(object);
             send(message);
         } catch (IOException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 

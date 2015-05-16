@@ -84,7 +84,7 @@ public class CrisisManagerAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException " + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
@@ -184,11 +184,7 @@ public class CrisisManagerAgent extends BaseAgent {
     }
 
     private void sendGUIMessage(String messageText) {
-        AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
-        if (aids.length == 1) {
-            send(aids, getLocalName() + " - " + messageText, MessageType.GUI_MESSAGE);
-        } else {
-            logger.error(getLocalName() + " - none or more than one agent with GUIService in the system");
-        }
+        AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
+        send(aids, getLocalName() + " - " + messageText, MessageType.GUI_MESSAGE);
     }
 }

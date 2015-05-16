@@ -159,7 +159,7 @@ public class TxtFileReader {
             logger.info(new File(fileName).getAbsolutePath());
             in = new BufferedReader(new FileReader(fileName));
         } catch (FileNotFoundException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
             return null;
         }
 
@@ -168,7 +168,7 @@ public class TxtFileReader {
                 partsNo++;
             }
         } catch (IOException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
             return null;
         }
 
@@ -221,7 +221,7 @@ public class TxtFileReader {
                                         .setPunishmentFunParams(params);
                             }
                         } catch (Exception e) {
-                            logger.error(e);
+                            logger.error(e.getMessage(), e);
                             System.exit(0);
                         }
                     }
@@ -229,7 +229,7 @@ public class TxtFileReader {
                 counter++;
             }
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
             return null;
         }
 

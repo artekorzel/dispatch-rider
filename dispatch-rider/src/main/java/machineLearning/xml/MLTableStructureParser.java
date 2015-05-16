@@ -283,7 +283,7 @@ public class MLTableStructureParser {
             table.init("table.xml");
             MLTableToXMLWriter.writeToXML("proba.xml", table);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 }

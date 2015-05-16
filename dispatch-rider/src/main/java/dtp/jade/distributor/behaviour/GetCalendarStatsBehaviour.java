@@ -37,7 +37,7 @@ public class GetCalendarStatsBehaviour extends CyclicBehaviour {
 
             } catch (UnreadableException e) {
 
-                logger.error(this.agent.getLocalName() + " - UnreadableException " + e.getMessage());
+                logger.error(this.agent.getLocalName() + " - UnreadableException ", e);
             }
 
         } else {

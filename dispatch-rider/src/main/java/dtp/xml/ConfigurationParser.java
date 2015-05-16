@@ -395,7 +395,7 @@ public class ConfigurationParser {
             conf.setPunishmentFunction(fun);
             conf.setDefaultPunishmentFunValues(defaults);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
         return conf;
     }

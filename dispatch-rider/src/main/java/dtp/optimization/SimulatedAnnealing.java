@@ -81,7 +81,7 @@ public class SimulatedAnnealing implements TrackFinder {
                 i++;
             } while (i < imax);
         } catch (Exception ex) {
-            logger.error(ex);
+            logger.error(ex.getMessage(), ex);
         }
         return pi;
     }

@@ -91,8 +91,7 @@ public class Dijkstra implements TrackFinder {
 
             return result;
         } catch (Exception ex) {
-            logger.error("Dijkstra: ");
-            logger.error(ex);
+            logger.error(ex.getMessage(), ex);
             return null;
         }
     }

@@ -36,7 +36,7 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
                 executionUnitAgent.graphChanged((Graph) data[0],
                         (Boolean) data[1], msg.getSender());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
 
         } else {

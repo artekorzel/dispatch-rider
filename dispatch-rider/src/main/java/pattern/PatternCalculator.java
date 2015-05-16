@@ -67,7 +67,7 @@ public class PatternCalculator {
         try {
             new PatternCalculator().calculate("patterns.xls");
         } catch (IOException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 

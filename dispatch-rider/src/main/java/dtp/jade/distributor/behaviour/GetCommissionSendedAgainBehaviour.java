@@ -49,7 +49,7 @@ public class GetCommissionSendedAgainBehaviour extends CyclicBehaviour {
 
             } catch (UnreadableException e1) {
 
-                logger.error(this.distributorAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
+                logger.error(this.distributorAgent.getLocalName() + " - UnreadableException ", e1);
             }
 
             //for (int i = 0; i < commissions.length; i++)

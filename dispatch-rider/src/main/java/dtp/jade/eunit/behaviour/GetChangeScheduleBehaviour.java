@@ -29,7 +29,7 @@ public class GetChangeScheduleBehaviour extends CyclicBehaviour {
             try {
                 eunitAgent.changeSchedule((Schedule) msg.getContentObject(), msg.getSender());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

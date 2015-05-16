@@ -32,7 +32,7 @@ public class GetUndeliveredCommissionBehaviour extends CyclicBehaviour {
 
                 agent.send(msg.getSender(), "", MessageType.UNDELIVERED_COMMISSION);
             } catch (Exception e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

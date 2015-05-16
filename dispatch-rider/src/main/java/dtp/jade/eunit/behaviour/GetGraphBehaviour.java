@@ -40,7 +40,7 @@ public class GetGraphBehaviour extends CyclicBehaviour {
                 eunitAgent.setGraph(graph);
 
             } catch (UnreadableException e) {
-                logger.error(this.eunitAgent.getLocalName() + " - UnreadableException " + e.getMessage());
+                logger.error(this.eunitAgent.getLocalName() + " - UnreadableException ", e);
             }
 
         } else {

@@ -33,7 +33,7 @@ public class GetCrisisEventBehaviour extends CyclicBehaviour {
                 crisisEvent = (CrisisEvent) msg.getContentObject();
                 crisisManagerAgent.addCrisisEvent(crisisEvent);
             } catch (UnreadableException e) {
-                logger.error(crisisManagerAgent.getLocalName() + " - UnreadableException " + e.getMessage());
+                logger.error(crisisManagerAgent.getLocalName() + " - UnreadableException ", e);
             }
         } else {
             block();

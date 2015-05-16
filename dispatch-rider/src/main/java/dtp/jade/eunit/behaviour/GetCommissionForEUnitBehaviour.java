@@ -44,7 +44,7 @@ public class GetCommissionForEUnitBehaviour extends CyclicBehaviour {
                 AID[] aids = AgentsService.findAgentByServiceName(executionUnitAgent, "CommissionService");
                 executionUnitAgent.send(aids[0], "", MessageType.HOLON_FEEDBACK);
             } catch (UnreadableException e1) {
-                logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
+                logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException ", e1);
             }
 
         } else {

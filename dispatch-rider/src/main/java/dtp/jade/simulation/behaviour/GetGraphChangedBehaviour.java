@@ -28,7 +28,7 @@ public class GetGraphChangedBehaviour extends CyclicBehaviour {
             try {
                 agent.graphChanged((Boolean) msg.getContentObject());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

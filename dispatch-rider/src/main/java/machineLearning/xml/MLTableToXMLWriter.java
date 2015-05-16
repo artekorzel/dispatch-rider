@@ -194,7 +194,7 @@ public class MLTableToXMLWriter {
         try {
             MLTableToXMLWriter.writeToXML("proba.xml", null);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 }

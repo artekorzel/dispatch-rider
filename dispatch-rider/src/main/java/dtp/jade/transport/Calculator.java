@@ -35,7 +35,7 @@ public class Calculator {
         try {
             expr_c = Evaluator.compile(expr, lib);
         } catch (CompilationException ce) {
-            logger.error("--- COMPILATION ERROR :" + ce.getMessage() + "                       " + expr);
+            logger.error("--- COMPILATION ERROR :" + ce.getMessage() + "                       " + expr, ce);
             int column = ce.getColumn(); // Column, where error was found
             for (int i = 0; i < column + 23 - 1; i++)
                 logger.error(' ');

@@ -28,7 +28,7 @@ public class GetInitialDataBehaviour extends CyclicBehaviour {
                 EUnitInitialData initialData = (EUnitInitialData) msg.getContentObject();
                 eUnit.setInitialData(initialData);
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

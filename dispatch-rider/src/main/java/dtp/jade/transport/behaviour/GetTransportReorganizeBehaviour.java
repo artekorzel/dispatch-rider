@@ -32,7 +32,7 @@ public class GetTransportReorganizeBehaviour extends CyclicBehaviour {
                 transportCommision = (TransportCommission) message.getContentObject();
                 agent.checkReorganize(transportCommision);
             } catch (UnreadableException e) {
-                logger.error(agent.getLocalName() + " - UndeadableException - " + e.getMessage());
+                logger.error(agent.getLocalName() + " - UndeadableException - ", e);
             }
         } else {
             block();

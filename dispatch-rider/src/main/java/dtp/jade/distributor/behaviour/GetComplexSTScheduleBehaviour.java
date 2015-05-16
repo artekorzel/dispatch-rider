@@ -34,7 +34,7 @@ public class GetComplexSTScheduleBehaviour extends CyclicBehaviour {
                     agent.addComplexSTSchedule(schedule, msg.getSender());
                 }
             } catch (Exception e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

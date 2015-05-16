@@ -155,8 +155,7 @@ public class TestConfiguration implements Serializable {
             this.graphLinkPredictor = GraphLinkPredictorType.valueOf(predictor).typeClass().newInstance();
             this.graphLinkPredictor.setHistoryMaxSize(historySize);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new ParseException(e.getMessage());
+            throw new ParseException(e.getMessage(), e);
         }
     }
 
@@ -283,7 +282,7 @@ public class TestConfiguration implements Serializable {
         try {
             this.algorithm = AlgorithmType.valueOf(algorithmName).typeClass().newInstance();
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -339,7 +338,7 @@ public class TestConfiguration implements Serializable {
                 this.adapter = AdapterType.valueOf(adapterName).typeClass()
                         .getConstructor(String.class).newInstance(getCommissions());
             } catch (Exception e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         }
         return adapter;

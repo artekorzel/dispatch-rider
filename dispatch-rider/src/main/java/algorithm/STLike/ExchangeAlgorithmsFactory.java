@@ -19,8 +19,7 @@ public class ExchangeAlgorithmsFactory implements Serializable {
             alg.setParameters(params);
             return alg;
         } catch (Exception e) {
-            logger.error(e);
-            System.exit(1);
+            logger.error(e.getMessage(), e);
         }
         return null;
     }

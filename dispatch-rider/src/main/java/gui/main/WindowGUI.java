@@ -248,7 +248,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
                 }
             });
         } catch (InterruptedException | InvocationTargetException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -284,7 +284,7 @@ public class WindowGUI implements ChangeListener, ActionListener {
             mapPanel.add(mapHolder.getMap(), BorderLayout.CENTER);
             ((HolonStatsTableModel) holonStatsTable.getModel()).setSimInfo(info);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 

@@ -31,7 +31,7 @@ public class PrepareCalendarStatsToSaveInFileBehaviour extends CyclicBehaviour {
                 calendarStats = (CalendarStats) msg.getContentObject();
                 guiAgent.addCalendarStatsToFile(calendarStats);
             } catch (UnreadableException e) {
-                logger.error(this.guiAgent.getLocalName() + " - UnreadableException " + e.getMessage());
+                logger.error(this.guiAgent.getLocalName() + " - UnreadableException ", e);
             }
         } else {
             block();

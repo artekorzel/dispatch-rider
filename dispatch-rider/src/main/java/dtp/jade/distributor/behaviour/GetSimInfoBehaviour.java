@@ -32,7 +32,7 @@ public class GetSimInfoBehaviour extends CyclicBehaviour {
                 simConstrains = (SimInfo) msg.getContentObject();
                 agent.setSimInfo(simConstrains);
             } catch (UnreadableException e1) {
-                logger.error(e1);
+                logger.error(e1.getMessage(), e1);
             }
         } else {
             block();

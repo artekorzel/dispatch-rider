@@ -82,7 +82,6 @@ public class SimulationAgent extends BaseAgent {
         this.addBehaviour(new GetTransportAgentCreatedBehaviour(this));
         this.addBehaviour(new GetTransportAgentConfirmationBehaviour(this));
         this.addBehaviour(new SimInfoReceivedBehaviour(this));
-        this.addBehaviour(new GetSimInfoRequestBehaviour(this));
         this.addBehaviour(new GetMessageBehaviour(this));
         this.addBehaviour(new GetConfirmOfTimeStampBehaviour(this));
         this.addBehaviour(new GetUndeliveredCommissionBehaviour(this));
@@ -90,6 +89,7 @@ public class SimulationAgent extends BaseAgent {
         this.addBehaviour(new GetAskForGraphChangesBehaviour(this));
         this.addBehaviour(new GetGraphLinkChangedBehaviour(this));
         this.addBehaviour(new SendStatsDataBehaviour(this));
+        this.addBehaviour(new GetSimulationDataBehaviour(this));
 
         logger.info("SimulationAgent - end of initialization");
     }
@@ -110,12 +110,12 @@ public class SimulationAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException "
-                    + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
     public void nextTest(TestConfiguration configuration) {
+        logger.info("Got configuration, starting simulation");
         this.configuration = configuration;
         GraphChangesConfiguration graphConfChanges = configuration
                 .getGraphChangesConf();
@@ -128,6 +128,7 @@ public class SimulationAgent extends BaseAgent {
     }
 
     public void nextTestCreateDrivers(TransportElementInitialData[] initialData) {
+        logger.info("Creating Drivers");
         simLogic = new SimLogic(this);
 
         commissionsHandler = new CommissionsHandler();
@@ -138,24 +139,29 @@ public class SimulationAgent extends BaseAgent {
         for (TransportElementInitialData data : initialData) {
             createNewTransportElement(data, TransportType.DRIVER);
         }
+        logger.info("Drivers creation request sent");
     }
 
     public void nextTestCreateTrailers(TransportElementInitialDataTrailer[] initialData) {
+        logger.info("Creating Trailers");
         transportAgentsCreated = 0;
         agentsCount = initialData.length;
         level = 2;
         for (TransportElementInitialDataTrailer data : initialData) {
             createNewTransportElement(data, TransportType.TRAILER);
         }
+        logger.info("Trailers creation request sent");
     }
 
     public void nextTestCreateTrucks(TransportElementInitialDataTruck[] initialData) {
+        logger.info("Creating Trucks");
         transportAgentsCreated = 0;
         agentsCount = initialData.length;
         level = 3;
         for (TransportElementInitialDataTruck data : initialData) {
-            createNewTransportElement(data, TransportType.TRAILER);
+            createNewTransportElement(data, TransportType.TRUCK);
         }
+        logger.info("Trucks creation request sent");
     }
 
     private void createNewTransportElement(TransportElementInitialData data,
@@ -231,7 +237,7 @@ public class SimulationAgent extends BaseAgent {
                     simLogic.getCommissionsLogic().addCommissionHandler(com);
                 }
             } catch (Exception e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         }
 
@@ -259,25 +265,6 @@ public class SimulationAgent extends BaseAgent {
         } else {
             simLogic.setSimInfo(adapter.getSimInfo());
         }
-    }
-
-    public void sendSimInfo(AID aid) {
-        SimInfo info = simLogic.getSimInfo();
-        info.setPunishmentFunction(configuration.getPunishmentFunction());
-        info.setDefaultPunishmentFunValues(configuration.getDefaultPunishmentFunValues());
-        info.setDelayLimit(configuration.getDelayLimit());
-        info.setHolons(configuration.getHolons());
-        info.setFirstComplexSTResultOnly(configuration.isFirstComplexSTResultOnly());
-        info.setMlAlgorithm(configuration.getMlAlgorithm());
-        info.setExploration(configuration.isExploration());
-        info.setTrackFinder(configuration.getTrackFinder(), configuration.getGraphLinkPredictor());
-        info.setSTAfterGraphChange(configuration.isSTAfterGraphChange());
-        info.setExchangeAlgFactory(configuration.getExchangeAlgFactory());
-        info.setBrute2Sorter(configuration.getBrute2Sorter());
-
-        logger.info(getLocalName() + " - sending SimInfo to "
-                + aid.getLocalName());
-        send(aid, info, MessageType.SIM_INFO);
     }
 
     public void sendSimInfoToAll(SimInfo simInfo) {
@@ -317,7 +304,7 @@ public class SimulationAgent extends BaseAgent {
         }
 
         AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
-        send(aids, simLogic.getSimInfo(), MessageType.GUI_SIMULATION_PARAMS);
+        send(aids, simLogic.getSimInfo(), MessageType.SIM_INFO);
 
         logger.info("Starting test: " + configuration.getResults());
         simLogic.autoSimulation();
@@ -330,7 +317,7 @@ public class SimulationAgent extends BaseAgent {
 
     public void saveStatsToFile(long simTime) {
         AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
-        send(aids, Long.toString(simTime), MessageType.SIM_TIME);
+        sendString(aids, Long.toString(simTime), MessageType.SIM_TIME);
 
         aids = AgentsService.findAgentByServiceName(this, "ExecutionUnitService");
 
@@ -470,7 +457,7 @@ public class SimulationAgent extends BaseAgent {
         /* -------- EUNITS SECTION ------- */
         aids = AgentsService.findAgentByServiceName(this, "ExecutionUnitService");
 
-        stamps = aids.length + 2;
+        stamps = aids.length + 3;
         if (aids.length > 0) {
             send(aids, time, MessageType.TIME_CHANGED);
         } else {

@@ -46,7 +46,7 @@ public class GetCommisionBehaviour extends CyclicBehaviour {
                     agent.setCommission(commissions[0]);
                 else agent.setCommissions(commissions);
             } catch (UnreadableException e) {
-                logger.error(agent.getLocalName() + " - UndeadableException - " + e.getMessage());
+                logger.error(agent.getLocalName() + " - UndeadableException - ", e);
             }
         } else {
             block();

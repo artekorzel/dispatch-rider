@@ -39,7 +39,7 @@ public class GetTeamResponseBehaviour extends CyclicBehaviour {
                         break;
                 }
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

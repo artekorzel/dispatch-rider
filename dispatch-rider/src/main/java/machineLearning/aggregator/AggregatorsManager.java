@@ -20,7 +20,7 @@ public class AggregatorsManager implements Serializable {
                 aggregators.add(aggregatorType.typeClass().newInstance());
             }
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 

@@ -33,7 +33,6 @@ import measure.configuration.HolonConfiguration;
 import measure.printer.MeasureData;
 import org.apache.log4j.Logger;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -140,7 +139,6 @@ public class DistributorAgent extends BaseAgent {
         addBehaviour(new GetCommissionBehaviour(this));
         addBehaviour(new GetOfferBehaviour(this));
         addBehaviour(new GetResetRequestBehaviour(this));
-        addBehaviour(new GetNooneRequestBehaviour(this));
         addBehaviour(new SimEndBehaviour(this));
         addBehaviour(new GetTransportUnitPrepareForNegotiationBehaviour(this));
         addBehaviour(new GetNewHolonOfferBehaviour(this));
@@ -208,8 +206,7 @@ public class DistributorAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException "
-                    + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
@@ -217,12 +214,10 @@ public class DistributorAgent extends BaseAgent {
         this.simInfo = simInfo;
         this.calculatorsHolder = simInfo.getCalculatorsHolder();
 
-        AID[] aids = AgentsService.findAgentByServiceName(this,
-                "SimulationService");
-
         if (calculatorsHolder != null) {
             shouldSendVisualisationMeasureData = true;
             List<String> visualizationMeasuresNames = calculatorsHolder.getVisualizationMeasuresNames();
+            AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
             send(aids, visualizationMeasuresNames.<String>toArray(new String[visualizationMeasuresNames.size()]),
                     MessageType.VISUALISATION_MEASURE_NAMES);
         }
@@ -233,7 +228,9 @@ public class DistributorAgent extends BaseAgent {
         if (mlAlgorithm != null)
             this.mlAlgorithm.setSimInfo(simInfo);
 
-        send(aids[0], "", MessageType.SIM_INFO_RECEIVED);
+
+        AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
+        send(aids, "", MessageType.SIM_INFO_RECEIVED);
     }
 
     public synchronized void setAgentsData(
@@ -241,7 +238,7 @@ public class DistributorAgent extends BaseAgent {
         this.agents = agents;
 
         AID[] aids = AgentsService.findAgentByServiceName(this,
-                "GUIService");
+                "SimulationService");
 
         send(aids, "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
     }
@@ -552,36 +549,8 @@ public class DistributorAgent extends BaseAgent {
                 && timestamp >= nextMeasureTimestamp)
             nextMeasureTimestamp += calculatorsHolder.getTimeGap();
 
-        AID[] aids = AgentsService.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-            send(aids[0], getLocalName() + " - " + messageText,
-                    MessageType.GUI_MESSAGE);
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
-    }
-
-    public synchronized void sendNooneList() {
-
-        AID[] aids;
-        // ACLMessage cfp = null;
-
-        aids = AgentsService.findAgentByServiceName(this, "GUIService");
-
-        if (aids.length == 1) {
-            Serializable content;
-            if (nooneList == null) {
-                content = 0;
-            } else {
-                content = nooneList.size();
-            }
-            send(aids[0], content, MessageType.NOONE_LIST);
-        } else {
-            logger.error(getLocalName()
-                    + " - none or more than one agent with GUIService in the system");
-        }
+        AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
+        send(aids, getLocalName() + " - " + messageText, MessageType.GUI_MESSAGE);
     }
 
     // zwraca POSORTOWANE identyfikatory AID EUnitow
@@ -1140,9 +1109,9 @@ public class DistributorAgent extends BaseAgent {
                         else {
                             if (graphChanged) {
                                 graphChanged = false;
-                                AID sender = AgentsService
+                                AID[] sender = AgentsService
                                         .findAgentByServiceName(this,
-                                                "GUIService")[0];
+                                                "SimulationService");
                                 this.send(sender, false, MessageType.GRAPH_CHANGED);
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");
@@ -1161,9 +1130,9 @@ public class DistributorAgent extends BaseAgent {
                         else {
                             if (graphChanged) {
                                 graphChanged = false;
-                                AID sender = AgentsService
+                                AID[] sender = AgentsService
                                         .findAgentByServiceName(this,
-                                                "GUIService")[0];
+                                                "SimulationService");
                                 this.send(sender, false, MessageType.GRAPH_CHANGED);
                             } else
                                 sendGUIMessage("NEXT_SIMSTEP");

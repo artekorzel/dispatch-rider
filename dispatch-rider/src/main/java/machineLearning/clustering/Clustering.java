@@ -462,7 +462,7 @@ public class Clustering extends MLAlgorithm {
             }
 
         } catch (ParseException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
             System.exit(0);
         }
 

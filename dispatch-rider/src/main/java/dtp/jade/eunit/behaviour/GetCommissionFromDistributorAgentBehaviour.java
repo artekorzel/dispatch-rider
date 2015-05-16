@@ -39,7 +39,7 @@ public class GetCommissionFromDistributorAgentBehaviour extends CyclicBehaviour 
 
 
             } catch (UnreadableException e1) {
-                logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
+                logger.error(this.executionUnitAgent.getLocalName() + " - UnreadableException ", e1);
             }
 
         } else {

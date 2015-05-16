@@ -27,7 +27,7 @@ public class GetVisualisationMeasureNamesBehaviour extends CyclicBehaviour {
             try {
                 guiAgent.setVisualisationMeasures((String[]) msg.getContentObject());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

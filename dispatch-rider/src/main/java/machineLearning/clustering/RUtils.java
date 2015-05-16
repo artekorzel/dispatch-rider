@@ -427,8 +427,7 @@ public class RUtils {
                 String s = br.readLine();
                 return (s == null || s.length() == 0) ? s : s + "\n";
             } catch (Exception e) {
-                logger.info("jriReadConsole exception: "
-                        + e.getMessage());
+                logger.info("jriReadConsole exception: ", e);
             }
             return null;
         }

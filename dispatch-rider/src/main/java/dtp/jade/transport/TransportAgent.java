@@ -996,8 +996,7 @@ public abstract class TransportAgent extends BaseAgent {
         addBehaviour(new GetInitialDataBehaviour(this));
         addBehaviour(new GetResetRequestBehaviour(this));
         addBehaviour(new GetTransportReorganizeBehaviour(this));
-        addBehaviour(new dtp.jade.transport.behaviour.EndOfSimulationBehaviour(
-                this));
+        addBehaviour(new EndOfSimulationBehaviour(this));
         addBehaviour(new GetAgentsDataBehaviour(this));
         addBehaviour(new GetCommisionBehaviour(this));
         addBehaviour(new GetTeamOfferBehaviour(this));
@@ -1031,8 +1030,7 @@ public abstract class TransportAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException "
-                    + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
 
     }

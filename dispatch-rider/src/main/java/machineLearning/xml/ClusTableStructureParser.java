@@ -415,7 +415,7 @@ public class ClusTableStructureParser {
                     .getObservationsAsList().get(0).getMeasure());
             ClusTableToXMLWriter.writeToXML("proba.xml", table);
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 }

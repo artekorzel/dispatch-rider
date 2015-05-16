@@ -32,7 +32,7 @@ public class GetMLTableBehaviour extends CyclicBehaviour {
                 guiAgent.saveMLAlgorithm((MLAlgorithm) msg.getContentObject());
             } catch (UnreadableException e) {
                 logger.error(this.guiAgent.getLocalName()
-                        + " - UnreadableException " + e.getMessage());
+                        + " - UnreadableException ", e);
             }
         } else {
             block();

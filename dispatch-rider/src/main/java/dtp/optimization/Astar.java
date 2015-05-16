@@ -109,8 +109,7 @@ public class Astar implements TrackFinder {
             }
 
         } catch (Exception ex) {
-            logger.error("Astar: ");
-            logger.error(ex);
+            logger.error("Astar: " + ex.getMessage(), ex);
             return null;
         }
         return new GraphTrack(); // impossible

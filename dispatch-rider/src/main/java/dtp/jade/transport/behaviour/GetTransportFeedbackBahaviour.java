@@ -34,7 +34,7 @@ public class GetTransportFeedbackBahaviour extends CyclicBehaviour {
                     agent.setBooked(false);
                 }
             } catch (UnreadableException e) {
-                logger.error(agent.getLocalName() + " - UnreadableException - " + e.getMessage());
+                logger.error(agent.getLocalName() + " - UnreadableException - ", e);
             }
         } else {
             block();

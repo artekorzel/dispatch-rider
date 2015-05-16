@@ -29,7 +29,7 @@ public class GetWorstCommissionRequestBehaviour extends CyclicBehaviour {
             try {
                 eunitAgent.sendWorstCommissionCost((Commission) msg.getContentObject(), msg.getSender());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             block();

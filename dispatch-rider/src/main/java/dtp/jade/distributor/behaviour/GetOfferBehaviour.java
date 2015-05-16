@@ -58,7 +58,7 @@ public class GetOfferBehaviour extends CyclicBehaviour {
 
             } catch (UnreadableException e1) {
 
-                logger.error(this.distributorAgent.getLocalName() + " - UnreadableException " + e1.getMessage());
+                logger.error(this.distributorAgent.getLocalName() + " - UnreadableException ", e1);
             }
 
         } else {

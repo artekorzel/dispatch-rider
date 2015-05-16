@@ -39,7 +39,7 @@ public class GetGraphLinkChangedBehaviour extends CyclicBehaviour {
                         (LinkedList<GraphLink>) msg.getContentObject(),
                         msg.getSender());
             } catch (UnreadableException e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
 
         } else {

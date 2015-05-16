@@ -46,7 +46,7 @@ public class VMAgent extends BaseAgent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException fe) {
-            logger.error(this.getLocalName() + " - FIPAException " + fe.getMessage());
+            logger.error(this.getLocalName() + " - FIPAException ", fe);
         }
     }
 
@@ -55,7 +55,7 @@ public class VMAgent extends BaseAgent {
             getContainerController().createNewAgent(agentName, agentClass.getName(), null).start();
             logger.info(getName() + " - " + agentName + " created");
         } catch (StaleProxyException e) {
-            logger.error(e);
+            logger.error(e.getMessage(), e);
         }
     }
 }

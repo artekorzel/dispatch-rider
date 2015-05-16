@@ -74,7 +74,7 @@ public class GraphTrack implements Serializable {
                 }
             }
         } catch (Exception ex) {
-            logger.error(ex);
+            logger.error(ex.getMessage(), ex);
         }
     }
 
@@ -139,7 +139,7 @@ public class GraphTrack implements Serializable {
                         cost = Double.MAX_VALUE;
                 }
             } catch (Exception ex) {
-                logger.error(ex);
+                logger.error(ex.getMessage(), ex);
             }
 
             return cost;
@@ -174,7 +174,7 @@ public class GraphTrack implements Serializable {
                         dist = Double.MAX_VALUE;
                 }
             } catch (Exception ex) {
-                logger.error(ex);
+                logger.error(ex.getMessage(), ex);
             }
 
             return dist;
@@ -301,7 +301,7 @@ public class GraphTrack implements Serializable {
                 str.append("\n");
 
             } catch (Exception ex) {
-                logger.error(ex);
+                logger.error(ex.getMessage(), ex);
             }
         }
 
