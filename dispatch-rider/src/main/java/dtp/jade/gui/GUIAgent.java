@@ -152,6 +152,7 @@ public class GUIAgent extends BaseAgent {
         configuration.setDepot(TxtFileReader.getDepot(filename));
         configuration.setDeadline(TxtFileReader.getDeadline(filename));
         configuration.setMaxLoad(TxtFileReader.getTruckCapacity(filename));
+        configuration.getAdapter();
     }
 
     private void registerServices() {

@@ -8,7 +8,7 @@ CLOUD_CONF=./cloud.conf
 JAR_FILE=./build/libs/dispatch-rider-1.0.0-standalone.jar
 LIB_DIR=./lib/
 
-nohup java -jar ${JAR_FILE} -Xmx2048m -Djava.library.path=${LIB_DIR} -gui "GUIAgent:dtp.jade.gui.GUIAgent" > out.log &
+nohup java -Xmx2048m -Djava.library.path=${LIB_DIR} -jar ${JAR_FILE} -gui "GUIAgent:dtp.jade.gui.GUIAgent" > out.log &
 
 while read LINE;
 do

@@ -87,16 +87,16 @@
             <state name="S1">
                 <action name="A2" useCount="29" value="189.7852732236696"/>
                 <action name="A1" useCount="17" value="188.6743812217877"/>
-                <action name="A4" useCount="18" value="179.29856660423343"/>
+                <action name="A4" useCount="20" value="186.37801211858192"/>
                 <action name="A3" useCount="28" value="186.8288376354993"/>
-                <action name="A6" useCount="24" value="183.73127635807583"/>
-                <action name="A5" useCount="42" value="178.90046168296743"/>
+                <action name="A6" useCount="25" value="184.54744569239188"/>
+                <action name="A5" useCount="44" value="189.7852732236696"/>
                 <action name="A8" useCount="33" value="190.0458455937748"/>
                 <action name="A7" useCount="40" value="182.4542642696734"/>
-                <action name="A11" useCount="22" value="182.2402553055054"/>
+                <action name="A11" useCount="27" value="179.65606628215704"/>
                 <action name="A9" useCount="38" value="184.55602957022455"/>
-                <action name="A10" useCount="24" value="182.49695842328745"/>
-                <action name="A12" useCount="43" value="181.3651583198931"/>
+                <action name="A10" useCount="38" value="181.80250977575318"/>
+                <action name="A12" useCount="47" value="179.78035589526723"/>
             </state>
         </globalTableContent>
         <holonTableContent>
@@ -107,10 +107,10 @@
                 <action name="A3" useCount="178" value="29.99999999999999"/>
             </state>
             <state name="S1">
-                <action name="A2" useCount="159" value="29.99999999999999"/>
-                <action name="A1" useCount="133" value="29.999999967740838"/>
-                <action name="A4" useCount="165" value="29.99999999999999"/>
-                <action name="A3" useCount="123" value="29.999999989876738"/>
+                <action name="A2" useCount="177" value="29.99999999999999"/>
+                <action name="A1" useCount="140" value="29.999999967740838"/>
+                <action name="A4" useCount="182" value="29.99999999999999"/>
+                <action name="A3" useCount="127" value="29.999999989876738"/>
             </state>
         </holonTableContent>
     </content>

@@ -18,4 +18,4 @@ export R_HOME=/usr/lib/R
 
 cd ${VM_DIR}
 
-nohup java -jar ${JAR_FILE} -Xmx2048m -Djava.library.path=${LIB_DIR} -container -host ${HOST} -port ${PORT} -agents ${AGENTS} > out.log &
+nohup java -Xmx2048m -Djava.library.path=${LIB_DIR} -jar ${JAR_FILE} -container -host ${HOST} -port ${PORT} -agents ${AGENTS} > out.log &
