@@ -1,4 +1,4 @@
 #!/bin/bash
 
 gcloud auth login
-gcloud config set project agh-pdptw-fbao
+gcloud config set project sacred-reactor-95120

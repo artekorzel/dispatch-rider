@@ -1,5 +1,21 @@
 #!/bin/bash
 
-LOCAL_HOST=`ifconfig | grep inet | awk '{print $2}' | cut -d ':' -f 2 | grep ^10`
+VM_NAME=$1
+VM_DIR=$2
+AGENTS=$3
 
-R_HOME=/usr/lib/R java -jar ./build/libs/dispatch-rider-1.0.0-standalone.jar -Xmx2048m -Djava.library.path=./lib/ -container -host arto.no-ip.info -port 1099 -agents VMAgent_${LOCAL_HOST}:dtp.jade.vm.VMAgent
+echo $VM_NAME
+echo $VM_DIR
+echo $AGENTS
+
+HOST=arto.no-ip.info
+PORT=1099
+
+JAR_FILE=./dispatch-rider-1.0.0-standalone.jar
+LIB_DIR=./lib/
+
+export R_HOME=/usr/lib/R
+
+cd ${VM_DIR}
+
+nohup java -jar ${JAR_FILE} -Xmx2048m -Djava.library.path=${LIB_DIR} -container -host ${HOST} -port ${PORT} -agents ${AGENTS} > out.log &

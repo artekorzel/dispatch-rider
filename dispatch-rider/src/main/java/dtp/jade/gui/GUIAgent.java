@@ -113,6 +113,7 @@ public class GUIAgent extends BaseAgent {
             throw new RuntimeException("Error while parsing configuration file", cause);
         }
 
+        logger.info("Starting tests: " + System.nanoTime());
         nextTest();
     }
 
@@ -461,7 +462,7 @@ public class GUIAgent extends BaseAgent {
     }
 
     public void simEnd() {
-        logger.info("Test end");
+        logger.info("Test end: " + System.nanoTime());
         nextTest();
     }
 

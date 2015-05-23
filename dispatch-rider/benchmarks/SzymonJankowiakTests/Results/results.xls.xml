@@ -15,7 +15,7 @@
             </holon>
         </holons>
     </simTime>
-    <simTime time="35">
+    <simTime time="36">
         <holons>
             <holon creationTime="0" id="0" locationX="60.0" locationY="12.0">
                 <parts connector="1">
