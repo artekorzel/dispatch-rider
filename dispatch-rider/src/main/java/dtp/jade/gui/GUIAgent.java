@@ -2,6 +2,8 @@ package dtp.jade.gui;
 
 import algorithm.Schedule;
 import com.jgoodies.looks.plastic.Plastic3DLookAndFeel;
+import dtp.commission.Commission;
+import dtp.commission.TxtFileReader;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.MessageType;
@@ -123,6 +125,7 @@ public class GUIAgent extends BaseAgent {
             return;
         } else {
             configuration = configurationIterator.next();
+            setAdditionalConfigurationData();
             saveFileName = configuration.getResults();
             mlTableFileName = configuration.getMlTableFileName();
 
@@ -134,6 +137,21 @@ public class GUIAgent extends BaseAgent {
         AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
         send(aids, configuration, MessageType.CONFIGURATION);
         logger.info("Waiting for agents creation...");
+    }
+
+    private void setAdditionalConfigurationData() {
+        String filename = configuration.getCommissionsFile().trim();
+        Commission[] commissions = TxtFileReader.getCommissions(filename);
+        configuration.setCommissions(commissions);
+
+        if (configuration.isDynamic()) {
+            int[] incomeTime = TxtFileReader.getIncomeTimes(filename + ".income_times", commissions.length);
+            configuration.setIncomeTime(incomeTime);
+        }
+
+        configuration.setDepot(TxtFileReader.getDepot(filename));
+        configuration.setDeadline(TxtFileReader.getDeadline(filename));
+        configuration.setMaxLoad(TxtFileReader.getTruckCapacity(filename));
     }
 
     private void registerServices() {

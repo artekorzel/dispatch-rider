@@ -16,5 +16,5 @@ do
 	export VM_DIR=`echo $LINE | cut -d ${DELIMITER} -f 2`
 	export AGENTS=`echo $LINE | cut -d ${DELIMITER} -f 3`
 
-	ssh ${VM_NAME} 'bash -s' -- < ./run_slave.sh $VM_NAME $VM_DIR $AGENTS
+	ssh ${VM_NAME} 'bash -s' -- < ./run-slave.sh $VM_NAME $VM_DIR $AGENTS
 done < ${CLOUD_CONF}

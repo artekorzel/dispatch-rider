@@ -2,7 +2,7 @@ package dtp.logic;
 
 import dtp.commission.Commission;
 import dtp.commission.CommissionHandler;
-import dtp.commission.TxtFileReader;
+import dtp.jade.gui.TestConfiguration;
 import dtp.jade.simulation.SimulationAgent;
 import dtp.simulation.SimInfo;
 
@@ -31,15 +31,12 @@ public class CommissionsLogic {
         setSimConstraints(depotX, depotY, deadline, maxLoad);
     }
 
-    public void addCommissionGroup(String filename, boolean dynamic) {
-        Commission[] commissions = TxtFileReader.getCommissions(filename.trim());
+    public void addCommissionGroup(TestConfiguration configuration) {
 
-        int incomeTime[] = new int[commissions.length];
-        if (dynamic) {
-            incomeTime = TxtFileReader.getIncomeTimes(filename + ".income_times", commissions.length);
-            if (incomeTime == null) {
-                return;
-            }
+        Commission[] commissions = configuration.getCommissions();
+        int[] incomeTime = configuration.getIncomeTime();
+        if(incomeTime == null) {
+             return;
         }
 
         for (int i = 0; i < commissions.length; i++) {
@@ -49,11 +46,11 @@ public class CommissionsLogic {
         simLogic.refreshComsWaiting();
 
         // set sim constraints read from .txt file
-        Point2D.Double depot = TxtFileReader.getDepot(filename);
+        Point2D.Double depot = configuration.getDepot();
         depotX = depot.getX();
         depotY = depot.getY();
-        deadline = TxtFileReader.getDeadline(filename);
-        maxLoad = TxtFileReader.getTruckCapacity(filename);
+        deadline = configuration.getDeadline();
+        maxLoad = configuration.getMaxLoad();
     }
 
     public void addCommissionHandler(CommissionHandler commissionHandler) {

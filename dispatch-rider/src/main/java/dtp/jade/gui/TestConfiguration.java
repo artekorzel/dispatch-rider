@@ -6,6 +6,7 @@ import algorithm.Algorithm;
 import algorithm.AlgorithmType;
 import algorithm.Brute2Sorter;
 import algorithm.STLike.ExchangeAlgorithmsFactory;
+import dtp.commission.Commission;
 import dtp.graph.Graph;
 import dtp.graph.GraphChangesConfiguration;
 import dtp.graph.predictor.GraphLinkPredictor;
@@ -19,6 +20,7 @@ import measure.MeasureCalculatorsHolder;
 import measure.printer.PrintersHolder;
 import org.apache.log4j.Logger;
 
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ public class TestConfiguration implements Serializable {
     private static Logger logger = Logger.getLogger(TestConfiguration.class);
     private String adapterName;
     private Adapter adapter;
-    private String commissions;
+    private String commissionsFile;
     private String configurationDirectory;
     private String results;
     private List<CrisisEvent> events;
@@ -63,6 +65,11 @@ public class TestConfiguration implements Serializable {
     private String graphChangeTime;
     private int graphChangeFreq;
     private Brute2Sorter bruteForceAlgorithm2Sorter;
+    private Commission[] commissions;
+    private int[] incomeTime;
+    private Point2D.Double depot;
+    private int deadline;
+    private int maxLoad;
 
     public Brute2Sorter getBrute2Sorter() {
         return bruteForceAlgorithm2Sorter;
@@ -333,10 +340,10 @@ public class TestConfiguration implements Serializable {
     public Adapter getAdapter() {
         if ("false".equals(adapterName) || "true".equals(adapterName))
             this.adapter = null;
-        else {
+        else if (this.adapter == null) {
             try {
                 this.adapter = AdapterType.valueOf(adapterName).typeClass()
-                        .getConstructor(String.class).newInstance(getCommissions());
+                        .getConstructor(String.class).newInstance(getCommissionsFile());
             } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             }
@@ -344,16 +351,16 @@ public class TestConfiguration implements Serializable {
         return adapter;
     }
 
-    public void setAdapter(String adapter) {
+    public void setAdapterName(String adapter) {
         adapterName = adapter;
     }
 
-    public String getCommissions() {
-        return commissions;
+    public String getCommissionsFile() {
+        return commissionsFile;
     }
 
-    public void setCommissions(String commissions) {
-        this.commissions = commissions;
+    public void setCommissionsFile(String commissionsFile) {
+        this.commissionsFile = commissionsFile;
     }
 
     public String getConfigurationDirectory() {
@@ -394,5 +401,45 @@ public class TestConfiguration implements Serializable {
 
     public void setPrintersHolder(PrintersHolder printersHolder) {
         this.printersHolder = printersHolder;
+    }
+
+    public Commission[] getCommissions() {
+        return commissions;
+    }
+
+    public void setCommissions(Commission[] commissions) {
+        this.commissions = commissions;
+    }
+
+    public int[] getIncomeTime() {
+        return incomeTime;
+    }
+
+    public void setIncomeTime(int[] incomeTime) {
+        this.incomeTime = incomeTime;
+    }
+
+    public Point2D.Double getDepot() {
+        return depot;
+    }
+
+    public void setDepot(Point2D.Double depot) {
+        this.depot = depot;
+    }
+
+    public int getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(int deadline) {
+        this.deadline = deadline;
+    }
+
+    public int getMaxLoad() {
+        return maxLoad;
+    }
+
+    public void setMaxLoad(int maxLoad) {
+        this.maxLoad = maxLoad;
     }
 }

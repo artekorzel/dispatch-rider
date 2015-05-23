@@ -229,8 +229,9 @@ public class SimulationAgent extends BaseAgent {
         logger.info("End of initialization");
         Adapter adapter = configuration.getAdapter();
         if (adapter == null) {
-            simLogic.getCommissionsLogic().addCommissionGroup(
-                    configuration.getCommissions(), configuration.isDynamic());
+            simLogic.getCommissionsLogic().addCommissionGroup(configuration);
+
+
         } else {
             try {
                 for (CommissionHandler com : adapter.readCommissions()) {
@@ -243,7 +244,7 @@ public class SimulationAgent extends BaseAgent {
 
         if (configuration.isAutoConfigure()) {
             Map<String, Object> conf = new ConfigurationChooser()
-                    .getConfiguration(configuration.getCommissions());
+                    .getConfiguration(configuration);
             setSTDepth((Integer) conf.get("STDepth"));
             setAlgorithm((Algorithm) conf.get("algorithm"));
             boolean time = (Boolean) conf.get("chooseWorstCommissionByGlobalTime");

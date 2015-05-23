@@ -1,5 +1,6 @@
 package pattern;
 
+import dtp.jade.gui.TestConfiguration;
 import org.apache.log4j.Logger;
 
 import java.util.Map;
@@ -10,11 +11,6 @@ public class ConfigurationChooser {
 
     private PatternCalculator patternCalculator;
 
-    public static void main(String args[]) {
-        ConfigurationChooser chooser = new ConfigurationChooser();
-        logger.error(chooser.getConfiguration("benchmarks\\pdp_100\\lrc108.txt"));
-    }
-
     private int getProblemSize() {
         double result = patternCalculator.getCommissions().size() * 2;
         int size = Integer.toString((int) result).length();
@@ -23,8 +19,8 @@ public class ConfigurationChooser {
         return (int) result;
     }
 
-    public Map<String, Object> getConfiguration(String file) {
-        patternCalculator = new PatternCalculator(file);
+    public Map<String, Object> getConfiguration(TestConfiguration conf) {
+        patternCalculator = new PatternCalculator(conf);
         Map<String, Object> result = null;
         switch (getProblemSize()) {
             case 100:

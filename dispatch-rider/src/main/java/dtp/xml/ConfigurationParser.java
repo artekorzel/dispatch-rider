@@ -130,7 +130,7 @@ public class ConfigurationParser {
 
         configuration.setBrute2Sorter(commissions
                 .getAttribute("BruteForceAlgorithm2Sorter"));
-        configuration.setCommissions(commissions.getTextContent().trim());
+        configuration.setCommissionsFile(commissions.getTextContent().trim());
         configuration.setConfChange(stringToBoolean(commissions
                 .getAttribute("confChange")));
         configuration.setAutoConfigure(stringToBoolean(commissions
@@ -141,7 +141,7 @@ public class ConfigurationParser {
                 .getAttribute("STTimeGap")));
         configuration.setSTCommissionGap(Integer.parseInt(commissions
                 .getAttribute("STCommissionGap")));
-        configuration.setAdapter(commissions.getAttribute("dynamic"));
+        configuration.setAdapterName(commissions.getAttribute("dynamic"));
         configuration
                 .setDist(stringToBoolean(commissions.getAttribute("dist")));
         // only to maintain compatibility with older configurations
