@@ -455,17 +455,21 @@ public class Clustering extends MLAlgorithm {
             ClusTableStructureParser.parse(fileName, this);
             log.info("Init cluse table, useTrees: " + this.isUseTrees());
 
-            if (this.isUseTrees()) {
-                initTrees();
-            } else {
-                initCentres();
-            }
+            initR();
 
         } catch (ParseException e) {
             log.error(e.getMessage(), e);
             System.exit(0);
         }
 
+    }
+
+    public void initR() {
+        if (this.isUseTrees()) {
+            initTrees();
+        } else {
+            initCentres();
+        }
     }
 
     private void initCentres() {

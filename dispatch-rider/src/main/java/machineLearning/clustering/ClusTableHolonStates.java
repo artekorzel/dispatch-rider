@@ -23,4 +23,18 @@ public class ClusTableHolonStates extends ClusTableStates {
 
         return currentState;
     }
+
+    @Override
+    public String predictCurrentStateByRCentres(double[] point, String[] measureName, String[] clusterNames) {
+        logger.info("Predict current holon state by centres");
+        return rutils.predictStateByCentres(point,
+                clusterNames, RUtils.HOLON_CENTRES_NAME);
+    }
+
+    @Override
+    public String predictCurrentStateByRTrees(double[] point, String[] measureName, String[] clusterNames) {
+        logger.info("Predict current holon state by tree");
+        return rutils.predictStateByTree(point, measureName, clusterNames,
+                RUtils.HOLON_TREE_NAME);
+    }
 }

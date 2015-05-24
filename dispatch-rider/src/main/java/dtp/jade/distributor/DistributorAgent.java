@@ -23,6 +23,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import machineLearning.MLAlgorithm;
+import machineLearning.clustering.Clustering;
 import measure.Measure;
 import measure.MeasureCalculator;
 import measure.MeasureCalculatorsHolder;
@@ -208,11 +209,16 @@ public class DistributorAgent extends BaseAgent {
         }
 
         this.mlAlgorithm = simInfo.getMlAlgorithm();
-        if (calculatorsHolder != null)
+        if (calculatorsHolder != null) {
             this.calculatorsHolder.setSimInfo(simInfo);
-        if (mlAlgorithm != null)
-            this.mlAlgorithm.setSimInfo(simInfo);
+        }
 
+        if (mlAlgorithm != null) {
+            this.mlAlgorithm.setSimInfo(simInfo);
+            if(mlAlgorithm instanceof Clustering) {
+                ((Clustering)mlAlgorithm).initR();
+            }
+        }
 
         AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
         send(aids, "", MessageType.SIM_INFO_RECEIVED);
@@ -307,14 +313,9 @@ public class DistributorAgent extends BaseAgent {
     public synchronized void addCommission(Commission commission) {
         if (!commissionSendingType) {
             handledCommissionsCount++;
-            sendGUIMessage("new commission added to the queue (id = "
-                    + commission.getID() + ")");
-            logger.info(getLocalName()
-                    + " - new commission added to the queue (id = "
+            logger.info("new commission added to the queue (id = "
                     + commission.getID() + ")");
         } else {
-            sendGUIMessage("new commission package added - "
-                    + commissions.size());
             logger.info(getLocalName() + " - new commission package added - "
                     + commissions.size());
         }
@@ -379,8 +380,6 @@ public class DistributorAgent extends BaseAgent {
         if (simulatedTrading) {
             currentAuction.addOffer(offer);
             if (currentAuction.gotAllOffers()) {
-                sendGUIMessage("all EUnit offres has been collected (com id = "
-                        + currentAuction.getCommission().getID() + ")");
                 logger.info(getLocalName()
                         + " - all EUnit offres has been collected (com id = "
                         + currentAuction.getCommission().getID() + ")");
@@ -393,7 +392,7 @@ public class DistributorAgent extends BaseAgent {
                 eUnitOffers.add(offer);
             }
             if (eUnitsCount == 0) {
-                sendGUIMessage("eUnits offers are collected");
+                logger.info("eUnits offers are collected");
                 if (!choosingByCost && eUnitOffers.size() > 0)
                     chooseBestOffer();
                 else
@@ -425,15 +424,10 @@ public class DistributorAgent extends BaseAgent {
         }
 
         if (bestHolon != null) {
-            sendGUIMessage("commission goes to " + bestHolon.getLocalName()
-                    + " (com id = " + currentAuction.getCommission().getID()
-                    + ")");
             logger.info(getLocalName() + " - commission goes to "
                     + bestHolon.getLocalName() + " (com id = "
                     + currentAuction.getCommission().getID() + ")");
 
-            sendGUIMessage("sending feedback to EUnit Agents (com id = "
-                    + currentAuction.getCommission().getID() + ")");
             logger.info(getLocalName()
                     + " - sending feedback to EUnit Agents (com id = "
                     + currentAuction.getCommission().getID() + ")");
@@ -495,17 +489,17 @@ public class DistributorAgent extends BaseAgent {
         params.commission = commission;
     }
 
-    private void sendGUIMessage(String messageText) {
+    private void sendGUIMessage() {
 
-        if (messageText.equals("NEXT_SIMSTEP") && timestamp >= nextSTTimestamp)
+        if (timestamp >= nextSTTimestamp)
             nextSTTimestamp += STTimestampGap;
 
-        if (messageText.equals("NEXT_SIMSTEP") && calculatorsHolder != null
+        if (calculatorsHolder != null
                 && timestamp >= nextMeasureTimestamp)
             nextMeasureTimestamp += calculatorsHolder.getTimeGap();
 
         AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
-        send(aids, getLocalName() + " - " + messageText, MessageType.GUI_MESSAGE);
+        send(aids, "", MessageType.NEXT_SIMSTEP);
     }
 
     // zwraca POSORTOWANE identyfikatory AID EUnitow
@@ -640,7 +634,7 @@ public class DistributorAgent extends BaseAgent {
 
             NewHolonOffer offer = newHolonOffersList.remove(0);
             bestOffer = offer;
-            sendGUIMessage("new holon: [" + offer.getDriver().getLocalName()
+            logger.info("new holon: [" + offer.getDriver().getLocalName()
                     + ", " + offer.getTrailer().getLocalName() + ", "
                     + offer.getTruck().getLocalName() + "]");
             NewTeamData data = new NewTeamData(offer.getTruck(),
@@ -660,13 +654,13 @@ public class DistributorAgent extends BaseAgent {
         simulatedTrading = false;
         if (commissions.size() == 0) {
             logger.info("Zlecenia przyznane");
-            sendGUIMessage("NEXT_SIMSTEP");
+            sendGUIMessage();
             return;
         }
         eUnitOffers = new LinkedList<>();
         bestCost = Double.MAX_VALUE;
         currentCommission = commissions.remove(0);
-        sendGUIMessage("search for EUnit to carry commission (id="
+        logger.info("search for EUnit to carry commission (id="
                 + currentCommission.getID() + ")");
         eUnitsCount = sendOffers(currentCommission);
         if (eUnitsCount == 0) {
@@ -777,7 +771,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private synchronized void createNewEUnit() {
-        sendGUIMessage("create new EUnit");
+        logger.info("create new EUnit");
         NewTeamData data = newTeamData;
 
         if (!checkCommission(data)) {
@@ -804,7 +798,7 @@ public class DistributorAgent extends BaseAgent {
             if (commissions.size() > 0)
                 addCommission(commissions.remove(0));
             else
-                sendGUIMessage("NEXT_SIMSTEP");
+                sendGUIMessage();
         }
     }
 
@@ -851,7 +845,7 @@ public class DistributorAgent extends BaseAgent {
     }
 
     private synchronized void createDefaultHolon(Commission commission) {
-        sendGUIMessage("create new default EUnit");
+        logger.info("create new default EUnit");
         defaultEUnitCreation = true;
         TransportElementInitialData truck = new TransportElementInitialDataTruck(
                 null, defaultAgentsData.getPower(), 0, 0,
@@ -1055,7 +1049,7 @@ public class DistributorAgent extends BaseAgent {
                                                 "SimulationService");
                                 this.send(sender, false, MessageType.GRAPH_CHANGED);
                             } else
-                                sendGUIMessage("NEXT_SIMSTEP");
+                                sendGUIMessage();
                         }
                     }
                 }
@@ -1076,7 +1070,7 @@ public class DistributorAgent extends BaseAgent {
                                                 "SimulationService");
                                 this.send(sender, false, MessageType.GRAPH_CHANGED);
                             } else
-                                sendGUIMessage("NEXT_SIMSTEP");
+                                sendGUIMessage();
                         }
                     }
                 }
@@ -1088,7 +1082,7 @@ public class DistributorAgent extends BaseAgent {
                 if (commissions.size() > 0)
                     addCommission(commissions.remove(0));
                 else
-                    sendGUIMessage("NEXT_SIMSTEP");
+                    sendGUIMessage();
             }
         }
     }

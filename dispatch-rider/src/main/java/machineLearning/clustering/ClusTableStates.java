@@ -36,7 +36,7 @@ public abstract class ClusTableStates implements Serializable {
      */
     private double k;
 
-    public ClusTableStates() {
+    static {
         rutils = new RUtils();
         rutils.start();
     }
@@ -217,39 +217,10 @@ public abstract class ClusTableStates implements Serializable {
                 : predictCurrentStateByRCentres(point, mNames, cNames);
     }
 
-    public String predictCurrentStateByRCentres(double[] point,
-                                                String[] measureName, String[] clusterNames) {
+    public abstract String predictCurrentStateByRCentres(double[] point,
+                                                String[] measureName, String[] clusterNames);
 
-        if (ClusTableGlobalStates.class.getCanonicalName().equals(
-                this.getClass().getCanonicalName())) {
-            logger.info("Predict current global state by centres");
-            return rutils.predictStateByCentres(point,
-                    clusterNames, RUtils.GLOBAL_CENTRES_NAME);
-        } else if (ClusTableHolonStates.class.getCanonicalName().equals(
-                this.getClass().getCanonicalName())) {
-            logger.info("Predict current holon state by centres");
-            return rutils.predictStateByCentres(point,
-                    clusterNames, RUtils.HOLON_CENTRES_NAME);
-        }
-        return null;
-    }
-
-    public String predictCurrentStateByRTrees(double[] point,
-                                              String[] measureName, String[] clusterNames) {
-
-        if (ClusTableGlobalStates.class.getCanonicalName().equals(
-                this.getClass().getCanonicalName())) {
-            logger.info("Predict current global state by tree");
-            return rutils.predictStateByTree(point, measureName, clusterNames,
-                    RUtils.GLOBAL_TREE_NAME);
-        } else if (ClusTableHolonStates.class.getCanonicalName().equals(
-                this.getClass().getCanonicalName())) {
-            logger.info("Predict current holon state by tree");
-            return rutils.predictStateByTree(point, measureName, clusterNames,
-                    RUtils.HOLON_TREE_NAME);
-        }
-
-        return null;
-    }
+    public abstract String predictCurrentStateByRTrees(double[] point,
+                                              String[] measureName, String[] clusterNames);
 
 }

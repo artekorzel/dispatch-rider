@@ -1,6 +1,5 @@
 package dtp.jade.crisismanager;
 
-import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.MessageType;
 import dtp.jade.crisismanager.behaviour.GetCrisisEventBehaviour;
@@ -93,12 +92,10 @@ public class CrisisManagerAgent extends BaseAgent {
     public void addCrisisEvent(CrisisEvent event) {
         eventsHolder.add(event);
 
-        sendGUIMessage("new crisis event added to the list \n" + "\t" + event.toString());
         logger.info("new crisis event added to the list \n" + "\t" + event.toString());
     }
 
     private void createNewCrisisEventSolver(CrisisEvent event) {
-        sendGUIMessage("creating new crisis event solver for event: \n" + "\t" + event.toString());
         logger.info("creating new crisis event solver for event: \n" + "\t" + event.toString());
 
         if (event.getClass().equals(CommissionWithdrawalEvent.class)) {
@@ -169,10 +166,5 @@ public class CrisisManagerAgent extends BaseAgent {
     public void sentCrisisEvent(AID aid, MessageType messageCode, CrisisEvent crisisEvent) {
         logger.info("sending crisis event to " + aid.getLocalName() + " (event ID = " + crisisEvent.getEventID() + ")");
         send(aid, crisisEvent, messageCode);
-    }
-
-    private void sendGUIMessage(String messageText) {
-        AID[] aids = AgentsService.findAgentByServiceName(this, "SimulationService");
-        send(aids, getLocalName() + " - " + messageText, MessageType.GUI_MESSAGE);
     }
 }

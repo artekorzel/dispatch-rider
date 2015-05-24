@@ -24,4 +24,17 @@ public class ClusTableGlobalStates extends ClusTableStates {
         return currentState;
     }
 
+    @Override
+    public String predictCurrentStateByRCentres(double[] point, String[] measureName, String[] clusterNames) {
+        logger.info("Predict current global state by centres");
+        return rutils.predictStateByCentres(point,
+                clusterNames, RUtils.GLOBAL_CENTRES_NAME);
+    }
+
+    @Override
+    public String predictCurrentStateByRTrees(double[] point, String[] measureName, String[] clusterNames) {
+        logger.info("Predict current global state by tree");
+        return rutils.predictStateByTree(point, measureName, clusterNames,
+                RUtils.GLOBAL_TREE_NAME);
+    }
 }

@@ -35,7 +35,7 @@ public enum MessageType {
     // prosba o utworzenie nowego EUnit'a
     EXECUTION_UNIT_CREATION,
 
-    GUI_MESSAGE,
+    NEXT_SIMSTEP,
 
     // prosba o oferte EUnit'a
     COMMISSION_OFFER_REQUEST,
