@@ -38,19 +38,7 @@ public abstract class TransportAgent extends BaseAgent {
     private Set<AID> confirmedUnits;
     private Set<AID> waitingUnits;
     private boolean feedbackSended;
-    /**
-     * Is transport element already in transport team.
-     */
-    private boolean booked;
 
-    /**
-     * Wyznacza wartosc funkcji kosztu Skroty uzywane w funkcji kosztu TRUCK:
-     * power reliability comfort fuel TRAILER: mass capacity universality
-     * <p>
-     * DISTANCE dist
-     * <p>
-     * COMMISSION load pickUpServiceTime deliveryServiceTime punishment
-     */
     public static double costFunctionValue(String function, double dist,
                                            TransportElementInitialData driver,
                                            TransportElementInitialDataTruck truck,
@@ -84,21 +72,15 @@ public abstract class TransportAgent extends BaseAgent {
         return Calculator.calculate(expr);
     }
 
-    /**
-     * Metoda wywolywana w trybie z przesylaniem zlecen jedno po drugim Inicjuje
-     * srodowisko dla pozniejszej negocjacji
-     *
-     * @param commission
-     */
     public synchronized void setCommission(Commission commission) {
         this.commission = commission;
         trucks = agents.get(TransportType.TRUCK);
         trailers = agents.get(TransportType.TRAILER);
         drivers = agents.get(TransportType.DRIVER);
 
-        askingUnits = new TreeSet<AID>();
-        confirmedUnits = new TreeSet<AID>();
-        waitingUnits = new TreeSet<AID>();
+        askingUnits = new TreeSet<>();
+        confirmedUnits = new TreeSet<>();
+        waitingUnits = new TreeSet<>();
         askingUnits = Collections.synchronizedSet(askingUnits);
         confirmedUnits = Collections.synchronizedSet(confirmedUnits);
         waitingUnits = Collections.synchronizedSet(waitingUnits);
@@ -106,30 +88,19 @@ public abstract class TransportAgent extends BaseAgent {
 
         if (!isHolonPart())
             makeHolonPartsList();
-        /*
-         * if(getAID().getLocalName().contains("Truck #0")) for(HolonPartsCost
-         * cost:holonPartsCostList) {
-         * System.out.println(getAID()+" "+cost.getAgents
-         * ()[0].getAid()+" "+cost.getAgents()[1].getAid()+" "+cost.getCost());
-         * }
-         */
 
         sendReadyToStartNegotiation();
     }
 
-    /**
-     * Metoda wywolywana w trybie z przesylaniem zlecen paczkami Inicjuje
-     * srodowisko dla pozniejszej negocjacji
-     */
     public synchronized void setCommissions(Commission[] commissions) {
         this.commissions = commissions;
         trucks = agents.get(TransportType.TRUCK);
         trailers = agents.get(TransportType.TRAILER);
         drivers = agents.get(TransportType.DRIVER);
 
-        askingUnits = new TreeSet<AID>();
-        confirmedUnits = new TreeSet<AID>();
-        waitingUnits = new TreeSet<AID>();
+        askingUnits = new TreeSet<>();
+        confirmedUnits = new TreeSet<>();
+        waitingUnits = new TreeSet<>();
         askingUnits = Collections.synchronizedSet(askingUnits);
         confirmedUnits = Collections.synchronizedSet(confirmedUnits);
         waitingUnits = Collections.synchronizedSet(waitingUnits);
@@ -137,35 +108,15 @@ public abstract class TransportAgent extends BaseAgent {
 
         if (!isHolonPart())
             makeList();
-        // makeHolonPartsList();
-        /*
-         * for(HolonPartsCost cost:holonPartsCostList) {
-         * System.out.println(getAID
-         * ()+" "+cost.getAgents()[0].getAid()+" "+cost.
-         * getAgents()[1].getAid()+" "+cost.getCost()); }
-         */
 
         sendReadyToStartNegotiation();
     }
 
-    /**
-     * sprawdza czy dany kandydat na holon moze obsluzy zlecenie
-     *
-     * @param com
-     * @param part
-     * @return
-     */
     protected abstract boolean canCarryCommission(Commission com,
                                                   HolonPartsCost part);
 
-    /**
-     * Inicjuje liste preferencji w trybie wysylania zlecen paczkami.
-     */
     protected abstract void makeHolonPartsListFromAllAgents();
 
-    /**
-     * Tworzy liste preferencji w trybie wysylania zlecen paczkami
-     */
     private synchronized void makeList() {
         Commission com;
         commission = commissions[0];
@@ -185,13 +136,6 @@ public abstract class TransportAgent extends BaseAgent {
         Collections.sort(holonPartsCostList);
     }
 
-    /**
-     * Robi podmiane zlecenia (z listy kandydatow na holon) z nowym zleceniem
-     * jesli koszt wymiany jest lepszy
-     *
-     * @param part
-     * @param com
-     */
     private synchronized void tryChangeCommissions(HolonPartsCost part,
                                                    Commission com) {
 
@@ -220,16 +164,9 @@ public abstract class TransportAgent extends BaseAgent {
         Collections.sort(holonPartsCostList);
     }
 
-    /**
-     * Oblicza koszt dodania zlecenia
-     *
-     * @param commissionsList
-     * @param part
-     * @return
-     */
     private synchronized double calculateCommissionsCost(
             List<Commission> commissionsList, HolonPartsCost part) {
-        double dist = 0;
+        double dist;
         int load = 0;
         Commission commission = commissionsList.get(0);
         load += commission.getLoad();
@@ -262,24 +199,9 @@ public abstract class TransportAgent extends BaseAgent {
         return getCostFunctionValue(part, dist, tmp);
     }
 
-    /**
-     * Zwraca wartosc funkcji kosztu
-     *
-     * @param part
-     * @param dist
-     * @param com
-     * @return
-     */
     protected abstract double getCostFunctionValue(HolonPartsCost part,
                                                    double dist, Commission com);
 
-    /**
-     * Oblicza calkowite zaladowanie kandydata na holon
-     *
-     * @param com
-     * @param addedCommissions
-     * @return
-     */
     protected synchronized int calculateLoad(Commission com,
                                              List<Commission> addedCommissions) {
         int result = 0;
@@ -289,9 +211,6 @@ public abstract class TransportAgent extends BaseAgent {
         return result;
     }
 
-    /**
-     * Potwierdzenie o gotowosci do negocjacji
-     */
     private synchronized void sendReadyToStartNegotiation() {
         AID[] aids = AgentsService.findAgentByServiceName(this,
                 "CommissionService");
@@ -304,55 +223,24 @@ public abstract class TransportAgent extends BaseAgent {
         }
     }
 
-    /**
-     * Tworzy liste preferencji w trybie przesylania zlecenia po zleceniu
-     */
     protected abstract void makeHolonPartsList();
 
-    /**
-     * Sprawdza czy AID odpowiada ciezarowce
-     *
-     * @param aid
-     * @return
-     */
     private boolean isTruck(AID aid) {
         return aid.getName().contains("Truck");
     }
 
-    /**
-     * Sprawdza czy AID odpowiada przyczepie
-     *
-     * @param aid
-     * @return
-     */
     private boolean isTrailer(AID aid) {
         return aid.getName().contains("Trailer");
     }
 
-    /**
-     * Sprawdza czy AID odpowiada kierowcy
-     *
-     * @param aid
-     * @return
-     */
     private boolean isDriver(AID aid) {
         return aid.getName().contains("Driver");
     }
 
-    /**
-     * Sprawdza czy agent jest czescia holonu
-     */
     private synchronized boolean isHolonPart() {
-        if (holonParts == null)
-            return false;
-        if (holonParts.length > 0)
-            return true;
-        return false;
+        return holonParts != null && holonParts.length > 0;
     }
 
-    /**
-     * Wysyla oferte feedback do Dystrybutora
-     */
     private synchronized void sendFeedback() {
         AID truck = null;
         AID trailer = null;
@@ -400,17 +288,7 @@ public abstract class TransportAgent extends BaseAgent {
                 trailerData, truckData, driverData));
     }
 
-    /**
-     * rozpoczecie negocjacji
-     */
     public synchronized void startNegotiation() {
-
-        /*
-         * if(getAID().getName().startsWith("Trailer #2")) {
-         * System.out.print("startNeg "); for(AID a:confirmedUnits)
-         * System.out.print(a+" "); System.out.println();
-         * System.out.println("startNegotiation "+holonPartsCostList.size()); }
-         */
         lock.lock();
         if (isHolonPart()) {
             sendFeedbackToDistributor(new NewHolonOffer());
@@ -449,16 +327,7 @@ public abstract class TransportAgent extends BaseAgent {
         lock.unlock();
     }
 
-    /**
-     * Zapytanie o polaczenie
-     *
-     * @param aid
-     */
     private synchronized void askForConnection(AID aid) {
-        /*
-         * if(getAID().getName().startsWith("Trailer #2")) {
-         * System.out.println("ask "+aid); }
-         */
         if (askingUnits.contains(aid))
             return;
         if (confirmedUnits.contains(aid))
@@ -473,11 +342,6 @@ public abstract class TransportAgent extends BaseAgent {
             sendFeedbackToDistributor(new NewHolonOffer());
     }
 
-    /**
-     * Wolana gdy przychodzi zapytanie o polaczenie
-     *
-     * @param aid
-     */
     public synchronized void teamOfferArrived(AID aid) {
         lock.lock();
 
@@ -539,20 +403,10 @@ public abstract class TransportAgent extends BaseAgent {
         lock.unlock();
     }
 
-    /**
-     * Wysyla odpowiedz na zapytanie o polaczenie
-     *
-     * @param aid
-     * @param response
-     */
     private synchronized void respondToTeamOffer(AID aid, String response) {
-        /*
-         * if(getAID().getName().startsWith("Trailer #2")) {
-         * System.out.println("responseToTeamOffer "+aid+" "+response); }
-         */
         if (response.equals("yes")) {
             confirmedUnits.add(aid);
-            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<HolonPartsCost>();
+            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<>();
             for (HolonPartsCost part : holonPartsCostList) {
                 for (TransportAgentData agent : part.getAgents()) {
                     if (agent.getAid().equals(aid)) {
@@ -564,21 +418,7 @@ public abstract class TransportAgent extends BaseAgent {
             holonPartsCostList = newHolonPartsCostList;
             sendResponse(aid, "yes");
         } else {
-            // AID toRemove = getPartToRemove(aid);
-            // if (getAID().getName().startsWith("Truck #1")) {
-            // System.out.println(Arrays.toString(waitingUnits.toArray()));
-            // System.out.println(aid);
-            // }
             waitingUnits.add(aid);
-            // if (toRemove != null) {
-            // waitingUnits.remove(toRemove);
-            // sendResponse(toRemove, "no");
-            // }
-            // if (getAID().getName().startsWith("Truck #1")) {
-            // System.out.println("toRemove " + toRemove);
-            // System.out.println(Arrays.toString(waitingUnits.toArray()));
-            // System.out.println();
-            // }
         }
 
         if (confirmedUnits.size() == TransportType.values().length - 1) {
@@ -590,50 +430,12 @@ public abstract class TransportAgent extends BaseAgent {
 
     }
 
-    // private synchronized AID getPartToRemove(AID aid) {
-    // AID theSamePart = null;
-    // for (AID part : waitingUnits)
-    // if (part.getName().split(" ")[0]
-    // .equals(aid.getName().split(" ")[0])) {
-    // theSamePart = part;
-    // break;
-    // }
-    //
-    // for (AID part : confirmedUnits)
-    // if (part.getName().split(" ")[0]
-    // .equals(aid.getName().split(" ")[0])) {
-    // return aid;
-    // }
-    //
-    // if (theSamePart == null)
-    // return null;
-    // for (HolonPartsCost parts : holonPartsCostList)
-    // for (TransportAgentData agent : parts.getAgents()) {
-    // if (agent.getAid().equals(theSamePart))
-    // return aid;
-    // if (agent.getAid().equals(aid))
-    // return theSamePart;
-    // }
-    // return aid;
-    // }
-
-    /**
-     * Wysyla odpowiedz na zapytanie o polaczenie
-     *
-     * @param aid
-     * @param response
-     */
     private synchronized void sendResponse(AID aid, String response) {
-        /*
-         * if(getAID().getName().startsWith("Trailer #2")) {
-         * System.out.println("sendResponse "+aid+" "+response); }
-         */
-
         if (waitingUnits != null) {
             waitingUnits.remove(aid);
             if (response.equals("no")) {
-                List<HolonPartsCost> newHolonPartsCostList = new LinkedList<HolonPartsCost>();
-                boolean contain = false;
+                List<HolonPartsCost> newHolonPartsCostList = new LinkedList<>();
+                boolean contain;
                 for (HolonPartsCost part : holonPartsCostList) {
                     contain = false;
                     for (TransportAgentData agent : part.getAgents()) {
@@ -642,7 +444,7 @@ public abstract class TransportAgent extends BaseAgent {
                             break;
                         }
                     }
-                    if (contain == false)
+                    if (!contain)
                         newHolonPartsCostList.add(part);
                 }
                 holonPartsCostList = newHolonPartsCostList;
@@ -660,20 +462,7 @@ public abstract class TransportAgent extends BaseAgent {
             sendFeedbackToDistributor(new NewHolonOffer());
     }
 
-    /**
-     * Wolana gdy przychodzi odpoiwedz na zapytanie o polaczenie
-     *
-     * @param aid
-     * @param response
-     */
     public synchronized void response(AID aid, Boolean response) {
-        /*
-         * if(getAID().getName().startsWith("Trailer #2")) {
-         * System.out.println("response "+aid+" "+response); for(HolonPartsCost
-         * part:holonPartsCostList) {
-         * System.out.println(part.getAgents()[0].getAid
-         * ()+" "+part.getAgents()[1].getAid()); } }
-         */
         lock.lock();
         askingUnits.remove(aid);
         if (response == null) {
@@ -686,7 +475,7 @@ public abstract class TransportAgent extends BaseAgent {
                         present = true;
                         break;
                     }
-                if (present == false)
+                if (!present)
                     newHolonPartsCostList.add(part);
             }
             for (HolonPartsCost part : holonPartsCostList) {
@@ -714,8 +503,8 @@ public abstract class TransportAgent extends BaseAgent {
             }
             holonPartsCostList = newHolonPartsCostList;
         } else {
-            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<HolonPartsCost>();
-            boolean contain = false;
+            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<>();
+            boolean contain;
             for (HolonPartsCost part : holonPartsCostList) {
                 contain = false;
                 for (TransportAgentData agent : part.getAgents()) {
@@ -724,18 +513,12 @@ public abstract class TransportAgent extends BaseAgent {
                         break;
                     }
                 }
-                if (contain == false)
+                if (!contain)
                     newHolonPartsCostList.add(part);
             }
             holonPartsCostList = newHolonPartsCostList;
         }
-        /*
-         * if(getAID().getName().startsWith("Trailer #2")) {
-         * System.out.println("response po zmianach"); for(HolonPartsCost
-         * part:holonPartsCostList) {
-         * System.out.println(part.getAgents()[0].getAid
-         * ()+" "+part.getAgents()[1].getAid()); } }
-         */
+
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
             lock.unlock();
@@ -750,27 +533,17 @@ public abstract class TransportAgent extends BaseAgent {
         lock.unlock();
     }
 
-    /**
-     * Wysyla oferte do Dystrybutora
-     *
-     * @param offer
-     */
     public synchronized void sendFeedbackToDistributor(NewHolonOffer offer) {
         if (!feedbackSended) {
             feedbackSended = true;
             if (waitingUnits != null)
-                for (Object aid : waitingUnits.toArray()) {
+                for (AID aid : waitingUnits.toArray(new AID[waitingUnits.size()])) {
                     if (!confirmedUnits.contains(aid))
-                        sendResponse((AID) aid, "no");
+                        sendResponse(aid, "no");
                 }
             if (confirmedUnits != null)
                 for (AID aid : confirmedUnits)
                     sendResponse(aid, "yes");
-            // System.out.println(getAID().getName());
-            /*
-             * if(getAID().getName().startsWith("Trailer #2")) {
-             * System.out.println("feedback"); System.exit(0); }
-             */
 
             AID[] aids = AgentsService.findAgentByServiceName(this,
                     "CommissionService");
@@ -785,12 +558,6 @@ public abstract class TransportAgent extends BaseAgent {
         }
     }
 
-    /**
-     * Pobiera dane ciezarowki
-     *
-     * @param aid
-     * @return
-     */
     private synchronized TransportAgentData getTruck(AID aid) {
         for (TransportAgentData agent : agents.get(TransportType.TRUCK)) {
             if (agent.getAid().equals(aid))
@@ -799,12 +566,6 @@ public abstract class TransportAgent extends BaseAgent {
         return null;
     }
 
-    /**
-     * Pobiera dane przyczepy
-     *
-     * @param aid
-     * @return
-     */
     private synchronized TransportAgentData getTrailer(AID aid) {
         for (TransportAgentData agent : agents.get(TransportType.TRAILER)) {
             if (agent.getAid().equals(aid))
@@ -813,12 +574,6 @@ public abstract class TransportAgent extends BaseAgent {
         return null;
     }
 
-    /**
-     * Pobiera dane kierowcy
-     *
-     * @param aid
-     * @return
-     */
     private synchronized TransportAgentData getDriver(AID aid) {
         for (TransportAgentData agent : agents.get(TransportType.DRIVER)) {
             if (agent.getAid().equals(aid))
@@ -827,9 +582,6 @@ public abstract class TransportAgent extends BaseAgent {
         return null;
     }
 
-    /**
-     * Potwierdzenie od Dystrybutora. Agent jest czescia holonu
-     */
     public void confirmationFromDistributor() {
         holonParts = new TransportAgentData[3];
         int i = -1;
@@ -855,50 +607,30 @@ public abstract class TransportAgent extends BaseAgent {
         send(aids[0], "", MessageType.HOLON_FEEDBACK);
     }
 
-    /**
-     * @param initialData
-     */
     public void setTransportElementInitialData(
             TransportElementInitialData initialData) {
         this.initialData = initialData;
     }
 
-    /**
-     * @return the capacity
-     */
     public int getCapacity() {
         return initialData.getCapacity();
     }
 
-    /**
-     * @param capacity the capacity to set
-     */
     public void setCapacity(int capacity) {
         this.initialData.setCapacity(capacity);
     }
 
-    /**
-     * Zwraca typ danego agenta
-     *
-     * @return
-     */
     protected abstract TransportType getType();
 
-    /**
-     * Odfiltrowuje z danych o agentach, dane agenta, ktory ja wywoluje
-     *
-     * @param map
-     * @return
-     */
     protected Map<TransportType, List<TransportAgentData>> filtr(
             Map<TransportType, List<TransportAgentData>> map) {
-        Map<TransportType, List<TransportAgentData>> result = new HashMap<TransportType, List<TransportAgentData>>();
+        Map<TransportType, List<TransportAgentData>> result = new HashMap<>();
         for (TransportType type : map.keySet()) {
             if (!type.equals(getType()))
                 result.put(type, map.get(type));
             else {
                 List<TransportAgentData> data = map.get(type);
-                List<TransportAgentData> newData = new LinkedList<TransportAgentData>();
+                List<TransportAgentData> newData = new LinkedList<>();
                 for (TransportAgentData agentData : data) {
                     if (!agentData.getAid().equals(getAID()))
                         newData.add(agentData);
@@ -918,85 +650,18 @@ public abstract class TransportAgent extends BaseAgent {
         send(aids, "", MessageType.TRANSPORT_AGENT_CONFIRMATION);
     }
 
-    /**
-     * @param type
-     * @return
-     */
     public List<TransportAgentData> getData(TransportType type) {
         return agents.get(type);
     }
 
-    /**
-     * @return the defaultCapacity
-     */
-    public int getDefaultCapacity() {
-        return this.initialData.getDefaultCapacity();
-    }
-
-    /**
-     * @param defaultCapacity the defaultCapacity to set
-     */
-    public void setDefaultCapacity(int defaultCapacity) {
-        this.initialData.setDefaultCapacity(defaultCapacity);
-    }
-
-    /**
-     * @return the booked
-     */
-    public synchronized boolean isBooked() {
-        return booked;
-    }
-
-    /**
-     * @param booked the booked to set
-     */
-    public synchronized void setBooked(boolean booked) {
-        this.booked = booked;
-    }
-
-    /**
-     * Returns ratio of transport cost.
-     *
-     * @return ratio
-     */
     public abstract double getRatio();
 
-    /**
-     * Returns type of transport element.
-     *
-     * @return type of element
-     */
     abstract public TransportType getTransportType();
 
-    /**
-     * Method to check if commission can be accepted by this transport element
-     *
-     * @param commission commission to check
-     */
-    public abstract void checkNewCommission(TransportCommission commission);
-
-    public abstract void checkReorganize(TransportCommission commission);
-
-    public void sendOfferToEUnit(AID aid, TransportOffer offer) {
-        send(aid, offer, MessageType.TRANSPORT_OFFER);
-    }
-
-    public void sendReorganizeOfferToEUnit(AID aid, TransportOffer offer) {
-        send(aid, offer, MessageType.TRANSPORT_REORGANIZE_OFFER);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void setup() {
         super.setup();
-        addBehaviour(new GetTransportCommisionBehaviour(this));
-        addBehaviour(new GetTransportFeedbackBahaviour(this));
         addBehaviour(new GetInitialDataBehaviour(this));
-        addBehaviour(new GetResetRequestBehaviour(this));
-        addBehaviour(new GetTransportReorganizeBehaviour(this));
-        addBehaviour(new EndOfSimulationBehaviour(this));
         addBehaviour(new GetAgentsDataBehaviour(this));
         addBehaviour(new GetCommisionBehaviour(this));
         addBehaviour(new GetTeamOfferBehaviour(this));
@@ -1010,9 +675,6 @@ public abstract class TransportAgent extends BaseAgent {
         logger.info("Transport agent created: " + getAID());
     }
 
-    /**
-     * Services registration
-     */
     private void registerServices() {
 
         DFAgentDescription dfd = new DFAgentDescription();
@@ -1060,24 +722,10 @@ public abstract class TransportAgent extends BaseAgent {
         }
     }
 
-    public void resetAgent() {
-        booked = false;
-    }
-
-    /**
-     * getter
-     *
-     * @return the depot
-     */
     public int getDepot() {
         return this.initialData.getDepot();
     }
 
-    /**
-     * setter
-     *
-     * @param depot the depot to set
-     */
     public void setDepot(int depot) {
         this.initialData.setDepot(depot);
     }
@@ -1086,7 +734,7 @@ public abstract class TransportAgent extends BaseAgent {
     protected void takeDown() {
         try {
             DFService.deregister(this);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }

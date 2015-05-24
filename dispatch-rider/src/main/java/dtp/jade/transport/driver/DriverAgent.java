@@ -99,45 +99,4 @@ public class DriverAgent extends TransportAgent {
         return TransportType.DRIVER;
     }
 
-    @Override
-    public synchronized void checkNewCommission(TransportCommission commission) {
-        if (isBooked()) {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(-1);
-            offer.setAid(getAID());
-            offer.setOfferType(getTransportType());
-            sendOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("Sending refusal");
-        } else {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(getRatio());
-            offer.setTransportElementData(initialData);
-            offer.setAid(getAID());
-            offer.setDepot(getDepot());
-            offer.setOfferType(getTransportType());
-            sendOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("sending acceptance");
-        }
-    }
-
-    @Override
-    public synchronized void checkReorganize(TransportCommission commission) {
-        if (isBooked()) {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(-1);
-            offer.setAid(getAID());
-            offer.setOfferType(getTransportType());
-            sendReorganizeOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("Sending refusal");
-        } else {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(getRatio());
-            offer.setTransportElementData(initialData);
-            offer.setAid(getAID());
-            offer.setDepot(getDepot());
-            offer.setOfferType(getTransportType());
-            sendReorganizeOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("sending acceptance");
-        }
-    }
 }

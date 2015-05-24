@@ -3,7 +3,6 @@ package dtp.jade.crisismanager;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.MessageType;
-import dtp.jade.crisismanager.behaviour.EndOfSimulationBehaviour;
 import dtp.jade.crisismanager.behaviour.GetCrisisEventBehaviour;
 import dtp.jade.crisismanager.behaviour.GetTimestampBehaviour;
 import dtp.jade.crisismanager.crisisevents.*;
@@ -44,7 +43,6 @@ public class CrisisManagerAgent extends BaseAgent {
         /*-------- BEHAVIOURS SECTION -------*/
         addBehaviour(new GetTimestampBehaviour(this));
         addBehaviour(new GetCrisisEventBehaviour(this));
-        addBehaviour(new EndOfSimulationBehaviour(this));
 
         eventsHolder = new ArrayList<>();
 
@@ -56,16 +54,6 @@ public class CrisisManagerAgent extends BaseAgent {
 
 
         logger.info("CrisisManagementAgent - end of initialization");
-    }
-
-    public void simEnd() {
-        eventsHolder = new ArrayList<>();
-
-        commissionWithdrawalEventSolvers = new ArrayList<>();
-        commissionDelayEventSolvers = new ArrayList<>();
-        eUnitFailureEventSolvers = new ArrayList<>();
-        trafficJamEventSolvers = new ArrayList<>();
-        roadTrafficExclusionEventSolvers = new ArrayList<>();
     }
 
     public void registerServices() {

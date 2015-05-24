@@ -42,7 +42,6 @@ public class InfoAgent extends BaseAgent {
         addBehaviour(new DriverCreationBehaviour(this));
         addBehaviour(new TruckCreationBehaviour(this));
         addBehaviour(new TrailerCreationBehaviour(this));
-        addBehaviour(new EndOfSimulationBehaviour(this));
         addBehaviour(new GetAgentsDataBehaviour(this));
 
         logger.info("InfoAgent - end of initialization");
@@ -113,14 +112,6 @@ public class InfoAgent extends BaseAgent {
         AID[] vmAgents = AgentsService.findAgentByServiceName(this, "VMAgentCreationService");
         Arrays.sort(vmAgents);
         return vmAgents[nextVMAgentIndex++ % vmAgents.length];
-    }
-
-    public void simEnd() {
-        eunitAgentsNo = 0;
-        driverAgentsNo = 0;
-        trailerAgentsNo = 0;
-        truckAgentsNo = 0;
-        agents = new HashMap<>();
     }
 
     public void sendDataToAgents() {

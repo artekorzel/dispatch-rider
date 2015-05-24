@@ -397,9 +397,7 @@ public class SimulationAgent extends BaseAgent {
                 && commissionsHandler.getCommissionsBeforeTime(timestamp).length == 0
                 && !commissionsHandler.isAnyEUnitAtNode(false)) {
             if (timestamp == backToDepotTimestamp) {
-                for (AID aid : aids) {
-                    send(aid, "", MessageType.BACK_TO_DEPOT);
-                }
+                send(aids, "", MessageType.BACK_TO_DEPOT);
             }
 
             timestamp++;

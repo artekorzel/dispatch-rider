@@ -84,25 +84,19 @@ public class ExecutionUnitAgent extends BaseAgent {
         registerServices();
 
         /* -------- BEHAVIOURS SECTION ------- */
-        this.addBehaviour(new GetGraphBehaviour(this));
         this.addBehaviour(new GetTimestampBehaviour(this));
         this.addBehaviour(new GetCommissionFromDistributorAgentBehaviour(this));
-        this.addBehaviour(new GetCalendarStatsRequestBehaviour(this));
         this.addBehaviour(new GetWorstCommissionRequestBehaviour(this));
-        this.addBehaviour(new GetResetRequestBehaviour(this));
         this.addBehaviour(new GetCrisisEventBehaviour(this));
         this.addBehaviour(new GetTransportOfferBehaviour(this));
         this.addBehaviour(new GetTransportReorganizeOfferBahaviour(this));
         this.addBehaviour(new GetInitialDataBehaviour(this));
         this.addBehaviour(new GetCalendarRequestToFileWriteBehaviour(this));
-        this.addBehaviour(new EndOfSimulationBehaviour(this));
         this.addBehaviour(new GetCommissionForEUnitBehaviour(this));
-        this.addBehaviour(new GetSTBeginBehaviour(this));
 
         this.addBehaviour(new GetComplexSTScheduleBehaviour(this));
         this.addBehaviour(new GetComplexSTScheduleChangedBehaviour(this));
 
-        this.addBehaviour(new GetChangeScheduleBehaviour(this));
         this.addBehaviour(new GetSimulationDataBehaviour(this));
         this.addBehaviour(new GetConfigurationChangeBehaviour(this));
 
@@ -280,38 +274,6 @@ public class ExecutionUnitAgent extends BaseAgent {
         }
     }
 
-    public synchronized void sendCalendarStats(AID sender) {
-
-        CalendarStats calendarStatsToSend = new CalendarStats(getAID());
-        calendarStatsToSend.setDistance(schedule.getDistance(depot));
-        calendarStatsToSend.setWaitTime(schedule.calculateWaitTime(depot));
-        calendarStatsToSend.setCost(getSummaryCost());
-
-        if (driver != null)
-            calendarStatsToSend.setDriverAID(driver.getAid());
-        else
-            calendarStatsToSend.setDriverAID(new AID("no driver", false));
-
-        if (trailer != null) {
-            calendarStatsToSend.setTrailerAID(trailer.getAid());
-            calendarStatsToSend.setCapacity(trailer.getMaxLoad());
-            calendarStatsToSend.setMass(trailerData.getMass());
-        } else
-            calendarStatsToSend.setTrailerAID(new AID("no trailer", false));
-
-        if (truck != null) {
-            calendarStatsToSend.setTruckAID(truck.getAid());
-            calendarStatsToSend.setPower(truckData.getPower());
-            calendarStatsToSend.setReliability(truckData.getReliability());
-            calendarStatsToSend.setComfort(truckData.getComfort());
-            calendarStatsToSend.setFuelConsumption(truckData
-                    .getFuelConsumption());
-        } else {
-            calendarStatsToSend.setTruckAID(new AID("no truck", false));
-        }
-        send(sender, calendarStatsToSend, MessageType.EUNIT_MY_STATS);
-    }
-
     public synchronized void sendCalendarStatsToFile() {
 
         CalendarStats calendarStatsToSend;
@@ -370,25 +332,6 @@ public class ExecutionUnitAgent extends BaseAgent {
         stat.setSchedule(tmpSchedule);
 
         send(sender, stat, MessageType.WORST_COMMISSION_COST);
-    }
-
-    public synchronized void changeSchedule(Schedule newSchedule, AID sender) {
-        schedule = newSchedule;
-        send(sender, "", MessageType.CHANGE_SCHEDULE);
-    }
-
-    public synchronized void resetAgent() {
-
-        problemType = ProblemType.WITHOUT_GRAPH;
-        simInfo = null;
-        graph = null;
-        schedule = null;
-        algorithm = null;
-        timestamp = -1;
-        trailer = null;
-        truck = null;
-        driver = null;
-        isSimulatedTradingEnabled = true;
     }
 
     public synchronized HolonCreationAuction getAuction() {

@@ -118,45 +118,4 @@ public class TruckAgent extends TransportAgent {
                 .getPower();
     }
 
-    @Override
-    public synchronized void checkNewCommission(TransportCommission commission) {
-        if (isBooked() || commission.getLoad() > getCapacity()) {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(-1);
-            offer.setAid(getAID());
-            offer.setOfferType(getTransportType());
-            sendOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("Sending refusal");
-        } else {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(getRatio());
-            offer.setTransportElementData(initialData);
-            offer.setAid(getAID());
-            offer.setDepot(getDepot());
-            offer.setOfferType(getTransportType());
-            sendOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("sending acceprance");
-        }
-    }
-
-    @Override
-    public synchronized void checkReorganize(TransportCommission commission) {
-        if (isBooked() || commission.getLoad() > getCapacity()) {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(-1);
-            offer.setAid(getAID());
-            offer.setOfferType(getTransportType());
-            sendReorganizeOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("Sending refusal");
-        } else {
-            TransportOffer offer = new TransportOffer();
-            offer.setRatio(getRatio());
-            offer.setTransportElementData(initialData);
-            offer.setAid(getAID());
-            offer.setDepot(getDepot());
-            offer.setOfferType(getTransportType());
-            sendReorganizeOfferToEUnit(commission.getSenderId(), offer);
-            // logger.info("sending acceprance");
-        }
-    }
 }

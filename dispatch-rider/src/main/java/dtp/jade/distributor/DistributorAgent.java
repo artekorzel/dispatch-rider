@@ -8,11 +8,9 @@ import dtp.graph.Graph;
 import dtp.jade.AgentsService;
 import dtp.jade.BaseAgent;
 import dtp.jade.MessageType;
-import dtp.jade.agentcalendar.CalendarStats;
 import dtp.jade.distributor.behaviour.*;
 import dtp.jade.eunit.EUnitInitialData;
 import dtp.jade.eunit.EUnitOffer;
-import dtp.jade.gui.CalendarStatsHolder;
 import dtp.jade.gui.CommissionsHolder;
 import dtp.jade.gui.DefaultAgentsData;
 import dtp.jade.transport.*;
@@ -47,7 +45,6 @@ public class DistributorAgent extends BaseAgent {
     Map<TransportType, List<TransportAgentData>> agents;
     // kolejka zlecen do obsluzenia
     private LinkedList<Commission> commissionsQueue;
-    private ArrayList<Commission> nooneList;
     private Auction currentAuction;
     // Simmulated Trading auction
     private AuctionST currentSTAuction;
@@ -74,7 +71,6 @@ public class DistributorAgent extends BaseAgent {
     private boolean dist;
     private boolean confSet = false;
     private Commission currentCommission;
-    private CalendarStatsHolder calendarStatsHolder;
     private boolean simulatedTrading;
     private int transportUnitsPrepare;
     private int transportUnitCount;
@@ -128,7 +124,6 @@ public class DistributorAgent extends BaseAgent {
 
         /* -------- INITIALIZATION SECTION ------- */
         commissionsQueue = new LinkedList<>();
-        nooneList = new ArrayList<>();
         currentAuction = null;
         currentSTAuction = null;
 
@@ -138,8 +133,6 @@ public class DistributorAgent extends BaseAgent {
         /* -------- BEHAVIOURS SECTION ------- */
         addBehaviour(new GetCommissionBehaviour(this));
         addBehaviour(new GetOfferBehaviour(this));
-        addBehaviour(new GetResetRequestBehaviour(this));
-        addBehaviour(new SimEndBehaviour(this));
         addBehaviour(new GetTransportUnitPrepareForNegotiationBehaviour(this));
         addBehaviour(new GetNewHolonOfferBehaviour(this));
         addBehaviour(new GetTransportAgentsDataBehaviour(this));
@@ -147,11 +140,8 @@ public class DistributorAgent extends BaseAgent {
         addBehaviour(new GetSimInfoBehaviour(this));
         addBehaviour(new GetEUnitCreatedBehaviour(this));
         addBehaviour(new GetCommissionSendedAgainBehaviour(this));
-        addBehaviour(new GetCalendarStatsBehaviour(this));
-        addBehaviour(new GetSTBeginResponseBehaviour(this));
         addBehaviour(new GetComplexSTScheduleBehaviour(this));
         addBehaviour(new GetComplexSTScheduleChangedBehaviour(this));
-        addBehaviour(new GetChangeScheduleBehaviour(this));
         addBehaviour(new GetTimestampBehaviour(this));
         addBehaviour(new GetUndeliveredCommissionResponseBehaviour(this));
 
@@ -161,7 +151,6 @@ public class DistributorAgent extends BaseAgent {
 
         addBehaviour(new GetGraphChangedBehaviour(this));
 
-        calendarStatsHolder = null;
         transportUnitsPrepare = 0;
         transportUnitCount = -1;
         simulatedTradingCount = 0;
@@ -169,10 +158,6 @@ public class DistributorAgent extends BaseAgent {
         nextMeasureTimestamp = 0;
         measureData = new MeasureData();
         logger.info("DistributorAgent - end of initialization");
-    }
-
-    public void simEnd() {
-        resetAgent();
     }
 
     public void nextSimstep(int timestamp) {
@@ -461,24 +446,6 @@ public class DistributorAgent extends BaseAgent {
 
     }
 
-    private void checkSTStatus() {
-        AID[] aids = AgentsService.findAgentByServiceName(this,
-                "ExecutionUnitService");
-
-        if (aids.length > 0) {
-            calendarStatsHolder = new CalendarStatsHolder(aids.length);
-            send(aids, "", MessageType.EUNIT_SHOW_STATS);
-        }
-    }
-
-    public synchronized void addCalendarStats(CalendarStats calendarStats) {
-        if (calendarStatsHolder == null) {
-            logger.error(getLocalName() + " - no calendarStatsHolder to add stats to");
-        }
-
-        calendarStatsHolder.addCalendarStats(calendarStats);
-    }
-
     private void simulatedTrading() {
 
         logger.info("fullSimulatedTrading");
@@ -523,21 +490,9 @@ public class DistributorAgent extends BaseAgent {
 
     }
 
-    public synchronized void STBeginResponse() {
-        eUnitsCount--;
-        if (eUnitsCount == 0) {
-            checkSTStatus();
-        }
-    }
-
-    public synchronized void changeSchedule() {
-        checkSTStatus();
-    }
-
     private void sendFeedback(AID aid, Commission commission) {
         SimulatedTradingParameters params = currentSTAuction.getParams();
         params.commission = commission;
-        send(aid, params, MessageType.FEEDBACK);
     }
 
     private void sendGUIMessage(String messageText) {
@@ -578,20 +533,6 @@ public class DistributorAgent extends BaseAgent {
         }
 
         return aids;
-    }
-
-    public synchronized void resetAgent() {
-
-        commissionsQueue = new LinkedList<>();
-        nooneList = new ArrayList<>();
-        currentAuction = null;
-        currentSTAuction = null;
-        transportUnitsPrepare = 0;
-        transportUnitCount = -1;
-        measureData = new MeasureData();
-        confSet = false;
-        nextSTTimestamp = 0;
-        nextMeasureTimestamp = 0;
     }
 
     /**

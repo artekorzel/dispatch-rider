@@ -2,15 +2,6 @@ package dtp.jade;
 
 public enum MessageType {
 
-    // ----------------------------------------------------------//
-    // ---------- Komunikaty wysylane przez GUIAgent'a ----------//
-
-    // graf sieci transportowej
-    GRAPH,
-
-    // graf sieci transportowej - aktualizacja
-    GRAPH_UPDATE,
-
     // info dotyczace symulacji
     SIM_INFO,
 
@@ -20,20 +11,8 @@ public enum MessageType {
     // zlecenie transportowe
     COMMISSION,
 
-    // prosba o kalendarz EUnit'a
-    EUNIT_SHOW_CALENDAR,
-
-    // prosba o statystyki EUnit'a
-    EUNIT_SHOW_STATS,
-
     // prosba o statystyki EUnit'a do pozniejszego zapisu do pliku
     EUNIT_SHOW_STATS_TO_WRITE,
-
-    // prosba o reset EUnit'a i DistributorAgent'a
-    RESET,
-
-    // prosba o wyslanie listy niezrealizowachy zlecen
-    DISTRIBUTOR_SHOW_NOONE_LIST,
 
     // sytuacja kryzysowa
     CRISIS_EVENT,
@@ -43,8 +22,6 @@ public enum MessageType {
     TRUCK_CREATION,
 
     TRAILER_CREATION,
-
-    SIM_END,
 
     //prosba o zaktualizowanie przez wszystkie holony obecnej lokacji na podstawie timestampu
     UPDATE_CURRENT_LOCATION,
@@ -63,32 +40,17 @@ public enum MessageType {
     // prosba o oferte EUnit'a
     COMMISSION_OFFER_REQUEST,
 
-    // odpowiedz na oferte - info czy EUnit wygral aukcje zlecen
-    FEEDBACK,
-
-    // liczba zlecen na liscie niezrealizowanych
-    NOONE_LIST,
-
     // ----------------------------------------------------------- //
     // ---------- Komunikaty wysylane przez EUnitAgent'a ----------//
 
     // AID EUnit'a
     EXECUTION_UNIT_AID,
 
-    // kalendarz EUnit'a
-    EUNIT_MY_CALENDAR,
-
-    // statystyki EUnit'a
-    EUNIT_MY_STATS,
-
     // statystyki EUnit'a zapisywane do pliku
     EUNIT_MY_FILE_STATS,
 
     // oferta dla DistributorAgent'a
     COMMISSION_OFFER,
-
-    // info o EUnitAgent
-    EUNIT_INFO,
 
 
     // ----------------------------------------------------------- //
@@ -108,8 +70,6 @@ public enum MessageType {
     TRANSPORT_TRUCK_AID,
 
     TRANSPORT_TRAILER_AID,
-
-    TRANSPORT_REORGANIZE,
 
     TRANSPORT_REORGANIZE_OFFER,
 
@@ -146,22 +106,13 @@ public enum MessageType {
     HOLONS_NEW_CALENDAR,
 
     WORST_COMMISSION_COST,
-    CHANGE_SCHEDULE,
-
     SIMULATION_DATA,
-
     UNDELIVERED_COMMISSION,
-
     MEASURE_DATA,
-
     CONFIGURATION_CHANGE,
-
     MLTable,
-
     GRAPH_CHANGED,
-
     ASK_IF_GRAPH_LINK_CHANGED,
-
     GRAPH_LINK_CHANGED,
 
     VISUALISATION_MEASURE_SET_HOLONS,
@@ -172,5 +123,8 @@ public enum MessageType {
     TRAILERS_DATA,
     TRUCKS_DATA,
     GUI_SIMULATION_PARAMS,
-    SIMULATION_START, SIM_TIME, STATS_DATA, CONFIGURATION
+    SIMULATION_START,
+    SIM_TIME,
+    STATS_DATA,
+    CONFIGURATION
 }
