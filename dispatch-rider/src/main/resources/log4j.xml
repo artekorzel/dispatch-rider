@@ -11,9 +11,9 @@
     </appender>
 
     <appender name="file" class="org.apache.log4j.RollingFileAppender">
-        <param name="File" value="build/logfile.log"/>
+        <param name="File" value="logfile.log"/>
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%-5p %c{1}.%M(%L) - %m%n"/>
+            <param name="ConversionPattern" value="%d %-5p %c{1}.%M(%L) - %m%n"/>
         </layout>
     </appender>
 

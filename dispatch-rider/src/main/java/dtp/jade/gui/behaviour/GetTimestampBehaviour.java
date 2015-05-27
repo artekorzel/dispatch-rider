@@ -26,7 +26,9 @@ public class GetTimestampBehaviour extends CyclicBehaviour {
 
         if (msg != null) {
             try {
-                SingletonGUI.getInstance().newTimestamp((Integer) msg.getContentObject());
+                Integer time = (Integer) msg.getContentObject();
+                SingletonGUI.getInstance().newTimestamp(time);
+                logger.info(myAgent.getLocalName() + "\t- got time stamp [" + time + "]");
                 agent.send(msg.getSender(), "", MessageType.TIME_STAMP_CONFIRM);
             } catch (UnreadableException e) {
                 logger.error(e.getMessage(), e);

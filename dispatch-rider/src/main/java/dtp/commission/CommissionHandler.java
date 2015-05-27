@@ -1,9 +1,11 @@
 package dtp.commission;
 
+import java.io.Serializable;
+
 /**
  * Wrapper, przechowuje zlecenie i czas naplyniecia do systemu tegoz zlecenia.
  */
-public class CommissionHandler {
+public class CommissionHandler implements Serializable {
 
     // zlecenie transportowe
     private Commission commission;

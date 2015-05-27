@@ -13,8 +13,6 @@ import jade.domain.FIPAException;
 import org.apache.log4j.Logger;
 
 import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Klasa bazowa dla elementow transportowych.
@@ -24,7 +22,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public abstract class TransportAgent extends BaseAgent {
 
     private static Logger logger = Logger.getLogger(TransportAgent.class);
-    private final Lock lock = new ReentrantLock();
     protected Commission commission;
     protected Commission[] commissions;
     protected TransportAgentData[] holonParts;
@@ -289,21 +286,17 @@ public abstract class TransportAgent extends BaseAgent {
     }
 
     public synchronized void startNegotiation() {
-        lock.lock();
         if (isHolonPart()) {
             sendFeedbackToDistributor(new NewHolonOffer());
-            lock.unlock();
             return;
         }
         if (holonPartsCostList.size() == 0) {
             sendFeedbackToDistributor(new NewHolonOffer());
-            lock.unlock();
             return;
         }
 
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
-            lock.unlock();
             return;
         }
 
@@ -324,7 +317,6 @@ public abstract class TransportAgent extends BaseAgent {
                     askForConnection(agent.getAid());
             }
         }
-        lock.unlock();
     }
 
     private synchronized void askForConnection(AID aid) {
@@ -343,64 +335,51 @@ public abstract class TransportAgent extends BaseAgent {
     }
 
     public synchronized void teamOfferArrived(AID aid) {
-        lock.lock();
-
         if (confirmedUnits == null) {
             sendResponse(aid, "no");
-            lock.unlock();
             return;
         }
 
         if (isHolonPart()) {
             sendResponse(aid, "no");
-            lock.unlock();
             return;
         }
 
         if (confirmedUnits.contains(aid)) {
             respondToTeamOffer(aid, "yes");
-            lock.unlock();
             return;
         }
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendResponse(aid, "no");
-            lock.unlock();
             return;
         }
         if (askingUnits.contains(aid)) {
             respondToTeamOffer(aid, "yes");
-            lock.unlock();
             return;
         }
 
         if (holonPartsCostList.size() == 0) {
             sendResponse(aid, "no");
-            lock.unlock();
             return;
         }
         HolonPartsCost part = holonPartsCostList.get(0);
         for (TransportAgentData agent : part.getAgents()) {
             if (agent.getAid().equals(aid)) {
                 respondToTeamOffer(aid, "yes");
-                lock.unlock();
                 return;
             }
         }
         if (askingUnits.size() > 0) {
             sendResponse(aid, "none");
-            lock.unlock();
             return;
         }
         respondToTeamOffer(aid, "no");
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
-            lock.unlock();
             return;
         }
         if (holonPartsCostList.size() == 0)
             sendFeedbackToDistributor(new NewHolonOffer());
-
-        lock.unlock();
     }
 
     private synchronized void respondToTeamOffer(AID aid, String response) {
@@ -463,10 +442,9 @@ public abstract class TransportAgent extends BaseAgent {
     }
 
     public synchronized void response(AID aid, Boolean response) {
-        lock.lock();
         askingUnits.remove(aid);
         if (response == null) {
-            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<HolonPartsCost>();
+            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<>();
             boolean present;
             for (HolonPartsCost part : holonPartsCostList) {
                 present = false;
@@ -492,7 +470,7 @@ public abstract class TransportAgent extends BaseAgent {
         } else if (response) {
             if (confirmedUnits.size() < TransportType.values().length)
                 confirmedUnits.add(aid);
-            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<HolonPartsCost>();
+            List<HolonPartsCost> newHolonPartsCostList = new LinkedList<>();
             for (HolonPartsCost part : holonPartsCostList) {
                 for (TransportAgentData agent : part.getAgents()) {
                     if (agent.getAid().equals(aid)) {
@@ -521,16 +499,12 @@ public abstract class TransportAgent extends BaseAgent {
 
         if (confirmedUnits.size() == TransportType.values().length - 1) {
             sendFeedback();
-            lock.unlock();
             return;
         }
         if (holonPartsCostList.size() > 0) {
-            lock.unlock();
             startNegotiation();
-            return;
         } else
             sendFeedbackToDistributor(new NewHolonOffer());
-        lock.unlock();
     }
 
     public synchronized void sendFeedbackToDistributor(NewHolonOffer offer) {
