@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="xml/schemes/configuration.xsd">
+
+    <test>
+        <commissions recording="true" dynamic="Standard" packageSending="false" choosingByCost="true" STDepth="8"
+                     worstCommissionByGlobalTime="false" algorithm="BruteForceAlgorithm2" autoConfig="false"
+                     firstComplexSTResultOnly="false">benchmarks/pdp_600/LC2_6_1.txt</commissions>
+        <defaultAgents>
+            <truck power="600" reliability="4" comfort="4" fuelConsumption="20"/>
+            <trailer mass="200" capacity="200" cargoType="1" universality="4"/>
+        </defaultAgents>
+        <configuration>fbaotests/50</configuration>
+        <results>fbaotests/results/res</results>
+    </test>
+</tests>

@@ -9,7 +9,7 @@ JAR_FILE=./build/libs/dispatch-rider-1.0.0-standalone.jar
 LIB_DIR=./lib
 GCLOUD_KEY=~/.ssh/google_compute_engine
 
-nohup java -Xmx2048m -Djava.library.path=${LIB_DIR}/ -jar ${JAR_FILE} -local-host arto.no-ip.info -gui "GUIAgent:dtp.jade.gui.GUIAgent" > out.log &
+nohup java -Xmx6144m -Djava.library.path=${LIB_DIR}/ -jar ${JAR_FILE} -local-host arto.no-ip.info -gui "GUIAgent:dtp.jade.gui.GUIAgent" > out.log &
 
 while read LINE;
 do
