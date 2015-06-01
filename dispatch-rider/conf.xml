@@ -10,7 +10,7 @@
             <truck power="600" reliability="4" comfort="4" fuelConsumption="20"/>
             <trailer mass="200" capacity="200" cargoType="1" universality="4"/>
         </defaultAgents>
-        <configuration>fbaotests/50</configuration>
+        <configuration>fbaotests/70</configuration>
         <results>fbaotests/results/res</results>
     </test>
 </tests>
