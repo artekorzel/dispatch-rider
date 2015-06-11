@@ -30,10 +30,10 @@ export R_HOME=/usr/lib/R
 
 if [[ $AGENTS == *"GUIAgent"* ]];
 then
-	OPTS=-Xmx6144m
+	OPTS=-Xmx10g
 	PARAMS="-local-host arto.no-ip.info"
 else
-	OPTS=-Xmx2048m
+	OPTS=-Xmx2g
 fi
 
 java $OPTS -Djava.library.path=${LIB_DIR} -jar ${JAR_FILE} -container $PARAMS -host ${MAIN_CONTAINER} -port 1099 -agents ${AGENTS}
